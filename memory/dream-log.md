@@ -89,3 +89,29 @@
 - i人/e人标签内容是电影小镇的明显空白，建议在近期内容规划中优先测试
 - 竞品深度分析（清明上河园）已有数据支撑，建议尽快执行
 - CDP稳定性问题可通过定期重启Chrome进程或降低采集频率改善
+
+## 🌙 Dream #5 — 2026-04-19
+
+**Scanned**: 3 files | **New**: 6 | **Updated**: 1 | **Total**: 26 bullet entries (compact)
+
+### Changes
+- [New] [feedback] 文旅热点扩展至全国，不只盯竞品（04-18确认）
+- [New] [feedback] 日报格式：5列+涨跌符号+🔺异动标注（04-18确认）
+- [New] [feedback] 飞书卡片视觉规范：━━━分隔+emoji编号+加粗数字（04-18确认）
+- [New] [project] 散客/渠道拆分模型：散客82-85%、渠道淡季托底（04-18重大发现）
+- [New] [project] skill-router系统建立（自动意图路由，04-18晚）
+- [New] [feedback] timeout诊断原则：timeout是error不是时间，需定位hang点而非加时间（04-18晚）
+- [Updated] MEMORY.md精简：389行→98行，超限问题彻底解决；详细内容归档至topics/
+
+### Insights
+- MEMORY.md长期超限（361行），本次通过归档topics/、合并重复条目成功压至98行，控制在100行限制内
+- 04-18是系统建设密集日（散客渠道拆分/skill-router/GitHub/SOP审计），需注意避免同一天启动过多项目
+- SOP覆盖率仅21%（3/14个cron有SOP），是当前最大流程风险
+
+### Stale Threads
+- Bytebot Railway部署 — 约8天，项目停滞（建议：正式归档）
+- browser-use CLI exec配置 — 约8天（browser-use CLI已停用，建议：正式移除）
+
+### Suggestions
+- 建议对11个无SOP的cron任务按重要性排序，逐步补充SOP文档
+- 竞品关键词轮换已完成3个（万岁山/清明上河园/银基），下一个只有河南，建议保持日更节奏
