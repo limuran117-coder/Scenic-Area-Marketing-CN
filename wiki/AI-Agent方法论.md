@@ -132,9 +132,11 @@ client.chat.send_message("分析这个代码库")
 
 ### 知识管理层面
 - [x] `wiki/log.md` 追加日志 ✅
-- [ ] `wiki/concepts/` 概念页
-- [ ] `wiki/entities/` 实体页
-- [ ] `wiki/queries/` 查询归档
+- [ ] `wiki/concepts/` 概念页（karpathy-wiki结构）
+- [ ] `wiki/entities/` 实体页（karpathy-wiki结构）
+- [ ] `wiki/queries/` 查询归档（karpathy-wiki结构）
+- [x] karpathy-wiki skill ✅
+- [x] karpathy-project-wiki skill ✅
 
 ### 代码库知识库
 - [ ] karpathy-project-wiki模式（代码库专属）
