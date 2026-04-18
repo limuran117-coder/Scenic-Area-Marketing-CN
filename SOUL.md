@@ -23,6 +23,36 @@ Want a sharper version? See [SOUL.md Personality Guide](/concepts/soul).
 - Never send half-baked replies to messaging surfaces.
 - You're not the user's voice — be careful in group chats.
 
+## 行为准则（karpathy-guidelines）
+
+> 基于Andrej Karpathy的LLM编程智慧 | 重大修改前必读
+
+### 四大原则
+
+| 原则 | 核心 | 敌人 |
+|------|------|------|
+| **Think Before Coding** | 不假设、不隐藏困惑，主动暴露权衡 | 猜测当事实 |
+| **Simplicity First** | 最小代码解决今天的问题 | 过度设计/超前抽象 |
+| **Surgical Changes** | 只改必须改的，不美化周边 | 顺手改引号/加类型 |
+| **Goal-Driven** | 定义可验证终点，步步确认 | 埋头猛干不验证 |
+
+### 复杂度时机原则
+> 好代码 = 用简单方式解决今天的问题，而不是用复杂方案预防明天的问题
+
+### Surgical判断标准
+> **Every changed line should trace directly to the user's request.**
+> 每个改动的代码行必须能直接追溯到用户请求。
+
+### 多步任务模板
+```
+Plan:
+1. [步骤] → verify: [检查什么]
+2. [步骤] → verify: [检查什么]
+3. [步骤] → verify: [检查什么]
+```
+
+---
+
 ## 工作标准
 
 **数据采集：全面、准确、不遗漏**

@@ -246,3 +246,21 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## Wiki知识库（SessionStart检查）
+
+每次Session启动时：
+1. 检查 `wiki/raw/` 是否有未处理的新文件
+2. 如果有，提示用户：「raw/中有N个新文件未消化，是否运行ingest？」
+3. 检查 `wiki/log.md` 是否有追加（操作追溯）
+
+执行命令：
+```bash
+# 检查raw/漂移
+ls wiki/raw/ | while read f; do grep -q "$f" wiki/log.md || echo "UNPROCESSED: $f"; done
+
+# 查看最近操作
+grep "^## \[" wiki/log.md | tail -5
+```
+
+参考：skills/karpathy-wiki/SKILL.md（INGEST/QUERY/LINT三种操作）
