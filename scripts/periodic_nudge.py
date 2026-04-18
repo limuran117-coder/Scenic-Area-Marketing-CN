@@ -156,6 +156,49 @@ def check_knowledge_drain():
     
     return issues
 
+def check_skill_nudge():
+    """
+    检查是否有较少使用的技能可以推荐给用户
+    思路：读取 skill-usage.md，如果某些高频技能长期未触发，提醒用户
+    """
+    issues = []
+    usage_file = MEMORY_DIR / 'skill-usage.md'
+    
+    if not usage_file.exists():
+        # 第一次运行，推荐所有核心技能
+        issues.append({
+            'type': 'skill_reminder',
+            'message': '你可以用自然语言指挥我执行各种任务',
+            'suggestion': '试试说"抖音今天怎么样"或"竞品分析"或"周报"',
+            'skills': ['抖音指数日报', '竞品关键词深度分析', '周度客流营收洞察', '文旅热点追踪']
+        })
+        return issues
+    
+    content = usage_file.read_text()
+    # 检查最近一次使用记录
+    import re
+    entries = re.findall(r'## (\d{4}-\d{2}-\d{2})', content)
+    if not entries:
+        return issues
+    
+    last_date = entries[0] if entries else None
+    if last_date:
+        from datetime import datetime
+        try:
+            last = datetime.strptime(last_date, '%Y-%m-%d').date()
+            days_ago = (date.today() - last).days
+            if days_ago > 3:
+                issues.append({
+                    'type': 'skill_reminder',
+                    'message': f'你已经{days_ago}天没有触发日常任务了',
+                    'suggestion': '需要我运行"抖音日报"或"竞品分析"吗？直接说就行',
+                    'skills': ['抖音指数日报', '竞品关键词深度分析', '小红书日报']
+                })
+        except:
+            pass
+    
+    return issues
+
 def check_pending_nudge():
     """
     检查是否有待处理的nudge
@@ -177,6 +220,8 @@ def generate_nudge_message(all_issues):
             messages.append(f"💡 **{issue['message']}**：{issue['suggestion']}")
         elif issue["type"] == "context_forget":
             messages.append(f"🔔 **{issue['suggestion']}**")
+        elif issue["type"] == "skill_reminder":
+            messages.append(f"🎯 **{issue['message']}**：{issue['suggestion']}")
     
     if messages:
         return "\n\n".join(messages)
@@ -203,6 +248,10 @@ def run_full_check():
     # 4. 检查待处理nudge
     pending = check_pending_nudge()
     all_issues.extend(pending)
+    
+    # 5. 检查技能提醒（较少使用的技能）
+    skill_issues = check_skill_nudge()
+    all_issues.extend(skill_issues)
     
     # 保存待处理nudge
     if all_issues:
