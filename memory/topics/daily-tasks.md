@@ -10,7 +10,7 @@
 - 23:00 AI自我进化
 - **周一09:00 周度客流营收洞察报告** ← 新增
 - 周六: 技能探索、文件清理
-- 周日: 系统升级（含LLMWiki Lint检查）
+- **周日10:00: 系统升级 + GitHub同步推送**
 
 ## 数据采集方式
 - 抖音整体：https://creator.douyin.com/creator-micro/creator-count/my-subscript
