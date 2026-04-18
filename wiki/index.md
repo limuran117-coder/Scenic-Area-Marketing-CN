@@ -1,6 +1,17 @@
 # Knowledge Base Index
 
-> 最后更新：2026-04-18 | 本次：电影小镇目录链接打通
+> 最后更新：2026-04-18 | 本次：karpathy-guidelines安装 + LLMWiki追加结构
+
+---
+
+## 🧠 AI-Agent方法论
+
+| 文章 | 摘要 | Updated |
+|------|------|---------|
+| [[AI-Agent方法论]] | karpathy指南+LLMWiki+nanoGPT+Trae研究精华 | 2026-04-18 |
+| [[wiki/log]] | 追加式操作记录，grep查看 | 实时 |
+
+---
 
 ---
 
