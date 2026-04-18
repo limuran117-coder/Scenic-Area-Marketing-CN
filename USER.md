@@ -24,7 +24,8 @@
 - 小红书采集脚本：`~/.openclaw/workspace/scripts/xiaohongshu_crawl.py`
 - 小红书Cookie：`/tmp/xiaohongshu_cookies.json`（代理127.0.0.1:7897）
 - 小红书灵犀后台：https://idea.xiaohongshu.com/idea/welcome/index（账号：建业电影小镇官方ID:530883）
-- 客流Excel：`~/Desktop/2026年电影小镇实际客流.xlsx`
+- 历年客流数据（2023-2025）：`~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx`（**唯一权威来源，禁止混用其他数据**）
+- 2026年客流数据：`~/Desktop/2026游客量统计.csv`（每日同步）
 - 飞书群：oc_2581c03b79e4893cc3616b253d60f34e（电影小镇群）
 
 ---
