@@ -13,6 +13,7 @@
 import json
 import sys
 import urllib.request
+import urllib.error
 
 APP_ID = "cli_a941d5340639dcef"
 APP_SECRET = "yNMaSBoHmrn9FcsrpWCzlcerQCD5aHji"
@@ -23,17 +24,14 @@ def validate_card(card):
     errors = []
     warnings = []
 
-    # 检查 schema
     if card.get("schema") != "2.0":
         warnings.append("缺少 schema: '2.0'，可能导致渲染异常")
 
-    # 检查 header.title 格式
     header = card.get("header", {})
     title = header.get("title", {})
     if not isinstance(title, dict) or title.get("tag") != "plain_text":
         errors.append("header.title 必须是 {'tag': 'plain_text', 'content': '...'}，当前: " + str(title))
 
-    # 检查 body.elements
     body = card.get("body", {})
     elements = body.get("elements")
     if not elements:
@@ -45,15 +43,12 @@ def validate_card(card):
     elif len(elements) > 15:
         warnings.append(f"elements 有 {len(elements)} 个，可能过多")
 
-    # 检查是否用错了根级 elements
     if "elements" in card and "body" not in card:
         errors.append("检测到根级 elements，请改为 body.elements[]，否则渲染异常")
 
-    # 检查 markdown 元素内容是否太碎（表格被拆开）
     for i, el in enumerate(elements or []):
         if el.get("tag") == "markdown":
             content = el.get("content", "")
-            # 如果内容包含表格分隔符 | 但没有表头行，疑似被拆散
             if "|--" in content and "景区" not in content and "搜索指数" not in content:
                 warnings.append(f"第 {i+1} 个 element 含有表格分隔符但无表头，可能是表格被拆散了")
 
@@ -74,6 +69,8 @@ def get_token():
                                 headers={"Content-Type": "application/json"}, method="POST")
     with urllib.request.urlopen(req) as resp:
         data = json.loads(resp.read().decode())
+    if data.get("code") != 0:
+        raise Exception(f"获取token失败: {data}")
     return data["tenant_access_token"]
 
 def send_card(chat_id, card, skip_validation=False):
@@ -89,13 +86,31 @@ def send_card(chat_id, card, skip_validation=False):
         "msg_type": "interactive",
         "content": json.dumps(card, ensure_ascii=False)
     }, ensure_ascii=False)
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
     req = urllib.request.Request(url, data=payload.encode("utf-8"),
-                                headers={
-                                    "Authorization": f"Bearer {token}",
-                                    "Content-Type": "application/json"
-                                }, method="POST")
-    with urllib.request.urlopen(req) as resp:
-        result = json.loads(resp.read().decode())
+                                headers=headers, method="POST")
+
+    try:
+        with urllib.request.urlopen(req) as resp:
+            result = json.loads(resp.read().decode())
+    except urllib.error.HTTPError as e:
+        result = json.loads(e.read().decode())
+        # token失效：刷新重试一次
+        if result.get("code") in (99991663, 19001) or e.code == 401:
+            print("⚠️ Token失效，刷新中...")
+            token = get_token()
+            headers["Authorization"] = f"Bearer {token}"
+            req = urllib.request.Request(url, data=payload.encode("utf-8"),
+                                headers=headers, method="POST")
+            with urllib.request.urlopen(req) as resp:
+                result = json.loads(resp.read().decode())
+        else:
+            raise
+
     if result.get("code") == 0:
         print(f"✅ 发送成功: {result['data']['message_id']}")
     else:

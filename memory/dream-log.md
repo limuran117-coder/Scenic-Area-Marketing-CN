@@ -115,3 +115,17 @@
 ### Suggestions
 - 建议对11个无SOP的cron任务按重要性排序，逐步补充SOP文档
 - 竞品关键词轮换已完成3个（万岁山/清明上河园/银基），下一个只有河南，建议保持日更节奏
+
+## 🌙 Dream #5 — 2026-04-20
+
+**Scanned**: 0 files | **New**: 0 | **Updated**: 0 | **Total**: 39 entries
+
+### Changes
+- No new content — all recent logs already consolidated
+
+### Stale Threads
+- 竞品关键词轮换 — 进行中（21个景区，4个已完成）
+- 小红书Cookie维护 — 账号封禁中，预计04-23解封
+
+### Skip Reason
+最近3天日志(04-17/18/19)已全部标记为consolidated，跳过本次整合。
