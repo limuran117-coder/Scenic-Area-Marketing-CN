@@ -80,7 +80,14 @@ def send_card(chat_id, card, skip_validation=False):
         print()
 
     token = get_token()
-    url = f"{API_BASE}/im/v1/messages?receive_id_type=chat_id"
+    # 根据ID类型动态选择receive_id_type
+    if chat_id.startswith("oc_"):
+        receive_id_type = "chat_id"
+    elif chat_id.startswith("ou_"):
+        receive_id_type = "open_id"
+    else:
+        receive_id_type = "chat_id"
+    url = f"{API_BASE}/im/v1/messages?receive_id_type={receive_id_type}"
     payload = json.dumps({
         "receive_id": chat_id,
         "msg_type": "interactive",
@@ -99,6 +106,7 @@ def send_card(chat_id, card, skip_validation=False):
             result = json.loads(resp.read().decode())
     except urllib.error.HTTPError as e:
         result = json.loads(e.read().decode())
+        print(f"❌ HTTP {e.code} 错误: {result}")
         # token失效：刷新重试一次
         if result.get("code") in (99991663, 19001) or e.code == 401:
             print("⚠️ Token失效，刷新中...")
