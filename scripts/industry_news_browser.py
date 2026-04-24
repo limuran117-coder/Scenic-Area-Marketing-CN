@@ -1,33 +1,31 @@
 #!/usr/bin/env python3
 """
-行业热点采集脚本 v4（完整版）
-目标：每条资讯包含【标题 + 正文摘要 + 对电影小镇影响判断】
+行业热点采集脚本 v5（文章正文版）
+核心：访问不需要登录的旅游媒体，直接提取文章正文
 
 流程：
-  1. Bing搜索7组关键词
-  2. 取TOP20最相关URL
-  3. 逐个访问URL，提取正文摘要
-  4. 生成三段式格式输出
-  5. 结果存入 /tmp/industry_news_full.json
+  1. Playwright+CDP访问旅游媒体列表页
+  2. 提取文章URL（新浪/搜狐/网易/凤凰）
+  3. 逐篇访问提取正文摘要
+  4. 自动生成对电影小镇的影响判断
+  5. 按SOP格式整理 → /tmp/industry_news_full.json
 """
 
 import json
 import datetime
 import asyncio
 import re
-import urllib.request
 from playwright.async_api import async_playwright
 
 # ─── 配置 ─────────────────────────────────────────
 CDP_ENDPOINT = "http://127.0.0.1:18800"
 OUTPUT_FILE = "/tmp/industry_news_full.json"
-MAX_VISIT = 8          # 最多访问文章数
-SEARCH_QUERIES = [
-    "文旅行业热点 2026 五一",
-    "景区营销案例 2026",
-    "主题公园客流趋势 2026",
-    "文旅部政策 2026",
-    "沉浸式演出景区爆款",
+MAX_ARTICLES = 8
+
+# 不需要登录的旅游媒体
+SOURCE_PAGES = [
+    ("新浪旅游", "https://travel.sina.com.cn/"),
+    ("搜狐旅游", "https://travel.sohu.com/"),
 ]
 
 文旅_KW = [
@@ -35,98 +33,95 @@ SEARCH_QUERIES = [
     "文旅部", "主题公园", "乐园", "文化", "演艺",
     "抖音", "小红书", "营销", "客流", "五一", "端午",
     "沉浸", "演出", "夜游", "打卡", "爆款", "网红",
-    "度假", "旅行", "目的地", "游乐园",
+    "度假", "旅行", "目的地", "游乐园", "旅行团",
 ]
 
-# ─── 工具 ──────────────────────────────────────────
+# ─── 工具 ─────────────────────────────────────────
 def clean_text(text):
-    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', text)).strip()
+    text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', text)).strip()
+    return text
 
-def is_relevant(title, snippet=""):
-    text = (title + " " + snippet).lower()
-    for kw in 文旅_KW:
-        if kw in text:
-            return True
-    return False
+def is_relevant(title):
+    text = title.lower()
+    return any(kw in text for kw in 文旅_KW)
 
-async def search_bing(page, query):
-    results = []
+async def extract_article_urls(page, url, source):
+    """从列表页提取文章URL"""
+    articles = []
     try:
-        encoded = query.replace(" ", "+")
-        url = f"https://www.bing.com/search?q={encoded}&setlang=zh-CN&cc=CN"
-        await page.goto(url, timeout=20000, wait_until="domcontentloaded")
+        await page.goto(url, timeout=15000, wait_until="domcontentloaded")
         await asyncio.sleep(3)
-        items = await page.query_selector_all("li.b_algo")
-        for item in items[:12]:
+
+        links = await page.query_selector_all("a")
+        seen = set()
+        for link in links:
             try:
-                title_el = await item.query_selector("h2 a")
-                if not title_el:
-                    continue
-                title = await title_el.inner_text()
-                href = await title_el.get_attribute("href") or ""
-                snippet_el = await item.query_selector(".b_desc")
-                snippet = ""
-                if snippet_el:
-                    s = await snippet_el.inner_text()
-                    snippet = clean_text(s)[:200]
-                if len(title) > 8 and href.startswith("http") and is_relevant(title, snippet):
-                    results.append({
-                        "title": title.strip(),
-                        "url": href,
-                        "snippet": snippet,
-                        "source": "Bing搜索"
-                    })
+                href = await link.get_attribute("href") or ""
+                title = (await link.inner_text() or "").strip()
+                if len(title) > 8 and is_relevant(title):
+                    full_url = href
+                    if href.startswith("/"):
+                        if "sina" in url:
+                            full_url = "https://travel.sina.com.cn" + href
+                        elif "sohu" in url:
+                            full_url = "https://travel.sohu.com" + href
+                    if full_url.startswith("http") and full_url not in seen:
+                        seen.add(full_url)
+                        articles.append({"title": title, "url": full_url, "source": source})
             except:
                 pass
     except Exception as e:
-        print(f"  [警告] Bing搜索失败: {e}", flush=True)
-    return results
+        print(f"  [警告] {source} 列表页失败: {e}", flush=True)
+    return articles[:15]
 
-async def fetch_article_content(page, article):
-    """访问文章URL，提取正文摘要（前500字）"""
+async def fetch_article(page, article):
+    """访问文章页，提取正文摘要"""
     try:
         await page.goto(article["url"], timeout=15000, wait_until="domcontentloaded")
-        await asyncio.sleep(2)
+        await asyncio.sleep(3)
         text = await page.evaluate('document.body.innerText')
         text = clean_text(text)
-        # 取前600字作为摘要
-        summary = text[:600]
-        # 清理开头（通常是导航/订阅等无用内容）
-        for sep in ["↓ 我来说两句", "打开话题", "相关推荐", "热门内容", "相关阅读", "相关搜索"]:
-            if sep in summary:
-                summary = summary[:summary.index(sep)]
-        return summary.strip()
+
+        # 去除开头的导航/订阅/广告等干扰内容
+        for sep in ["打开APP", "下载客户端", "扫描二维码", "相关推荐",
+                     "相关阅读", "热门内容", "我来说两句", "独家", "来源："]:
+            if sep in text[:200]:
+                text = text[text.index(sep)+len(sep):]
+
+        # 提取段落
+        paras = [p.strip() for p in text.split('\n') if len(p.strip()) > 40]
+        if paras:
+            # 找第一段有意义的内容
+            for p in paras:
+                if len(p) > 50 and not p.startswith(("订阅", "版权", "声明", "相关", "热门", "导航")):
+                    return p[:400] + ("..." if len(p) > 400 else "")
+            return paras[0][:400] + ("..." if len(paras[0]) > 400 else "")
+        return text[:300] if text else "[正文获取失败]"
     except Exception as e:
-        return article.get("snippet", "")
+        return f"[访问失败: {e}]"
 
-def generate_analysis(article):
-    """根据标题+摘要，自动生成对电影小镇的影响判断"""
-    title = article.get("title", "")
-    snippet = article.get("snippet", "")[:200]
-    text = title + " " + snippet
-
-    # 基于关键词的模式匹配
-    if "AI" in text or "人工智能" in text or "智能" in text:
-        return "AI技术降低内容生产成本，电影小镇可探索AI生成短视频/互动体验，降低营销成本"
-    if "五一" in text or "端午" in text or "暑假" in text or "国庆" in text:
-        return "节庆营销节点，需提前规划专题活动，提前2周启动预热"
-    if "沉浸" in text or "演出" in text or "演艺" in text:
-        return "沉浸式演艺是核心竞争力，电影小镇《穿越德化街》可结合热点做二次传播"
-    if "小红书" in text or "抖音" in text or "打卡" in text:
-        return "内容平台是主要获客渠道，加强KOC合作，提升景区UGC内容产出"
-    if "客流" in text or "人次" in text or "入园" in text:
-        return "客流数据直接影响营收，需持续监控并与竞品对比，适时调整营销力度"
-    if "政策" in text or "文旅部" in text or "补贴" in text:
-        return "关注政策红利，如夜游补贴/文旅专项债，可主动申报获取支持"
-    if "趋势" in text or "报告" in text or "数据" in text:
-        return "行业报告反映大方向，可作为季度策略调整参考"
-    if "营销" in text or "推广" in text or "品牌" in text:
-        return "优秀营销案例可借鉴，但需结合电影小镇调性，避免同质化"
-    if "爆款" in text or "出圈" in text or "热搜" in text:
-        return "热点事件可借势营销，快速响应制作相关内容，抢占流量窗口"
-    if "竞品" in text or "万岁山" in text or "清明上河园" in text or "只有河南" in text:
-        return "竞品动态需持续追踪，分析其内容策略，取长补短"
-    return "该内容与电影小镇运营存在关联，建议结合实际情况参考"
+def generate_analysis(title, content):
+    """生成对电影小镇的影响判断"""
+    text = (title + " " + content).lower()
+    if any(kw in text for kw in ["ai", "人工智能", "智能"]):
+        return "AI技术改变内容生产，电影小镇可探索AI短视频/互动体验，降低营销成本"
+    if any(kw in text for kw in ["五一", "端午", "暑假", "国庆", "假期", "节假日", "春季", "夏季"]):
+        return "节庆节点，提前2周启动预热，规划专题活动抢流量"
+    if any(kw in text for kw in ["沉浸", "演出", "演艺", "剧场", "情景剧"]):
+        return "沉浸式演艺是核心竞争力，电影小镇可结合热点做二次传播"
+    if any(kw in text for kw in ["小红书", "抖音", "打卡", "爆款", "种草", "短视频"]):
+        return "内容平台是主要获客渠道，加强KOC合作，提升UGC产出"
+    if any(kw in text for kw in ["客流", "人次", "入园", "接待", "游客量"]):
+        return "客流直接影响营收，持续监控并与竞品对比，适时调整营销"
+    if any(kw in text for kw in ["政策", "文旅部", "补贴", "扶持", "资金", "文旅局"]):
+        return "关注政策红利，主动申报夜游/文旅专项债等支持"
+    if any(kw in text for kw in ["夜游", "灯光", "夜经济", "夜间"]):
+        return "夜游经济是增量市场，结合电影小镇夜间场景做深度开发"
+    if any(kw in text for kw in ["营销", "推广", "品牌", "活动", "策划"]):
+        return "借鉴优秀营销案例，结合电影小镇调性，避免同质化"
+    if any(kw in text for kw in ["竞品", "万岁山", "清明上河园", "只有河南", "方特", "银基", "海昌"]):
+        return "竞品动态持续追踪，分析内容策略，取长补短"
+    return "该内容与景区运营存在关联，建议结合实际参考借鉴"
 
 # ─── 主流程 ─────────────────────────────────────────
 async def main():
@@ -136,60 +131,89 @@ async def main():
         browser = await p.chromium.connect_over_cdp(CDP_ENDPOINT)
         page = await browser.new_page()
 
-        # Step1: Bing搜索
-        print("  [1/3] Bing搜索...", flush=True)
-        all_results = []
-        seen = set()
-        for query in SEARCH_QUERIES:
-            print(f"    搜: {query[:25]}...", end="", flush=True)
-            results = await search_bing(page, query)
-            for r in results:
-                key = r["title"][:20]
-                if key not in seen:
-                    seen.add(key)
-                    all_results.append(r)
-            print(f" +{len(results)}条", flush=True)
+        print("  [1/3] 提取文章列表...", flush=True)
+        all_articles = []
+        for name, url in SOURCE_PAGES:
+            print(f"    {name}...", end="", flush=True)
+            arts = await extract_article_urls(page, url, name)
+            all_articles.extend(arts)
+            print(f" +{len(arts)}条", flush=True)
             await asyncio.sleep(2)
 
-        print(f"    → Bing共获得 {len(all_results)} 条", flush=True)
+        seen = set()
+        unique = []
+        for a in all_articles:
+            key = a["url"]
+            if key not in seen:
+                seen.add(key)
+                unique.append(a)
+        all_articles = unique
+        print(f"    → 去重后共 {len(all_articles)} 篇", flush=True)
 
-        # Step2: 访问TOP文章提取摘要
-        print(f"  [2/3] 访问TOP{MAX_VISIT}篇文章提取摘要...", flush=True)
-        articles_to_visit = all_results[:MAX_VISIT]
-        for i, article in enumerate(articles_to_visit):
-            print(f"    [{i+1}/{MAX_VISIT}] {article['title'][:40]}...", end="", flush=True)
-            content = await fetch_article_content(page, article)
+        print(f"  [2/3] 逐篇访问提取正文（最多{MAX_ARTICLES}篇）...", flush=True)
+        to_visit = all_articles[:MAX_ARTICLES]
+        for i, article in enumerate(to_visit):
+            title_short = article["title"][:35]
+            print(f"    [{i+1}/{len(to_visit)}] {title_short}...", end="", flush=True)
+            content = await fetch_article(page, article)
             article["content"] = content
-            article["analysis"] = generate_analysis(article)
+            article["analysis"] = generate_analysis(article["title"], content)
             print(f" ✓", flush=True)
             await asyncio.sleep(2)
 
-        # 补充其余文章的分析（无正文但有snippet）
-        for article in all_results[MAX_VISIT:]:
-            if "content" not in article:
-                article["content"] = article.get("snippet", "")
-                article["analysis"] = generate_analysis(article)
-
         await browser.close()
 
-    # Step3: 整理输出
-    print(f"  [3/3] 整理输出...", flush=True)
+    # Step3: 按SOP格式整理
+    print(f"  [3/3] 按SOP格式整理...", flush=True)
+    sections = format_sop(to_visit)
+
     result = {
         "date": datetime.date.today().strftime("%Y-%m-%d"),
         "crawled_at": datetime.datetime.now().isoformat(),
-        "total": len(all_results),
-        "articles": all_results
+        "total": len(to_visit),
+        "articles": to_visit,
+        "sections": sections
     }
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
 
-    print(f"\n✅ 完成！共处理 {len(all_results)} 条", flush=True)
-    for a in all_results[:5]:
-        print(f"  [{a['source']}] {a['title'][:45]}", flush=True)
-        print(f"    摘要: {a.get('content','')[:80]}...", flush=True)
+    print(f"\n✅ 完成！共 {len(to_visit)} 篇", flush=True)
+    for sec, content in sections.items():
+        lines = content.strip().split('\n')
+        print(f"  【{sec}】{len(lines)}条", flush=True)
 
     return result
+
+def format_sop(articles):
+    """按SOP整理成4板块"""
+    competitor, industry, sentiment, trend = [], [], [], []
+
+    for a in articles:
+        t = a["title"].lower()
+        c = a.get("content", "")[:150]
+        an = a.get("analysis", "")
+        s = a.get("source", "")
+
+        entry = f"• **{a['title']}**\n  {c}...\n  → {an}"
+
+        if any(kw in t for kw in ["万岁山","清明上河园","只有河南","方特","银基","海昌","竞品","电影小镇"]):
+            competitor.append(entry)
+        elif any(kw in t for kw in ["五一","端午","沉浸","演出","打卡","爆款","网红","夜游","假期"]):
+            industry.append(entry)
+        elif any(kw in t for kw in ["政策","负面","投诉","舆情","风险"]):
+            sentiment.append(entry)
+        else:
+            trend.append(entry)
+
+    mk = lambda lst: "\n".join(lst) if lst else "• 今日暂无相关内容"
+
+    return {
+        "竞品亮点": mk(competitor[:3]),
+        "泛文旅热点": mk(industry[:4]),
+        "舆情提示": mk(sentiment[:2]),
+        "营销趋势": mk(trend[:4]),
+    }
 
 if __name__ == "__main__":
     asyncio.run(main())
