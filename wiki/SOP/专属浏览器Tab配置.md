@@ -16,7 +16,7 @@
 | Tab | URL | 用途 | 登录态 |
 |-----|-----|------|--------|
 | **Tab0** | `https://idea.xiaohongshu.com/idea/trend/trendAnalyze` | 小红书灵犀后台：搜索总量/关联词/灵犀趋势 | ✅ 已登录 |
-| **Tab1** | `https://www.douyin.com/search/` | 抖音通用搜索（空白页，待用） | ✅ 已登录 |
+| **Tab1** | `https://www.douyin.com/search/` | 抖音搜索页：可搜索关键词看抖音内视频/用户/内容热度 | ✅ 已登录 |
 | **Tab2** | `chrome://new-tab-page/` | 空白页，可新建目标页 | — |
 | **Tab3** | `https://www.baidu.com/` | 百度搜索（空白页，待用） | ✅ 已登录 |
 | **Tab4** | `https://creator.douyin.com/creator-micro/creator-count/arithmetic-index` | **抖音指数核心页**：左侧有搜索框「请输入您想查询的关键词」+「我的订阅」（所有景区搜索/综合指数）；**这就是抖音指数日报+关键词深度分析的主页** | ✅ 已登录 |
