@@ -15,12 +15,12 @@
 
 | Tab | URL | 用途 | 登录态 |
 |-----|-----|------|--------|
-| **Tab0** | `https://idea.xiaohongshu.com/idea/trend/trendAnalyze` | 小红书灵犀后台 | ✅ 已登录 |
-| **Tab1** | `https://www.douyin.com/search/` | 抖音搜索结果页 | ✅ 已登录 |
+| **Tab0** | `https://idea.xiaohongshu.com/idea/trend/trendAnalyze` | 小红书灵犀后台：搜索总量/关联词/灵犀趋势 | ✅ 已登录 |
+| **Tab1** | `https://www.douyin.com/search/` | 抖音通用搜索（空白页，待用） | ✅ 已登录 |
 | **Tab2** | `chrome://new-tab-page/` | 空白页，可新建目标页 | — |
-| **Tab3** | `https://www.baidu.com/` | 百度搜索 | ✅ 已登录 |
-| **Tab4** | `https://creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator` | 抖音订阅页（粉丝/点赞/关注/收藏/分享） | ✅ 已登录 |
-| **Tab5** | `https://www.xiaohongshu.com/explore` | 小红书探索页 | ✅ 已登录 |
+| **Tab3** | `https://www.baidu.com/` | 百度搜索（空白页，待用） | ✅ 已登录 |
+| **Tab4** | `https://creator.douyin.com/creator-micro/creator-count/arithmetic-index` | **抖音指数核心页**：左侧有搜索框「请输入您想查询的关键词」+「我的订阅」（所有景区搜索/综合指数）；**这就是抖音指数日报+关键词深度分析的主页** | ✅ 已登录 |
+| **Tab5** | `https://www.xiaohongshu.com/explore` | 小红书探索页：笔记搜索/爆款内容 | ✅ 已登录 |
 
 ---
 
@@ -47,14 +47,14 @@ async def main():
 
 ## 脚本对应关系
 
-| 脚本 | 应使用的 Tab |
+| 任务 | 应使用的 Tab |
 |------|------------|
-| 小红书灵犀数据采集 | Tab0 |
-| 小红书搜索结果采集 | Tab5（探索页）或新建 Tab2 |
-| 抖音订阅页数据 | Tab4 |
-| 抖音关键词搜索 | 新建 Tab2，导航到创作者平台 |
+| 抖音指数日报 | Tab4：直接读取「我的订阅」数据（所有景区搜索/综合指数） |
+| 抖音关键词深度分析 | Tab4：在搜索框输入关键词，查询关联词/人群画像/综合指数 |
+| 小红书灵犀数据 | Tab0 |
+| 小红书笔记搜索 | Tab5（探索页） |
 | 百度搜索 | Tab3 |
-| 行业热点采集（新浪/搜狐） | 新建 Tab2 |
+| 行业热点采集（新浪/搜狐） | Tab2（空白页） |
 
 ---
 
