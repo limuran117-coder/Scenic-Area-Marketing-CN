@@ -379,6 +379,15 @@ async def crawl_with_cookies():
             else:
                 print(f"  {spot}: 未找到数据")
 
+        # 数据完整性校验：确保8个景区全部抓到
+        if len(result["competitors"]) < 8:
+            missing = [s for s in SCENIC_SPOTS if s not in [c["name"] for c in result["competitors"]]]
+            print(f"[警告] 数据不完整！缺失 {len(result['competitors'])}/8 个景区: {missing}")
+            result["incomplete"] = True
+            result["missing_spots"] = missing
+        else:
+            print(f"[完成] 8/8 景区数据完整")
+
         # 关闭 Page(保持 Chrome 窗口常开)
         await page.close()
         print("[Chrome] Page已关闭,Chrome窗口保持打开(复用登录态)")
