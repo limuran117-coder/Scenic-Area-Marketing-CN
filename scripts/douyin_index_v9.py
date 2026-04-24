@@ -319,7 +319,29 @@ async def crawl_with_cookies():
         print(f"正在访问 {CRAWL_URL} ...")
         await page.goto(CRAWL_URL, timeout=30000)
         await page.wait_for_load_state("networkidle", timeout=15000)
-        await asyncio.sleep(5)  # 等待5秒确保页面完全加载
+        await asyncio.sleep(3)  # 初始等待
+
+        # 滚动页面以触发懒加载，确保所有景区数据都渲染出来
+        async def scroll_to_load_all():
+            last_height = 0
+            scroll_attempts = 0
+            max_attempts = 5
+            while scroll_attempts < max_attempts:
+                # 滚动到页面底部
+                await page.evaluate("() => window.scrollTo(0, document.body.scrollHeight)")
+                await asyncio.sleep(2)
+                # 检查是否已经滚到底部（没有新内容加载）
+                new_height = await page.evaluate("() => document.body.scrollHeight")
+                if new_height == last_height:
+                    scroll_attempts += 1
+                else:
+                    scroll_attempts = 0  # 重置，连续两次没变化才停止
+                last_height = new_height
+            # 滚动回顶部，确保从可见区域开始解析
+            await page.evaluate("() => window.scrollTo(0, 0)")
+            await asyncio.sleep(1)
+
+        await scroll_to_load_all()
 
         # 检查数据日期：如果显示的是昨天/更早的日期，则强制刷新页面
         today_str = datetime.date.today().strftime("%Y-%m-%d")
@@ -336,7 +358,8 @@ async def crawl_with_cookies():
                     print(f"[刷新] 数据非今日({page_date} ≠ {today_str})，正在刷新页面...")
                     await page.reload(timeout=15000)
                     await page.wait_for_load_state("networkidle", timeout=15000)
-                    await asyncio.sleep(8)  # 刷新后等待8秒让数据加载
+                    await asyncio.sleep(3)
+                    await scroll_to_load_all()
                     print(f"[刷新] 页面已刷新，等待数据加载完成")
 
         # 获取页面文本内容(使用JavaScript获取完整文本,inner_text可能截断)
