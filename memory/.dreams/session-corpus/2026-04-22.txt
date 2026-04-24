@@ -77,3 +77,27 @@
 [main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl#L161] Assistant: YTD 511,141，现更新目标为153万并重算完成度：
 [main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl#L163] Assistant: Wiki客流页已更新： - **年度目标**：132万 → **153万** - **完成度**：38.7% → **33.4%**（YTD 511,141 / 153万） 还需更新MEMORY.md里的目标相关引用：
 [main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl#L167] Assistant: 多处引用旧目标，逐个更新。先更新最重要的两个：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L181] Assistant: 全部更新完毕。汇总： | 文件 | 更新内容 | |------|---------| | `wiki/电影小镇/历史数据/数据.md` | 目标153万、完成度33.4% | | `wiki/电影小镇/基础档案.md` | 目标153万、进度33.4% | | `wiki/index.md` | 主页目标+进度同步更新 | | `wiki/电影小镇/历史数据/规律洞察.md` | YTD占比修正 | | `wiki/电影小镇/历史数据/客流营收分析.md` | 完成度+
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L182] User: 检查一下整个系统的状态和配置情况
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L193] Assistant: --- ## 🏥 系统全面检查报告 | 2026-04-22 09:50 --- ### ✅ 基础运行状态 | 组件 | 状态 | |------|------| | Gateway | ✅ 运行中（pid 33758） | | OpenClaw版本 | ✅ 2026.4.20（最新） | | 模型 | ✅ MiniMax-M2.7 | | Session | ✅ 81个活跃 | | Memory | ✅ 5文件 / 18 chunks | | Heartbeat | 
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L194] User: System (untrusted): [2026-04-22 09:49:43 GMT+8] Exec failed (wild-sag, signal SIGTERM) :: n) │ │ Sessions │ 81 active · default MiniMax-M2.7 (205k ctx) · ~/.openclaw/agents/main/sessions/sessions.json │ └──────────────────────┴────────────────
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L195] Assistant: NO_REPLY
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L196] User: v2026.4.20更新了什么？然后根据目前系统可能产生错误和风险
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L205] Assistant: 结合本次更新内容和当前系统状态，梳理如下： --- ## v2026.4.20 核心变更（vs上一个稳定版） | 类别 | 变更 | 对系统影响 | |------|------|----------| | **Session维护** | 新增session entry cap + 启动时修剪超大session存储，防止OOM | ⚠️ 影响所有cron任务 | | **Cron状态分离** | `jobs-state.json`独立，cron执行状态不再污染`jobs.
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L206] User: 风险项前4个修复吧，风险5我们专属的电脑我永远不会主动关闭浏览器，你也不会，所以暂时不考虑
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L207] Assistant: 先处理最高优先级的：超时任务+Browser SOP+Feishu路由验证。
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L213] Assistant: 情况全部摸清，开始逐项修复： **关键发现：** - 2个超时任务（Wiki健康检查/Wiki漂移检查）硬超时120秒，payload里写的1800没生效 - `announce -> last` 的任务，Python脚本发送成功了但外层announce静默失败（不影响卡片，但有error记录）
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L215] Assistant: 抖音指数日报 ✅，继续：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L217] Assistant: 现在批量处理剩余的 announce -> last 任务：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L241] Assistant: 所有 announce -> last 已清理完毕。现在处理超时问题：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L251] Assistant: 72个Wiki文件，5723行。LINT操作是代理多轮任务，增加timeout并写SOP：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L255] Assistant: 超时任务timeout已升级到3600秒。现在写Browser启动SOP：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L257] Assistant: 现在写系统检查SOP，记录本次发现和修复：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L259] Assistant: 最后验证所有修复：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L261] Assistant: 全部修复验证完毕。汇总： --- ## ✅ 4项风险修复完成 ### 修复1：announce -> last 静默失败 ✅ - **16个cron任务**的 `delivery.mode` 改为 `none` - 这些任务内部用Python脚本发飞书卡片，外层announce本就是多余的 - **不再产生无意义的error记录** ### 修复2：Feishu投递路由 ✅ - **3个任务**保留显式Feishu投递配置（竞品内容动态/Wiki健康检查/Wiki漂移检查
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L262] User: OK，桌面文件名称为：《穿越德化街》数据分析-4.16v4(1).xlsx的表格，是完整的这几年的德化街数据表，说明从2024年10月7日起，也就是过完国庆节，德化街开始扩建座位，也就是10月8日到年2024年底都是没有数据的，你可能看到12月份开始有数据，那个数据不准确，是座位扩建后压力测试，12月28日-12月30日入园买过门票后1毛钱即可加购，也就是从2025年1月1日起正式扩建完成并正式投入运营，你等10:30的任务结束后仔细分析表格的所有内容，并更新wiki
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L263] Assistant: 收到，等10:30抖音指数日报任务完成后开始分析。稍等片刻。 收到，先记住这个关键背景： - **2024-10-07前**：正常运营 - **2024-10-08至2024年底**：扩建施工，无数据 - **2024年12月**：压力测试期（12/28-30有一毛钱加购活动），数据不完整 - **2025-01-01起**：扩建完成，正式运营 等10:30任务结束后立即开始分析表格并更新wiki。
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L265] Assistant: 文件已确认存在。现在10:27，等任务执行。先把分析计划记下来：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L267] Assistant: 等10:30任务开始执行后再跟进。稍等片刻。
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L269] Assistant: 10:30抖音指数日报已执行完成（用时4分钟，状态OK）！现在立即开始分析《穿越德化街》Excel文件：
+[main/sessions/c88513ca-b83a-4a4c-bf5e-c09d12aa2360.jsonl.reset.2026-04-23T01-53-24.708Z#L277] Assistant: 现在我有了完整数据。读取当前Wiki内容，然后更新：

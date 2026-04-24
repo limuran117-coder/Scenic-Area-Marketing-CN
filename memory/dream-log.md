@@ -180,3 +180,22 @@
 ### Suggestions
 - 小红书Cookie 04-23解封后，建议立即验证并更新Cookie维护SOP
 - 竞品关键词轮换已推进4个（郑州方特进行中），建议保持日更节奏至五一前完成第一轮
+
+## 🌙 Dream #8 — 2026-04-24
+
+**Scanned**: 1 file | **New**: 0 | **Updated**: 0 | **Total**: 21 entries
+
+### Changes
+- [None] 04-22内容已在上次Promoted中捕获，本次仅标记已处理
+
+### Insights
+- 04-22抖音缓存bug修复（reload机制）已固化至MEMORY，无需重复记录
+
+### Stale Threads
+- 抖音关键词深度数据（CDP不稳定）— 持续跟进
+- 小红书Cookie 04-23解封 — 需验证Cookie是否有效
+- Wiki架构重组 — 待推进
+
+### Suggestions
+- 04-23无日志（可能漏记或休息日），建议确认
+- 小红书Cookie解封后第一时间验证并更新SOP

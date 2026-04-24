@@ -1,7 +1,7 @@
 # MEMORY.md - Long-Term Memory
 
 role: 景区营销中心总经理
-update_time: 2026-04-22
+update_time: 2026-04-24
 core_mission: 年度客流153万（原132万调增）、营收1.12亿
 
 ---
