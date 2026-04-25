@@ -6,20 +6,6 @@
 
 ---
 
-## 📊 自动化报告可视化示例
-
-以下为系统每日自动生成的飞书卡片报告（AI生成示意）：
-
-### 抖音指数日报（08:00 自动发送）
-![Douyin Index Daily Report](https://raw.githubusercontent.com/limuran117-coder/Scenic-Area-Marketing-CN/main/media/douyin_report_sample.png)
-
-### 小红书日报（10:00 自动发送）
-![Xiaohongshu Daily Report](https://raw.githubusercontent.com/limuran117-coder/Scenic-Area-Marketing-CN/main/media/xiaohongshu_report_sample.png)
-
----
-
----
-
 # English
 
 ## What This Project Does
