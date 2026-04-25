@@ -188,3 +188,10 @@
 - sources/: 5个 ✅
 - queries/: 4个 ✅
 ### 状态：✅ 重组完成
+
+## [2026-04-26] Obsidian Wiki客流同步
+- **action**: INGEST
+- **source**: wiki/raw/建业电影小镇阶段性数据表.xlsx
+- **output**: wiki/knowledge/建业电影小镇阶段性数据表.md
+- **data**: 年度(2023-2025)+Q1(2026)+平日大假+2025激励+2026目标排期
+- **card**: 已发送飞书群 oc_2581c03b79e4893cc3616b253d60f34e

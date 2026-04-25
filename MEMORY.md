@@ -1,8 +1,8 @@
 # MEMORY.md - Long-Term Memory
 
 role: 景区营销中心总经理
-update_time: 2026-04-24
-core_mission: 年度客流153万（原132万调增）、营收1.12亿
+update_time: 2026-04-25
+core_mission: 年度客流153万、营收1.12亿
 
 ---
 
@@ -80,9 +80,9 @@ core_mission: 年度客流153万（原132万调增）、营收1.12亿
 
 ## ⏳ 进行中
 - 抖音关键词深度数据（CDP不稳定）
-- 小红书Cookie（账号封禁至04-23）
-- 竞品关键词轮换（21景区：万岁山/清明上河园/只有河南✅，郑州方特🔜）
-- Wiki架构重组
+- 竞品关键词轮换（21景区：万岁山/清明上河园/只有河南✅，郑州方特✅，银基🔜）
+- Wiki架构重组（04-21确认，04-25验收中）
+- SOP体系完善（14个cron中8个有SOP，04-24完成13个cron全面更新）
 
 ---
 
@@ -93,7 +93,7 @@ core_mission: 年度客流153万（原132万调增）、营收1.12亿
 | 历年客流 | 桌面2023-2025年门票销售及客流统计数据表.xlsx |
 | 2026每日 | ~/Desktop/2026游客量统计.csv |
 | 抖音Cookie | /tmp/juLiang_cookies.json（备用CDP：18800） |
-| 小红书Cookie | /tmp/xiaohongshu_cookies.json（账号封禁中，04-23解封） |
+| 小红书Cookie | /tmp/xiaohongshu_cookies.json（04-23解封已验证） |
 | 飞书群 | 电影小镇群oc_2581.../数据推送群oc_f109... |
 
 详细SOP索引 → wiki/SOP/
