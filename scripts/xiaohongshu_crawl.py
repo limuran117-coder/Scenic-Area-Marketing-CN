@@ -1,163 +1,156 @@
 #!/usr/bin/env python3
 """
-小红书数据采集脚本
-使用Playwright + 代理 + Cookie采集数据
+小红书数据采集脚本 v2
+使用Playwright + 已有CDP浏览器连接
 
-景区列表：
-1. 建业电影小镇
-2. 万岁山武侠城
-3. 清明上河园
-4. 只有河南戏剧幻城
-5. 郑州方特欢乐世界
-6. 郑州海昌海洋公园
-7. 郑州银基动物王国
-8. 只有红楼梦戏剧幻城
+用法：
+  python3 scripts/xiaohongshu_crawl.py "关键词" [CDP端口默认18800]
 
-输出：/tmp/crawl_xhs_unified.json
-Cookie存储：/tmp/xiaohongshu_cookies.json
+输出：/tmp/xiaohongshu_关键词.json
 """
 
 import json
 import datetime
 import asyncio
+import sys
 import os
 import re
-import random
-import subprocess
 from playwright.async_api import async_playwright
 
-def cleanup_stale_browsers():
-    """采集前清理残留的 browser-use daemon 进程，避免资源臃肿"""
+CDP_HOST = "http://127.0.0.1"
+DEFAULT_CDP_PORT = 18800
+
+def parse_args():
+    """解析命令行参数"""
+    keyword = sys.argv[1] if len(sys.argv) > 1 else "建业电影小镇"
+    cdp_port = int(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_CDP_PORT
+    return keyword, cdp_port
+
+def extract_data_from_page(text: str, content: str) -> dict:
+    """从页面提取数据（简化版）"""
+    # 提取笔记数量
+    notes_match = re.search(r'约(\d+)万篇|(\d+)篇笔记', text)
+    notes_count = notes_match.group(1) or notes_match.group(2) if notes_match else "—"
+
+    # 提取互动数据
+    likes_match = re.findall(r'(\d+\.?\d*万|\d+)赞', text)
+    top_likes = likes_match[:5] if likes_match else []
+
+    return {
+        "notes_approx": notes_count,
+        "top_likes": top_likes,
+        "content_length": len(content)
+    }
+
+async def search_keyword(cdp_url: str, keyword: str, timeout: int = 30000) -> dict:
+    """用CDP连接已有浏览器，搜索关键词"""
+    result = {
+        "keyword": keyword,
+        "success": False,
+        "error": None,
+        "data": {}
+    }
+
     try:
-        subprocess.run(['pkill', '-9', '-f', 'browser_use.skill_cli.daemon'], 
-                      capture_output=True, timeout=5)
-        subprocess.run(['pkill', '-9', '-f', 'playwright'], 
-                      capture_output=True, timeout=5)
-        print("[清理] 已清除残留 browser-use/playwright 进程")
+        async with async_playwright() as p:
+            # 连接已有CDP浏览器（不是launch新浏览器！）
+            browser = await p.chromium.connect_over_cdp(cdp_url)
+            
+            # 列出所有tab，找一个可用的
+            target_tab = None
+            for ctx in browser.contexts:
+                for i, pg in enumerate(ctx.pages):
+                    try:
+                        url = pg.url
+                        if url and not url.startswith("chrome://"):
+                            target_tab = pg
+                            print(f"  → 使用Tab{i}: {url[:60]}", flush=True)
+                            break
+                    except:
+                        continue
+                if target_tab:
+                    break
+
+            if not target_tab:
+                # 没有可用Tab，创建新的
+                for ctx in browser.contexts:
+                    target_tab = await ctx.new_page()
+                    break
+
+            page = target_tab
+
+            # 导航到小红书搜索结果页
+            search_url = f"https://www.xiaohongshu.com/search_result?keyword={keyword}&source=web_explore_feed"
+            print(f"  → 打开: {search_url}", flush=True)
+            
+            response = await page.goto(search_url, timeout=timeout, wait_until="domcontentloaded")
+            
+            if response and response.status in [302, 301]:
+                print(f"  → 重定向到登录页，跳过", flush=True)
+                result["error"] = "redirect_to_login"
+                await browser.close()
+                return result
+            
+            # 等待内容加载
+            await asyncio.sleep(3)
+            
+            # 滚动一下触发懒加载
+            await page.evaluate("window.scrollBy(0, 500)")
+            await asyncio.sleep(2)
+            
+            # 获取页面文本
+            text = await page.inner_text("body")
+            content = await page.content()
+            
+            # 提取数据
+            result["data"] = extract_data_from_page(text, content)
+            result["success"] = True
+            print(f"  ✓ {keyword}: 获取内容{len(content)}字节", flush=True)
+            
+            await browser.close()
+
     except Exception as e:
-        print(f"[清理] 清理残留进程时出错（忽略）: {e}")
+        result["error"] = str(e)[:100]
+        print(f"  ✗ 失败: {e}", flush=True)
 
-# 景区关键词列表
-SCENIC_SPOTS = [
-    "建业电影小镇",
-    "万岁山武侠城",
-    "清明上河园",
-    "只有河南戏剧幻城",
-    "郑州方特欢乐世界",
-    "郑州海昌海洋公园",
-    "郑州银基动物王国",
-    "只有红楼梦戏剧幻城"
-]
-
-COOKIE_FILE = "/tmp/xiaohongshu_cookies.json"
-PROXY = {"server": "http://127.0.0.1:7897"}
-
-def random_delay(min_sec=1, max_sec=3):
-    """生成随机延迟，模拟人类操作间隔"""
-    return random.uniform(min_sec, max_sec)
-
-async def load_cookies(context):
-    """加载Cookie"""
-    if os.path.exists(COOKIE_FILE):
-        with open(COOKIE_FILE, 'r', encoding='utf-8') as f:
-            cookies = json.load(f)
-        await context.add_cookies(cookies)
-        print(f"已加载Cookie: {len(cookies)}个")
-        return True
-    return False
-
-async def search_keyword(page, keyword):
-    """搜索关键词（已降速防AI检测）"""
-    try:
-        # 访问小红书搜索页面
-        search_url = f"https://www.xiaohongshu.com/search_result?keyword={keyword}&source=web_explore_feed"
-        await page.goto(search_url, timeout=30000)
-        await page.wait_for_load_state("domcontentloaded", timeout=10000)
-        
-        # 人类操作：随机延迟2-5秒，模拟阅读页面
-        await asyncio.sleep(random_delay(2, 5))
-        
-        # 滚动页面（人类不会一上来就看完）
-        await page.evaluate("window.scrollBy(0, 300)")
-        await asyncio.sleep(random_delay(1, 3))
-        
-        # 获取页面内容
-        content = await page.content()
-        text = await page.inner_text('body')
-        
-        # 提取笔记数量等简单信息
-        notes_count = 0
-        likes_count = 0
-        
-        # TODO: 根据实际页面结构调整解析逻辑
-        # 简化处理
-        print(f"  已访问: {keyword}")
-        
-        return {
-            "keyword": keyword,
-            "notes_count": notes_count,
-            "likes_count": likes_count,
-            "content_length": len(content)
-        }
-    except Exception as e:
-        print(f"  失败: {e}")
-        return {"keyword": keyword, "error": str(e)}
-
-async def crawl_xiaohongshu():
-    """采集小红书数据"""
-    results = []
-    
-    # 采集前先清理残留进程
-    cleanup_stale_browsers()
-    
-    async with async_playwright() as p:
-        browser = await p.chromium.launch(
-            headless=True,
-            proxy=PROXY
-        )
-        context = await browser.new_context(
-            user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-        )
-        
-        # 加载Cookie
-        await load_cookies(context)
-        
-        page = await context.new_page()
-        
-        print("开始采集小红书数据...")
-        
-        for spot in SCENIC_SPOTS:
-            result = await search_keyword(page, spot)
-            results.append(result)
-            # 每个关键词搜索后随机等待3-8秒，模拟人类操作
-            await asyncio.sleep(random_delay(3, 8))
-        
-        await browser.close()
-    
-    return results
-
-def save_data(data, filepath="/tmp/crawl_xhs_unified.json"):
-    """保存数据"""
-    with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"数据已保存: {filepath}")
+    return result
 
 async def main():
-    print("=" * 50)
-    print("小红书数据采集")
-    print("=" * 50)
+    keyword, cdp_port = parse_args()
+    cdp_url = f"{CDP_HOST}:{cdp_port}"
     
-    results = await crawl_xiaohongshu()
+    print("=" * 50, flush=True)
+    print(f"小红书数据采集 | 关键词: {keyword} | CDP: {cdp_port}", flush=True)
+    print("=" * 50, flush=True)
     
+    # 尝试连接CDP
+    try:
+        async with async_playwright() as p:
+            browser = await p.chromium.connect_over_cdp(cdp_url, timeout=5000)
+            await browser.close()
+            print("✓ CDP连接成功\n", flush=True)
+    except Exception as e:
+        print(f"✗ CDP连接失败: {e}", flush=True)
+        print("  请确认专属浏览器已启动（--remote-debugging-port=18800）", flush=True)
+        sys.exit(1)
+    
+    # 采集数据
+    result = await search_keyword(cdp_url, keyword)
+    
+    # 保存
+    output_file = f"/tmp/xiaohongshu_{keyword}.json"
     output = {
-        "date": datetime.date.today().strftime("%Y-%m-%d"),
+        "keyword": keyword,
         "crawled_at": datetime.datetime.now().isoformat(),
-        "data_source": "小红书",
-        "results": results
+        "success": result["success"],
+        "error": result.get("error"),
+        "data": result.get("data", {})
     }
     
-    save_data(output)
-    print("采集完成!")
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(output, f, ensure_ascii=False, indent=2)
+    
+    print(f"\n{'✓' if result['success'] else '✗'} 已保存: {output_file}", flush=True)
     return output
 
 if __name__ == "__main__":
