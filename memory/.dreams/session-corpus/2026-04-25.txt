@@ -1,0 +1,8 @@
+[main/sessions/119bd5ee-d58d-4031-849f-f13adbec9c94.jsonl#L5] User: [cron:3847f4cd-54c5-41cf-9e80-f2d6733c3d56 周度清理-无用文件] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 【第一步：必读SOP文件】（执行前必须完成） 读取 ~/.openclaw/workspace/wiki/SOP/index.md 了解workspace当前SOP文件列表 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 【周度清理-无用文件】每周日11:00检查并清理workspace下的无用文件。 ## 第一步：运行清理脚本 python3 ~/.ope
+[main/sessions/119bd5ee-d58d-4031-849f-f13adbec9c94.jsonl#L5] User: reply will be delivered automatically.
+[main/sessions/119bd5ee-d58d-4031-849f-f13adbec9c94.jsonl#L16] Assistant: ✅ **周度清理完成** workspace无无用文件，检查范围涵盖根目录及所有子目录，未发现残留缓存、失效脚本或重复文件。 报告已发送至私信。
+[main/sessions/ce924c13-6731-4863-bf2f-8ea9236a979f.jsonl#L5] User: [cron:01aeae0f-7340-4899-8e66-e20f01b05de6 周度技能探索] 【周度技能探索】探索1-2个新工具/技能，记录到wiki ## 飞书卡片格式（必须严格遵守） - message参数：固定放「请查看卡片」 - card参数：完整JSON，schema 2.0 { "schema": "2.0", "header": {"title": {"tag": "plain_text", "content": "📋 任务名 YYYY-MM-DD"}, "template": "模板颜色"}, "body": {"e
+[main/sessions/ce924c13-6731-4863-bf2f-8ea9236a979f.jsonl#L19] Assistant: Let me explore 2 new skills: `deep-research` and `agentic-workflow-automation` — both from the pending list.
+[main/sessions/ce924c13-6731-4863-bf2f-8ea9236a979f.jsonl#L28] Assistant: Now I have enough material. Let me write up the exploration notes.
+[main/sessions/ce924c13-6731-4863-bf2f-8ea9236a979f.jsonl#L30] Assistant: Now let me send the Feishu card report.
+[main/sessions/ce924c13-6731-4863-bf2f-8ea9236a979f.jsonl#L34] Assistant: 完成。本周探索了两个新技能并记录到 wiki： **① deep-research（深度研究框架）** - 4阶段方法论：泛查→定向→验证→报告 - 核心价值：把零散的搜索串联成标准流程，含信源分级、交叉验证、置信度评估 - 适用：竞品深度调研、政策研究、行业趋势 **② agentic-workflow-automation（工作流自动化蓝图）** - 输入 trigger + steps[] → 输出可复用 JSON 蓝图（n8n） - 核心价值：将「日报生成」等固定流程固化成蓝图，cron 触发自动执行 - 适用：抖音日报自动
