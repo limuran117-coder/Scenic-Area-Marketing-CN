@@ -105,3 +105,16 @@ core_mission: 年度客流153万、营收1.12亿
 
 <!-- openclaw-memory-promotion:memory:memory/2026-04-16.md:5:5 -->
 - **任务：** 整理本周优秀营销案例入库 [score=0.806]
+---
+
+# [feedback] announce模式导致群里收到过程性消息（2026-04-26修复）
+
+**问题现象：** cron announce模式把agent完整文字输出推到群里，包含"Now I have enough context"等思考过程，不是飞书卡片
+
+**原因：** announce是额外兜底投递，即使agent正确走send_card()，announce仍会再推一遍完整输出
+
+**修复：** 直接编辑cron/jobs.json，把6个cron的announce改为none
+- 文旅活动热点追踪/小红书日报/行业热点采集/竞品关键词深度分析/竞品爆款拆解/每日复盘整合
+- SOP本身没错，announce是多余的路
+
+**预防：** 新建cron任务时，delivery.mode一律设none，不走announce
