@@ -195,3 +195,11 @@
 - **output**: wiki/knowledge/建业电影小镇阶段性数据表.md
 - **data**: 年度(2023-2025)+Q1(2026)+平日大假+2025激励+2026目标排期
 - **card**: 已发送飞书群 oc_2581c03b79e4893cc3616b253d60f34e
+
+## [2026-04-26] 核心运营脚本归档
+- **action**: INGEST
+- **scope**: scripts/ 目录 → wiki/entities/scripts/
+- **索引文件**: wiki/entities/scripts/README.md（1902字节，22个脚本条目）
+- **单页归档**: douyin_index_v9.md / send_feishu_card.md / query_passenger.md
+- **原因**: 漂移检查报警46个脚本未归档，建立索引防失控
+- **状态**: ✅ 完成
