@@ -1,0 +1,355 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 920" width="1400" height="920">
+<style>
+  text { font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', 'Microsoft JhengHei', 'SimHei', sans-serif; }
+  .l1 { font-size: 15px; font-weight: 700; }
+  .l2 { font-size: 12px; font-weight: 600; }
+  .l3 { font-size: 10px; font-weight: 500; }
+  .body { font-size: 9px; fill: #4b5563; }
+  .label { font-size: 10px; font-weight: 600; }
+  .badge { font-size: 9px; font-weight: 600; }
+  .small { font-size: 8px; fill: #9ca3af; }
+  .title { font-size: 20px; font-weight: 700; fill: #111827; }
+  .subtitle { font-size: 11px; fill: #6b7280; }
+  .section { font-size: 13px; font-weight: 700; }
+  .card-title { font-size: 11px; font-weight: 600; }
+</style>
+<defs>
+  <marker id="a1" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#9333ea"/></marker>
+  <marker id="a2" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#2563eb"/></marker>
+  <marker id="a3" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#16a34a"/></marker>
+  <marker id="a4" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#ea580c"/></marker>
+</defs>
+<rect width="1400" height="920" fill="#fafbfc"/>
+
+<!-- ==================== TITLE ==================== -->
+<text x="700" y="32" text-anchor="middle" class="title">LLM 知识层架构</text>
+<text x="700" y="52" text-anchor="middle" class="subtitle">karpathy-wiki · 四层结构 · INGEST → sources → concepts → entities → queries → QUERY/LINT</text>
+
+<!-- ==================== LAYER 1: RAW DATA ==================== -->
+<rect x="30" y="68" width="420" height="740" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="30" y="68" width="420" height="38" rx="12" fill="#f8fafc"/>
+<rect x="30" y="90" width="420" height="18" fill="#f8fafc"/>
+<text x="50" y="89" class="section" fill="#374151">Layer 1 · 原始数据输入</text>
+
+<!-- Row: 客流数据 -->
+<rect x="42" y="116" width="396" height="60" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+<rect x="42" y="116" width="396" height="20" rx="8" fill="#dbeafe"/>
+<text x="240" y="129" text-anchor="middle" class="card-title" fill="#1e40af">客流数据 CSV</text>
+<text x="240" y="148" text-anchor="middle" class="body">/Users/tianjinzhan/Desktop/2026游客量统计.csv</text>
+<text x="240" y="162" text-anchor="middle" class="small">散客 / 渠道拆分 · YTD累计 · 每日更新</text>
+
+<!-- Row: 抖音指数 -->
+<rect x="42" y="188" width="396" height="60" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+<rect x="42" y="188" width="396" height="20" rx="8" fill="#fee2e2"/>
+<text x="240" y="201" text-anchor="middle" class="card-title" fill="#dc2626">抖音指数数据</text>
+<text x="240" y="220" text-anchor="middle" class="body">Creator Portal 订阅页 · 8景区 · douyin_index_v9.py</text>
+<text x="240" y="234" text-anchor="middle" class="small">CDP Port 18800 · Tab4 · 08:00 采集</text>
+
+<!-- Row: 竞品关键词 -->
+<rect x="42" y="260" width="396" height="60" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+<rect x="42" y="260" width="396" height="20" rx="8" fill="#fee2e2"/>
+<text x="240" y="273" text-anchor="middle" class="card-title" fill="#dc2626">竞品关键词 · 四平台</text>
+<text x="240" y="292" text-anchor="middle" class="body">抖音 + 小红书灵犀 + 百度 · cdp_keyword_deep.py</text>
+<text x="240" y="306" text-anchor="middle" class="small">关联词TOP10 · 人群画像 · 综合指数</text>
+
+<!-- Row: 小红书 -->
+<rect x="42" y="332" width="396" height="60" rx="8" fill="#fef2f2" stroke="#fecaca" stroke-width="1"/>
+<rect x="42" y="332" width="396" height="20" rx="8" fill="#fee2e2"/>
+<text x="240" y="345" text-anchor="middle" class="card-title" fill="#dc2626">小红书数据</text>
+<text x="240" y="364" text-anchor="middle" class="body">灵犀后台 Brand · 探索页笔记 · xiaohongshu_crawl.py</text>
+<text x="240" y="378" text-anchor="middle" class="small">idea.xiaohongshu.com · ⚠ 需JS注入触发</text>
+
+<!-- Row: 百度 -->
+<rect x="42" y="404" width="396" height="60" rx="8" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+<rect x="42" y="404" width="396" height="20" rx="8" fill="#dcfce7"/>
+<text x="240" y="417" text-anchor="middle" class="card-title" fill="#16a34a">百度百科 / 搜索</text>
+<text x="240" y="436" text-anchor="middle" class="body">票价 / 规模 / 媒体报道 / 舆情</text>
+<text x="240" y="450" text-anchor="middle" class="small">✅ 公开可访问 · 无需登录</text>
+
+<!-- Row: 穿越德化街 -->
+<rect x="42" y="476" width="396" height="60" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+<rect x="42" y="476" width="396" height="20" rx="8" fill="#dbeafe"/>
+<text x="240" y="489" text-anchor="middle" class="card-title" fill="#1e40af">穿越德化街 · 演出数据</text>
+<text x="240" y="508" text-anchor="middle" class="body">场次 / 库存 / 售卖 / 上座率 · 下载文件提取</text>
+<text x="240" y="522" text-anchor="middle" class="small">memory/穿越德化街_2026W*.csv · W17 ✅</text>
+
+<!-- Row: 竞品爆款 -->
+<rect x="42" y="548" width="396" height="60" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1"/>
+<rect x="42" y="548" width="396" height="20" rx="8" fill="#ede9fe"/>
+<text x="240" y="561" text-anchor="middle" class="card-title" fill="#7c3aed">竞品爆款案例 · 全国景区库</text>
+<text x="240" y="580" text-anchor="middle" class="body">竞品爆款拆解 cron · wiki/全国景区案例库/</text>
+<text x="240" y="594" text-anchor="middle" class="small">爆款标题 / 规律 / 博主类型 / 内容类型</text>
+
+<!-- Row: 文旅政策 -->
+<rect x="42" y="620" width="396" height="60" rx="8" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1"/>
+<rect x="42" y="620" width="396" height="20" rx="8" fill="#ccfbf1"/>
+<text x="240" y="633" text-anchor="middle" class="card-title" fill="#0d9488">文旅政策 / 热点 / 行业</text>
+<text x="240" y="652" text-anchor="middle" class="body">文旅热点追踪 / 行业热点采集 / 政策文件</text>
+<text x="240" y="666" text-anchor="middle" class="small">industry_news_browser.py · MiniMax search</text>
+
+<!-- Row: MiniMax -->
+<rect x="42" y="692" width="396" height="60" rx="8" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1"/>
+<rect x="42" y="692" width="396" height="20" rx="8" fill="#ccfbf1"/>
+<text x="240" y="705" text-anchor="middle" class="card-title" fill="#0d9488">MiniMax CLI · 素材生成</text>
+<text x="240" y="724" text-anchor="middle" class="body">mmx image / speech / music / search</text>
+<text x="240" y="738" text-anchor="middle" class="small">图像 50张周 · 语音 4000张周 · 视频 ❌需Max</text>
+
+<!-- Arrow: Raw → INGEST -->
+<line x1="450" y1="430" x2="492" y2="430" stroke="#9333ea" stroke-width="2" marker-end="url(#a1)"/>
+<text x="470" y="422" text-anchor="middle" class="small" fill="#7c3aed">INGEST</text>
+
+<!-- ==================== LAYER 2: INGEST ==================== -->
+<rect x="502" y="68" width="200" height="740" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="502" y="68" width="200" height="38" rx="12" fill="#f8fafc"/>
+<rect x="502" y="90" width="200" height="18" fill="#f8fafc"/>
+<text x="522" y="89" class="section" fill="#374151">Layer 2 · INGEST</text>
+
+<!-- INGEST header -->
+<rect x="514" y="116" width="176" height="48" rx="8" fill="#f5f3ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="602" y="132" text-anchor="middle" class="card-title" fill="#7c3aed">llmwiki_ingest.py</text>
+<text x="602" y="148" text-anchor="middle" class="body">核心处理脚本</text>
+<text x="602" y="160" text-anchor="middle" class="small">原始数据 → 结构化文档</text>
+
+<!-- 数据校验 -->
+<rect x="514" y="174" width="176" height="40" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="602" y="188" text-anchor="middle" class="label" fill="#7c3aed">数据校验</text>
+<text x="602" y="202" text-anchor="middle" class="small">去重 / 格式 / 完整性</text>
+
+<!-- 结构化解析 -->
+<rect x="514" y="224" width="176" height="40" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="602" y="238" text-anchor="middle" class="label" fill="#7c3aed">结构化解析</text>
+<text x="602" y="252" text-anchor="middle" class="small">表格 / 列表 / 段落</text>
+
+<!-- 文件分类 -->
+<rect x="514" y="274" width="176" height="40" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="602" y="288" text-anchor="middle" class="label" fill="#7c3aed">文件分类</text>
+<text x="602" y="302" text-anchor="middle" class="small">竞品 / SOP / 案例 / 历史</text>
+
+<!-- → sources/ -->
+<rect x="514" y="334" width="176" height="90" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/>
+<rect x="514" y="334" width="176" height="18" rx="6" fill="#fee2e2"/>
+<text x="602" y="347" text-anchor="middle" class="badge" fill="#dc2626">→ sources/</text>
+<text x="602" y="368" text-anchor="middle" class="body">原始数据快照</text>
+<text x="602" y="382" text-anchor="middle" class="body">保留原始文件</text>
+<text x="602" y="396" text-anchor="middle" class="body">不改变数据本身</text>
+<text x="602" y="415" text-anchor="middle" class="badge" fill="#dc2626">⚠ 定期刷新</text>
+
+<!-- → concepts/ -->
+<rect x="514" y="438" width="176" height="90" rx="6" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.5"/>
+<rect x="514" y="438" width="176" height="18" rx="6" fill="#dcfce7"/>
+<text x="602" y="451" text-anchor="middle" class="badge" fill="#16a34a">→ concepts/</text>
+<text x="602" y="472" text-anchor="middle" class="body">知识概念提炼</text>
+<text x="602" y="486" text-anchor="middle" class="body">从数据中抽象规律</text>
+<text x="602" y="500" text-anchor="middle" class="body">景区类型 / 情绪 / 漏斗</text>
+<text x="602" y="519" text-anchor="middle" class="badge" fill="#16a34a">✅ 知识沉淀</text>
+
+<!-- → entities/ -->
+<rect x="514" y="542" width="176" height="90" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+<rect x="514" y="542" width="176" height="18" rx="6" fill="#dbeafe"/>
+<text x="602" y="555" text-anchor="middle" class="badge" fill="#2563eb">→ entities/</text>
+<text x="602" y="576" text-anchor="middle" class="body">实体词条卡片</text>
+<text x="602" y="590" text-anchor="middle" class="body">竞品档案 / 平台 / 景点</text>
+<text x="602" y="604" text-anchor="middle" class="body">wiki/竞品分析/*.md</text>
+<text x="602" y="623" text-anchor="middle" class="badge" fill="#2563eb">✅ 10个已归档</text>
+
+<!-- → queries/ (conceptual arrow in INGEST) -->
+<rect x="514" y="646" width="176" height="50" rx="6" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1"/>
+<text x="602" y="660" text-anchor="middle" class="label" fill="#7c3aed">→ queries/</text>
+<text x="602" y="675" text-anchor="middle" class="small">决策问题沉淀</text>
+
+<!-- LINT placeholder -->
+<rect x="514" y="710" width="176" height="50" rx="6" fill="#fef3c7" stroke="#fbbf24" stroke-width="1"/>
+<text x="602" y="724" text-anchor="middle" class="label" fill="#b45309">LINT 质量校验</text>
+<text x="602" y="739" text-anchor="middle" class="small">llmwiki_lint.py · 漂移检测</text>
+
+<!-- Arrow: INGEST → Structured -->
+<line x1="702" y1="430" x2="744" y2="430" stroke="#9333ea" stroke-width="2" marker-end="url(#a1)"/>
+<text x="722" y="422" text-anchor="middle" class="small" fill="#7c3aed">归档</text>
+
+<!-- ==================== LAYER 3: STRUCTURED ==================== -->
+<rect x="754" y="68" width="616" height="740" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="754" y="68" width="616" height="38" rx="12" fill="#f8fafc"/>
+<rect x="754" y="90" width="616" height="18" fill="#f8fafc"/>
+<text x="774" y="89" class="section" fill="#374151">Layer 3 · 结构化知识层</text>
+
+<!-- sources/ box -->
+<rect x="766" y="116" width="180" height="108" rx="8" fill="#fef2f2" stroke="#f87171" stroke-width="1.5"/>
+<rect x="766" y="116" width="180" height="22" rx="8" fill="#fee2e2"/>
+<text x="856" y="132" text-anchor="middle" class="card-title" fill="#dc2626">sources/</text>
+<text x="856" y="153" text-anchor="middle" class="body">原始数据快照</text>
+<text x="856" y="167" text-anchor="middle" class="body">• 客流CSV原始文件</text>
+<text x="856" y="180" text-anchor="middle" class="body">• 抖音指数截图</text>
+<text x="856" y="193" text-anchor="middle" class="body">• 竞品关键词截图</text>
+<text x="856" y="206" text-anchor="middle" class="body">• 小红书爆款截图</text>
+<text x="856" y="219" text-anchor="middle" class="badge" fill="#b45309">⚠ 需定期刷新</text>
+
+<!-- concepts/ box -->
+<rect x="966" y="116" width="180" height="108" rx="8" fill="#f0fdf4" stroke="#4ade80" stroke-width="1.5"/>
+<rect x="966" y="116" width="180" height="22" rx="8" fill="#dcfce7"/>
+<text x="1056" y="132" text-anchor="middle" class="card-title" fill="#16a34a">concepts/</text>
+<text x="1056" y="153" text-anchor="middle" class="body">知识概念</text>
+<text x="1056" y="167" text-anchor="middle" class="body">• 景区类型概念</text>
+<text x="1056" y="180" text-anchor="middle" class="body">• 情绪营销模型</text>
+<text x="1056" y="193" text-anchor="middle" class="body">• 转化漏斗结构</text>
+<text x="1056" y="206" text-anchor="middle" class="body">• 爆款内容公式</text>
+<text x="1056" y="219" text-anchor="middle" class="badge" fill="#16a34a">✅ AI决策依据</text>
+
+<!-- entities/ box -->
+<rect x="1166" y="116" width="190" height="108" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+<rect x="1166" y="116" width="190" height="22" rx="8" fill="#dbeafe"/>
+<text x="1261" y="132" text-anchor="middle" class="card-title" fill="#2563eb">entities/</text>
+<text x="1261" y="153" text-anchor="middle" class="body">实体词条（10个已完成）</text>
+<text x="1261" y="167" text-anchor="middle" class="body">• 万岁山 · 清明上河园</text>
+<text x="1261" y="180" text-anchor="middle" class="body">• 只有河南 · 银基 · 方特</text>
+<text x="1261" y="193" text-anchor="middle" class="body">• 海昌 · 只有红楼梦</text>
+<text x="1261" y="206" text-anchor="middle" class="body">• 老君山 · 重渡沟 · 龙门石窟</text>
+<text x="1261" y="219" text-anchor="middle" class="badge" fill="#2563eb">✅ 卡片式词条</text>
+
+<!-- queries/ box -->
+<rect x="766" y="240" width="590" height="70" rx="8" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5"/>
+<rect x="766" y="240" width="590" height="22" rx="8" fill="#ede9fe"/>
+<text x="1061" y="255" text-anchor="middle" class="card-title" fill="#7c3aed">queries/ · 决策问题库</text>
+<text x="786" y="276" class="body">• 「穿越德化街上座率下降，要不要增场？」</text>
+<text x="786" y="290" class="body">• 「五一前竞品动作密集，电影小镇如何应对？」</text>
+<text x="786" y="304" class="body">• 「YTD进度落后，差距在扩大还是缩小？」</text>
+
+<!-- SOP体系 -->
+<rect x="766" y="326" width="590" height="72" rx="8" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5"/>
+<rect x="766" y="326" width="590" height="22" rx="8" fill="#fef3c7"/>
+<text x="1061" y="341" text-anchor="middle" class="card-title" fill="#b45309">SOP体系 · 规范文档（14个）</text>
+<text x="786" y="362" class="body">• 14个专属SOP（抖音指数日报 / 竞品关键词 / 周度客流 / 小红书日报 / ...）</text>
+<text x="786" y="376" class="body">• cron任务强制嵌入章节结构（2026-04-27修复） · Wiki归档强制步骤（2026-04-27修复）</text>
+<text x="1061" y="392" text-anchor="middle" class="badge" fill="#b45309">✅ cron执行标准</text>
+
+<!-- 历史数据 -->
+<rect x="766" y="414" width="285" height="68" rx="8" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.5"/>
+<rect x="766" y="414" width="285" height="22" rx="8" fill="#dbeafe"/>
+<text x="908" y="429" text-anchor="middle" class="card-title" fill="#2563eb">历史数据 · W*期归档</text>
+<text x="786" y="449" class="body">• W17期-20260427.md ✅ 14,392人</text>
+<text x="786" y="463" class="body">• W16期-20260420.md ✅</text>
+<text x="908" y="477" text-anchor="middle" class="badge" fill="#2563eb">✅ 周度对比依据</text>
+
+<!-- 案例库 -->
+<rect x="1071" y="414" width="285" height="68" rx="8" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1.5"/>
+<rect x="1071" y="414" width="285" height="22" rx="8" fill="#ede9fe"/>
+<text x="1213" y="429" text-anchor="middle" class="card-title" fill="#7c3aed">全国景区案例库</text>
+<text x="1091" y="449" class="body">• wiki/全国景区案例库/</text>
+<text x="1091" y="463" class="body">• 爆款标题 / 规律 / 博主类型</text>
+<text x="1213" y="477" text-anchor="middle" class="badge" fill="#7c3aed">✅ 内容素材库</text>
+
+<!-- 知识图谱 -->
+<rect x="766" y="498" width="285" height="68" rx="8" fill="#f0fdfa" stroke="#5eead4" stroke-width="1.5"/>
+<rect x="766" y="498" width="285" height="22" rx="8" fill="#ccfbf1"/>
+<text x="908" y="513" text-anchor="middle" class="card-title" fill="#0d9488">knowledge/ 知识图谱</text>
+<text x="786" y="533" class="body">• 建业电影小镇/ 阶段性数据</text>
+<text x="786" y="547" class="body">• concepts/ · entities/ · 关联关系</text>
+<text x="908" y="561" text-anchor="middle" class="badge" fill="#0d9488">✅ Obsidian同步</text>
+
+<!-- LLM Wiki Engine -->
+<rect x="1071" y="498" width="285" height="68" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+<rect x="1071" y="498" width="285" height="22" rx="8" fill="#ede9fe"/>
+<text x="1213" y="513" text-anchor="middle" class="card-title" fill="#7c3aed">LLM Wiki Engine · 三模式</text>
+<text x="1091" y="533" class="body">INGEST：原始数据 → 归档</text>
+<text x="1091" y="547" class="body">QUERY：问题 → 检索 → 决策</text>
+<text x="1213" y="561" text-anchor="middle" class="badge" fill="#7c3aed">LINT：漂移检测</text>
+
+<!-- 底层数据流 -->
+<rect x="766" y="582" width="590" height="96" rx="8" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1"/>
+<text x="1061" y="600" text-anchor="middle" class="card-title" fill="#374151">数据到知识的流转路径</text>
+<text x="786" y="618" class="body">① 原始数据（CSV / CDP截图 / 平台数据）→</text>
+<text x="786" y="632" class="body">② INGEST解析（结构化处理）→</text>
+<text x="786" y="646" class="body">③ sources/（原始快照）+ concepts/（规律）+ entities/（词条）+ queries/（问题）→</text>
+<text x="786" y="660" class="body">④ QUERY检索（AI决策时）→ 输出结构化知识片段 → AI决策</text>
+<text x="786" y="674" text-anchor="middle" class="badge" fill="#7c3aed">⚠ 目前知识层还在早期建设阶段</text>
+
+<!-- 竞品档案进度 -->
+<rect x="766" y="694" width="590" height="48" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1061" y="712" text-anchor="middle" class="label" fill="#166534">竞品档案完成度：10 / 21 ✅</text>
+<text x="1061" y="728" text-anchor="middle" class="small">老君山 / 重渡沟 / 龙门石窟 / 郑州海昌 已补录（简化版）</text>
+
+<!-- Arrow: Structured → QUERY -->
+<line x1="1061" y1="808" x2="1091" y2="808" stroke="#9333ea" stroke-width="2" marker-end="url(#a1)"/>
+
+<!-- ==================== LAYER 4: QUERY ==================== -->
+<rect x="1102" y="68" width="270" height="740" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="1102" y="68" width="270" height="38" rx="12" fill="#f8fafc"/>
+<rect x="1102" y="90" width="270" height="18" fill="#f8fafc"/>
+<text x="1122" y="89" class="section" fill="#374151">Layer 4 · QUERY</text>
+
+<!-- llmwiki_query.py -->
+<rect x="1114" y="116" width="246" height="48" rx="8" fill="#fef3c7" stroke="#fbbf24" stroke-width="1.5"/>
+<text x="1237" y="132" text-anchor="middle" class="card-title" fill="#b45309">llmwiki_query.py</text>
+<text x="1237" y="148" text-anchor="middle" class="body">输入问题 → 检索知识 → AI决策</text>
+<text x="1237" y="160" text-anchor="middle" class="small">sources / concepts / queries 检索</text>
+
+<!-- Query入口群 -->
+<rect x="1114" y="174" width="246" height="520" rx="8" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+
+<!-- 入口1: 竞品关键词 -->
+<rect x="1124" y="184" width="226" height="52" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="1237" y="198" text-anchor="middle" class="badge" fill="#7c3aed">入口 1 · 竞品关键词分析</text>
+<text x="1237" y="212" text-anchor="middle" class="body">检索：竞品特征 / 人群 / 规律</text>
+<text x="1237" y="226" text-anchor="middle" class="body">→ 输出结构化分析报告</text>
+
+<!-- 入口2: 周度客流 -->
+<rect x="1124" y="246" width="226" height="52" rx="6" fill="#ffffff" stroke="#60a5fa" stroke-width="1"/>
+<text x="1237" y="260" text-anchor="middle" class="badge" fill="#2563eb">入口 2 · 周度客流分析</text>
+<text x="1237" y="274" text-anchor="middle" class="body">检索：历史W* / 同比 / YTD进度</text>
+<text x="1237" y="288" text-anchor="middle" class="body">→ 输出趋势洞察 + 预警</text>
+
+<!-- 入口3: AI决策建议 -->
+<rect x="1124" y="308" width="226" height="52" rx="6" fill="#ffffff" stroke="#4ade80" stroke-width="1"/>
+<text x="1237" y="322" text-anchor="middle" class="badge" fill="#16a34a">入口 3 · AI决策建议</text>
+<text x="1237" y="336" text-anchor="middle" class="body">检索：SOP / 铁律 / MEMORY.md</text>
+<text x="1237" y="350" text-anchor="middle" class="body">→ ①②③④ 具体可执行建议</text>
+
+<!-- 入口4: 穿越德化街 -->
+<rect x="1124" y="370" width="226" height="52" rx="6" fill="#ffffff" stroke="#fb923c" stroke-width="1"/>
+<text x="1237" y="384" text-anchor="middle" class="badge" fill="#ea580c">入口 4 · 穿越德化街监测</text>
+<text x="1237" y="398" text-anchor="middle" class="body">检索：场次 / 上座率 / 触发阈值</text>
+<text x="1237" y="412" text-anchor="middle" class="body">→ 增场 / 特惠 / 预警建议</text>
+
+<!-- 入口5: 案例库 -->
+<rect x="1124" y="432" width="226" height="52" rx="6" fill="#ffffff" stroke="#fbbf24" stroke-width="1"/>
+<text x="1237" y="446" text-anchor="middle" class="badge" fill="#b45309">入口 5 · 案例库创作</text>
+<text x="1237" y="460" text-anchor="middle" class="body">检索：爆款公式 / 博主 / 情绪文案</text>
+<text x="1237" y="474" text-anchor="middle" class="body">→ 电影小镇专属创作模板</text>
+
+<!-- LINT -->
+<rect x="1124" y="494" width="226" height="52" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1"/>
+<text x="1237" y="508" text-anchor="middle" class="badge" fill="#dc2626">LINT · 质量校验</text>
+<text x="1237" y="522" text-anchor="middle" class="body">llmwiki_lint.py · 漂移检测</text>
+<text x="1237" y="536" text-anchor="middle" class="body">• sources/ 数据时效性</text>
+
+<!-- 周日健康检查 -->
+<rect x="1124" y="556" width="226" height="52" rx="6" fill="#fef3c7" stroke="#fbbf24" stroke-width="1"/>
+<text x="1237" y="570" text-anchor="middle" class="badge" fill="#b45309">周日 Wiki 健康检查</text>
+<text x="1237" y="584" text-anchor="middle" class="body">竞品Wiki完整性 · SOP版本</text>
+<text x="1237" y="598" text-anchor="middle" class="body">⚠ 4个缺失待补录</text>
+
+<!-- 当前进度 -->
+<rect x="1124" y="618" width="226" height="36" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1237" y="634" text-anchor="middle" class="badge" fill="#16a34a">竞品档案：10 / 21 ✅</text>
+<text x="1237" y="648" text-anchor="middle" class="small">下次优先：郑州海昌 + 龙门石窟</text>
+
+<!-- 能力边界 -->
+<rect x="1124" y="664" width="226" height="58" rx="6" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1"/>
+<text x="1237" y="678" text-anchor="middle" class="badge" fill="#374151">MiniMax 能力边界</text>
+<text x="1237" y="693" text-anchor="middle" class="body">✅ image / speech / search</text>
+<text x="1237" y="707" text-anchor="middle" class="body">❌ video（需Max计划）</text>
+<text x="1237" y="721" text-anchor="middle" class="body">⚠ music（需--lyrics参数）</text>
+
+<!-- LEGEND -->
+<rect x="30" y="820" width="1342" height="26" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+<text x="46" y="839" class="small">图例：</text>
+<rect x="76" y="831" width="12" height="10" rx="2" fill="#fee2e2" stroke="#f87171" stroke-width="1"/>
+<text x="94" y="841" class="small">原始数据</text>
+<rect x="156" y="831" width="12" height="10" rx="2" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+<text x="174" y="841" class="small">INGEST/QUERY</text>
+<rect x="246" y="831" width="12" height="10" rx="2" fill="#dcfce7" stroke="#4ade80" stroke-width="1"/>
+<text x="264" y="841" class="small">结构化知识</text>
+<rect x="336" y="831" width="12" height="10" rx="2" fill="#fef3c7" stroke="#fbbf24" stroke-width="1"/>
+<text x="354" y="841" class="small">查询引擎</text>
+<text x="440" y="841" class="small">⚠=数据缺失 | ✅=已完成 | ⚡=定期刷新</text>
+<text x="1180" y="841" class="small" fill="#94a3b8">v2.1 LLM知识层架构图 · 2026-04-27 · 李涯 佛龛</text>
+</svg>
