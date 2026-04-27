@@ -6,7 +6,7 @@
       {
         "id": "7b758a193f97ed54",
         "type": "tabs",
-        "dimension": 53.99719495091164,
+        "dimension": 39.23371647509579,
         "children": [
           {
             "id": "e72f00d3aecb37bd",
@@ -25,7 +25,7 @@
       {
         "id": "5f57462cbaf05dd0",
         "type": "tabs",
-        "dimension": 46.00280504908836,
+        "dimension": 60.76628352490422,
         "children": [
           {
             "id": "e4459f7a3c6fd6d1",
@@ -33,12 +33,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "knowledge/2026年每日客流数据.md",
+                "file": "竞品分析/清明上河园深度分析.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026年每日客流数据"
+              "title": "清明上河园深度分析"
             }
           }
         ]
@@ -98,7 +98,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 363.5
+    "width": 424.5
   },
   "right": {
     "id": "94261d0a92be1a07",
@@ -265,33 +265,33 @@
   },
   "active": "e4459f7a3c6fd6d1",
   "lastOpenFiles": [
-    "电影小镇/历史数据/W17期-20260427.md",
-    "电影小镇/历史数据/W16期-20260427.md",
-    "Excalidraw/Drawing 2026-04-17 11.28.08.excalidraw.md",
-    "entities/只有红楼梦戏剧幻城.md",
-    "entities/只有河南戏剧幻城.md",
-    "entities/郑州方特欢乐世界.md",
-    "entities/银基动物王国.md",
-    "entities/万岁山武侠城.md",
-    "entities/清明上河园.md",
-    "entities/建业电影小镇.md",
-    "entities/抖音平台.md",
-    "entities/大唐不夜城.md",
-    "竞品分析/竞品动态追踪/2026-04-23.md",
-    "竞品分析/竞品动态追踪/index.md",
+    "竞品分析/万岁山武侠城深度分析.md",
+    "竞品分析/小红书爆款追踪.md",
+    "竞品分析/只有红楼梦戏剧幻城深度分析.md",
+    "竞品分析/郑州方特欢乐世界深度分析.md",
+    "竞品分析/银基动物王国深度分析.md",
+    "竞品分析/清明上河园深度分析.md",
+    "竞品分析/竞品深度档案.md",
+    "竞品分析/关键词池状态.md",
+    "竞品分析/抖音指数追踪.md",
+    "全国景区案例库/打铁花跨景区爆款现象-2026W17.md",
+    "全国景区案例库/第17周更新记录-20260426.md",
+    "全国景区案例库/电影小镇动作表演-2026W16.md",
+    "全国景区案例库/方特POV跳楼机-2026W16.md",
+    "全国景区案例库/老君山短视频爆款-2026W17.md",
+    "全国景区案例库/龙泉山杜鹃花文化护照-2026W17.md",
+    "全国景区案例库/万岁山武侠城标杆-2026W17.md",
+    "全国景区案例库/万岁山i人挑战-2026W16.md",
+    "全国景区案例库/五一假期景区营销预热策略-2026W17.md",
+    "全国景区案例库/银基动物王国超出片品牌定位-2026W17.md",
+    "全国景区案例库/银基Live图-2026W16.md",
+    "全国景区案例库/郑州海昌海洋公园水下国潮-2026W17.md",
+    "全国景区案例库/只有河南排队区情景剧-2026W16.md",
+    "全国景区案例库/大唐不夜城夜游标杆-2026W17.md",
     "电影小镇/演出节目/穿越德化街.md",
     "电影小镇/历史数据/规律洞察.md",
-    "电影小镇/历史数据/客流营收分析.md",
     "电影小镇/历史数据/2026年门票政策.md",
-    "电影小镇/运营规划/环形水剧场与复古广场夏季运营方案.md",
-    "knowledge/2026年每日客流数据.md",
-    "全国景区案例库/第17周更新记录-20260426.md",
-    "entities/scripts/douyin_index_v9.md",
-    "entities/scripts/send_feishu_card.md",
-    "entities/scripts/query_passenger.md",
-    "entities/scripts/README.md",
     "entities/scripts",
-    "knowledge/建业电影小镇阶段性数据表.md",
     "knowledge",
     "raw/建业电影小镇阶段性数据表.xlsx",
     "sources",
