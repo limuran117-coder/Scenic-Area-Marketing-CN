@@ -1,0 +1,198 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 780" width="1200" height="780">
+<style>
+  text { font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', 'Microsoft JhengHei', 'SimHei', sans-serif; }
+  .title { font-size: 20px; font-weight: 700; fill: #111827; }
+  .subtitle { font-size: 11px; fill: #6b7280; }
+  .section { font-size: 13px; font-weight: 700; }
+  .step-head { font-size: 12px; font-weight: 700; }
+  .head { font-size: 11px; font-weight: 600; }
+  .body { font-size: 9px; fill: #4b5563; }
+  .small { font-size: 8px; fill: #9ca3af; }
+  .done { font-size: 10px; font-weight: 600; }
+  .badge { font-size: 9px; font-weight: 600; }
+  .metric { font-size: 14px; font-weight: 700; }
+</style>
+<defs>
+  <marker id="g1" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#ea580c"/></marker>
+  <marker id="g2" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#dc2626"/></marker>
+  <marker id="g3" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#2563eb"/></marker>
+  <marker id="g4" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#16a34a"/></marker>
+  <marker id="g5" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#9333ea"/></marker>
+  <marker id="g6" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0, 7 2.5, 0 5" fill="#7c3aed"/></marker>
+</defs>
+<rect width="1200" height="780" fill="#fafbfc"/>
+
+<!-- ===== TITLE ===== -->
+<text x="600" y="28" text-anchor="middle" class="title">竞品关键词深度分析 · 详细执行流程</text>
+<text x="600" y="46" text-anchor="middle" class="subtitle">15:00 cron · CDP四平台采集 · 7模块结构化 · Wiki归档 · 飞书卡片推送 · 2026-04-27</text>
+
+<!-- ===== STAGE 0: TRIGGER ===== -->
+<rect x="40" y="64" width="1120" height="64" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+<rect x="40" y="64" width="1120" height="28" rx="10" fill="#fef3c7"/>
+<rect x="40" y="80" width="1120" height="12" fill="#fef3c7"/>
+<text x="600" y="84" text-anchor="middle" class="step-head" fill="#b45309">⏰ 15:00 Cron触发 · 竞品关键词深度分析</text>
+<text x="60" y="106" class="body">① 读取状态文件 /tmp/daily_task_state.json → next = "阿那亚"</text>
+<text x="60" y="120" class="body">② 读取 SOP wiki/SOP/竞品关键词深度分析流程.md</text>
+<text x="600" y="120" text-anchor="middle" class="small">cron ID: d486bad5-d8f6-499a-85cb-66a5cc73f381</text>
+
+<!-- ===== STAGE 1: CDP DATA COLLECTION ===== -->
+<rect x="40" y="144" width="1120" height="230" rx="10" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="40" y="144" width="1120" height="32" rx="10" fill="#fff7ed"/>
+<rect x="40" y="164" width="1120" height="12" fill="#fff7ed"/>
+<text x="60" y="162" class="section" fill="#c2410c">Stage 1 · CDP四平台数据采集（专属Chrome Port 18800）</text>
+
+<!-- Platform 1: 抖音关键词 -->
+<rect x="56" y="184" width="240" height="140" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="56" y="184" width="240" height="22" rx="8" fill="#fee2e2"/>
+<text x="176" y="199" text-anchor="middle" class="head" fill="#dc2626">平台 1 · 抖音关键词页</text>
+<text x="70" y="222" class="body">脚本：cdp_keyword_deep.py</text>
+<text x="70" y="236" class="body">操作：输入"阿那亚" → Enter → 等3-5秒</text>
+<text x="70" y="250" class="body">等待：页面加载完成</text>
+<text x="70" y="264" class="body">滚动：下滑找到"关联分析"按钮</text>
+<text x="70" y="278" class="body">点击：关联分析 → 等加载</text>
+<text x="70" y="292" class="body">点击：人群分析 → 等加载</text>
+<text x="70" y="306" class="body">提取：关联词TOP10 + 人群画像4维度</text>
+<text x="70" y="323" text-anchor="middle" class="small">⚠️ 数据下午更新，08:00采的是昨日数据</text>
+
+<!-- Platform 2: 小红书灵犀 -->
+<rect x="316" y="184" width="240" height="140" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="316" y="184" width="240" height="22" rx="8" fill="#fee2e2"/>
+<text x="436" y="199" text-anchor="middle" class="head" fill="#dc2626">平台 2 · 小红书灵犀后台</text>
+<text x="330" y="222" class="body">URL：idea.xiaohongshu.com</text>
+<text x="330" y="236" class="body">Tab0：品牌总览 Brand数据</text>
+<text x="330" y="250" class="body">操作：JS注入激活搜索框</text>
+<text x="330" y="264" class="body">type: page.keyboard.type("阿那亚", delay=100)</text>
+<text x="330" y="278" class="body">按Enter选精确匹配（不点下拉）</text>
+<text x="330" y="292" class="body">提取：搜索总量/关联词/人群资产</text>
+<text x="330" y="306" class="body">切换Tab：搜索/内容都要抓</text>
+<text x="436" y="323" text-anchor="middle" class="small">⚠️ 两个Tab都要抓取</text>
+
+<!-- Platform 3: 小红书内容搜索 -->
+<rect x="576" y="184" width="240" height="140" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="576" y="184" width="240" height="22" rx="8" fill="#fee2e2"/>
+<text x="696" y="199" text-anchor="middle" class="head" fill="#dc2626">平台 3 · 小红书内容搜索</text>
+<text x="590" y="222" class="body">Tab6：小红书探索页</text>
+<text x="590" y="236" class="body">URL：xiaohongshu.com/explore</text>
+<text x="590" y="250" class="body">输入："阿那亚" → 搜索</text>
+<text x="590" y="264" class="body">提取：爆款笔记TOP10</text>
+<text x="590" y="278" class="body">记录：点赞/收藏/评论/博主类型</text>
+<text x="590" y="292" class="body">规律：爆款标题公式/内容类型</text>
+<text x="696" y="323" text-anchor="middle" class="small">⚠️ 禁止操作Explore页（Tab6 URL直采）</text>
+
+<!-- Platform 4: 百度 -->
+<rect x="836" y="184" width="240" height="140" rx="8" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="836" y="184" width="240" height="22" rx="8" fill="#dcfce7"/>
+<text x="956" y="199" text-anchor="middle" class="head" fill="#16a34a">平台 4 · 百度百科/搜索</text>
+<text x="850" y="222" class="body">Tab3：百度.com</text>
+<text x="850" y="236" class="body">搜索："阿那亚"</text>
+<text x="850" y="250" class="body">提取：票价/规模/媒体报道/舆情</text>
+<text x="850" y="264" class="body">百科：baike.baidu.com/item/</text>
+<text x="850" y="278" class="body">搜索：www.baidu.com/s?wd=</text>
+<text x="850" y="292" class="body">舆情：正负向标签提取</text>
+<text x="956" y="323" text-anchor="middle" class="small">✅ 公开可访问，无需登录</text>
+
+<!-- Arrow: Stage1 → Stage2 -->
+<line x1="600" y1="374" x2="600" y2="400" stroke="#ea580c" stroke-width="2" marker-end="url(#g1)"/>
+<text x="610" y="390" class="small" fill="#c2410c">数据汇集</text>
+
+<!-- ===== STAGE 2: AI ANALYSIS ===== -->
+<rect x="40" y="404" width="1120" height="180" rx="10" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="40" y="404" width="1120" height="32" rx="10" fill="#f5f3ff"/>
+<rect x="40" y="424" width="1120" height="12" fill="#f5f3ff"/>
+<text x="60" y="422" class="section" fill="#7c3aed">Stage 2 · AI分析 · 七模块结构化（MiniMax M2.7）</text>
+
+<!-- 7 modules in 2 rows -->
+<rect x="56" y="454" width="158" height="48" rx="6" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="135" y="468" text-anchor="middle" class="badge" fill="#7c3aed">模块 1 · 核心数据快照</text>
+<text x="135" y="488" text-anchor="middle" class="body">搜索指数/综合指数/地理/级别</text>
+
+<rect x="224" y="454" width="158" height="48" rx="6" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="303" y="468" text-anchor="middle" class="badge" fill="#7c3aed">模块 2 · 抖音数据</text>
+<text x="303" y="488" text-anchor="middle" class="body">关联词TOP10/人群画像4维度</text>
+
+<rect x="392" y="454" width="158" height="48" rx="6" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="471" y="468" text-anchor="middle" class="badge" fill="#7c3aed">模块 3 · 小红书数据</text>
+<text x="471" y="488" text-anchor="middle" class="body">搜索总量/热度/爆款笔记</text>
+
+<rect x="560" y="454" width="158" height="48" rx="6" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="639" y="468" text-anchor="middle" class="badge" fill="#7c3aed">模块 4 · 内容规律</text>
+<text x="639" y="488" text-anchor="middle" class="body">爆款标题/博主类型/内容类型</text>
+
+<rect x="728" y="454" width="158" height="48" rx="6" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="807" y="468" text-anchor="middle" class="badge" fill="#7c3aed">模块 5 · 百度数据</text>
+<text x="807" y="488" text-anchor="middle" class="body">票价/规模/舆情/百科</text>
+
+<rect x="896" y="454" width="158" height="48" rx="6" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="975" y="468" text-anchor="middle" class="badge" fill="#7c3aed">模块 6 · 规律与洞察</text>
+<text x="975" y="488" text-anchor="middle" class="body">爆款逻辑/人群特征/季节性</text>
+
+<rect x="1064" y="454" width="76" height="48" rx="6" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="1102" y="468" text-anchor="middle" class="badge" fill="#7c3aed">模块 7</text>
+<text x="1102" y="488" text-anchor="middle" class="body">电影小镇借鉴</text>
+
+<!-- 分析要点 -->
+<rect x="56" y="514" width="1084" height="58" rx="6" fill="#f8fafc" stroke="#e5e7eb" stroke-width="1"/>
+<text x="70" y="534" class="body">分析要点：四平台数据交叉验证（抖音/小红书/百度/内容）→ 综合指数排序 → 环比涨跌（>±20%标注🔺）→ 人群画像4字段完整性校验</text>
+<text x="70" y="550" class="body">数据缺失标注"-"（不得留空）· 禁止猜测 · 分析深度要求：不只报数字，要分析"为什么"和"意味着什么"</text>
+<text x="70" y="566" text-anchor="middle" class="badge" fill="#7c3aed">人群画像4字段：年龄/性别/地域/兴趣偏好（缺一标注"—"）</text>
+
+<!-- Arrow: Stage2 → Stage3 -->
+<line x1="600" y1="584" x2="600" y2="608" stroke="#9333ea" stroke-width="2" marker-end="url(#g5)"/>
+<text x="610" y="598" class="small" fill="#7c3aed">结构化报告生成</text>
+
+<!-- ===== STAGE 3: OUTPUT ===== -->
+<rect x="40" y="620" width="1120" height="148" rx="10" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="40" y="620" width="1120" height="32" rx="10" fill="#dcfce7"/>
+<rect x="40" y="640" width="1120" height="12" fill="#dcfce7"/>
+<text x="60" y="638" class="section" fill="#166534">Stage 3 · 输出：Wiki归档 + 飞书卡片推送 + 状态更新</text>
+
+<!-- Wiki归档 -->
+<rect x="56" y="660" width="300" height="90" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="56" y="660" width="300" height="20" rx="6" fill="#dcfce7"/>
+<text x="206" y="674" text-anchor="middle" class="head" fill="#166534">Step 1 · Wiki归档（强制）</text>
+<text x="70" y="696" class="body">路径：wiki/竞品分析/阿那亚深度分析.md</text>
+<text x="70" y="710" class="body">内容：7模块 + 人群画像 + 规律洞察</text>
+<text x="70" y="724" class="body">时间：分析完成后立即写入</text>
+<text x="70" y="738" class="body">⚠️ 补录案例：老君山/重渡沟/龙门/海昌（简化版）</text>
+
+<!-- 飞书卡片 -->
+<rect x="376" y="660" width="300" height="90" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="376" y="660" width="300" height="20" rx="6" fill="#dcfce7"/>
+<text x="526" y="674" text-anchor="middle" class="head" fill="#166534">Step 2 · 飞书卡片推送</text>
+<text x="390" y="696" class="body">发送至：电影小镇群 oc_2581...</text>
+<text x="390" y="710" class="body">格式：schema 2.0 · elements[] · markdown</text>
+<text x="390" y="724" class="body">卡片数：≤5个（超出拆成多张）</text>
+<text x="390" y="738" class="body">私信回执 → ou_f308d672...（站长）</text>
+
+<!-- 状态更新 -->
+<rect x="696" y="660" width="300" height="90" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<rect x="696" y="660" width="300" height="20" rx="6" fill="#fef3c7"/>
+<text x="846" y="674" text-anchor="middle" class="head" fill="#b45309">Step 3 · 状态文件更新</text>
+<text x="710" y="696" class="body">JSON：/tmp/daily_task_state.json</text>
+<text x="710" y="710" class="body">操作：阿那亚 from "next" → "done"</text>
+<text x="710" y="724" class="body">next：更新为下一个竞品（剑门关）</text>
+<text x="710" y="738" class="body">last_updated：2026-04-28</text>
+
+<!-- GitHub备份 -->
+<rect x="1016" y="660" width="124" height="90" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+<rect x="1016" y="660" width="124" height="20" rx="6" fill="#dcfce7"/>
+<text x="1078" y="674" text-anchor="middle" class="head" fill="#166534">Step 4 · GitHub</text>
+<text x="1026" y="696" class="body">vault backup</text>
+<text x="1078" y="710" text-anchor="middle" class="small">自动推送</text>
+<text x="1078" y="724" text-anchor="middle" class="small">Wiki归档</text>
+<text x="1078" y="738" text-anchor="middle" class="small">完成 ✅</text>
+
+<!-- ===== LEGEND ===== -->
+<rect x="40" y="778" width="1120" height="20" rx="4" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+<text x="56" y="793" class="small">图例：</text>
+<rect x="96" y="785" width="12" height="10" rx="2" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+<text x="114" y="795" class="small">CDP采集</text>
+<rect x="172" y="785" width="12" height="10" rx="2" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="190" y="795" class="small">AI分析</text>
+<rect x="248" y="785" width="12" height="10" rx="2" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+<text x="266" y="795" class="small">Wiki/飞书输出</text>
+<rect x="324" y="785" width="12" height="10" rx="2" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="342" y="795" class="small">状态更新</text>
+<text x="420" y="795" class="small">⚠=需登录 | ✅=公开可访问 | 数据缺失标注"-" | 禁止猜测 | 关联词TOP10+人群画像4维度必须完整</text>
+<text x="1020" y="795" class="small" fill="#94a3b8">v2.1 竞品关键词分析详细流程图 · 2026-04-28 · 李涯 佛龛</text>
+</svg>
