@@ -35,7 +35,7 @@ This project is different. It runs **proactively**, 24/7, with:
 
 ### 0. System-Wide Architecture
 
-![System Architecture](wiki/diagrams/system-overview.svg)
+![System Architecture](wiki/diagrams/system-architecture.svg)
 
 > Fig 12: MEMORY.md as the rule core → Cron scheduling → CDP 4-platform collection → AI 7-module analysis → Wiki archive + Feishu push → Feedback loop drives system evolution
 
@@ -239,7 +239,7 @@ The knowledge layer is the system's "brain" — separate from the business execu
 
 ### 0. 系统全局架构
 
-![系统全局关系图](wiki/diagrams/system-overview.svg)
+![系统全局关系图](wiki/diagrams/data-pipeline.svg)
 
 > 图12：MEMORY.md铁律中枢 → Cron调度 → CDP四平台采集 → AI七模块分析 → Wiki归档+飞书推送 → 反馈闭环驱动系统进化
 
