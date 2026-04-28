@@ -111,7 +111,7 @@
 
 <!-- ===== LAYER 2: Tools ===== -->
 <rect x="60" y="400" width="1480" height="145" rx="10" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5" stroke-dasharray="6,4"/>
-<text x="80" y="422" font-size="14" font-weight="700" fill="#92400e">② Tools & Integrations</text>
+<text x="80" y="422" font-size="14" font-weight="700" fill="#92400e">② Tools &amp; Integrations</text>
 
 <!-- CDP Browser -->
 <rect x="90" y="438" width="170" height="95" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>

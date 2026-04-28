@@ -258,7 +258,7 @@
 <text x="1060" y="616" class="body">Viral analysis · Daily review</text>
 <text x="1060" y="632" class="body">周度客流 · Xiaohongshu日报</text>
 
-<!-- Historical data & 案例库 -->
+<!-- Historical data &amp; 案例库 -->
 <rect x="1046" y="648" width="140" height="80" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="1"/>
 <text x="1116" y="664" text-anchor="middle" class="head" fill="#2563eb">Historical data</text>
 <text x="1056" y="684" class="body">W17 ✅ 14,392 people</text>
