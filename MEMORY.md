@@ -101,6 +101,7 @@ core_mission: 年度客流153万、营收1.12亿
 | 2026每日 | ~/Desktop/2026游客量统计.csv |
 | 抖音Cookie | /tmp/juLiang_cookies.json（备用CDP：18800） |
 | 小红书Cookie | /tmp/xiaohongshu_cookies.json（04-23解封已验证） |
+| 微博Cookie | 专属浏览器Tab6已登录（weibo.com/）04-28新增 |
 | 飞书群 | 电影小镇群oc_2581.../数据推送群oc_f109... |
 
 详细SOP索引 → wiki/SOP/
