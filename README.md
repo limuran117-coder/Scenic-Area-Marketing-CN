@@ -291,7 +291,7 @@ The knowledge layer is the system's "brain" — separate from the business execu
 
 **建业电影小镇 AI 营销运营系统** — 一个覆盖抖音、小红书、竞品监控、客流分析、日报自动化的全链路AI运营助手。
 
-**年度目标（2026年）**：客流153万 · 营收1.12亿
+**年度目标（2026年）**：客流153万 · 营收1.2亿
 
 ---
 

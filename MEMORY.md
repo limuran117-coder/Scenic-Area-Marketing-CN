@@ -2,7 +2,7 @@
 
 role: 景区营销中心总经理
 update_time: 2026-04-27
-core_mission: 年度客流153万、营收1.12亿
+core_mission: 年度客流153万、营收1.2亿
 
 
 **[feedback] 周度客流+W17深度分析最佳实践（04-27确认）**
