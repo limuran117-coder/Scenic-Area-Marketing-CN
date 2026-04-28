@@ -35,7 +35,7 @@ This project is different. It runs **proactively**, 24/7, with:
 
 ### 0. System-Wide Architecture
 
-![System Architecture](wiki/diagrams/system-architecture.svg)
+![System Architecture](wiki/diagrams/system-architecture-en.svg)
 
 > Fig 12: MEMORY.md as the rule core → Cron scheduling → CDP 4-platform collection → AI 7-module analysis → Wiki archive + Feishu push → Feedback loop drives system evolution
 

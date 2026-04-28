@@ -1,0 +1,347 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1100" width="1600" height="1100">
+<style>
+  text { font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', 'Microsoft JhengHei', 'SimHei', sans-serif; }
+  .mono { font-family: 'SF Mono', 'Menlo', monospace; font-size: 10px; }
+</style>
+<defs>
+  <marker id="a-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563eb"/></marker>
+  <marker id="a-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#16a34a"/></marker>
+  <marker id="a-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#9333ea"/></marker>
+  <marker id="a-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ea580c"/></marker>
+  <marker id="a-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#dc2626"/></marker>
+  <marker id="a-teal" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#0891b2"/></marker>
+  <marker id="a-yellow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ca8a04"/></marker>
+</defs>
+<rect width="1600" height="1100" fill="#ffffff"/>
+
+<!-- TITLE -->
+<text x="800" y="30" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">Jianye Film Town · Digital Marketing Automation System · Full Architecture</text>
+<text x="800" y="52" text-anchor="middle" font-size="12" fill="#64748b">OpenClaw Multi-Agent System | LLM Knowledge Layer | Hot-Swap Architecture | 2026-04-27</text>
+
+<!-- ===== LAYER 0: User ===== -->
+<rect x="620" y="70" width="360" height="55" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+<text x="800" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="#166534">User Layer</text>
+<text x="800" y="105" text-anchor="middle" font-size="11" fill="#6b7280">Station Master · Feishu Group/DM · Real-time Commands</text>
+
+<!-- ===== LAYER 1: OpenClaw Core ===== -->
+<rect x="60" y="150" width="1480" height="230" rx="10" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="80" y="172" font-size="14" font-weight="700" fill="#1e40af">① OpenClaw Core Engine</text>
+
+<!-- Main Agent -->
+<rect x="90" y="195" width="180" height="75" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="90" y="195" width="180" height="24" rx="8" fill="#dbeafe"/>
+<text x="180" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Main Agent</text>
+<text x="180" y="230" text-anchor="middle" font-size="9" fill="#6b7280">Real-time Session · Decision Hub</text>
+<text x="180" y="244" text-anchor="middle" font-size="9" fill="#6b7280">SOUL.md · USER.md</text>
+<text x="180" y="258" text-anchor="middle" font-size="9" fill="#6b7280">MEMORY.md · HEARTBEAT</text>
+
+<!-- A+B+C Agents -->
+<rect x="310" y="195" width="180" height="75" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="310" y="195" width="180" height="24" rx="8" fill="#dbeafe"/>
+<text x="400" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">A+B+C 多Agent</text>
+<text x="400" y="230" text-anchor="middle" font-size="9" fill="#6b7280">Sub-agent · Sessions Management</text>
+<text x="400" y="244" text-anchor="middle" font-size="9" fill="#6b7280">Task Distribution · Result Aggregation</text>
+<text x="400" y="258" text-anchor="middle" font-size="9" fill="#6b7280">sessions_spawn 编排</text>
+
+<!-- Isolated Sessions -->
+<rect x="530" y="195" width="200" height="75" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="530" y="195" width="200" height="24" rx="8" fill="#dbeafe"/>
+<text x="630" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Isolated Sessions</text>
+<text x="630" y="230" text-anchor="middle" font-size="9" fill="#6b7280">Cron Execution · Isolated Sessions</text>
+<text x="630" y="244" text-anchor="middle" font-size="9" fill="#6b7280">14个定时任务 · 静默执行</text>
+<text x="630" y="258" text-anchor="middle" font-size="9" fill="#6b7280">互不干扰 · 无状态</text>
+
+<!-- Cron Scheduler -->
+<rect x="770" y="195" width="200" height="75" rx="8" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="770" y="195" width="200" height="24" rx="8" fill="#dbeafe"/>
+<text x="870" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#1e40af">Cron Scheduler</text>
+<text x="870" y="230" text-anchor="middle" font-size="9" fill="#6b7280">任务调度器</text>
+<text x="870" y="244" text-anchor="middle" font-size="9" fill="#6b7280">状态文件轮换 · 断点续做</text>
+<text x="870" y="258" text-anchor="middle" font-size="9" fill="#6b7280">20个任务 · 9:30-22:00</text>
+
+<!-- Skill Router -->
+<rect x="1010" y="195" width="200" height="75" rx="8" fill="#ffffff" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="1010" y="195" width="200" height="24" rx="8" fill="#ede9fe"/>
+<text x="1110" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#7c3aed">Skill Router</text>
+<text x="1110" y="230" text-anchor="middle" font-size="9" fill="#6b7280">47个Skills · 自动匹配</text>
+<text x="1110" y="244" text-anchor="middle" font-size="9" fill="#6b7280">Wiki SOP · Agent方法论</text>
+<text x="1110" y="258" text-anchor="middle" font-size="9" fill="#6b7280">read skill → 执行 → 反馈</text>
+
+<!-- Memory System -->
+<rect x="1250" y="195" width="180" height="75" rx="8" fill="#ffffff" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="1250" y="195" width="180" height="24" rx="8" fill="#ede9fe"/>
+<text x="1340" y="211" text-anchor="middle" font-size="11" font-weight="600" fill="#7c3aed">Memory System</text>
+<text x="1340" y="230" text-anchor="middle" font-size="9" fill="#6b7280">MEMORY.md · daily日志</text>
+<text x="1340" y="244" text-anchor="middle" font-size="9" fill="#6b7280">铁律沉淀 · feedback纠错</text>
+<text x="1340" y="258" text-anchor="middle" font-size="9" fill="#6b7280">经验固化 · 决策依据</text>
+
+<!-- LLM知识层 (bottom row of core) -->
+<rect x="90" y="285" width="1340" height="80" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="110" y="305" font-size="12" font-weight="600" fill="#6d28d9">LLM知识层 (karpathy-wiki)</text>
+
+<!-- sources -->
+<rect x="110" y="315" width="180" height="42" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="200" y="330" text-anchor="middle" font-size="10" font-weight="600" fill="#7c3aed">sources/</text>
+<text x="200" y="344" text-anchor="middle" font-size="9" fill="#6b7280">客流/抖音/竞品原始数据</text>
+
+<!-- concepts -->
+<rect x="320" y="315" width="180" height="42" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="410" y="330" text-anchor="middle" font-size="10" font-weight="600" fill="#7c3aed">concepts/</text>
+<text x="410" y="344" text-anchor="middle" font-size="9" fill="#6b7280">景区类型/情绪营销/漏斗</text>
+
+<!-- entities -->
+<rect x="530" y="315" width="180" height="42" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="620" y="330" text-anchor="middle" font-size="10" font-weight="600" fill="#7c3aed">entities/</text>
+<text x="620" y="344" text-anchor="middle" font-size="9" fill="#6b7280">8个竞品/平台/景点词条</text>
+
+<!-- queries -->
+<rect x="740" y="315" width="180" height="42" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="830" y="330" text-anchor="middle" font-size="10" font-weight="600" fill="#7c3aed">queries/</text>
+<text x="830" y="344" text-anchor="middle" font-size="9" fill="#6b7280">决策问题/深度查询</text>
+
+<!-- SOP体系 -->
+<rect x="950" y="315" width="240" height="42" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="1070" y="330" text-anchor="middle" font-size="10" font-weight="600" fill="#b45309">SOP体系 / 规范文档</text>
+<text x="1070" y="344" text-anchor="middle" font-size="9" fill="#6b7280">14个专属SOP · cron强制嵌入章节</text>
+
+<!-- INGEST/QUERY/LINT -->
+<rect x="1220" y="315" width="200" height="42" rx="6" fill="#ffffff" stroke="#a78bfa" stroke-width="1"/>
+<text x="1320" y="330" text-anchor="middle" font-size="10" font-weight="600" fill="#7c3aed">知识层操作</text>
+<text x="1320" y="344" text-anchor="middle" font-size="9" fill="#6b7280">INGEST → QUERY → LINT</text>
+
+<!-- ===== LAYER 2: Tools ===== -->
+<rect x="60" y="400" width="1480" height="145" rx="10" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="80" y="422" font-size="14" font-weight="700" fill="#92400e">② Tools & Integrations</text>
+
+<!-- CDP Browser -->
+<rect x="90" y="438" width="170" height="95" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="90" y="438" width="170" height="22" rx="8" fill="#fff7ed"/>
+<text x="175" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#c2410c">CDP Browser (18800)</text>
+<text x="175" y="470" text-anchor="middle" font-size="9" fill="#6b7280">专属Chrome · 已登录态</text>
+<text x="175" y="484" text-anchor="middle" font-size="9" fill="#6b7280">Tab0 小红书灵犀后台</text>
+<text x="175" y="498" text-anchor="middle" font-size="9" fill="#6b7280">Tab4 抖音指数/关键词</text>
+<text x="175" y="512" text-anchor="middle" font-size="9" fill="#6b7280">Tab6 小红书探索页</text>
+<text x="175" y="526" text-anchor="middle" font-size="9" fill="#dc2626">⚠️ 需账号登录</text>
+
+<!-- Playwright Scripts -->
+<rect x="285" y="438" width="180" height="95" rx="8" fill="#ffffff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="285" y="438" width="180" height="22" rx="8" fill="#fff7ed"/>
+<text x="375" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#c2410c">Playwright Scripts</text>
+<text x="375" y="470" text-anchor="middle" font-size="9" fill="#6b7280">55个自动化脚本</text>
+<text x="375" y="484" text-anchor="middle" font-size="9" fill="#6b7280">douyin_index_v9.py</text>
+<text x="375" y="498" text-anchor="middle" font-size="9" fill="#6b7280">cdp_keyword_deep.py</text>
+<text x="375" y="512" text-anchor="middle" font-size="9" fill="#6b7280">xiaohongshu_crawl.py</text>
+<text x="375" y="526" text-anchor="middle" font-size="9" fill="#6b7280">industry_news_browser.py</text>
+
+<!-- MiniMax CLI -->
+<rect x="490" y="438" width="170" height="95" rx="8" fill="#ffffff" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="490" y="438" width="170" height="22" rx="8" fill="#f0fdfa"/>
+<text x="575" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#0e7490">MiniMax CLI</text>
+<text x="575" y="470" text-anchor="middle" font-size="9" fill="#6b7280">文本/图像/语音/音乐/搜索</text>
+<text x="575" y="484" text-anchor="middle" font-size="9" fill="#16a34a">✅ image 1/50本周</text>
+<text x="575" y="498" text-anchor="middle" font-size="9" fill="#16a34a">✅ speech 80/4k本周</text>
+<text x="575" y="512" text-anchor="middle" font-size="9" fill="#6b7280">✅ search 150次/周</text>
+<text x="575" y="526" text-anchor="middle" font-size="9" fill="#dc2626">❌ video Hailuo需Max</text>
+
+<!-- Feishu API -->
+<rect x="685" y="438" width="170" height="95" rx="8" fill="#ffffff" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="685" y="438" width="170" height="22" rx="8" fill="#f0fdfa"/>
+<text x="770" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#0e7490">Feishu API</text>
+<text x="770" y="470" text-anchor="middle" font-size="9" fill="#6b7280">飞书卡片推送</text>
+<text x="770" y="484" text-anchor="middle" font-size="9" fill="#6b7280">电影小镇群/数据推送群</text>
+<text x="770" y="498" text-anchor="middle" font-size="9" fill="#6b7280">私信回执 · Bitable</text>
+<text x="770" y="512" text-anchor="middle" font-size="9" fill="#6b7280">send_feishu_card.py</text>
+<text x="770" y="526" text-anchor="middle" font-size="9" fill="#6b7280">batch_insert_feishu.py</text>
+
+<!-- GitHub -->
+<rect x="880" y="438" width="160" height="95" rx="8" fill="#ffffff" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="880" y="438" width="160" height="22" rx="8" fill="#f0fdfa"/>
+<text x="960" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#0e7490">GitHub Vault</text>
+<text x="960" y="470" text-anchor="middle" font-size="9" fill="#6b7280">workspace/wiki自动备份</text>
+<text x="960" y="484" text-anchor="middle" font-size="9" fill="#6b7280">每日多次push</text>
+<text x="960" y="498" text-anchor="middle" font-size="9" fill="#6b7280">竞品档案/SOP/案例库</text>
+<text x="960" y="512" text-anchor="middle" font-size="9" fill="#6b7280">历史数据W16/W17归档</text>
+<text x="960" y="526" text-anchor="middle" font-size="9" fill="#6b7280">W17期-20260427.md</text>
+
+<!-- Obsidian -->
+<rect x="1065" y="438" width="160" height="95" rx="8" fill="#ffffff" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="1065" y="438" width="160" height="22" rx="8" fill="#f0fdfa"/>
+<text x="1145" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#0e7490">Obsidian Sync</text>
+<text x="1145" y="470" text-anchor="middle" font-size="9" fill="#6b7280">sync_obsidian_daily.py</text>
+<text x="1145" y="484" text-anchor="middle" font-size="9" fill="#6b7280">CSV数据 → Wiki写入</text>
+<text x="1145" y="498" text-anchor="middle" font-size="9" fill="#6b7280">客流/穿越德化街</text>
+<text x="1145" y="512" text-anchor="middle" font-size="9" fill="#6b7280">knowledge/建业电影小镇</text>
+<text x="1145" y="526" text-anchor="middle" font-size="9" fill="#6b7280">阶段性数据表.md</text>
+
+<!-- LLM Wiki Engine -->
+<rect x="1250" y="438" width="180" height="95" rx="8" fill="#ffffff" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="1250" y="438" width="180" height="22" rx="8" fill="#ede9fe"/>
+<text x="1340" y="453" text-anchor="middle" font-size="11" font-weight="600" fill="#7c3aed">LLM Wiki Engine</text>
+<text x="1340" y="470" text-anchor="middle" font-size="9" fill="#6b7280">llmwiki_ingest.py</text>
+<text x="1340" y="484" text-anchor="middle" font-size="9" fill="#6b7280">llmwiki_query.py</text>
+<text x="1340" y="498" text-anchor="middle" font-size="9" fill="#6b7280">llmwiki_lint.py</text>
+<text x="1340" y="512" text-anchor="middle" font-size="9" fill="#6b7280">知识沉淀 → 决策依据</text>
+<text x="1340" y="526" text-anchor="middle" font-size="9" fill="#6b7280">INGEST/QUERY/LINT三模式</text>
+
+<!-- ===== LAYER 3: Data Sources ===== -->
+<rect x="60" y="565" width="1480" height="115" rx="10" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="80" y="587" font-size="14" font-weight="700" fill="#6d28d9">③ Data Sources 数据源</text>
+
+<!-- 抖音 -->
+<rect x="90" y="605" width="160" height="62" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+<text x="170" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#dc2626">抖音</text>
+<text x="170" y="638" text-anchor="middle" font-size="9" fill="#6b7280">Creator Portal 订阅页</text>
+<text x="170" y="652" text-anchor="middle" font-size="9" fill="#6b7280">关键词页 · 关联词/人群画像</text>
+<text x="170" y="664" text-anchor="middle" font-size="9" fill="#dc2626">⚠️ 需登录认证</text>
+
+<!-- 小红书 -->
+<rect x="275" y="605" width="160" height="62" rx="6" fill="#ffffff" stroke="#dc2626" stroke-width="1.5"/>
+<text x="355" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#dc2626">小红书</text>
+<text x="355" y="638" text-anchor="middle" font-size="9" fill="#6b7280">灵犀后台Brand/趋势分析</text>
+<text x="355" y="652" text-anchor="middle" font-size="9" fill="#6b7280">探索页搜索结果</text>
+<text x="355" y="664" text-anchor="middle" font-size="9" fill="#dc2626">⚠️ 需登录认证</text>
+
+<!-- 百度 -->
+<rect x="460" y="605" width="130" height="62" rx="6" fill="#ffffff" stroke="#16a34a" stroke-width="1.5"/>
+<text x="525" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#16a34a">百度</text>
+<text x="525" y="638" text-anchor="middle" font-size="9" fill="#6b7280">百科 · 搜索 · 舆情</text>
+<text x="525" y="652" text-anchor="middle" font-size="9" fill="#6b7280">票价/规模/媒体报道</text>
+<text x="525" y="664" text-anchor="middle" font-size="9" fill="#16a34a">✅ 公开可访问</text>
+
+<!-- 客流CSV -->
+<rect x="615" y="605" width="160" height="62" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="695" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">客流CSV</text>
+<text x="695" y="638" text-anchor="middle" font-size="9" fill="#6b7280">Desktop/2026游客量统计</text>
+<text x="695" y="652" text-anchor="middle" font-size="9" fill="#6b7280">散客/渠道拆分 · YTD追踪</text>
+<text x="695" y="664" text-anchor="middle" font-size="9" fill="#2563b">✅ 每日手动更新</text>
+
+<!-- 历年xlsx -->
+<rect x="800" y="605" width="160" height="62" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="880" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">历年xlsx</text>
+<text x="880" y="638" text-anchor="middle" font-size="9" fill="#6b7280">2023-2025门票统计</text>
+<text x="880" y="652" text-anchor="middle" font-size="9" fill="#6b7280">历史同比 · 规律洞察</text>
+<text x="880" y="664" text-anchor="middle" font-size="9" fill="#2563b">✅ 静态参考数据</text>
+
+<!-- 穿越德化街数据 -->
+<rect x="985" y="605" width="160" height="62" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="1065" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">穿越德化街</text>
+<text x="1065" y="638" text-anchor="middle" font-size="9" fill="#6b7280">演出场次/上座率/售卖</text>
+<text x="1065" y="652" text-anchor="middle" font-size="9" fill="#6b7280">memory/穿越德化街_2026W*.csv</text>
+<text x="1065" y="664" text-anchor="middle" font-size="9" fill="#2563b">✅ 每周期归档</text>
+
+<!-- 竞品档案 -->
+<rect x="1170" y="605" width="160" height="62" rx="6" fill="#ffffff" stroke="#2563eb" stroke-width="1.5"/>
+<text x="1250" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#2563eb">竞品档案</text>
+<text x="1250" y="638" text-anchor="middle" font-size="9" fill="#6b7280">21个景区关键词池</text>
+<text x="1250" y="652" text-anchor="middle" font-size="9" fill="#6b7280">wiki/竞品分析/*.md</text>
+<text x="1250" y="664" text-anchor="middle" font-size="9" fill="#2563b">✅ 已归档10个</text>
+
+<!-- 案例库 -->
+<rect x="1355" y="605" width="165" height="62" rx="6" fill="#ffffff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="1437" y="623" text-anchor="middle" font-size="11" font-weight="600" fill="#9333ea">全国案例库</text>
+<text x="1437" y="638" text-anchor="middle" font-size="9" fill="#6b7280">全国景区爆款营销案例</text>
+<text x="1437" y="652" text-anchor="middle" font-size="9" fill="#6b7280">wiki/全国景区案例库/</text>
+<text x="1437" y="664" text-anchor="middle" font-size="9" fill="#9333ea">✅ 持续积累中</text>
+
+<!-- ===== LAYER 4: Cron Jobs ===== -->
+<rect x="60" y="700" width="1480" height="130" rx="10" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="80" y="722" font-size="14" font-weight="700" fill="#166534">④ Cron 任务调度（20个）</text>
+
+<!-- Daily tasks -->
+<text x="90" y="742" font-size="11" font-weight="600" fill="#166534">每日任务</text>
+<rect x="90" y="750" width="450" height="70" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+<text x="100" y="766" font-size="9" fill="#374151">09:30 周度客流营收洞察（W17✅）</text>
+<text x="100" y="780" font-size="9" fill="#374151">10:00 小红书日报 / 文旅热点追踪</text>
+<text x="100" y="794" font-size="9" fill="#374151">10:30 抖音指数日报（8景区）</text>
+<text x="100" y="808" font-size="9" fill="#374151">14:00 行业热点采集 | 15:00 竞品关键词+爆款</text>
+<text x="100" y="822" font-size="9" fill="#374151">18:00 竞品内容动态 | 20:00 案例库更新 | 22:00 复盘</text>
+
+<!-- Weekly tasks -->
+<text x="560" y="742" font-size="11" font-weight="600" fill="#166534">周/月任务</text>
+<rect x="560" y="750" width="350" height="70" rx="6" fill="#dcfce7" stroke="#86efac" stroke-width="1"/>
+<text x="570" y="766" font-size="9" fill="#374151">周一09:30 周度客流报告（W17✅）</text>
+<text x="570" y="780" font-size="9" fill="#374151">周五09:00 文旅营销案例轮换</text>
+<text x="570" y="794" font-size="9" fill="#374151">周六00:00 周度技能探索 / 周度清理</text>
+<text x="570" y="808" font-size="9" fill="#374151">周日10:00 Wiki健康检查 / 代码库漂移</text>
+<text x="570" y="822" font-size="9" fill="#374151">周日00:00 系统升级含GitHub推送</text>
+
+<!-- Keyword Rotation -->
+<text x="930" y="742" font-size="11" font-weight="600" fill="#166534">竞品关键词轮换</text>
+<rect x="930" y="750" width="330" height="70" rx="6" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+<text x="940" y="766" font-size="9" fill="#92400e">状态文件：/tmp/daily_task_state.json</text>
+<text x="940" y="780" font-size="9" fill="#374151">done: 万岁山/清明/只有河南/银基/</text>
+<text x="940" y="794" font-size="9" fill="#374151">方特/海昌/只有红楼梦/老君山/</text>
+<text x="940" y="808" font-size="9" fill="#374151">重渡沟/龙门石窟 ✅ 共10个</text>
+<text x="940" y="822" font-size="9" fill="#ea580c">next: 阿那亚 → 剑门关 → 景德镇...</text>
+
+<!-- 决策引擎 -->
+<text x="1280" y="742" font-size="11" font-weight="600" fill="#166534">AI决策引擎</text>
+<rect x="1280" y="750" width="250" height="70" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1"/>
+<text x="1290" y="766" font-size="9" fill="#166534">触发：评分异常→情绪负面→转化下滑</text>
+<text x="1290" y="780" font-size="9" fill="#374151">穿越德化街剧场监测 · 竞品爆款预警</text>
+<text x="1290" y="794" font-size="9" fill="#374151">YTD进度差预警（领先/落后pp）</text>
+<text x="1290" y="808" font-size="9" fill="#374151">SOP强制章节 + 铁律纠错反馈闭环</text>
+<text x="1290" y="822" font-size="9" fill="#16a34a">反应链：发现→分析→建议→执行</text>
+
+<!-- ===== LAYER 5: Outputs ===== -->
+<rect x="60" y="850" width="1480" height="100" rx="10" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5" stroke-dasharray="6,4"/>
+<text x="80" y="872" font-size="14" font-weight="700" fill="#111827">⑤ Outputs 输出层</text>
+
+<rect x="90" y="885" width="200" height="55" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+<text x="190" y="902" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">飞书卡片推送</text>
+<text x="190" y="917" text-anchor="middle" font-size="9" fill="#6b7280">群(oc_2581) + 私信回执</text>
+<text x="190" y="932" text-anchor="middle" font-size="9" fill="#6b7280">send_feishu_card.py · schema 2.0</text>
+
+<rect x="315" y="885" width="180" height="55" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+<text x="405" y="902" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">Wiki归档</text>
+<text x="405" y="917" text-anchor="middle" font-size="9" fill="#6b7280">竞品档案 · SOP · 历史W期</text>
+<text x="405" y="932" text-anchor="middle" font-size="9" fill="#6b7280">W17期-20260427.md ✅</text>
+
+<rect x="520" y="885" width="200" height="55" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+<text x="620" y="902" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">GitHub Vault备份</text>
+<text x="620" y="917" text-anchor="middle" font-size="9" fill="#6b7280">每日自动push · Vault</text>
+<text x="620" y="932" text-anchor="middle" font-size="9" fill="#6b7280">git log: 02020b5 12:35</text>
+
+<rect x="745" y="885" width="170" height="55" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+<text x="830" y="902" text-anchor="middle" font-size="11" font-weight="600" fill="#166534">CSV数据写入</text>
+<text x="830" y="917" text-anchor="middle" font-size="9" fill="#6b7280">Desktop/2026游客量统计.csv</text>
+<text x="830" y="932" text-anchor="middle" font-size="9" fill="#6b7280">穿越德化街_2026W*.csv</text>
+
+<rect x="940" y="885" width="200" height="55" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="1040" y="902" text-anchor="middle" font-size="11" font-weight="600" fill="#b45309">AI决策建议</text>
+<text x="1040" y="917" text-anchor="middle" font-size="9" fill="#6b7280">洞察 · 行动建议 · 预警</text>
+<text x="1040" y="932" text-anchor="middle" font-size="9" fill="#6b7280">④每周日10:00健康检查</text>
+
+<rect x="1165" y="885" width="180" height="55" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="1255" y="902" text-anchor="middle" font-size="11" font-weight="600" fill="#b45309">MiniMax素材生成</text>
+<text x="1255" y="917" text-anchor="middle" font-size="9" fill="#6b7280">营销海报 · 广播词 · BGM</text>
+<text x="1255" y="932" text-anchor="middle" font-size="9" fill="#6b7280">mmx image/speech/music</text>
+
+<rect x="1370" y="885" width="160" height="55" rx="6" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+<text x="1450" y="902" text-anchor="middle" font-size="11" font-weight="600" fill="#7c3aed">知识层沉淀</text>
+<text x="1450" y="917" text-anchor="middle" font-size="9" fill="#6b7280">LLM Wiki INGEST自动化</text>
+<text x="1450" y="932" text-anchor="middle" font-size="9" fill="#6b7280">concepts/entities/queries</text>
+
+<!-- ===== 热插拔架构说明 ===== -->
+<rect x="60" y="965" width="1480" height="55" rx="8" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="80" y="985" font-size="12" font-weight="700" fill="#0e7490">🔥 热插拔配置层</text>
+<text x="240" y="985" font-size="11" fill="#374151">换景区 = 改配置层（景区名/关键词/竞品池/数据源路径）→ 脚本/SOP/输出全部复用</text>
+<text x="80" y="1005" font-size="10" fill="#6b7280">项目隔离：scripts/config/{景区}.json | 竞品池：21景区轮换 | SOP不变 | 输出格式统一</text>
+<text x="1180" y="985" font-size="10" fill="#16a34a" font-weight="600">年度目标：客流153万 | 营收1.12亿 | YTD: 525,533 (34.3%) | 领先+2.3pp</text>
+
+<!-- ===== LEGEND ===== -->
+<rect x="60" y="1030" width="1480" height="50" rx="6" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+<text x="75" y="1050" font-size="10" font-weight="600" fill="#374151">图例：</text>
+<line x1="75" y1="1060" x2="115" y2="1060" stroke="#2563eb" stroke-width="1.5" marker-end="url(#a-blue)"/>
+<text x="122" y="1064" font-size="9" fill="#6b7280">Agent对话</text>
+<line x1="200" y1="1060" x2="240" y2="1060" stroke="#ea580c" stroke-width="1.5" marker-end="url(#a-orange)"/>
+<text x="247" y="1064" font-size="9" fill="#6b7280">数据采集</text>
+<line x1="320" y1="1060" x2="360" y2="1060" stroke="#16a34a" stroke-width="1.5" marker-end="url(#a-green)"/>
+<text x="367" y="1064" font-size="9" fill="#6b7280">输出/反馈</text>
+<line x1="440" y1="1060" x2="480" y2="1060" stroke="#9333ea" stroke-width="1.5" marker-end="url(#a-purple)"/>
+<text x="487" y="1064" font-size="9" fill="#6b7280">知识层</text>
+<line x1="560" y1="1060" x2="600" y2="1060" stroke="#ca8a04" stroke-width="1.5" marker-end="url(#a-yellow)"/>
+<text x="607" y="1064" font-size="9" fill="#6b7280">决策引擎</text>
+<text x="700" y="1064" font-size="9" fill="#6b7280">虚线框=逻辑分组 | ⚠️=需登录认证 | ✅=已验证可用</text>
+<text x="1200" y="1064" font-size="9" fill="#94a3b8">v2.0 | 2026-04-27 | LiYa佛龛</text>
+</svg>
