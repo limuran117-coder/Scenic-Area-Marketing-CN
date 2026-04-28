@@ -14,7 +14,7 @@
 
 An AI-powered autonomous agent that manages the entire marketing operations for **Jianye Film Town** (建业电影小镇) — a performing arts-themed scenic area in Zhengzhou, China — covering Douyin, Xiaohongshu, competitor monitoring, passenger flow analysis, and daily automated reporting.
 
-**Annual Goal (2026)**: 1.53 million visitors · ¥120M revenue
+**Annual Goal (2026)**: 1.53 million visitors · ¥120M ticket revenue (total revenue higher with other in-park spending)
 
 ![System Overview](wiki/diagrams/system-overview-en.svg)
 
@@ -291,7 +291,7 @@ The knowledge layer is the system's "brain" — separate from the business execu
 
 **建业电影小镇 AI 营销运营系统** — 一个覆盖抖音、小红书、竞品监控、客流分析、日报自动化的全链路AI运营助手。
 
-**年度目标（2026年）**：客流153万 · 营收1.2亿
+**年度目标（2026年）**：客流153万 · 门票收入1.2亿（景区综合收入更高）
 
 ---
 
