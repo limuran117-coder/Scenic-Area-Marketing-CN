@@ -1,0 +1,33 @@
+# OpenClaw runtime directories
+.openclaw/
+.clawhub/
+.learnings/
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Compiled outputs
+*.pyc
+__pycache__/
+
+# IDE
+.vscode/
+.idea/
+
+# Memory/dreaming (local only)
+memory/dreaming/
+memory/.dreams/
+
+# Backup files
+*.bak
+*.bak.*
+MEMORY.md.bak*
+
+# Large data files (keep small configs)
+# *.xlsx
+# *.csv
