@@ -1,0 +1,307 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 860" width="1400" height="860">
+<style>
+  text { font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', 'SimHei', sans-serif; }
+  .title { font-size: 20px; font-weight: 700; fill: #111827; }
+  .subtitle { font-size: 11px; fill: #6b7280; }
+  .section { font-size: 12px; font-weight: 700; }
+  .step-head { font-size: 11px; font-weight: 700; }
+  .head { font-size: 10px; font-weight: 600; }
+  .body { font-size: 9px; fill: #4b5563; }
+  .small { font-size: 8px; fill: #9ca3af; }
+  .badge { font-size: 9px; font-weight: 600; }
+  .center-title { font-size: 11px; font-weight: 700; }
+  .center-body { font-size: 9px; fill: #cbd5e1; }
+</style>
+<defs>
+  <marker id="r1" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#9333ea"/></marker>
+  <marker id="r2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#dc2626"/></marker>
+  <marker id="r3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#16a34a"/></marker>
+  <marker id="r4" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#2563eb"/></marker>
+  <marker id="r5" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#ea580c"/></marker>
+</defs>
+<rect width="1400" height="860" fill="#fafbfc"/>
+
+<!-- TITLE -->
+<text x="700" y="28" text-anchor="middle" class="title">系统全局关系图 · 谁驱动谁</text>
+<text x="700" y="46" text-anchor="middle" class="subtitle">OpenClaw · MEMORY.md铁律中枢 · Cron调度 · CDP采集 · AI决策 · 飞书输出 · 2026-04-28</text>
+
+<!-- ===== LEFT COLUMN: MEMORY.md 铁律中枢 ===== -->
+<rect x="40" y="64" width="280" height="774" rx="12" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+<rect x="40" y="64" width="280" height="36" rx="12" fill="#1e293b"/>
+<text x="180" y="82" text-anchor="middle" class="section" fill="#f8fafc">MEMORY.md 铁律中枢</text>
+<text x="180" y="100" text-anchor="middle" class="small" fill="#94a3b8">驱动所有任务的决策核心</text>
+
+<!-- role -->
+<rect x="56" y="118" width="248" height="44" rx="6" fill="#334155"/>
+<text x="180" y="134" text-anchor="middle" class="head" fill="#e2e8f0">role：景区营销中心总经理</text>
+<text x="180" y="152" text-anchor="middle" class="small" fill="#94a3b8">李涯 佛龛 · 📊 专业/干练/数据驱动</text>
+
+<!-- update_time -->
+<rect x="56" y="172" width="248" height="36" rx="6" fill="#334155"/>
+<text x="180" y="188" text-anchor="middle" class="head" fill="#e2e8f0">update_time：2026-04-28</text>
+
+<!-- [feedback] -->
+<rect x="56" y="220" width="248" height="90" rx="6" fill="#334155" stroke="#dc2626" stroke-width="1.5"/>
+<text x="70" y="238" class="badge" fill="#f87171">[feedback] 铁律反馈</text>
+<text x="70" y="258" class="center-body">飞书卡片换行`<br/>`替代`\n`</text>
+<text x="70" y="274" class="center-body">announce模式→none（6个cron）</text>
+<text x="70" y="290" class="center-body">搜索铁律：竞品词不猜数据</text>
+<text x="70" y="306" class="center-body">周度报告标配：穿越德化街联发</text>
+
+<!-- [user] -->
+<rect x="56" y="320" width="248" height="72" rx="6" fill="#334155" stroke="#2563eb" stroke-width="1.5"/>
+<text x="70" y="338" class="badge" fill="#60a5fa">[user] 用户目标</text>
+<text x="70" y="358" class="center-body">年度客流153万 · 营收1.12亿</text>
+<text x="70" y="374" class="center-body">YTD 525,533（04-27）</text>
+<text x="70" y="390" class="center-body">飞书群/专属浏览器/CDP 18800</text>
+
+<!-- [project] -->
+<rect x="56" y="402" width="248" height="54" rx="6" fill="#334155" stroke="#16a34a" stroke-width="1"/>
+<text x="70" y="420" class="badge" fill="#4ade80">[project]</text>
+<text x="70" y="440" class="center-body">W17完成 · 竞品10/21 · SOP体系修复</text>
+<text x="70" y="456" class="center-body">14个Cron全部配置 · browser-use已禁止</text>
+
+<!-- [reference] -->
+<rect x="56" y="466" width="248" height="54" rx="6" fill="#334155" stroke="#a78bfa" stroke-width="1"/>
+<text x="70" y="484" class="badge" fill="#a78bfa">[reference]</text>
+<text x="70" y="504" class="center-body">抖音Cookie / 小红书Cookie / CSV路径</text>
+<text x="70" y="520" class="center-body">历年客流xlsx / 2026每日统计</text>
+
+<!-- 铁律驱动引擎 -->
+<rect x="56" y="534" width="248" height="44" rx="6" fill="#334155"/>
+<text x="180" y="550" text-anchor="middle" class="head" fill="#e2e8f0">铁律驱动引擎</text>
+<text x="180" y="568" text-anchor="middle" class="small" fill="#94a3b8">Cron · SOP · Skills 全部受其驱动</text>
+
+<!-- 驱动箭头组 -->
+<line x1="320" y1="130" x2="380" y2="130" stroke="#9333ea" stroke-width="3" marker-end="url(#r1)"/>
+<text x="350" y="124" text-anchor="middle" class="small" fill="#7c3aed">驱动Cron</text>
+
+<line x1="320" y1="240" x2="380" y2="240" stroke="#9333ea" stroke-width="3" marker-end="url(#r1)"/>
+<text x="350" y="234" text-anchor="middle" class="small" fill="#7c3aed">驱动SOP</text>
+
+<line x1="320" y1="350" x2="380" y2="350" stroke="#9333ea" stroke-width="3" marker-end="url(#r1)"/>
+<text x="350" y="344" text-anchor="middle" class="small" fill="#7c3aed">驱动执行</text>
+
+<!-- ===== CENTER COLUMN: 执行引擎 ===== -->
+<rect x="390" y="64" width="620" height="774" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="390" y="64" width="620" height="36" rx="12" fill="#f5f3ff"/>
+<text x="700" y="82" text-anchor="middle" class="section" fill="#7c3aed">⚙️ 执行引擎 · 四阶段</text>
+
+<!-- Stage 0: Cron调度 -->
+<rect x="406" y="114" width="588" height="88" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+<rect x="406" y="114" width="588" height="24" rx="8" fill="#fef3c7"/>
+<text x="700" y="130" text-anchor="middle" class="step-head" fill="#b45309">Stage 0 · Cron调度层（14个定时任务）</text>
+<text x="420" y="156" class="body">上午：10:00文旅热点 · 10:30抖音指数</text>
+<text x="420" y="172" class="body">下午：15:00竞品关键词 · 15:00行业热点 · 18:00竞品内容</text>
+<text x="420" y="188" class="body">晚间：21:00爆款拆解 · 22:00复盘整合</text>
+<text x="700" y="188" text-anchor="middle" class="small">周一09:00周度客流报告</text>
+
+<!-- Arrow down -->
+<line x1="700" y1="202" x2="700" y2="230" stroke="#ea580c" stroke-width="2" marker-end="url(#r5)"/>
+
+<!-- Stage 1: CDP采集 -->
+<rect x="406" y="234" width="588" height="180" rx="8" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="406" y="234" width="588" height="26" rx="8" fill="#fee2e2"/>
+<text x="700" y="252" text-anchor="middle" class="step-head" fill="#dc2626">Stage 1 · CDP四平台数据采集（专属Chrome Port 18800）</text>
+
+<!-- 4 platforms -->
+<rect x="420" y="272" width="130" height="120" rx="6" fill="#ffffff" stroke="#f87171" stroke-width="1"/>
+<text x="485" y="288" text-anchor="middle" class="head" fill="#dc2626">抖音关键词</text>
+<text x="430" y="308" class="body">Tab4</text>
+<text x="430" y="324" class="body">关联词TOP10</text>
+<text x="430" y="340" class="body">人群画像4维度</text>
+<text x="430" y="356" class="body">综合指数</text>
+<text x="485" y="384" text-anchor="middle" class="small" fill="#b45309">⚠️下午更新</text>
+
+<rect x="560" y="272" width="130" height="120" rx="6" fill="#ffffff" stroke="#f87171" stroke-width="1"/>
+<text x="625" y="288" text-anchor="middle" class="head" fill="#dc2626">小红书灵犀</text>
+<text x="570" y="308" class="body">Tab0 Brand</text>
+<text x="570" y="324" class="body">搜索总量</text>
+<text x="570" y="340" class="body">关联词/人群</text>
+<text x="625" y="384" text-anchor="middle" class="small" fill="#b45309">⚠️两个Tab</text>
+
+<rect x="700" y="272" width="130" height="120" rx="6" fill="#ffffff" stroke="#f87171" stroke-width="1"/>
+<text x="765" y="288" text-anchor="middle" class="head" fill="#dc2626">小红书内容</text>
+<text x="710" y="308" class="body">Tab6探索页</text>
+<text x="710" y="324" class="body">爆款笔记TOP10</text>
+<text x="710" y="340" class="body">博主/内容类型</text>
+<text x="765" y="384" text-anchor="middle" class="small" fill="#16a34a">✅直采</text>
+
+<rect x="840" y="272" width="130" height="120" rx="6" fill="#ffffff" stroke="#f87171" stroke-width="1"/>
+<text x="905" y="288" text-anchor="middle" class="head" fill="#16a34a">百度百科</text>
+<text x="850" y="308" class="body">Tab3</text>
+<text x="850" y="324" class="body">票价/规模</text>
+<text x="850" y="340" class="body">舆情/百科</text>
+<text x="905" y="384" text-anchor="middle" class="small" fill="#16a34a">✅公开访问</text>
+
+<!-- Arrow down -->
+<line x1="700" y1="414" x2="700" y2="440" stroke="#dc2626" stroke-width="2" marker-end="url(#r2)"/>
+
+<!-- Stage 2: AI分析 -->
+<rect x="406" y="444" width="588" height="150" rx="8" fill="#ede9fe" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="406" y="444" width="588" height="26" rx="8" fill="#ede9fe"/>
+<text x="700" y="462" text-anchor="middle" class="step-head" fill="#7c3aed">Stage 2 · AI分析 · 七模块结构化（MiniMax M2.7）</text>
+
+<rect x="420" y="480" width="128" height="50" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1"/>
+<text x="484" y="494" text-anchor="middle" class="badge" fill="#7c3aed">核心数据</text>
+<text x="484" y="510" text-anchor="middle" class="body">搜索/综合指数</text>
+<text x="484" y="524" text-anchor="middle" class="body">地理/级别</text>
+
+<rect x="558" y="480" width="128" height="50" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1"/>
+<text x="622" y="494" text-anchor="middle" class="badge" fill="#7c3aed">抖音数据</text>
+<text x="622" y="510" text-anchor="middle" class="body">关联词TOP10</text>
+<text x="622" y="524" text-anchor="middle" class="body">人群画像4维度</text>
+
+<rect x="696" y="480" width="128" height="50" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1"/>
+<text x="760" y="494" text-anchor="middle" class="badge" fill="#7c3aed">小红书</text>
+<text x="760" y="510" text-anchor="middle" class="body">搜索总量/热度</text>
+<text x="760" y="524" text-anchor="middle" class="body">爆款笔记</text>
+
+<rect x="834" y="480" width="128" height="50" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1"/>
+<text x="898" y="494" text-anchor="middle" class="badge" fill="#7c3aed">内容规律</text>
+<text x="898" y="510" text-anchor="middle" class="body">爆款标题公式</text>
+<text x="898" y="524" text-anchor="middle" class="body">博主/内容类型</text>
+
+<rect x="420" y="540" width="128" height="44" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1"/>
+<text x="484" y="554" text-anchor="middle" class="badge" fill="#7c3aed">百度数据</text>
+<text x="484" y="570" text-anchor="middle" class="body">票价/规模/舆情/百科</text>
+
+<rect x="558" y="540" width="128" height="44" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1"/>
+<text x="622" y="554" text-anchor="middle" class="badge" fill="#7c3aed">规律洞察</text>
+<text x="622" y="570" text-anchor="middle" class="body">爆款逻辑/季节性</text>
+
+<rect x="696" y="540" width="128" height="44" rx="5" fill="#f5f3ff" stroke="#9333ea" stroke-width="1"/>
+<text x="760" y="554" text-anchor="middle" class="badge" fill="#7c3aed">电影小镇</text>
+<text x="760" y="570" text-anchor="middle" class="body">应用建议/借鉴</text>
+
+<!-- 分析要求 -->
+<rect x="834" y="540" width="128" height="44" rx="5" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+<text x="898" y="554" text-anchor="middle" class="badge" fill="#b45309">分析要求</text>
+<text x="898" y="570" text-anchor="middle" class="body">不猜/不遗漏</text>
+
+<!-- Arrow down -->
+<line x1="700" y1="602" x2="700" y2="626" stroke="#9333ea" stroke-width="2" marker-end="url(#r1)"/>
+
+<!-- Stage 3: 输出 -->
+<rect x="406" y="630" width="588" height="190" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="406" y="630" width="588" height="26" rx="8" fill="#dcfce7"/>
+<text x="700" y="648" text-anchor="middle" class="step-head" fill="#166534">Stage 3 · Wiki归档 + 飞书卡片推送 + 状态更新</text>
+
+<rect x="420" y="666" width="170" height="130" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="420" y="666" width="170" height="22" rx="6" fill="#dcfce7"/>
+<text x="505" y="680" text-anchor="middle" class="head" fill="#166534">Wiki归档（强制）</text>
+<text x="434" y="704" class="body">路径：wiki/竞品分析/</text>
+<text x="434" y="720" class="body">内容：7模块+人群画像</text>
+<text x="434" y="736" class="body">补录：老君山/重渡沟/龙门/海昌</text>
+<text x="434" y="752" class="body">时间：分析完成立即写入</text>
+<text x="434" y="768" class="body">vault backup 自动push</text>
+
+<rect x="606" y="666" width="170" height="130" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="606" y="666" width="170" height="22" rx="6" fill="#dcfce7"/>
+<text x="691" y="680" text-anchor="middle" class="head" fill="#166534">飞书卡片推送</text>
+<text x="620" y="704" class="body">电影小镇群 oc_2581</text>
+<text x="620" y="720" class="body">数据推送群 oc_f109</text>
+<text x="620" y="736" class="body">格式：schema 2.0</text>
+<text x="620" y="752" class="body">≤5表格/卡 · `<br/>`换行</text>
+<text x="620" y="768" class="body">私信回执→站长</text>
+
+<rect x="792" y="666" width="180" height="130" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+<rect x="792" y="666" width="180" height="22" rx="6" fill="#fef3c7"/>
+<text x="882" y="680" text-anchor="middle" class="head" fill="#b45309">状态文件更新</text>
+<text x="806" y="704" class="body">JSON：/tmp/daily_task_state.json</text>
+<text x="806" y="720" class="body">next竞品→done</text>
+<text x="806" y="736" class="body">更新下一个竞品</text>
+<text x="806" y="752" class="body">last_updated→今天日期</text>
+
+<!-- ===== RIGHT COLUMN: 知识层 ===== -->
+<rect x="1030" y="64" width="330" height="774" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/>
+<rect x="1030" y="64" width="330" height="36" rx="12" fill="#f0fdf4"/>
+<text x="1195" y="82" text-anchor="middle" class="section" fill="#166534">📚 知识层 · karpathy-wiki</text>
+
+<rect x="1046" y="114" width="298" height="44" rx="6" fill="#f5f3ff" stroke="#9333ea" stroke-width="1.5"/>
+<text x="1195" y="130" text-anchor="middle" class="head" fill="#7c3aed">INGEST → sources → concepts → entities</text>
+<text x="1195" y="150" text-anchor="middle" class="small">llmwiki_ingest.py · LINT质量校验</text>
+
+<rect x="1046" y="168" width="298" height="90" rx="6" fill="#fef2f2" stroke="#f87171" stroke-width="1"/>
+<text x="1195" y="184" text-anchor="middle" class="badge" fill="#dc2626">sources/ 原始数据快照</text>
+<text x="1060" y="204" class="body">客流CSV原始文件</text>
+<text x="1060" y="220" class="body">抖音指数截图</text>
+<text x="1060" y="236" class="body">竞品关键词截图</text>
+<text x="1060" y="252" class="body">小红书爆款截图</text>
+<text x="1195" y="252" text-anchor="middle" class="small" fill="#b45309">⚠定期刷新</text>
+
+<rect x="1046" y="268" width="298" height="90" rx="6" fill="#f0fdf4" stroke="#4ade80" stroke-width="1"/>
+<text x="1195" y="284" text-anchor="middle" class="badge" fill="#16a34a">concepts/ 知识概念</text>
+<text x="1060" y="304" class="body">景区类型概念</text>
+<text x="1060" y="320" class="body">情绪营销模型</text>
+<text x="1060" y="336" class="body">转化漏斗结构</text>
+<text x="1060" y="352" class="body">爆款内容公式</text>
+<text x="1195" y="352" text-anchor="middle" class="small" fill="#16a34a">✅AI决策依据</text>
+
+<rect x="1046" y="368" width="298" height="90" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="1"/>
+<text x="1195" y="384" text-anchor="middle" class="badge" fill="#2563eb">entities/ 实体词条（10个）</text>
+<text x="1060" y="404" class="body">万岁山 · 清明上河园</text>
+<text x="1060" y="420" class="body">只有河南 · 银基 · 方特</text>
+<text x="1060" y="436" class="body">海昌 · 只有红楼梦</text>
+<text x="1060" y="452" class="body">老君山 · 重渡沟 · 龙门</text>
+<text x="1195" y="452" text-anchor="middle" class="small" fill="#2563eb">✅卡片式词条</text>
+
+<rect x="1046" y="468" width="298" height="70" rx="6" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1"/>
+<text x="1195" y="484" text-anchor="middle" class="badge" fill="#7c3aed">queries/ 决策问题库</text>
+<text x="1060" y="504" class="body">「穿越德化街上座率下降要不要增场？」</text>
+<text x="1060" y="520" class="body">「五一前竞品密集电影小镇如何应对？」</text>
+
+<rect x="1046" y="548" width="298" height="90" rx="6" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/>
+<text x="1195" y="564" text-anchor="middle" class="badge" fill="#b45309">SOP体系（14个）</text>
+<text x="1060" y="584" class="body">抖音指数日报 · 竞品关键词分析</text>
+<text x="1060" y="600" class="body">文旅热点 · 竞品内容动态</text>
+<text x="1060" y="616" class="body">爆款拆解 · 每日复盘整合</text>
+<text x="1060" y="632" class="body">周度客流 · 小红书日报</text>
+
+<!-- 历史数据 & 案例库 -->
+<rect x="1046" y="648" width="140" height="80" rx="6" fill="#eff6ff" stroke="#60a5fa" stroke-width="1"/>
+<text x="1116" y="664" text-anchor="middle" class="head" fill="#2563eb">历史数据</text>
+<text x="1056" y="684" class="body">W17期 ✅ 14,392人</text>
+<text x="1056" y="700" class="body">W16期 ✅</text>
+<text x="1056" y="716" class="body">W15期 ✅</text>
+
+<rect x="1196" y="648" width="148" height="80" rx="6" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1"/>
+<text x="1270" y="664" text-anchor="middle" class="head" fill="#7c3aed">全国景区案例库</text>
+<text x="1206" y="684" class="body">wiki/全国景区/</text>
+<text x="1206" y="700" class="body">爆款标题规律</text>
+<text x="1206" y="716" class="body">博主类型分析</text>
+
+<!-- 竞品档案进度 -->
+<rect x="1046" y="738" width="298" height="50" rx="6" fill="#dcfce7" stroke="#16a34a" stroke-width="1.5"/>
+<text x="1195" y="754" text-anchor="middle" class="head" fill="#166534">竞品档案完成度：10 / 21</text>
+<text x="1195" y="778" text-anchor="middle" class="small">老君山/重渡沟/龙门/海昌已补录（简化版）</text>
+
+<!-- MEMORY → 知识层 箭头 -->
+<line x1="320" y1="430" x2="380" y2="560" stroke="#9333ea" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#r1)"/>
+<text x="350" y="500" class="small" fill="#7c3aed">写入知识</text>
+
+<!-- 执行引擎 → 知识层 箭头 -->
+<line x1="994" y1="430" x2="1030" y2="430" stroke="#16a34a" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#r3)"/>
+<text x="1012" y="424" class="small" fill="#166534">归档</text>
+
+<!-- 反馈循环 -->
+<line x1="700" y1="838" x2="180" y2="838" stroke="#9333ea" stroke-width="2" stroke-dasharray="6,4"/>
+<line x1="180" y1="838" x2="180" y2="700" stroke="#9333ea" stroke-width="2"/>
+<text x="440" y="848" text-anchor="middle" class="small" fill="#7c3aed">← 反馈闭环：站长确认 → MEMORY.md写入 → 驱动下次执行</text>
+
+<!-- LEGEND -->
+<rect x="40" y="848" width="1320" height="20" rx="4" fill="#f9fafb" stroke="#e5e7eb" stroke-width="1"/>
+<text x="56" y="863" class="small">图例：</text>
+<rect x="96" y="855" width="12" height="10" rx="2" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+<text x="114" y="865" class="small">MEMORY.md铁律中枢</text>
+<rect x="230" y="855" width="12" height="10" rx="2" fill="#fee2e2" stroke="#dc2626" stroke-width="1"/>
+<text x="248" y="865" class="small">CDP采集</text>
+<rect x="304" y="855" width="12" height="10" rx="2" fill="#ede9fe" stroke="#9333ea" stroke-width="1"/>
+<text x="322" y="865" class="small">AI分析</text>
+<rect x="378" y="855" width="12" height="10" rx="2" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+<text x="396" y="865" class="small">Wiki/飞书输出</text>
+<rect x="458" y="855" width="12" height="10" rx="2" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="476" y="865" class="small">状态更新</text>
+<text x="560" y="865" class="small">实线箭头=数据流向 | 虚线=归档路径 | ← 反馈闭环驱动系统进化</text>
+<text x="1200" y="865" class="small" fill="#94a3b8">图12 系统全局关系图 · 2026-04-28 · 李涯 佛龛</text>
+</svg>

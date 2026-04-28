@@ -31,6 +31,12 @@ This project is different. It runs **proactively**, 24/7, with:
 
 ## Core Advantages
 
+### 0. System-Wide Architecture
+
+![System Architecture](wiki/diagrams/系统全局关系图.svg)
+
+> Fig 12: MEMORY.md as the rule core → Cron scheduling → CDP 4-platform collection → AI 7-module analysis → Wiki archive + Feishu push → Feedback loop drives system evolution
+
 ### 1. karpathy-wiki Knowledge Graph
 
 Unlike traditional wikis that accumulate documents you never read, this system is structured as a **compounding knowledge base** (karpathy-wiki standard):
@@ -228,6 +234,12 @@ The knowledge layer is the system's "brain" — separate from the business execu
 ---
 
 ## 核心优势
+
+### 0. 系统全局架构
+
+![系统全局关系图](wiki/diagrams/系统全局关系图.svg)
+
+> 图12：MEMORY.md铁律中枢 → Cron调度 → CDP四平台采集 → AI七模块分析 → Wiki归档+飞书推送 → 反馈闭环驱动系统进化
 
 ### 1. karpathy-wiki 知识图谱
 
