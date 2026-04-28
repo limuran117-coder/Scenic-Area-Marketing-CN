@@ -14,7 +14,7 @@
 
 An AI-powered autonomous agent that manages the entire marketing operations for **Jianye Film Town** (建业电影小镇) — a performing arts-themed scenic area in Zhengzhou, China — covering Douyin, Xiaohongshu, competitor monitoring, passenger flow analysis, and daily automated reporting.
 
-**Annual Goal (2026)**: 1.53 million visitors · ¥112M revenue
+**Annual Goal (2026)**: 1.53 million visitors · ¥120M revenue
 
 ![System Overview](wiki/diagrams/system-overview-en.svg)
 
