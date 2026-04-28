@@ -1,0 +1,301 @@
+# SOP 定时任务配置
+# 管理所有自动化任务的调度规则，支持一键启停和优先级调整
+# 生成时间：2026-04-28
+
+# ═══════════════════════════════════════
+# 日任务（每日执行）
+# ═══════════════════════════════════════
+
+sop_schedule:
+
+  # ─── 抖音指数日报 ───
+  - id: douyin-index-daily
+    name: 抖音指数日报
+    sop: wiki/SOP/抖音指数日报.md
+    cron: "0 8 * * *"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P0
+    delivery:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      mode: none
+    retry:
+      max_attempts: 3
+      delay_seconds: 300
+    failure_alert:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      after_failures: 2
+    inputs:
+      - CDP_Tab4_抖音订阅页
+      - douyin_cookies
+    outputs:
+      - 飞书卡片（群）
+      - wiki/竞品分析/抖音指数追踪.md
+    note: "08:00采集，10:30发送（平台数据10:00后校准）"
+
+  # ─── 小红书日报 ───
+  - id: xiaohongshu-daily
+    name: 小红书日报
+    sop: wiki/SOP/小红书日报.md
+    cron: "0 10 * * *"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P0
+    delivery:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      mode: none
+    retry:
+      max_attempts: 2
+      delay_seconds: 600
+    failure_alert:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      after_failures: 2
+    inputs:
+      - CDP_Tab0_小红书灵犀后台
+      - CDP_Tab5_小红书探索页
+      - xiaohongshu_cookies
+    outputs:
+      - 飞书卡片（群）
+      - wiki/竞品分析/小红书爆款追踪.md
+    note: "灵犀后台数据下午更新，08:00采的是昨日数据"
+
+  # ─── 文旅活动热点追踪 ───
+  - id: travel-industry-hotspots
+    name: 文旅活动热点追踪
+    sop: wiki/SOP/文旅热点追踪.md
+    cron: "0 12 * * *"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P1
+    delivery:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      mode: none
+    retry:
+      max_attempts: 1
+      delay_seconds: 0
+    failure_alert:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      after_failures: 3
+    inputs:
+      - 文旅部官网
+      - Bing/搜狗搜索
+      - CDP_Tab3_百度
+    outputs:
+      - 飞书卡片（群）
+      - wiki/行业知识/政策动态/
+    note: "4板块：竞品亮点/泛文旅热点/舆情提示/营销趋势"
+
+  # ─── 竞品关键词深度分析 ───
+  - id: competitor-keyword-deep
+    name: 竞品关键词深度分析
+    sop: wiki/SOP/竞品关键词深度分析.md
+    cron: "0 15 * * *"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P1
+    delivery:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      mode: none
+    retry:
+      max_attempts: 2
+      delay_seconds: 300
+    failure_alert:
+      channel: feishu
+      target: ou_f308d672765ecf1be73a75eb5e5f0f48
+      after_failures: 2
+    inputs:
+      - CDP_Tab4_抖音关键词页
+      - CDP_Tab0_小红书灵犀
+      - CDP_Tab3_百度
+      - 轮换竞品列表
+    outputs:
+      - 飞书卡片（私信站长）
+      - wiki/竞品分析/[竞品名]深度分析.md
+    note: "8大竞品轮换分析，约每周2个；触发条件：搜索暴涨+50%优先"
+
+  # ─── 竞品内容动态 ───
+  - id: competitor-content-tracking
+    name: 竞品内容动态
+    sop: wiki/SOP/竞品内容动态.md
+    cron: "0 18 * * *"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P1
+    delivery:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      mode: none
+    retry:
+      max_attempts: 1
+      delay_seconds: 0
+    failure_alert:
+      channel: feishu
+      target: ou_f308d672765ecf1be73a75eb5e5f0f48
+      after_failures: 3
+    inputs:
+      - Bing/搜狗搜索
+      - 竞品官方渠道
+      - memory/今日日志
+    outputs:
+      - 飞书卡片（群）
+      - wiki/竞品分析/竞品动态追踪/YYYY-MM-DD.md
+    note: "8大竞品节目/活动/营销动态，3板块格式"
+
+  # ─── 全国爆款拆解 ───
+  - id: nationwide-viral-analysis
+    name: 全国爆款拆解
+    sop: wiki/SOP/竞品爆款拆解.md
+    cron: "0 21 * * *"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P2
+    delivery:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      mode: none
+    retry:
+      max_attempts: 1
+      delay_seconds: 0
+    failure_alert:
+      channel: feishu
+      target: ou_f308d672765ecf1be73a75eb5e5f0f48
+      after_failures: 3
+    inputs:
+      - 抖音指数日报数据
+      - 竞品动态追踪
+      - memory/今日日志
+    outputs:
+      - 飞书卡片（群）
+      - wiki/全国景区案例库/
+    note: "触发条件：搜索暴涨/爆款溯源/竞品联动；四平台深度拆解"
+
+  # ─── 每日复盘整合 ───
+  - id: daily-review
+    name: 每日复盘整合
+    sop: wiki/SOP/每日复盘整合.md
+    cron: "0 22 * * *"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P2
+    delivery:
+      channel: feishu
+      target: ou_f308d672765ecf1be73a75eb5e5f0f48
+      mode: none
+    retry:
+      max_attempts: 1
+      delay_seconds: 0
+    failure_alert:
+      after_failures: 5
+    inputs:
+      - memory/今日日志
+      - 今日所有日报数据
+      - Wiki知识层更新
+    outputs:
+      - memory/YYYY-MM-DD.md
+    note: "汇总全天执行情况，更新Wiki，归档最佳实践"
+
+# ═══════════════════════════════════════
+# 周任务
+# ═══════════════════════════════════════
+
+  - id: weekly-passenger-insights
+    name: 周度客流营收洞察报告
+    sop: wiki/SOP/周度客流营收洞察报告.md
+    cron: "0 9 * * 1"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P0
+    delivery:
+      channel: feishu
+      target: oc_2581c03b79e4893cc3616b253d60f34e
+      mode: none
+    retry:
+      max_attempts: 2
+      delay_seconds: 600
+    failure_alert:
+      channel: feishu
+      target: ou_f308d672765ecf1be73a75eb5e5f0f48
+      after_failures: 2
+    inputs:
+      - ~/Desktop/2026游客量统计.csv
+      - 穿越德化街Excel
+      - 历史对比（2023-2025）
+    outputs:
+      - 飞书卡片×3（客流总览/穿越德化街/趋势分析）
+      - wiki/电影小镇/历史数据/
+    note: "周一09:00，3张卡片联发；联发穿越德化街深度分析（最佳实践）"
+
+  # ─── Wiki INGEST ───
+  - id: weekly-ingest
+    name: Wiki知识层INGEST
+    sop: wiki/SOP/Wiki健康检查.md
+    cron: "0 4 * * 0"
+    timezone: Asia/Shanghai
+    enabled: true
+    priority: P1
+    delivery:
+      mode: none
+    retry:
+      max_attempts: 1
+      delay_seconds: 0
+    failure_alert:
+      after_failures: 4
+    inputs:
+      - memory/本周日志
+      - wiki/新增内容
+      - docs/insight-template.md
+    outputs:
+      - wiki/concepts/
+      - wiki/entities/
+      - wiki/lint-result.json
+    note: "周日04:00，AI提炼本周洞察→知识层，自动生成LINT报告"
+
+# ═══════════════════════════════════════
+# 竞品轮换列表（关键词深度分析用）
+# ═══════════════════════════════════════
+
+competitor_rotation:
+  - 只有河南·戏剧幻城
+  - 银基动物王国
+  - 万岁山武侠城
+  - 清明上河园
+  - 郑州方特欢乐世界
+  - 只有红楼梦戏剧幻城
+  - 郑州海昌海洋公园
+  - 建业电影小镇  # 自家，作为基准
+
+# ═══════════════════════════════════════
+# 关键配置
+# ═══════════════════════════════════════
+
+config:
+  # 数据采集平台配置
+  platforms:
+    douyin:
+      cdp_port: 18800
+      tab_index: 4
+      cookies_path: /tmp/juLiang_cookies.json
+    xiaohongshu:
+      cdp_port: 18800
+      tab_index: 0
+      cookies_path: /tmp/xiaohongshu_cookies.json
+    baidu:
+      cdp_port: 18800
+      tab_index: 3
+
+  # 告警阈值
+  alert_thresholds:
+    douyin_index_change_percent: 20  # 搜索指数日环比超过±20%标记异动
+    search_spike_percent: 50         # 搜索暴涨触发竞品爆款拆解
+
+  # 缓存策略
+  cache:
+    enabled: true
+    ttl_hours: 24  # 相同竞品/维度的分析结果24小时内不重复采集
