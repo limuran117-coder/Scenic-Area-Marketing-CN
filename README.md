@@ -16,6 +16,8 @@ An AI-powered autonomous agent that manages the entire marketing operations for 
 
 **Annual Goal (2026)**: 1.53 million visitors · ¥112M revenue
 
+![System Overview](wiki/diagrams/system-overview-en.svg)
+
 ---
 
 ## Why This Project Exists
