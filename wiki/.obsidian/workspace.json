@@ -263,8 +263,14 @@
       "bases:新建数据库": false
     }
   },
-  "active": "e4459f7a3c6fd6d1",
+  "active": "170f2840afe9af74",
   "lastOpenFiles": [
+    "docs/目录结构说明.md",
+    "docs/sop-schedule.yaml",
+    "docs/maintenance-guide.md",
+    "docs/insight-template.md",
+    "docs/ai-analysis-spec.md",
+    "docs",
     "电影小镇/运营方法/小红书灵犀后台运营方法.md",
     "竞品分析/竞品动态追踪/2026-04-27.md",
     "竞品分析/竞品动态追踪/2026-04-26.md",
@@ -287,10 +293,6 @@
     "竞品分析/龙门石窟深度分析.md",
     "竞品分析/竞品深度档案.md",
     "竞品分析/关键词池状态.md",
-    "电影小镇/运营方法/抖音运营方法.md",
-    "竞品分析/抖音指数追踪.md",
-    "竞品分析/抖音指数每日追踪.md",
-    "技术配置/搜索关键词规范.md",
     "diagrams/data-pipeline-en.svg",
     "diagrams/system-architecture-en.svg",
     "diagrams/system-overview-en.svg",
@@ -306,8 +308,6 @@
     "sources",
     "目录.base",
     "电影小镇/运营规划",
-    "电影小镇/演出节目",
-    "lint-result.json",
     "未命名 2.canvas",
     "未命名 1.canvas",
     "未命名.canvas"
