@@ -185,6 +185,10 @@ core_mission: 年度客流153万、营收1.2亿
 
 ---
 
+**[fix] Swap压力告警（06-04-30记录）**
+> Swap使用率89.7%（4590M/5120M），主因Ollama 26GB模型blob
+> 建议：考虑限制Ollama模型按需加载，非长期驻留
+
 **[fix] 案例库更新cron错误（06-04-30修复）**
 > 根因：SOP脚本用了 `cat > /tmp/xxx.py << 'PYEOF'` heredoc，触发exec安全拦截
 > 修复：编辑cron/jobs.json，移除SOP中的heredoc，改用直接python执行
@@ -192,10 +196,6 @@ core_mission: 年度客流153万、营收1.2亿
 **[fix] 每日复盘整合cron错误（06-04-30修复）**
 > 根因：edit工具找不到SOP文件中精确匹配的oldText
 > 修复：编辑cron/jobs.json，简化cron message指令，禁止edit工具修改wiki
-
-**[fix] Swap压力告警（06-04-30记录）**
-> Swap使用率89.7%（4590M/5120M），主因Ollama 26GB模型blob
-> 建议：考虑限制Ollama模型按需加载，非长期驻留
 
 ---
 
@@ -226,3 +226,16 @@ core_mission: 年度客流153万、营收1.2亿
 - 20种突触类型：BEFORE/AFTER/CAUSED_BY/LEADS_TO/IS_A/HAS_PROPERTY等
 - Hebbian学习+记忆衰减+矛盾检测
 - 可作为MEMORY.md的增强层而非替代
+---
+
+**[insight] 案例库采集工具全面受阻（06-04-30）**
+> 小红书爬虫：风控拦截，搜索结果为空
+> web_search：MiniMax API key未配置
+> B站/微博/抖音爬虫：无对应工具
+> 仅飞书文档/多维表格可用
+> 影响：爆款案例扫描暂时无法进行
+
+**[insight] 五一假期开始（06-04-30）**
+> 五一首日（5月1日）高客流期
+> 竞品内容动态需加强监控
+> 每日客流数据需及时补录

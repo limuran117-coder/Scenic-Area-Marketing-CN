@@ -346,3 +346,42 @@
 ### Suggestions
 - 五一假期高客流监控：每日客流数据需及时补录
 - 竞品关键词剩余4个（老君山/重渡沟/龙门石窟/郑州海昌），节后补录
+
+## 🌙 Dream #15 — 2026-04-30（2026-05-01 04:00 归档）
+
+**Scanned**: 4 files (04-28~04-30) | **New**: 6 | **Updated**: 2 | **Total**: ~104 entries
+
+### Changes
+- [NEW] **案例库SOP脚本heredoc错误修复**（06-04-30修复）
+  > 根因：heredoc写法触发exec安全拦截
+  > 修复：改用cron/jobs.json直接编辑，移除SOP中的heredoc
+- [NEW] **每日复盘整合cron修复**（06-04-30修复）
+  > 根因：edit工具找不到SOP中精确匹配的oldText
+  > 修复：简化cron message指令，禁止edit工具修改wiki
+- [NEW] **Swap压力告警**（06-04-30记录）
+  > Swap 89.7%（4590M/5120M），主因Ollama 26GB模型blob
+  > 建议：考虑限制Ollama模型按需加载，非长期驻留
+- [NEW] **GitHub高星项目研究**（06-04-30）
+  > CowAgent 43.9k⭐：飞书+Skills+MCP多Agent，对标参考
+  > lobehub 75.9k⭐：多Agent协作平台，与A+B+C架构可对照
+  > EvoMap/evolver 7.1k⭐：GEP自进化引擎
+  > neural-memory：本地已有安装，Hebbian学习+矛盾检测
+- [UPDATE] update_time → 2026-04-30
+- [UPDATE] memory/procedures.md → 已记录SOP修复规范
+
+### Insights
+- **案例库采集全面受阻**：小红书爬虫风控拦截（搜索结果为空）+ web_search API未配置 + 无B站/微博/抖音爬虫工具
+- 五一假期第一夜：次日（5月1日）开始高客流期，竞品内容动态需加强监控
+- Swap高位运行风险：Mac mini长期低内存警告，需关注
+- GitHub项目调研为A+B+C架构升级提供参考方向（多Agent协作/MCP集成）
+
+### Stale Threads
+- 图3-LLM知识层架构 — **stale约15天**（上次04-16提及）
+- 抖音关键词深度数据（CDP不稳定）— **持续，是当前最大技术障碍**
+- Wiki归档缺失：老君山/重渡沟/龙门石窟/郑州海昌海洋公园 — **stale约7天**
+
+### Suggestions
+- **五一假期**：高客流期，每日客流数据及时补录
+- **竞品关键词**：剩余4个（老君山/重渡沟/龙门石窟/郑州海昌），节后补录
+- **Swap优化**：五一后评估Ollama模型按需加载方案
+- **图3**：低压力窗口期完成
