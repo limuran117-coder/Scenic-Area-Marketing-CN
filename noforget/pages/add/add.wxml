@@ -1,0 +1,220 @@
+<!-- pages/add/add.wxml - 添加/编辑倒计时 -->
+<view class="container" style="background: {{theme.background}};">
+  <!-- 顶部导航 -->
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="goBack">
+        <text style="color: {{theme.textPrimary}};">←</text>
+      </view>
+      <text class="nav-title" style="color: {{theme.textPrimary}};">{{isEdit ? '编辑' : '新建'}}</text>
+    </view>
+  </view>
+
+  <!-- 表单 -->
+  <view class="form">
+    <!-- 名称 -->
+    <view class="form-item">
+      <text class="form-label" style="color: {{theme.textSecondary}};">名称</text>
+      <input 
+        class="form-input"
+        style="color: {{theme.textPrimary}}; border-bottom: 1px solid {{theme.border}};"
+        placeholder="如：恋爱纪念日"
+        placeholder-style="color: {{theme.textSecondary}};"
+        value="{{title}}"
+        bindinput="onTitleInput"
+        maxlength="20"
+      />
+    </view>
+
+    <!-- 日期选择 -->
+    <view class="form-item">
+      <text class="form-label" style="color: {{theme.textSecondary}};">日期</text>
+      <picker 
+        mode="date" 
+        value="{{targetDate}}" 
+        bindchange="onDateChange"
+        start="1900-01-01"
+        end="2099-12-31"
+      >
+        <view class="date-picker" style="border-bottom: 1px solid {{theme.border}};">
+          <text style="color: {{title ? theme.textPrimary : theme.textSecondary}};">{{targetDate || '请选择日期'}}</text>
+          <text style="color: {{theme.textSecondary}};">📅</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 分类选择 -->
+    <view class="form-item">
+      <text class="form-label" style="color: {{theme.textSecondary}};">分类</text>
+      <view class="category-grid">
+        <block wx:for="{{categories}}" wx:key="id">
+          <view 
+            class="category-item {{selectedCategory === item.id ? 'active' : ''}}"
+            style="border-color: {{selectedCategory === item.id ? item.color : theme.border}};"
+            bindtap="selectCategory"
+            data-id="{{item.id}}"
+          >
+            <text class="category-icon">{{item.icon}}</text>
+            <text class="category-name" style="color: {{selectedCategory === item.id ? theme.textPrimary : theme.textSecondary}};">{{item.name}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <!-- 计时方向 -->
+    <view class="form-item">
+      <text class="form-label" style="color: {{theme.textSecondary}};">计时方式</text>
+      <view class="direction-options">
+        <view 
+          class="direction-item {{direction === 'countdown' ? 'active' : ''}}"
+          style="background: {{direction === 'countdown' ? theme.textAccent : 'transparent'}}; border-color: {{theme.border}};"
+          bindtap="setDirection"
+          data-dir="countdown"
+        >
+          <text style="color: {{direction === 'countdown' ? '#FFF' : theme.textSecondary}};">倒计时</text>
+          <text class="direction-desc" style="color: {{direction === 'countdown' ? 'rgba(255,255,255,0.8)' : theme.textSecondary}};">还有多少天</text>
+        </view>
+        <view 
+          class="direction-item {{direction === 'countup' ? 'active' : ''}}"
+          style="background: {{direction === 'countup' ? theme.textAccent : 'transparent'}}; border-color: {{theme.border}};"
+          bindtap="setDirection"
+          data-dir="countup"
+        >
+          <text style="color: {{direction === 'countup' ? '#FFF' : theme.textSecondary}};">正向计时</text>
+          <text class="direction-desc" style="color: {{direction === 'countup' ? 'rgba(255,255,255,0.8)' : theme.textSecondary}};">已经多少天</text>
+        </view>
+      </view>
+      <!-- 计算方式说明 -->
+      <view class="calc-hint">
+        <text class="hint-title" style="color: {{theme.textSecondary}};">📌 计算说明</text>
+        <text class="hint-text" style="color: {{theme.textSecondary}};">
+          <text style="color: {{theme.textAccent}};">倒计时</text>：从创建日期当天起算，到目标日期还有多少天
+          <text style="display:block; margin-top:6px;">
+          <text style="color: {{theme.textAccent}};">正向计时</text>：从创建日期起，每年重复计算，已度过多少个365天
+        </text>
+        </text>
+      </view>
+    </view>
+
+    <!-- 提醒设置 -->
+    <view class="form-item">
+      <text class="form-label" style="color: {{theme.textSecondary}};">提醒</text>
+      <view class="remind-options">
+        <view 
+          class="remind-item {{remindDays === 0 ? 'active' : ''}}"
+          style="border-color: {{remindDays === 0 ? theme.textAccent : theme.border}};"
+          bindtap="setRemind"
+          data-days="0"
+        >
+          <text style="color: {{remindDays === 0 ? theme.textAccent : theme.textSecondary}};">当天</text>
+        </view>
+        <view 
+          class="remind-item {{remindDays === 1 ? 'active' : ''}}"
+          style="border-color: {{remindDays === 1 ? theme.textAccent : theme.border}};"
+          bindtap="setRemind"
+          data-days="1"
+        >
+          <text style="color: {{remindDays === 1 ? theme.textAccent : theme.textSecondary}};">提前1天</text>
+        </view>
+        <view 
+          class="remind-item {{remindDays === 7 ? 'active' : ''}}"
+          style="border-color: {{remindDays === 7 ? theme.textAccent : theme.border}};"
+          bindtap="setRemind"
+          data-days="7"
+        >
+          <text style="color: {{remindDays === 7 ? theme.textAccent : theme.textSecondary}};">提前7天</text>
+        </view>
+        <view 
+          class="remind-item {{remindDays === -1 ? 'active' : ''}}"
+          style="border-color: {{remindDays === -1 ? theme.textAccent : theme.border}};"
+          bindtap="setRemind"
+          data-days="-1"
+        >
+          <text style="color: {{remindDays === -1 ? theme.textAccent : theme.textSecondary}};">不提醒</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 封面照片 -->
+    <view class="form-item">
+      <text class="form-label" style="color: {{theme.textSecondary}};">封面照片</text>
+      <view class="cover-picker" bindtap="pickCoverImage">
+        <view class="cover-image-wrapper" wx:if="{{coverImage}}">
+          <image class="cover-image" src="{{coverImage}}" mode="aspectFill"></image>
+          <view class="cover-overlay">
+            <text class="cover-change" style="color: #FFF;">点击更换</text>
+          </view>
+        </view>
+        <view class="cover-placeholder" wx:else style="border: 1px dashed {{theme.border}};">
+          <text class="cover-add-icon">📷</text>
+          <text class="cover-add-text" style="color: {{theme.textSecondary}};">添加封面照片</text>
+          <text class="cover-add-hint" style="color: {{theme.textSecondary}};">可选，用于详情页展示</text>
+        </view>
+      </view>
+      <view class="cover-remove" wx:if="{{coverImage}}" bindtap="removeCoverImage">
+        <text style="color: #FF3B30;">移除封面</text>
+      </view>
+    </view>
+
+    <!-- 预览 -->
+    <view class="preview-section" wx:if="{{title && targetDate}}">
+      <text class="preview-title" style="color: {{theme.textSecondary}};">预览</text>
+      <view class="preview-card" style="background: {{theme.cardBg}}; box-shadow: {{theme.shadow}};">
+        <view wx:if="{{coverImage}}" class="preview-cover">
+          <image src="{{coverImage}}" mode="aspectFill"></image>
+        </view>
+        <text class="preview-icon">{{previewIcon}}</text>
+        <text class="preview-days" style="color: {{theme.textPrimary}};">{{previewDays}}</text>
+        <text class="preview-label" style="color: {{theme.textSecondary}};">{{previewIsPast ? '天已过' : '天'}}</text>
+        <text class="preview-name" style="color: {{theme.textPrimary}};">{{title}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-buttons">
+    <!-- 保存按钮 -->
+    <view 
+      class="bottom-btn-primary {{isEdit ? '' : 'full-width'}}"
+      style="background: {{theme.textAccent}};"
+      bindtap="saveItem"
+    >
+      <text class="btn-zh" style="color: #FFF;">{{isEdit ? '保存修改' : '记录这一天'}}</text>
+      <text class="btn-en" style="color: rgba(255,255,255,0.75);">{{isEdit ? 'Save Changes' : 'Record This Day'}}</text>
+    </view>
+    <!-- 删除按钮（编辑时显示） -->
+    <view 
+      class="bottom-btn-danger {{isEdit ? '' : 'hide'}}"
+      style="background: {{theme.textAccent}};"
+      bindtap="deleteItem"
+    >
+      <text class="btn-zh" style="color: #FFF;">删除</text>
+      <text class="btn-en" style="color: rgba(255,255,255,0.75);">Delete</text>
+    </view>
+  </view>
+
+  <!-- 裁切弹层 -->
+  <view class="crop-modal" wx:if="{{showCropper}}" catchtouchmove="preventTouch">
+    <!-- 隐藏canvas用于裁切 -->
+    <canvas canvas-id="cropCanvas" class="crop-canvas" style="width: {{canvasWidth || 375}}px; height: {{canvasHeight || 240}}px;"></canvas>
+    <view class="crop-header">
+      <text class="crop-cancel" bindtap="cancelCrop">取消</text>
+      <text class="crop-title">调整封面区域</text>
+      <text class="crop-confirm" bindtap="confirmCrop">完成</text>
+    </view>
+    <view class="crop-body">
+      <view class="crop-wrapper" bindtouchstart="onCropTouchStart" bindtouchmove="onCropTouchMove" bindtouchend="onCropTouchEnd">
+        <image class="crop-image" src="{{cropImagePath}}" mode="widthFix"></image>
+        <!-- 裁切框：固定高度，可上下拖动 -->
+        <view class="crop-frame" style="top: {{cropFrameTop}}px;"></view>
+        <!-- 半透明遮罩 -->
+        <view class="crop-mask-top" style="height: {{cropFrameTop}}px;"></view>
+        <view class="crop-mask-bottom" style="top: {{cropFrameTop + cropFrameHeight}}px;"></view>
+        <!-- 拖动提示 -->
+        <view class="crop-hint">
+          <text style="color: #FFF; font-size: 13px;">↑↓ 拖动选择显示区域</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

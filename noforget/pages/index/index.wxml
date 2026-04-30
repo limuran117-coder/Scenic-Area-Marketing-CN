@@ -1,0 +1,133 @@
+<!-- pages/index/index.wxml - 首页 -->
+<view class="container" style="background: {{theme.background}};">
+  <!-- 顶部导航 -->
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="nav-left">
+        <view class="theme-btn" bindtap="openThemePicker">
+          <text>🎨</text>
+        </view>
+        <view class="mine-btn" bindtap="goToMine">
+          <text>👤</text>
+        </view>
+        <view class="add-btn" bindtap="goToAdd">
+          <text style="color: {{theme.textAccent}};">+</text>
+        </view>
+      </view>
+      <text class="nav-title" style="color: {{theme.textPrimary}};">No Forget</text>
+      <view class="nav-placeholder"></view>
+    </view>
+  </view>
+
+  <!-- 用户信息栏（未登录时显示） -->
+  <view class="login-bar" wx:if="{{!hasLogin}}" bindtap="doLogin">
+    <view class="login-content">
+      <text class="login-tip" style="color: {{theme.textSecondary}};">点击登录，体验完整功能</text>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{items.length === 0}}">
+    <text class="empty-icon">⏱️</text>
+    <text class="empty-title" style="color: {{theme.textPrimary}};">还没有倒计时</text>
+    <text class="empty-desc" style="color: {{theme.textSecondary}};">点击右上角 + 添加第一个纪念日</text>
+  </view>
+
+  <!-- 倒计时列表 -->
+  <scroll-view 
+    class="list-scroll"
+    scroll-y
+    bindscrolltolower="loadMore"
+    lower-threshold="100"
+  >
+    <view class="card-list">
+      <block wx:for="{{items}}" wx:key="id">
+        <view 
+          class="countdown-card"
+          style="background: {{theme.cardBg}}; box-shadow: {{theme.shadow}};"
+          bindtap="goToDetail"
+          data-id="{{item.id}}"
+        >
+          <!-- 分类标签 -->
+          <view class="card-category">
+            <text class="category-icon">{{item.icon}}</text>
+            <text class="category-name" style="color: {{theme.textSecondary}};">{{item.name}}</text>
+          </view>
+
+          <!-- 核心数字 -->
+          <view class="card-main">
+            <view class="days-wrapper">
+              <!-- 判断方向 -->
+              <text 
+                class="days-number" 
+                style="color: {{item.isPast ? theme.textSecondary : theme.textPrimary}};"
+              >
+                {{item.isPast ? '' : ''}}{{item.days}}{{item.isPast ? '' : ''}}
+              </text>
+              <text class="days-label" style="color: {{theme.textSecondary}};">{{item.isPast ? '天已过' : '天'}}</text>
+            </view>
+          </view>
+
+          <!-- 名称和日期 -->
+          <view class="card-info">
+            <text class="card-title" style="color: {{theme.textPrimary}};">{{item.title}}</text>
+            <text class="card-date" style="color: {{theme.textSecondary}};">{{item.dateStr}}</text>
+          </view>
+
+          <!-- 额外信息 -->
+          <view class="card-extra">
+            <text class="card-detail-text" style="color: {{theme.textSecondary}};">{{item.detailText}}</text>
+          </view>
+
+          <!-- 操作按钮 -->
+          <view class="card-actions">
+            <view class="action-btn" catchtap="shareCard" data-id="{{item.id}}">
+              <text style="color: {{theme.textAccent}};">↗</text>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{items.length > 0}}">
+      <text style="color: {{theme.textSecondary}};">{{hasMore ? '上滑加载更多' : '没有更多了'}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 主题选择器 -->
+  <view class="theme-picker-mask" wx:if="{{showThemePicker}}" bindtap="closeThemePicker">
+    <view class="theme-picker-sheet" style="background: {{theme.cardBg}};" catchtap="stopProp">
+      <view class="theme-picker-title" style="color: {{theme.textPrimary}};">选择主题</view>
+      <view class="theme-options">
+        <view 
+          class="theme-option {{currentTheme === 'apple' ? 'active' : ''}}"
+          bindtap="selectTheme"
+          data-theme="apple"
+        >
+          <view class="theme-preview apple-preview"></view>
+          <text class="theme-name" style="color: {{theme.textPrimary}};">Apple 风格</text>
+        </view>
+        <view 
+          class="theme-option {{currentTheme === 'morandi' ? 'active' : ''}}"
+          bindtap="selectTheme"
+          data-theme="morandi"
+        >
+          <view class="theme-preview morandi-preview"></view>
+          <text class="theme-name" style="color: {{theme.textPrimary}};">莫兰迪风格</text>
+        </view>
+        <view 
+          class="theme-option {{currentTheme === 'vintage' ? 'active' : ''}}"
+          bindtap="selectTheme"
+          data-theme="vintage"
+        >
+          <view class="theme-preview vintage-preview"></view>
+          <text class="theme-name" style="color: {{theme.textPrimary}};">复古风格</text>
+        </view>
+      </view>
+      <view class="theme-picker-cancel" bindtap="closeThemePicker">
+        <text style="color: {{theme.textSecondary}};">取消</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,72 @@
+<!-- pages/detail/detail.wxml - 详情页 -->
+<view class="container" style="background: {{theme.background}};">
+  <!-- 顶部导航 -->
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-content">
+      <view class="back-btn" bindtap="goBack">
+        <text style="color: {{theme.textPrimary}};">←</text>
+      </view>
+      <view class="edit-btn" bindtap="goToEdit">
+        <text style="color: {{theme.textSecondary}};">Edit</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 封面图区域 -->
+  <view class="detail-cover-wrapper" wx:if="{{item.coverImage}}">
+    <image 
+      class="cover-img" 
+      src="{{item.coverImage}}" 
+      mode="widthFix"
+    ></image>
+    <!-- 渐变层 -->
+    <view 
+      class="cover-fade-bottom" 
+      style="background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, {{theme.background}} 100%);"
+    ></view>
+  </view>
+
+  <!-- 主显示区 -->
+  <view class="main-display">
+    <!-- 核心数字 -->
+    <view class="display-number-wrapper">
+      <text class="display-number" style="color: {{theme.textPrimary}};">{{item.displayDays}}</text>
+      <text class="display-label" style="color: {{theme.textSecondary}};">{{item.isPast || item.direction === 'countup' ? '天已过' : '天'}}</text>
+    </view>
+
+    <!-- 名称 + 日期 -->
+    <view class="display-header">
+      <text class="display-title" style="color: {{theme.textPrimary}};">{{item.title}}</text>
+      <text class="display-date" style="color: {{theme.textSecondary}};">{{item.dateStr}}</text>
+    </view>
+
+    <!-- 分隔线 -->
+    <view class="divider" style="background: {{theme.border}};"></view>
+
+    <!-- 详细描述 -->
+    <view class="detail-info">
+      <text class="detail-main" style="color: {{theme.textPrimary}};">{{item.detailMain}}</text>
+      <text class="detail-sub" style="color: {{theme.textSecondary}};">{{item.detailSub}}</text>
+    </view>
+
+    <!-- 里程碑 -->
+    <view class="milestone" wx:if="{{item.milestone}}">
+      <text class="milestone-text" style="color: {{theme.textSecondary}};">🎯 {{item.milestone}}</text>
+    </view>
+  </view>
+
+  <!-- 底部三按钮 -->
+  <view class="bottom-actions">
+    <view class="bottom-btn" bindtap="goToEdit">
+      <text style="color: {{theme.textSecondary}};">编辑</text>
+    </view>
+    <view class="bottom-sep">|</view>
+    <view class="bottom-btn" bindtap="toggleRemind">
+      <text style="color: {{remindEnabled ? theme.textAccent : theme.textSecondary}};">{{remindEnabled ? '已开启提醒' : '提醒'}}</text>
+    </view>
+    <view class="bottom-sep">|</view>
+    <view class="bottom-btn" bindtap="shareCard">
+      <text style="color: {{theme.textSecondary}};">分享</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,298 @@
+/* pages/index/index.wxss - 首页样式 */
+
+.container {
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 顶部导航 */
+.nav-bar {
+  padding: 0 20px 12px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: inherit;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 100px;
+}
+
+.nav-title {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-placeholder {
+  min-width: 100px;
+}
+
+.theme-btn, .add-btn, .mine-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.add-btn {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+/* 登录提示栏 */
+.login-bar {
+  margin: 0 20px 16px 20px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.login-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-tip {
+  font-size: 13px;
+}
+
+/* 空状态 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 120px;
+}
+
+.empty-icon {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
+.empty-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.empty-desc {
+  font-size: 14px;
+}
+
+/* 列表 */
+.list-scroll {
+  padding: 0 20px;
+  height: calc(100vh - 180px);
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 40px;
+}
+
+/* 倒计时卡片 */
+.countdown-card {
+  border-radius: 20px;
+  padding: 20px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.countdown-card:active {
+  transform: scale(0.98);
+}
+
+.card-category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.category-icon {
+  font-size: 14px;
+}
+
+.category-name {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+/* 核心数字 */
+.card-main {
+  margin: 8px 0;
+}
+
+.days-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.days-number {
+  font-size: 72px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.days-label {
+  font-size: 14px;
+  font-weight: 400;
+  margin-top: 4px;
+  letter-spacing: 2px;
+}
+
+/* 名称和日期 */
+.card-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.card-date {
+  font-size: 13px;
+}
+
+/* 额外信息 */
+.card-extra {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.card-detail-text {
+  font-size: 12px;
+}
+
+/* 操作按钮 */
+.card-actions {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+}
+
+/* 加载更多 */
+.load-more {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 12px;
+}
+
+/* 主题选择器 */
+.theme-picker-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.theme-picker-sheet {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 20px 20px 0 0;
+  padding: 24px 20px 40px 20px;
+}
+
+.theme-picker-title {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.theme-options {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.theme-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-option.active .theme-name {
+  font-weight: 600;
+}
+
+.theme-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.theme-option.active .theme-preview {
+  border-color: #0071E3;
+}
+
+.apple-preview {
+  background: #FFFFFF;
+  border: 1px solid #E5E5E5;
+}
+
+.morandi-preview {
+  background: linear-gradient(135deg, #E8E2DC 0%, #D4C4B5 100%);
+}
+
+.vintage-preview {
+  background: linear-gradient(135deg, #F5EFE6 0%, #E0D5C5 100%);
+}
+
+.theme-name {
+  font-size: 12px;
+}
+
+.theme-picker-cancel {
+  margin-top: 20px;
+  text-align: center;
+  padding: 12px;
+  font-size: 14px;
+}

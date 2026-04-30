@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/add/add",
+    "pages/detail/detail",
+    "pages/mine/mine"
+  ],
+  "window": {
+    "navigationBarTitleText": "No Forget",
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black"
+  },
+  "permission": {
+    "scope.notifyMsg": {
+      "desc": "用于在纪念日当天给你发送提醒通知"
+    }
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

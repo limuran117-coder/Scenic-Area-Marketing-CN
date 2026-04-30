@@ -1,0 +1,172 @@
+/* pages/detail/detail.wxss - 详情页样式 */
+
+.container {
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部导航 */
+.nav-bar {
+  padding: 0 20px 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: inherit;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back-btn {
+  padding: 6px 0;
+  font-size: 20px;
+}
+
+.edit-btn {
+  padding: 6px 0;
+  font-size: 11px;
+}
+
+/* 封面图区域 */
+.detail-cover-wrapper {
+  width: 100%;
+  height: 320px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.cover-img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 底部80px渐变层 */
+.cover-fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  pointer-events: none;
+}
+
+/* 主显示区 - 紧贴照片下方 */
+.main-display {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 24px 12px 24px;
+}
+
+/* 核心数字 */
+.display-number-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.display-number {
+  font-size: 140px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -8px;
+  font-variant-numeric: tabular-nums;
+}
+
+.display-label {
+  font-size: 20px;
+  letter-spacing: 3px;
+  margin-top: 6px;
+  font-weight: 300;
+}
+
+/* 名称 + 日期 */
+.display-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.display-title {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.display-date {
+  font-size: 20px;
+  margin-top: 4px;
+}
+
+/* 分隔线 */
+.divider {
+  width: 50px;
+  height: 2px;
+  margin: 14px 0;
+  opacity: 0.2;
+}
+
+/* 详细描述 */
+.detail-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+}
+
+.detail-main {
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.detail-sub {
+  font-size: 20px;
+  text-align: center;
+  max-width: 560px;
+  line-height: 1.5;
+}
+
+/* 里程碑 */
+.milestone {
+  margin-top: 14px;
+}
+
+.milestone-text {
+  font-size: 18px;
+}
+
+/* 底部三按钮 */
+.bottom-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 24px 36px 24px;
+}
+
+.bottom-btn {
+  padding: 6px 4px;
+}
+
+.bottom-btn text {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.bottom-sep {
+  font-size: 14px;
+  opacity: 0.4;
+}

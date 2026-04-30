@@ -1,0 +1,44 @@
+/* theme-default.wxss - 默认主题样式 */
+
+page {
+  --theme-background: #FFFFFF;
+  --theme-card-bg: #F5F5F7;
+  --theme-text-primary: #1D1D1F;
+  --theme-text-secondary: #86868B;
+  --theme-text-accent: #0071E3;
+  --theme-border: #E5E5E5;
+  --theme-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* Apple 主题 */
+.theme-apple {
+  --theme-background: #FFFFFF;
+  --theme-card-bg: #F5F5F7;
+  --theme-text-primary: #1D1D1F;
+  --theme-text-secondary: #86868B;
+  --theme-text-accent: #0071E3;
+  --theme-border: #E5E5E5;
+  --theme-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* 莫兰迪主题 */
+.theme-morandi {
+  --theme-background: #F2EDE8;
+  --theme-card-bg: #E8E2DC;
+  --theme-text-primary: #5D5448;
+  --theme-text-secondary: #9C9486;
+  --theme-text-accent: #A78B7A;
+  --theme-border: #D4CEC6;
+  --theme-shadow: 0 2px 12px rgba(93, 84, 72, 0.1);
+}
+
+/* 复古主题 */
+.theme-vintage {
+  --theme-background: #FBF7F0;
+  --theme-card-bg: #F5EFE6;
+  --theme-text-primary: #4A3728;
+  --theme-text-secondary: #8B7355;
+  --theme-text-accent: #C4A35A;
+  --theme-border: #E0D5C5;
+  --theme-shadow: 0 2px 12px rgba(74, 55, 40, 0.1);
+}

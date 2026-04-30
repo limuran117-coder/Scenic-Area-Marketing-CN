@@ -1,0 +1,153 @@
+/* pages/mine/mine.wxss - 我的页面样式 */
+
+.container {
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* 顶部导航 */
+.nav-bar {
+  padding: 0 20px 16px 20px;
+}
+
+.nav-title {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* 用户区域 */
+.user-section {
+  padding: 0 20px 24px 20px;
+}
+
+.user-card {
+  border-radius: 20px;
+  padding: 24px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info.not-login {
+  cursor: pointer;
+}
+
+.avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.avatar-placeholder {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
+
+.user-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nickname {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.user-desc {
+  font-size: 13px;
+}
+
+/* 统计区域 */
+.stats-section {
+  padding: 0 20px 24px 20px;
+}
+
+.stats-card {
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-number {
+  font-size: 28px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 12px;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 40px;
+  opacity: 0.3;
+}
+
+/* 菜单区域 */
+.menu-section {
+  padding: 0 20px;
+}
+
+.menu-group {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 12px;
+}
+
+.menu-icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 15px;
+}
+
+.menu-arrow {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+/* 底部 */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 40px 20px 60px 20px;
+}
+
+.footer text {
+  font-size: 12px;
+}
