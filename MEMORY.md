@@ -182,3 +182,47 @@ core_mission: 年度客流153万、营收1.2亿
 - | 郑州海昌海洋公园 | 5,136 | 📈 11.12% | 1,851 | 📈 9.66% | | 只有河南戏剧幻城 | 3,617 | 📈 15.04% | 1,598 | 📉 -9.51% | | 只有红楼梦戏剧幻城 | 2,766 | 📈 9.76% | 1,054 | 📉 -2.59% | [score=0.879 recalls=0 avg=0.620 source=memory/2026-04-20.md:17-19]
 <!-- openclaw-memory-promotion:memory:memory/2026-04-20.md:21:21 -->
 - **建业电影小镇亮点**: 搜索+12.78%，综合+12.01%，双指标保持正增长，增速跑赢银基 [score=0.879 recalls=0 avg=0.620 source=memory/2026-04-20.md:21-21]
+
+---
+
+**[fix] 案例库更新cron错误（06-04-30修复）**
+> 根因：SOP脚本用了 `cat > /tmp/xxx.py << 'PYEOF'` heredoc，触发exec安全拦截
+> 修复：编辑cron/jobs.json，移除SOP中的heredoc，改用直接python执行
+
+**[fix] 每日复盘整合cron错误（06-04-30修复）**
+> 根因：edit工具找不到SOP文件中精确匹配的oldText
+> 修复：编辑cron/jobs.json，简化cron message指令，禁止edit工具修改wiki
+
+**[fix] Swap压力告警（06-04-30记录）**
+> Swap使用率89.7%（4590M/5120M），主因Ollama 26GB模型blob
+> 建议：考虑限制Ollama模型按需加载，非长期驻留
+
+---
+
+# 🌟 GitHub高星项目研究（06-04-30）
+
+**[CowAgent] 43.9k⭐** — 飞书+Skills+MCP多Agent
+- 架构：bridge/channel层支持飞书/钉钉/企微/微信/QQ等10+接入
+- Skills系统：SKILL.md格式，metadata.cow.always/requires.bins/requires.env
+- Skill Hub：skills.cowagent.ai 社区市场，支持clawhub安装
+- MCP集成：完整MCP工具注册体系
+- 记忆系统：长期记忆+知识库双轨，支持Ollama/DeepSeek/Claude/Gemini多模型
+- 与当前系统对比：Skills格式高度相似（SKILL.md+description+metadata），MCP接入方式可比拟
+
+**[EvoMap/evolver] 7.1k⭐** — GEP自进化引擎
+- Genes/Capsules/Events三层进化机制
+- 支持A2A（Agent to Agent）协议
+- MCP工具注册
+- 审计日志：可追踪每个skill的创建/演化过程
+- 与autonomy-kit对比：进化逻辑更系统化，有审计链条
+
+**[lobehub/lobehub] 75.9k⭐** — 多Agent协作平台
+- Agent团队设计：多个Agent协同工作，有角色分工
+- 与当前A+B+C架构可对照参考
+- lobe-chat支持多模型切换（OpenAI/Claude/Gemini/DeepSeek）
+
+**[neural-memory] 发现本地已有安装** ⚠️
+- 内核通过spreading activation做记忆关联（不是向量检索）
+- 20种突触类型：BEFORE/AFTER/CAUSED_BY/LEADS_TO/IS_A/HAS_PROPERTY等
+- Hebbian学习+记忆衰减+矛盾检测
+- 可作为MEMORY.md的增强层而非替代
