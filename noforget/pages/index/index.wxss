@@ -278,12 +278,19 @@
   border: 1px solid #E5E5E5;
 }
 
-.morandi-preview {
-  background: linear-gradient(135deg, #E8E2DC 0%, #D4C4B5 100%);
+.notion-preview {
+  background: #f6f5f4;
+  border: 1px solid rgba(0,0,0,0.1);
 }
 
-.vintage-preview {
-  background: linear-gradient(135deg, #F5EFE6 0%, #E0D5C5 100%);
+.airbnb-preview {
+  background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
+  border: 1px solid #ebebeb;
+}
+
+.starbucks-preview {
+  background: #f2f0eb;
+  border: 1px solid #dddddd;
 }
 
 .theme-name {

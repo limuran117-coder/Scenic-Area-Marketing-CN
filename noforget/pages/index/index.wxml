@@ -109,20 +109,28 @@
           <text class="theme-name" style="color: {{theme.textPrimary}};">Apple 风格</text>
         </view>
         <view 
-          class="theme-option {{currentTheme === 'morandi' ? 'active' : ''}}"
+          class="theme-option {{currentTheme === 'notion' ? 'active' : ''}}"
           bindtap="selectTheme"
-          data-theme="morandi"
+          data-theme="notion"
         >
-          <view class="theme-preview morandi-preview"></view>
-          <text class="theme-name" style="color: {{theme.textPrimary}};">莫兰迪风格</text>
+          <view class="theme-preview notion-preview"></view>
+          <text class="theme-name" style="color: {{theme.textPrimary}};">Notion</text>
         </view>
         <view 
-          class="theme-option {{currentTheme === 'vintage' ? 'active' : ''}}"
+          class="theme-option {{currentTheme === 'airbnb' ? 'active' : ''}}"
           bindtap="selectTheme"
-          data-theme="vintage"
+          data-theme="airbnb"
         >
-          <view class="theme-preview vintage-preview"></view>
-          <text class="theme-name" style="color: {{theme.textPrimary}};">复古风格</text>
+          <view class="theme-preview airbnb-preview"></view>
+          <text class="theme-name" style="color: {{theme.textPrimary}};">Airbnb</text>
+        </view>
+        <view 
+          class="theme-option {{currentTheme === 'starbucks' ? 'active' : ''}}"
+          bindtap="selectTheme"
+          data-theme="starbucks"
+        >
+          <view class="theme-preview starbucks-preview"></view>
+          <text class="theme-name" style="color: {{theme.textPrimary}};">Starbucks</text>
         </view>
       </view>
       <view class="theme-picker-cancel" bindtap="closeThemePicker">

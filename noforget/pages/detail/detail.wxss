@@ -10,16 +10,25 @@
 /* 顶部导航 */
 .nav-bar {
   padding: 0 20px 10px 20px;
-  position: sticky;
+  position: absolute;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
-  background: inherit;
+  background: transparent;
+  /* 使用渐变遮罩实现导航栏文字在深色图片上清晰可见 */
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
 }
 
 .nav-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-text-light {
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
 }
 
 .back-btn {
@@ -48,14 +57,28 @@
   left: 0;
 }
 
-/* 底部80px渐变层 */
+/* 顶部渐变：减轻导航栏突兀感，使标题栏透明融入图片 */
+.cover-fade-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 底部渐变：仅从图片底部开始，从透明→背景色，自然消退 */
 .cover-fade-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 180px;
+  background: linear-gradient(to top, {{theme.background}} 0%, rgba(0,0,0,0) 100%);
   pointer-events: none;
+  z-index: 2;
 }
 
 /* 主显示区 - 紧贴照片下方 */

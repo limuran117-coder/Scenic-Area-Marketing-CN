@@ -5,49 +5,55 @@ App({
   globalData: {
     userInfo: null,
     hasLogin: false,
-    // 三套主题配置
+    // 四套主题配置（基于 VoltAgent awesome-design-md）
     themes: {
-      // Apple 风格 - 极简纯净
+      // Apple 风格 - 极简纯净，摄影感
       apple: {
         id: 'apple',
-        name: 'Apple 风格',
+        name: 'Apple',
         background: '#FFFFFF',
-        backgroundGrad: '',
-        cardBg: '#F5F5F7',
-        textPrimary: '#1D1D1F',
-        textSecondary: '#86868B',
-        textAccent: '#0071E3',
-        border: '#E5E5E5',
+        cardBg: '#f5f5f7',
+        textPrimary: '#1d1d1f',
+        textSecondary: '#7a7a7a',
+        textAccent: '#0066cc',
+        border: '#e0e0e0',
         shadow: '0 2px 12px rgba(0,0,0,0.06)',
-        emoji: ''
       },
-      // 莫兰迪风格 - 低饱和高级灰
-      morandi: {
-        id: 'morandi',
-        name: '莫兰迪风格',
-        background: '#F2EDE8',
-        backgroundGrad: '',
-        cardBg: '#E8E2DC',
-        textPrimary: '#5D5448',
-        textSecondary: '#9C9486',
-        textAccent: '#A78B7A',
-        border: '#D4CEC6',
-        shadow: '0 2px 12px rgba(93,84,72,0.1)',
-        emoji: ''
+      // Notion 风格 - 温暖纸质感，文艺中性
+      notion: {
+        id: 'notion',
+        name: 'Notion',
+        background: '#ffffff',
+        cardBg: '#f6f5f4',
+        textPrimary: 'rgba(0,0,0,0.95)',
+        textSecondary: '#a39e98',
+        textAccent: '#0075de',
+        border: 'rgba(0,0,0,0.1)',
+        shadow: '0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.03)',
       },
-      // 复古风格 - 米黄棕色调
-      vintage: {
-        id: 'vintage',
-        name: '复古风格',
-        background: '#FBF7F0',
-        backgroundGrad: '',
-        cardBg: '#F5EFE6',
-        textPrimary: '#4A3728',
-        textSecondary: '#8B7355',
-        textAccent: '#C4A35A',
-        border: '#E0D5C5',
-        shadow: '0 2px 12px rgba(74,55,40,0.1)',
-        emoji: ''
+      // Airbnb 风格 - 温暖珊瑚红，消费友好
+      airbnb: {
+        id: 'airbnb',
+        name: 'Airbnb',
+        background: '#ffffff',
+        cardBg: '#f7f7f7',
+        textPrimary: '#222222',
+        textSecondary: '#6a6a6a',
+        textAccent: '#ff385c',
+        border: '#ebebeb',
+        shadow: '0 4px 16px rgba(0,0,0,0.12)',
+      },
+      // Starbucks 风格 - 咖啡馆温暖感
+      starbucks: {
+        id: 'starbucks',
+        name: 'Starbucks',
+        background: '#f2f0eb',
+        cardBg: '#edebe9',
+        textPrimary: 'rgba(0,0,0,0.87)',
+        textSecondary: 'rgba(0,0,0,0.58)',
+        textAccent: '#00754a',
+        border: '#ddddd',
+        shadow: '0 4px 12px rgba(0,0,0,0.14)',
       }
     },
     currentTheme: 'apple'
