@@ -44,7 +44,7 @@
 /* 封面图区域 */
 .detail-cover-wrapper {
   width: 100%;
-  height: 320px;
+  height: 340px;
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
@@ -53,8 +53,11 @@
 .cover-img {
   width: 100%;
   position: absolute;
-  top: 0;
+  /* 让图片底部对齐容器底部，这样能看到更多图片内容 */
+  bottom: 0;
   left: 0;
+  /* 高度足够大，确保图片能完整填充并延伸出容器 */
+  height: 480px;
 }
 
 /* 顶部渐变：减轻导航栏突兀感，使标题栏透明融入图片 */
@@ -69,14 +72,15 @@
   z-index: 1;
 }
 
-/* 底部渐变：仅从图片底部开始，从透明→背景色，自然消退 */
+/* 底部渐变：背景色向上渐隐，实现图片→背景自然过渡 */
 .cover-fade-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 180px;
-  background: linear-gradient(to top, {{theme.background}} 0%, rgba(0,0,0,0) 100%);
+  height: 100px;
+  /* 背景色与主显示区衔接：从透明渐变到页面背景色 */
+  background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
   pointer-events: none;
   z-index: 2;
 }
