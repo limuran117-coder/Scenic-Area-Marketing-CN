@@ -104,7 +104,8 @@ Page({
     const year = d.getFullYear()
     const month = d.getMonth() + 1
     const day = d.getDate()
-    return `${year}年${month}月${day}日`
+    // 有封面时用点分隔便于阅读，无封面时用中文年月日
+    return `${year}.${month}.${day}`
   },
 
   goBack() {

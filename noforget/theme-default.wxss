@@ -1,60 +1,134 @@
-/* theme-default.wxss - 默认主题样式 */
+/* ============================================================
+   theme-default.wxss — No Forget 主题系统
+   基于 VoltAgent awesome-design-md × Impeccable 设计规范
+   ============================================================ */
 
+/* 全局默认主题（fallback） */
 page {
-  --theme-background: #FFFFFF;
-  --theme-card-bg: #F5F5F7;
-  --theme-text-primary: #1D1D1F;
-  --theme-text-secondary: #86868B;
-  --theme-text-accent: #0071E3;
-  --theme-border: #E5E5E5;
-  --theme-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  --theme-shadow-card: 0 2px 12px rgba(0,0,0,0.06);
-}
-
-/* Apple 主题 - 极简纯净，摄影感强 */
-.theme-apple {
-  --theme-background: #FFFFFF;
-  --theme-card-bg: #f5f5f7;
+  --theme-background: #ffffff;
+  --theme-card-bg: #ffffff;
   --theme-text-primary: #1d1d1f;
-  --theme-text-secondary: #7a7a7a;
+  --theme-text-secondary: #6e6e73;
   --theme-text-accent: #0066cc;
-  --theme-border: #e0e0e0;
-  --theme-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  --theme-shadow-card: 0 2px 12px rgba(0,0,0,0.06);
+  --theme-border: rgba(0,0,0,0.08);
+  --theme-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --theme-shadow-card: 0 4px 16px rgba(0,0,0,0.08);
+  --theme-radius-card: 18px;
+  --theme-radius-btn: 50px;
+  --theme-radius-input: 12px;
+  /* 动效时序 */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-micro: 150ms;
+  --duration-state: 250ms;
+  --duration-layout: 350ms;
+  --duration-entrance: 450ms;
 }
 
-/* Notion 主题 - 温暖纸质感，文艺中性 */
+/* ============================================================
+   Apple 主题 — 极简摄影感，白色留白，精准蓝强调
+   色彩来源：Apple Human Interface Guidelines
+   ============================================================ */
+.theme-apple {
+  --theme-background: #ffffff;
+  --theme-card-bg: #ffffff;
+  --theme-text-primary: #1d1d1f;
+  /* 次要文字：微冷灰，无纯灰 */
+  --theme-text-secondary: #6e6e73;
+  --theme-text-accent: #0066cc;
+  --theme-border: rgba(0,0,0,0.08);
+  /* 极轻阴影，白色背景下几乎无影 */
+  --theme-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  --theme-shadow-card: 0 2px 12px rgba(0,0,0,0.07);
+  --theme-radius-card: 16px;
+  --theme-radius-btn: 50px;
+  --theme-radius-input: 12px;
+  /* 动效 */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-micro: 150ms;
+  --duration-state: 250ms;
+  --duration-layout: 350ms;
+  --duration-entrance: 450ms;
+}
+
+/* ============================================================
+   Notion 主题 — 暖白纸质感，超薄边框，柔和蓝强调
+   色彩来源：Notion Design System
+   特色：tinted neutral（极微色相渗入）
+   ============================================================ */
 .theme-notion {
-  --theme-background: #ffffff;
-  --theme-card-bg: #f6f5f4;
-  --theme-text-primary: rgba(0,0,0,0.95);
-  --theme-text-secondary: #a39e98;
-  --theme-text-accent: #0075de;
-  --theme-border: rgba(0,0,0,0.1);
-  --theme-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-  --theme-shadow-card: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
+  --theme-background: #faf9f7;
+  --theme-card-bg: #ffffff;
+  --theme-text-primary: rgba(0,0,0,0.88);
+  /* 次要文字：暖中性灰，带极微暖色相 */
+  --theme-text-secondary: #9c9489;
+  --theme-text-accent: #2385e2;
+  /* 超薄边框：1px rgba，轻到几乎看不到 */
+  --theme-border: rgba(0,0,0,0.07);
+  --theme-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  /* Notion 特色：细线边框 + 极轻阴影 */
+  --theme-shadow-card: 0 0 0 1px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  --theme-radius-card: 10px;
+  --theme-radius-btn: 6px;
+  --theme-radius-input: 8px;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-micro: 120ms;
+  --duration-state: 200ms;
+  --duration-layout: 300ms;
+  --duration-entrance: 400ms;
 }
 
-/* Airbnb 主题 - 温暖珊瑚红，消费友好 */
+/* ============================================================
+   Airbnb 主题 — 温暖珊瑚红，友好圆润，仪式感强
+   色彩来源：Airbnb Design System
+   特色：阴影渗入珊瑚红色相，情感温度
+   ============================================================ */
 .theme-airbnb {
-  --theme-background: #ffffff;
-  --theme-card-bg: #f7f7f7;
-  --theme-text-primary: #222222;
-  --theme-text-secondary: #6a6a6a;
+  --theme-background: #fafafa;
+  --theme-card-bg: #ffffff;
+  --theme-text-primary: #1a1a1a;
+  --theme-text-secondary: #717171;
   --theme-text-accent: #ff385c;
-  --theme-border: #ebebeb;
-  --theme-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  --theme-shadow-card: 0 4px 16px rgba(0,0,0,0.12);
+  --theme-border: #f0f0f0;
+  /* 阴影渗入珊瑚红 — Airbnb 品牌色 */
+  --theme-shadow: 0 2px 8px rgba(255,56,92,0.08);
+  --theme-shadow-card: 0 4px 24px rgba(255,56,92,0.12);
+  --theme-radius-card: 24px;
+  --theme-radius-btn: 50px;
+  --theme-radius-input: 24px;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-micro: 150ms;
+  --duration-state: 250ms;
+  --duration-layout: 350ms;
+  --duration-entrance: 450ms;
 }
 
-/* Starbucks 主题 - 咖啡馆温暖感，奶油绿调 */
+/* ============================================================
+   Starbucks 主题 — 咖啡深绿，奶油白底，厚重温暖
+   色彩来源：Starbucks Brand Guidelines
+   特色：深色主文字，绿色强调，厚重但不闷
+   ============================================================ */
 .theme-starbucks {
-  --theme-background: #f2f0eb;
-  --theme-card-bg: #edebe9;
-  --theme-text-primary: rgba(0,0,0,0.87);
-  --theme-text-secondary: rgba(0,0,0,0.58);
-  --theme-text-accent: #00754a;
-  --theme-border: #dddddd;
-  --theme-shadow: 0 2px 8px rgba(0,0,0,0.10);
-  --theme-shadow-card: 0 4px 12px rgba(0,0,0,0.14);
+  --theme-background: #f7f5f0;
+  --theme-card-bg: #ffffff;
+  --theme-text-primary: #2d2018;
+  --theme-text-secondary: #7a7067;
+  --theme-text-accent: #1E3932;
+  --theme-border: #e8e2da;
+  /* 阴影渗入咖啡深绿 */
+  --theme-shadow: 0 2px 6px rgba(45,32,24,0.08);
+  --theme-shadow-card: 0 4px 20px rgba(45,32,24,0.10);
+  --theme-radius-card: 16px;
+  --theme-radius-btn: 50px;
+  --theme-radius-input: 12px;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --duration-micro: 150ms;
+  --duration-state: 250ms;
+  --duration-layout: 350ms;
+  --duration-entrance: 450ms;
 }

@@ -1,134 +1,119 @@
 <!-- pages/index/index.wxml - 首页 -->
 <view class="container" style="background: {{theme.background}};">
+
   <!-- 顶部导航 -->
   <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
     <view class="nav-content">
-      <view class="nav-left">
-        <view class="theme-btn" bindtap="openThemePicker">
-          <text>🎨</text>
-        </view>
-        <view class="mine-btn" bindtap="goToMine">
-          <text>👤</text>
-        </view>
-        <view class="add-btn" bindtap="goToAdd">
-          <text style="color: {{theme.textAccent}};">+</text>
-        </view>
+      <view class="nav-icon-btn" bindtap="openThemePicker">
+        <view class="nav-icon-theme"></view>
       </view>
       <text class="nav-title" style="color: {{theme.textPrimary}};">No Forget</text>
-      <view class="nav-placeholder"></view>
-    </view>
-  </view>
-
-  <!-- 用户信息栏（未登录时显示） -->
-  <view class="login-bar" wx:if="{{!hasLogin}}" bindtap="doLogin">
-    <view class="login-content">
-      <text class="login-tip" style="color: {{theme.textSecondary}};">点击登录，体验完整功能</text>
+      <view class="nav-icon-btn" bindtap="goToMine">
+        <view class="nav-icon-mine"></view>
+      </view>
     </view>
   </view>
 
   <!-- 空状态 -->
   <view class="empty-state" wx:if="{{items.length === 0}}">
-    <text class="empty-icon">⏱️</text>
+    <text class="empty-icon">◷</text>
     <text class="empty-title" style="color: {{theme.textPrimary}};">还没有倒计时</text>
-    <text class="empty-desc" style="color: {{theme.textSecondary}};">点击右上角 + 添加第一个纪念日</text>
+    <text class="empty-desc" style="color: {{theme.textSecondary}};">点击下方按钮，添加第一个纪念日</text>
+    <view class="empty-add-btn" bindtap="goToAdd">
+      <text>+</text>
+    </view>
   </view>
 
   <!-- 倒计时列表 -->
-  <scroll-view 
-    class="list-scroll"
-    scroll-y
-    bindscrolltolower="loadMore"
-    lower-threshold="100"
-  >
+  <scroll-view class="list-scroll" scroll-y bindscrolltolower="loadMore" lower-threshold="100">
     <view class="card-list">
       <block wx:for="{{items}}" wx:key="id">
-        <view 
-          class="countdown-card"
-          style="background: {{theme.cardBg}}; box-shadow: {{theme.shadow}};"
-          bindtap="goToDetail"
-          data-id="{{item.id}}"
-        >
-          <!-- 分类标签 -->
-          <view class="card-category">
-            <text class="category-icon">{{item.icon}}</text>
-            <text class="category-name" style="color: {{theme.textSecondary}};">{{item.name}}</text>
-          </view>
+        <!-- 卡片 -->
+        <view class="countdown-card" bindtap="goToDetail" data-id="{{item.id}}">
 
-          <!-- 核心数字 -->
-          <view class="card-main">
-            <view class="days-wrapper">
-              <!-- 判断方向 -->
-              <text 
-                class="days-number" 
-                style="color: {{item.isPast ? theme.textSecondary : theme.textPrimary}};"
-              >
-                {{item.isPast ? '' : ''}}{{item.days}}{{item.isPast ? '' : ''}}
-              </text>
-              <text class="days-label" style="color: {{theme.textSecondary}};">{{item.isPast ? '天已过' : '天'}}</text>
+          <!-- 有封面时的沉浸式卡片 -->
+          <view class="card-cover" wx:if="{{item.coverImage}}">
+            <image class="card-cover-img" src="{{item.coverImage}}" mode="aspectFill"></image>
+            <!-- 全屏蒙版：渐变暗色蒙版 -->
+            <view class="card-cover-overlay"></view>
+            <!-- 左上分类标签 -->
+            <view class="card-cover-tag">
+              <text class="card-cover-tag-icon">{{item.icon}}</text>
+              <text class="card-cover-tag-name">{{item.name}}</text>
+            </view>
+            <!-- 右上分享按钮 -->
+            <view class="card-share-btn" catchtap="shareCard" data-id="{{item.id}}">
+              <text class="share-icon">↗</text>
+            </view>
+            <!-- 底部文字压图区 -->
+            <view class="card-cover-content">
+              <view class="card-cover-days">
+                <text class="cover-days-num" style="color: {{item.isPast ? 'rgba(255,255,255,0.6)' : '#ffffff'}};">{{item.days}}</text>
+                <text class="cover-days-label">{{item.isPast ? '天已过' : '天'}}</text>
+              </view>
+              <text class="card-cover-title">{{item.title}}</text>
+              <text class="card-cover-date">{{item.dateStr}}</text>
             </view>
           </view>
 
-          <!-- 名称和日期 -->
-          <view class="card-info">
-            <text class="card-title" style="color: {{theme.textPrimary}};">{{item.title}}</text>
-            <text class="card-date" style="color: {{theme.textSecondary}};">{{item.dateStr}}</text>
-          </view>
-
-          <!-- 额外信息 -->
-          <view class="card-extra">
-            <text class="card-detail-text" style="color: {{theme.textSecondary}};">{{item.detailText}}</text>
-          </view>
-
-          <!-- 操作按钮 -->
-          <view class="card-actions">
-            <view class="action-btn" catchtap="shareCard" data-id="{{item.id}}">
-              <text style="color: {{theme.textAccent}};">↗</text>
+          <!-- 无封面时的紧凑卡片 -->
+          <view class="card-no-cover" wx:if="{{!item.coverImage}}">
+            <view class="card-header-row">
+              <view class="card-category-tag">
+                <text class="card-category-icon">{{item.icon}}</text>
+                <text class="card-category-name" style="color: {{theme.textSecondary}};">{{item.name}}</text>
+              </view>
+              <view class="card-share-btn" catchtap="shareCard" data-id="{{item.id}}">
+                <text class="share-icon">↗</text>
+              </view>
+            </view>
+            <view class="card-main-row">
+              <view class="card-days-block">
+                <text class="card-days-num" style="color: {{item.isPast ? theme.textSecondary : theme.textAccent}};">{{item.days}}</text>
+                <text class="card-days-label" style="color: {{theme.textSecondary}};">{{item.isPast ? '天已过' : '天'}}</text>
+              </view>
+              <view class="card-info-block">
+                <text class="card-title" style="color: {{theme.textPrimary}};">{{item.title}}</text>
+                <text class="card-date" style="color: {{theme.textSecondary}};">{{item.dateStr}}</text>
+                <text class="card-detail" style="color: {{theme.textSecondary}};" wx:if="{{item.detailText}}">{{item.detailText}}</text>
+              </view>
             </view>
           </view>
+
         </view>
       </block>
     </view>
 
-    <!-- 加载更多 -->
     <view class="load-more" wx:if="{{items.length > 0}}">
       <text style="color: {{theme.textSecondary}};">{{hasMore ? '上滑加载更多' : '没有更多了'}}</text>
     </view>
   </scroll-view>
+
+  <!-- 底部悬浮添加按钮 -->
+  <view class="bottom-add-btn" wx:if="{{items.length > 0}}" bindtap="goToAdd">
+    <view class="bottom-add-circle" style="background: {{theme.textAccent}};">
+      <text>+</text>
+    </view>
+  </view>
 
   <!-- 主题选择器 -->
   <view class="theme-picker-mask" wx:if="{{showThemePicker}}" bindtap="closeThemePicker">
     <view class="theme-picker-sheet" style="background: {{theme.cardBg}};" catchtap="stopProp">
       <view class="theme-picker-title" style="color: {{theme.textPrimary}};">选择主题</view>
       <view class="theme-options">
-        <view 
-          class="theme-option {{currentTheme === 'apple' ? 'active' : ''}}"
-          bindtap="selectTheme"
-          data-theme="apple"
-        >
+        <view class="theme-option {{currentTheme === 'apple' ? 'active' : ''}}" bindtap="selectTheme" data-theme="apple">
           <view class="theme-preview apple-preview"></view>
-          <text class="theme-name" style="color: {{theme.textPrimary}};">Apple 风格</text>
+          <text class="theme-name" style="color: {{theme.textPrimary}};">Apple</text>
         </view>
-        <view 
-          class="theme-option {{currentTheme === 'notion' ? 'active' : ''}}"
-          bindtap="selectTheme"
-          data-theme="notion"
-        >
+        <view class="theme-option {{currentTheme === 'notion' ? 'active' : ''}}" bindtap="selectTheme" data-theme="notion">
           <view class="theme-preview notion-preview"></view>
           <text class="theme-name" style="color: {{theme.textPrimary}};">Notion</text>
         </view>
-        <view 
-          class="theme-option {{currentTheme === 'airbnb' ? 'active' : ''}}"
-          bindtap="selectTheme"
-          data-theme="airbnb"
-        >
+        <view class="theme-option {{currentTheme === 'airbnb' ? 'active' : ''}}" bindtap="selectTheme" data-theme="airbnb">
           <view class="theme-preview airbnb-preview"></view>
           <text class="theme-name" style="color: {{theme.textPrimary}};">Airbnb</text>
         </view>
-        <view 
-          class="theme-option {{currentTheme === 'starbucks' ? 'active' : ''}}"
-          bindtap="selectTheme"
-          data-theme="starbucks"
-        >
+        <view class="theme-option {{currentTheme === 'starbucks' ? 'active' : ''}}" bindtap="selectTheme" data-theme="starbucks">
           <view class="theme-preview starbucks-preview"></view>
           <text class="theme-name" style="color: {{theme.textPrimary}};">Starbucks</text>
         </view>
@@ -138,4 +123,5 @@
       </view>
     </view>
   </view>
+
 </view>

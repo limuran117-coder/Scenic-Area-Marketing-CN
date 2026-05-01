@@ -1,55 +1,107 @@
 <!-- pages/detail/detail.wxml - 详情页 -->
 <view class="container" style="background: {{theme.background}};">
+
   <!-- 顶部导航 -->
   <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
     <view class="nav-content">
-      <view class="back-btn" bindtap="goBack">
-        <text class="nav-text-light">←</text>
+      <view class="nav-back-btn" bindtap="goBack">
+        <text class="nav-arrow">←</text>
       </view>
-      <view class="edit-btn" bindtap="goToEdit">
+      <!-- Logo：导航栏中央，无封面时显示 -->
+      <view class="nav-center-logo" wx:if="{{!item.coverImage}}">
+        <image class="nav-logo-img" src="/images/logo.png" mode="aspectFit"></image>
+      </view>
+      <view class="nav-edit-btn" bindtap="goToEdit">
         <text class="nav-text-light">Edit</text>
       </view>
     </view>
   </view>
 
-  <!-- 封面图区域 -->
+  <!-- ========== 有封面时的沉浸式布局 ========== -->
   <view class="detail-cover-wrapper" wx:if="{{item.coverImage}}">
     <!-- 原始图片 -->
-    <image 
-      class="cover-img" 
-      src="{{item.coverImage}}" 
-      mode="widthFix"
-    ></image>
+    <image class="cover-img" src="{{item.coverImage}}" mode="aspectFill"></image>
+
+    <!-- 全屏蒙版：渐变暗色叠加，白色文字清晰可读 -->
+    <view class="cover-overlay"></view>
+
     <!-- 顶部渐变：导航栏融入图片 -->
     <view class="cover-fade-top"></view>
-    <!-- 底部渐变：图片→背景色自然过渡 -->
+
+    <!-- 封面子导航：编辑按钮浮于图片右上角 -->
+    <view class="cover-top-right">
+      <view class="cover-action-btn" bindtap="goToEdit">
+        <text class="cover-action-icon">✎</text>
+      </view>
+    </view>
+
+    <!-- 主体文字区：压在图片下半部分 -->
+    <view class="cover-content">
+      <!-- 分类标签 -->
+      <view class="cover-category-tag">
+        <text class="cover-category-icon">{{item.icon}}</text>
+        <text class="cover-category-name">{{item.name}}</text>
+      </view>
+
+      <!-- 核心数字 -->
+      <view class="cover-number">
+        <text
+          class="cover-number-text"
+          style="color: {{item.isPast || item.direction === 'countup' ? 'rgba(255,255,255,0.65)' : '#ffffff'}};"
+        >{{item.displayDays}}</text>
+        <text class="cover-number-label">{{item.isPast || item.direction === 'countup' ? '天已过' : '天'}}</text>
+      </view>
+
+      <!-- 标题 -->
+      <text class="cover-title">{{item.title}}</text>
+
+      <!-- 日期 -->
+      <text class="cover-date">{{item.dateStr}}</text>
+    </view>
+
+    <!-- 底部渐变：图片柔和融入背景色 -->
     <view class="cover-fade-bottom"></view>
   </view>
 
-  <!-- 主显示区 -->
-  <view class="main-display">
+  <!-- ========== 有封面的详细描述区 ========== -->
+  <view class="main-display" wx:if="{{item.coverImage}}">
+    <view class="divider" style="background: {{theme.border}};"></view>
+    <view class="detail-info">
+      <text class="detail-main" style="color: {{theme.textPrimary}};">{{item.detailMain}}</text>
+      <text class="detail-sub" style="color: {{theme.textSecondary}};">{{item.detailSub}}</text>
+    </view>
+    <view class="milestone" wx:if="{{item.milestone}}">
+      <text class="milestone-text" style="color: {{theme.textSecondary}};">🎯 {{item.milestone}}</text>
+    </view>
+  </view>
+
+  <!-- ========== 无封面时的整体布局 ========== -->
+  <view class="no-cover-layout" wx:if="{{!item.coverImage}}">
+    <!-- Logo -->
+    <view class="no-cover-logo-area">
+      <image class="logo-img" src="/images/logo.png" mode="aspectFit"></image>
+    </view>
+
     <!-- 核心数字 -->
     <view class="display-number-wrapper">
       <text class="display-number" style="color: {{theme.textPrimary}};">{{item.displayDays}}</text>
       <text class="display-label" style="color: {{theme.textSecondary}};">{{item.isPast || item.direction === 'countup' ? '天已过' : '天'}}</text>
     </view>
 
-    <!-- 名称 + 日期 -->
+    <!-- 标题+日期 -->
     <view class="display-header">
       <text class="display-title" style="color: {{theme.textPrimary}};">{{item.title}}</text>
       <text class="display-date" style="color: {{theme.textSecondary}};">{{item.dateStr}}</text>
     </view>
+  </view>
 
-    <!-- 分隔线 -->
+  <!-- ========== 无封面的详细描述区 ========== -->
+  <view class="main-display" wx:if="{{!item.coverImage}}">
     <view class="divider" style="background: {{theme.border}};"></view>
-
-    <!-- 详细描述 -->
     <view class="detail-info">
       <text class="detail-main" style="color: {{theme.textPrimary}};">{{item.detailMain}}</text>
       <text class="detail-sub" style="color: {{theme.textSecondary}};">{{item.detailSub}}</text>
     </view>
-
-    <!-- 里程碑 -->
     <view class="milestone" wx:if="{{item.milestone}}">
       <text class="milestone-text" style="color: {{theme.textSecondary}};">🎯 {{item.milestone}}</text>
     </view>
@@ -69,4 +121,5 @@
       <text style="color: {{theme.textSecondary}};">分享</text>
     </view>
   </view>
+
 </view>

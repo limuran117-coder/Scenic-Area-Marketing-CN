@@ -2,12 +2,12 @@
 
 .container {
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* 顶部导航 */
+/* ===== 顶部导航 ===== */
 .nav-bar {
-  padding: 0 20px 12px 20px;
+  padding: 0 24px 10px 24px;
   position: sticky;
   top: 0;
   z-index: 100;
@@ -20,210 +20,335 @@
   align-items: center;
 }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 100px;
-}
-
-.nav-title {
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: -0.5px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.nav-placeholder {
-  min-width: 100px;
-}
-
-.theme-btn, .add-btn, .mine-btn {
+.nav-icon-btn {
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--theme-card-bg);
+  box-shadow: var(--theme-shadow);
+  transition: transform var(--duration-micro, 150ms) var(--ease-out-quart, ease-out),
+              box-shadow var(--duration-micro, 150ms) var(--ease-out-quart, ease-out);
 }
 
-.add-btn {
-  font-size: 24px;
-  font-weight: 300;
+.nav-icon-btn:active {
+  transform: scale(0.9);
 }
 
-/* 登录提示栏 */
-.login-bar {
-  margin: 0 20px 16px 20px;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.03);
+.nav-icon-theme {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #0066cc 0deg, #0066cc 90deg,
+    #2385e2 90deg, #2385e2 180deg,
+    #ff385c 180deg, #ff385c 270deg,
+    #1E3932 270deg, #1E3932 360deg
+  );
 }
 
-.login-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.nav-icon-mine {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--theme-text-accent);
 }
 
-.login-tip {
-  font-size: 13px;
+.nav-title {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
-/* 空状态 */
+/* ===== 空状态 ===== */
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 120px;
+  padding: 80px 24px;
+  gap: 10px;
 }
 
-.empty-icon {
-  font-size: 64px;
-  margin-bottom: 16px;
+.empty-icon { font-size: 52px; opacity: 0.55; }
+.empty-title { font-size: 20px; font-weight: 600; }
+.empty-desc { font-size: 14px; text-align: center; max-width: 260px; line-height: 1.5; }
+
+.empty-add-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--theme-text-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
 }
 
-.empty-title {
-  font-size: 18px;
-  font-weight: 500;
-  margin-bottom: 8px;
+.empty-add-btn text {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 300;
 }
 
-.empty-desc {
-  font-size: 14px;
-}
-
-/* 列表 */
+/* ===== 列表 ===== */
 .list-scroll {
-  padding: 0 20px;
-  height: calc(100vh - 180px);
+  padding: 0 16px 100px 16px;
 }
 
 .card-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding-bottom: 40px;
+  gap: 14px;
 }
 
-/* 倒计时卡片 */
+/* ===== 卡片通用 ===== */
 .countdown-card {
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: var(--theme-radius-card, 18px);
+  overflow: hidden;
   position: relative;
-  transition: transform 0.2s ease;
+  background: var(--theme-card-bg);
+  box-shadow: var(--theme-shadow-card);
+  transition: transform var(--duration-state, 250ms) var(--ease-out-quart, ease-out),
+              box-shadow var(--duration-state, 250ms) var(--ease-out-quart, ease-out);
 }
 
 .countdown-card:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
 
-.card-category {
+/* ===== 有封面时的卡片 ===== */
+.card-cover {
+  width: 100%;
+  height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 全屏蒙版：渐变暗色，让白色文字清晰 */
+.card-cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.08) 0%,
+    rgba(0,0,0,0.42) 55%,
+    rgba(0,0,0,0.62) 100%
+  );
+}
+
+/* 左上角分类标签 */
+.card-cover-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
   display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 8px;
-}
-
-.category-icon {
-  font-size: 14px;
-}
-
-.category-name {
-  font-size: 12px;
-  opacity: 0.8;
-}
-
-/* 核心数字 */
-.card-main {
-  margin: 8px 0;
-}
-
-.days-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.days-number {
-  font-size: 72px;
-  font-weight: 200;
-  line-height: 1;
-  letter-spacing: -4px;
-  font-variant-numeric: tabular-nums;
-}
-
-.days-label {
-  font-size: 14px;
-  font-weight: 400;
-  margin-top: 4px;
-  letter-spacing: 2px;
-}
-
-/* 名称和日期 */
-.card-info {
-  display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 4px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 20px;
+  padding: 3px 9px 3px 7px;
+  backdrop-filter: blur(8px);
 }
 
-.card-title {
-  font-size: 16px;
-  font-weight: 500;
-}
+.card-cover-tag-icon { font-size: 10px; }
+.card-cover-tag-name { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.9); }
 
-.card-date {
-  font-size: 13px;
-}
-
-/* 额外信息 */
-.card-extra {
-  margin-top: 12px;
-  text-align: center;
-}
-
-.card-detail-text {
-  font-size: 12px;
-}
-
-/* 操作按钮 */
-.card-actions {
+/* 右上角分享按钮 */
+.card-share-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
 }
 
-.action-btn {
-  width: 32px;
-  height: 32px;
+.share-icon {
+  font-size: 12px;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.18);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.05);
-  font-size: 14px;
+  backdrop-filter: blur(8px);
 }
 
-/* 加载更多 */
-.load-more {
-  text-align: center;
-  padding: 20px 0;
+/* 底部文字压图区 */
+.card-cover-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 16px 14px 16px;
+}
+
+.card-cover-days {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.cover-days-num {
+  font-size: 52px;
+  font-weight: 200;
+  line-height: 0.9;
+  letter-spacing: -4px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.25);
+}
+
+.cover-days-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 6px;
+}
+
+.card-cover-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.35);
+  margin-bottom: 2px;
+}
+
+.card-cover-date {
+  font-size: 11px;
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.5px;
+}
+
+/* ===== 无封面时的紧凑卡片 ===== */
+.card-no-cover {
+  padding: 14px 14px 14px 14px;
+}
+
+.card-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.card-category-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.card-category-icon { font-size: 12px; }
+.card-category-name { font-size: 11px; font-weight: 500; }
+
+/* 左数字右信息的行布局 */
+.card-main-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.card-days-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 64px;
+}
+
+.card-days-num {
+  font-size: 44px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -3px;
+  font-variant-numeric: tabular-nums;
+}
+
+.card-days-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.card-info-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-date {
   font-size: 12px;
 }
 
-/* 主题选择器 */
+.card-detail {
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ===== 底部悬浮添加按钮 ===== */
+.bottom-add-btn {
+  position: fixed;
+  bottom: 28px;
+  right: 22px;
+  z-index: 200;
+}
+
+.bottom-add-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--theme-shadow-card);
+  transition: transform var(--duration-micro, 150ms) var(--ease-out-quart, ease-out);
+}
+
+.bottom-add-circle text {
+  color: #fff;
+  font-size: 26px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+/* ===== 加载更多 ===== */
+.load-more {
+  text-align: center;
+  padding: 20px 0 60px 0;
+  font-size: 12px;
+}
+
+/* ===== 主题选择器 ===== */
 .theme-picker-mask {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+  inset: 0;
+  background: rgba(0,0,0,0.4);
   z-index: 1000;
   display: flex;
   align-items: flex-end;
@@ -234,14 +359,14 @@
   width: 100%;
   max-width: 500px;
   border-radius: 20px 20px 0 0;
-  padding: 24px 20px 40px 20px;
+  padding: 28px 20px 48px 20px;
 }
 
 .theme-picker-title {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .theme-options {
@@ -258,48 +383,36 @@
 }
 
 .theme-option.active .theme-name {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .theme-preview {
-  width: 80px;
-  height: 80px;
-  border-radius: 16px;
+  width: 68px;
+  height: 68px;
+  border-radius: var(--theme-radius-card, 16px);
   border: 2px solid transparent;
   transition: border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .theme-option.active .theme-preview {
-  border-color: #0071E3;
+  border-color: var(--theme-text-accent);
 }
 
-.apple-preview {
-  background: #FFFFFF;
-  border: 1px solid #E5E5E5;
-}
+/* 各主题预览块 */
+.apple-preview { background: #ffffff; border: 1px solid #e5e5e5; position: relative; }
+.apple-preview::after { content: ''; width: 20px; height: 20px; border-radius: 50%; background: #0066cc; box-shadow: 0 2px 8px rgba(0,102,204,0.4); }
 
-.notion-preview {
-  background: #f6f5f4;
-  border: 1px solid rgba(0,0,0,0.1);
-}
+.notion-preview { background: #ffffff; border: 1px solid rgba(0,0,0,0.08); position: relative; }
+.notion-preview::after { content: ''; width: 18px; height: 18px; border-radius: 5px; background: #2385e2; transform: rotate(-4deg); box-shadow: 0 1px 4px rgba(35,133,226,0.3); }
 
-.airbnb-preview {
-  background: linear-gradient(135deg, #ffffff 0%, #f7f7f7 100%);
-  border: 1px solid #ebebeb;
-}
+.airbnb-preview { background: #fff5f6; border: 1px solid #ffdfe3; position: relative; }
+.airbnb-preview::after { content: ''; width: 20px; height: 20px; border-radius: 50%; background: #ff385c; box-shadow: 0 2px 8px rgba(255,56,92,0.4); }
 
-.starbucks-preview {
-  background: #f2f0eb;
-  border: 1px solid #dddddd;
-}
+.starbucks-preview { background: #f7f5f0; border: 1px solid #e8e2da; position: relative; }
+.starbucks-preview::after { content: ''; width: 20px; height: 20px; border-radius: 50%; background: #1E3932; box-shadow: 0 2px 8px rgba(30,57,50,0.4); }
 
-.theme-name {
-  font-size: 12px;
-}
-
-.theme-picker-cancel {
-  margin-top: 20px;
-  text-align: center;
-  padding: 12px;
-  font-size: 14px;
-}
+.theme-name { font-size: 12px; font-weight: 500; }
+.theme-picker-cancel { margin-top: 24px; text-align: center; padding: 12px; font-size: 14px; }

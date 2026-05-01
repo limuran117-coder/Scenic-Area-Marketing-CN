@@ -3,21 +3,16 @@
 .container {
   min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
 }
 
-/* 顶部导航 */
+/* ===== 顶部导航 ===== */
 .nav-bar {
   padding: 0 20px 10px 20px;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  background: transparent;
-  /* 使用渐变遮罩实现导航栏文字在深色图片上清晰可见 */
-  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  z-index: 200;
 }
 
 .nav-content {
@@ -26,84 +21,257 @@
   align-items: center;
 }
 
-.nav-text-light {
+.nav-back-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-arrow {
+  font-size: 22px;
   color: rgba(255,255,255,0.95);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
 
-.back-btn {
-  padding: 6px 0;
-  font-size: 20px;
+.nav-center-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.edit-btn {
-  padding: 6px 0;
+.nav-logo-img {
+  height: 20px;
+  width: auto;
+}
+
+.nav-edit-btn {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-text-light {
   font-size: 11px;
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
 }
 
-/* 封面图区域 */
+/* ===== 封面图区域 ===== */
 .detail-cover-wrapper {
   width: 100%;
-  height: 340px;
+  height: 380px;
   position: relative;
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .cover-img {
-  width: 100%;
   position: absolute;
-  /* 让图片底部对齐容器底部，这样能看到更多图片内容 */
   bottom: 0;
   left: 0;
-  /* 高度足够大，确保图片能完整填充并延伸出容器 */
+  width: 100%;
   height: 480px;
+  object-fit: cover;
+  display: block;
 }
 
-/* 顶部渐变：减轻导航栏突兀感，使标题栏透明融入图片 */
+/* 全屏蒙版：渐变暗色叠加，让文字清晰可读 */
+.cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.22) 0%,
+    rgba(0,0,0,0.12) 30%,
+    rgba(0,0,0,0.48) 65%,
+    rgba(0,0,0,0.68) 100%
+  );
+  z-index: 1;
+}
+
+/* 顶部渐变：导航栏区域透明渐变 */
 .cover-fade-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 90px;
   background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 100%);
   pointer-events: none;
-  z-index: 1;
+  z-index: 2;
 }
 
-/* 底部渐变：背景色向上渐隐，实现图片→背景自然过渡 */
+/* 顶部Logo小标 */
+.cover-logo-tag {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+.cover-logo-text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.7);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+/* 右上角编辑按钮浮于图片上 */
+.cover-top-right {
+  position: absolute;
+  top: 44px;
+  right: 18px;
+  z-index: 10;
+}
+
+.cover-action-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cover-action-icon {
+  font-size: 13px;
+  color: #ffffff;
+}
+
+/* 主体文字区：压在图片下半部分 */
+.cover-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px 24px 24px;
+}
+
+/* 分类标签 */
+.cover-category-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 20px;
+  padding: 4px 12px 4px 10px;
+  backdrop-filter: blur(8px);
+  margin-bottom: 10px;
+}
+
+.cover-category-icon {
+  font-size: 12px;
+}
+
+.cover-category-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+}
+
+/* 核心数字 */
+.cover-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.cover-number-text {
+  font-size: 96px;
+  font-weight: 200;
+  line-height: 0.9;
+  letter-spacing: -6px;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 3px 16px rgba(0,0,0,0.3);
+}
+
+.cover-number-label {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 8px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+}
+
+/* 标题 */
+.cover-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 3px 14px rgba(0,0,0,0.38);
+  margin-bottom: 4px;
+}
+
+/* 日期 */
+.cover-date {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 1px;
+}
+
+/* 底部渐变：图片柔和融入背景色 */
 .cover-fade-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100px;
-  /* 背景色与主显示区衔接：从透明渐变到页面背景色 */
-  background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  height: 80px;
+  background: linear-gradient(to top, var(--theme-background) 0%, rgba(0,0,0,0) 100%);
   pointer-events: none;
-  z-index: 2;
+  z-index: 6;
 }
 
-/* 主显示区 - 紧贴照片下方 */
-.main-display {
-  flex: 1;
+/* ===== 无封面时的布局 ===== */
+.no-cover-layout {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 24px 12px 24px;
+  padding: 60px 24px 0 24px;
 }
 
-/* 核心数字 */
+.no-cover-logo-area {
+  margin-bottom: 16px;
+}
+
+.logo-img {
+  width: 100px;
+  height: auto;
+  opacity: 0.85;
+}
+
+/* ===== 主显示区 ===== */
+.main-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 24px 12px 24px;
+}
+
 .display-number-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .display-number {
-  font-size: 140px;
+  font-size: 120px;
   font-weight: 200;
   line-height: 1;
   letter-spacing: -8px;
@@ -111,13 +279,12 @@
 }
 
 .display-label {
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 3px;
   margin-top: 6px;
   font-weight: 300;
 }
 
-/* 名称 + 日期 */
 .display-header {
   display: flex;
   flex-direction: column;
@@ -126,20 +293,20 @@
 }
 
 .display-title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
 }
 
 .display-date {
-  font-size: 20px;
+  font-size: 18px;
   margin-top: 4px;
 }
 
 /* 分隔线 */
 .divider {
   width: 50px;
-  height: 2px;
-  margin: 14px 0;
+  height: 1px;
+  margin: 20px 0 24px 0;
   opacity: 0.2;
 }
 
@@ -148,40 +315,40 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 0 12px;
 }
 
 .detail-main {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 500;
   text-align: center;
   line-height: 1.4;
 }
 
 .detail-sub {
-  font-size: 20px;
+  font-size: 18px;
   text-align: center;
-  max-width: 560px;
+  max-width: 560rpx;
   line-height: 1.5;
 }
 
 /* 里程碑 */
 .milestone {
-  margin-top: 14px;
+  margin-top: 16px;
 }
 
 .milestone-text {
-  font-size: 18px;
+  font-size: 16px;
 }
 
-/* 底部三按钮 */
+/* ===== 底部三按钮 ===== */
 .bottom-actions {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  padding: 16px 24px 36px 24px;
+  gap: 24px;
+  padding: 20px 24px 44px 24px;
 }
 
 .bottom-btn {
@@ -195,5 +362,5 @@
 
 .bottom-sep {
   font-size: 14px;
-  opacity: 0.4;
+  opacity: 0.3;
 }

@@ -52,14 +52,18 @@ Page({
     const processedItems = localData.map(item => {
       const diff = countdown.getExactDiff(new Date(item.targetDate), now)
       const cat = categories.getCategoryById(item.categoryId)
-      
+      const d = new Date(item.targetDate)
+      const dateStr = `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`
+
+
       return {
         ...item,
         days: diff.totalDays,
         isPast: diff.isPast,
         detailText: countdown.formatDisplayText(diff, item.direction === 'countup'),
         icon: cat.icon,
-        name: cat.name
+        name: cat.name,
+        dateStr: dateStr
       }
     })
     
