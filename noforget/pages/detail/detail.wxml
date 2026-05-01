@@ -129,6 +129,6 @@
   </view>
 
   <!-- 隐藏的分享 Canvas -->
-  <canvas canvas-id="shareCanvas" style="width:300px;height:400px;position:absolute;left:-9999px;top:-9999px;"></canvas>
+  <canvas canvas-id="shareCanvas" style="width:300px;height:420px;position:absolute;left:-9999px;top:-9999px;"></canvas>
 
 </view>

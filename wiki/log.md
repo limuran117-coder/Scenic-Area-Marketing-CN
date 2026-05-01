@@ -234,3 +234,12 @@
 - **Wiki状态**: 上次04-28同步已是最新（YTD 525,533，完成度34.3%）
 - **五一动态**: 5月1-5日为五一假期，数据将在假期结束后补录
 - **状态**: ✅ 无需操作
+
+## [2026-05-01] 周度技能探索
+- **action**: EXPLORE
+- **scope**: 2 skills from available_skills
+- **explored**: 
+  - `knowledge-graph-memory` — 知识图谱+漂移检测+时序推理，⭐⭐⭐⭐实用
+  - `agent-swarm-ex` — 多智能体集群编排，⭐⭐⭐参考
+- **result**: 记录到 wiki/sources/周度技能探索_2026-05-01.md
+- **status**: ✅ 完成

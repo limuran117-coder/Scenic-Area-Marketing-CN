@@ -70,6 +70,7 @@ Page({
     if (!item) return
 
     const cat = categories.getCategoryById(item.categoryId)
+    // ★ 完整加载所有字段（编辑时需要完整保留）
     this.setData({
       title: item.title,
       targetDate: item.targetDate.split(' ')[0],
@@ -77,6 +78,7 @@ Page({
       remindDays: item.remindDays || 1,
       coverImage: item.coverImage || '',
       previewIconPath: getIconPath(this.data.currentTheme, item.categoryId)
+      // isRecurring/direction/startDate 不改变，但数据已保存在 item 里
     })
     this.updatePreview()
   },
@@ -104,24 +106,24 @@ Page({
     this.setData({ remindDays: parseInt(e.currentTarget.dataset.days) })
   },
 
-  // ★ 核心：预览使用新的双函数计算
+  // ★ 核心：预览使用新的双函数计算（含startDate透传）
   updatePreview() {
     if (!this.data.targetDate) return
     const now = new Date()
     const cat = categories.getCategoryById(this.data.selectedCategory)
 
-    // 用新算法构建预览 item
+    // ★ 构建完整预览item（含startDate，getMainCountdown只需要targetDate/isRecurring/direction）
     const previewItem = {
       targetDate: this.data.targetDate,
       isRecurring: cat.isRecurring,
       direction: cat.direction,
-      startDate: this.data.targetDate   // 默认startDate=targetDate
+      startDate: this.data.targetDate   // 默认startDate=targetDate，后续可扩展为用户自定义
     }
 
     const mainCountdown = countdown.getMainCountdown(previewItem, now)
     const elapsed = countdown.getElapsedText(previewItem, now)
 
-    const hmsPart = mainCountdown.totalFormatted.split(' ')[1] || mainCountdown.totalFormatted
+    const hmsPart = (mainCountdown.totalFormatted.split(' ')[1] || '00:00:00')
 
     this.setData({
       previewCountdownDays: mainCountdown.days,

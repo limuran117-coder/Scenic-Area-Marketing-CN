@@ -13,8 +13,8 @@ const SHARE_THEME = {
   birthday:       { bg:'#1C0D00', num:'#FFE4B5', sub:'rgba(255,228,181,0.7)',  accent:'#D4A017', emoji:'🎂' },
   love:           { bg:'#1A0515', num:'#FFB6C1', sub:'rgba(255,182,193,0.7)',  accent:'#E8719A', emoji:'💕' },
   wedding:        { bg:'#FFFCF5', num:'#C9A96E', sub:'rgba(139,115,85,0.8)',   accent:'#C9A96E', emoji:'💒' },
-  death:          { bg:'#08081A', num:'#C8C8DC', sub:'rgba(200,200,220,0.6)',  accent:'#9090B0', emoji:'🙏' },
-  pet_birthday:   { bg:'#FFF8F0', num:'#C47830', sub:'rgba(122,72,32,0.8)',   accent:'#C47830', emoji:'🐾' }
+  death:          { bg:'#08081A', num:'#C8C8DC', sub:'rgba(200,200,220,0.6)',  accent:'#9090B0', emoji:'🙏', titleColor:'#E0E0EC' },
+  pet_birthday:   { bg:'#FFF8F0', num:'#C47830', sub:'rgba(122,72,32,0.8)',   accent:'#C47830', emoji:'🐾', titleColor:'#4A2810' }
 }
 function getShareTheme(catId) { return SHARE_THEME[catId] || SHARE_THEME.birthday }
 

@@ -82,7 +82,15 @@ function getExactDiff(targetDate, nowDate = new Date()) {
  * @returns {Object} { days, hours, minutes, seconds, totalFormatted, isPast }
  */
 function getMainCountdown(item, now = new Date()) {
-  const target = new Date(item.targetDate)
+  const targetStr = item.targetDate
+  // 防御：null/undefined/空字符串/invalid → 兜底返回0
+  if (!targetStr || typeof targetStr !== 'string' || targetStr.trim() === '') {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0, totalFormatted: '0天 00:00:00', isPast: false }
+  }
+  const target = new Date(targetStr)
+  if (isNaN(target.getTime())) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0, totalFormatted: '0天 00:00:00', isPast: false }
+  }
   let endDate
 
   if (item.isRecurring) {
@@ -125,43 +133,51 @@ function getMainCountdown(item, now = new Date()) {
  * @returns {Object} { text, years, months, days, totalDays, isPast }
  */
 function getElapsedText(item, now = new Date()) {
-  const { startDate, isRecurring } = item
+  const { startDate, isRecurring, targetDate } = item
 
-  if (startDate && isRecurring) {
-    // 方式：从 startDate 到现在，计算自然年月差
+  // 防御：startDate 无效时（isRecurring=true）兜底为一次性处理
+  if (startDate && typeof startDate === 'string' && startDate.trim() !== '') {
     const start = new Date(startDate)
-    let y = now.getFullYear() - start.getFullYear()
-    let m = now.getMonth() - start.getMonth()
-    let d = now.getDate() - start.getDate()
+    if (!isNaN(start.getTime()) && isRecurring) {
+      // 年度循环的已过去时间计算
+      let y = now.getFullYear() - start.getFullYear()
+      let m = now.getMonth() - start.getMonth()
+      let d = now.getDate() - start.getDate()
 
-    if (d < 0) {
-      m -= 1
-      const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0)
-      d += prevMonth.getDate()
+      if (d < 0) {
+        m -= 1
+        const prevMonth = new Date(now.getFullYear(), now.getMonth() - 1, 0)
+        d += prevMonth.getDate()
+      }
+      if (m < 0) { m += 12; y -= 1 }
+
+      const totalDays = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
+      const isPast = true
+
+      let text
+      if (y >= 1) {
+        text = `已过去 ${y} 年 ${m} 个月`
+      } else if (m >= 1) {
+        text = `已过去 ${m} 个月`
+      } else {
+        text = `已过去 ${totalDays} 天`
+      }
+
+      return { text, years: y, months: m, days: d, totalDays, isPast }
     }
-    if (m < 0) { m += 12; y -= 1 }
+  }
 
-    const totalDays = Math.floor((now.getTime() - start.getTime()) / (1000 * 60 * 60 * 24))
-    const isPast = true
-
-    let text
-    if (y >= 1) {
-      text = `已过去 ${y} 年 ${m} 个月`
-    } else if (m >= 1) {
-      text = `已过去 ${m} 个月`
-    } else {
-      text = `已过去 ${totalDays} 天`
-    }
-
-    return { text, years: y, months: m, days: d, totalDays, isPast }
-  } else {
-    // 一次性倒计时
-    const diff = getDiff(item.targetDate, now)
+  // 一次性倒计时（isRecurring=false 或 startDate 无效）
+  if (targetDate && typeof targetDate === 'string' && targetDate.trim() !== '') {
+    const diff = cd.getDiff(targetDate, now)
     const text = diff.isPast
       ? `已过 ${diff.days} 天`
       : `还有 ${diff.days} 天`
     return { text, years: 0, months: 0, days: diff.days, totalDays: diff.days, isPast: diff.isPast }
   }
+
+  // 兜底：完全无效的数据
+  return { text: '还有 0 天', years: 0, months: 0, days: 0, totalDays: 0, isPast: false }
 }
 
 /**
