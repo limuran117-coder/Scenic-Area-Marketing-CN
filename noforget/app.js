@@ -1,62 +1,17 @@
 // app.js - No Forget 入口文件
 const app = getApp()
+const themeModule = require('./utils/theme.js')
+
+// 让 app.js 和 utils/theme.js 共用同一份主题数据
+// globalData.themes = color-value版本（供各页面 setData 绑定）
+// utils/theme.js = cssVars版本（供 wxss 变量注入）
 
 App({
   globalData: {
     userInfo: null,
     hasLogin: false,
-    // 四套主题配置
-    // 基于 VoltAgent awesome-design-md × Impeccable 设计规范
-    themes: {
-      // Apple 主题 — 极简摄影感，白色留白，精准蓝强调
-      apple: {
-        id: 'apple',
-        name: 'Apple',
-        background: '#ffffff',
-        cardBg: '#ffffff',
-        textPrimary: '#1d1d1f',
-        textSecondary: '#6e6e73',
-        textAccent: '#0066cc',
-        border: 'rgba(0,0,0,0.08)',
-        shadow: '0 2px 12px rgba(0,0,0,0.07)',
-      },
-      // Notion 主题 — 暖白纸质感，超薄边框，柔和蓝强调
-      notion: {
-        id: 'notion',
-        name: 'Notion',
-        background: '#faf9f7',
-        cardBg: '#ffffff',
-        textPrimary: 'rgba(0,0,0,0.88)',
-        textSecondary: '#9c9489',
-        textAccent: '#2385e2',
-        border: 'rgba(0,0,0,0.07)',
-        shadow: '0 0 0 1px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04)',
-      },
-      // Airbnb 主题 — 温暖珊瑚红，友好圆润，仪式感强
-      airbnb: {
-        id: 'airbnb',
-        name: 'Airbnb',
-        background: '#fafafa',
-        cardBg: '#ffffff',
-        textPrimary: '#1a1a1a',
-        textSecondary: '#717171',
-        textAccent: '#ff385c',
-        border: '#f0f0f0',
-        shadow: '0 4px 24px rgba(255,56,92,0.12)',
-      },
-      // Starbucks 主题 — 咖啡深绿，奶油白底，厚重温暖
-      starbucks: {
-        id: 'starbucks',
-        name: 'Starbucks',
-        background: '#f7f5f0',
-        cardBg: '#ffffff',
-        textPrimary: '#2d2018',
-        textSecondary: '#7a7067',
-        textAccent: '#1E3932',
-        border: '#e8e2da',
-        shadow: '0 4px 20px rgba(45,32,24,0.10)',
-      }
-    },
+    // themes 从 utils/theme.js 引入，保持两份数据同步
+    themes: themeModule.themes,
     currentTheme: 'apple'
   },
 
@@ -112,10 +67,16 @@ App({
     })
   },
 
-  // 获取当前主题
+  // 获取当前主题对象
   getTheme() {
     return this.globalData.themes[this.globalData.currentTheme]
   },
+
+  // 获取当前强调色（便捷访问）
+  getAccentColor() {
+    return this.globalData.themes[this.globalData.currentTheme]?.textAccent || '#0066cc'
+  },
+
 
   // 切换主题
   setTheme(themeId) {

@@ -1,317 +1,307 @@
-/* pages/detail/detail.wxss - 详情页样式 */
+/* pages/detail/detail.wxss v2 - 5主题独立视觉系统
+ *
+ * 每个分类有独特的主视觉：
+ *   🎂 birthday  → 暖琥珀 + 金色衬线数字
+ *   💕 love      → 深玫瑰紫 + 粉光浪漫
+ *   💒 wedding   → 纯白 + 香槟金典雅
+ *   🙏 death     → 深空蓝 + 星光银紫
+ *   🐾 pet_birthday → 暖奶油 + 焦糖棕温馨
+ *
+ * CSS变量命名规范: --cat-[主题]-[属性]
+ */
 
-.container {
+/* ============================================================
+   基础布局
+   ============================================================ */
+.detail-page {
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
 }
 
-/* ===== 顶部导航 ===== */
-.nav-bar {
-  padding: 0 20px 10px 20px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+/* ============================================================
+   通用顶部导航
+   ============================================================ */
+.detail-nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
   z-index: 200;
+  padding: 0 20px 12px 20px;
 }
 
-.nav-content {
+.detail-nav-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.nav-back-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.detail-back-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
 }
 
-.nav-arrow {
+.detail-back-arrow {
   font-size: 22px;
-  color: rgba(255,255,255,0.95);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  /* 颜色由各主题覆盖 */
+  transition: opacity 0.15s;
 }
 
-.nav-center-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.detail-nav-logo {
+  display: flex; align-items: center; justify-content: center;
 }
 
-.nav-logo-img {
-  height: 20px;
-  width: auto;
+.detail-nav-logo-img {
+  height: 18px; width: auto;
+  opacity: 0.7;
 }
 
-.nav-edit-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.detail-edit-btn {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
 }
 
-.nav-text-light {
+.detail-edit-text {
   font-size: 11px;
-  color: rgba(255,255,255,0.95);
-  text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+  letter-spacing: 0.5px;
 }
 
-/* ===== 封面图区域 ===== */
-.detail-cover-wrapper {
+/* ============================================================
+   封面大卡片（通用）
+   ============================================================ */
+.detail-cover-block {
   width: 100%;
-  height: 380px;
+  height: 420px;
   position: relative;
   overflow: hidden;
 }
 
-.cover-img {
+.detail-cover-img {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 0; left: 0;
   width: 100%;
-  height: 480px;
+  height: 520px;
   object-fit: cover;
-  display: block;
 }
 
-/* 全屏蒙版：渐变暗色叠加，让文字清晰可读 */
-.cover-overlay {
+.detail-cover-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.22) 0%,
-    rgba(0,0,0,0.12) 30%,
-    rgba(0,0,0,0.48) 65%,
-    rgba(0,0,0,0.68) 100%
-  );
+  /* 由各主题覆盖颜色 */
   z-index: 1;
 }
 
-/* 顶部渐变：导航栏区域透明渐变 */
-.cover-fade-top {
+.detail-cover-fade-top {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 90px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 100%);
-  pointer-events: none;
+  top: 0; left: 0; right: 0;
+  height: 100px;
   z-index: 2;
+  /* 由各主题覆盖 */
 }
 
-/* 顶部Logo小标 */
-.cover-logo-tag {
+.detail-cover-top-right {
   position: absolute;
-  top: 48px;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  z-index: 10;
-}
-
-.cover-logo-text {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 4px;
-  color: rgba(255,255,255,0.7);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
-}
-
-/* 右上角编辑按钮浮于图片上 */
-.cover-top-right {
-  position: absolute;
-  top: 44px;
+  top: calc(20px + env(safe-area-inset-top, 20px));
   right: 18px;
-  z-index: 10;
+  z-index: 210;
 }
 
-.cover-action-btn {
-  width: 30px;
-  height: 30px;
+.detail-cover-action-btn {
+  width: 32px; height: 32px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.22);
   backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.cover-action-icon {
+  display: flex; align-items: center; justify-content: center;
   font-size: 13px;
   color: #ffffff;
 }
 
-/* 主体文字区：压在图片下半部分 */
-.cover-content {
+.detail-cover-content {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 0; left: 0; right: 0;
   z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 24px 24px 24px;
+  padding: 0 24px 28px 24px;
 }
 
-/* 分类标签 */
-.cover-category-tag {
+.detail-cover-tag {
   display: flex;
   align-items: center;
   gap: 5px;
-  background: rgba(255,255,255,0.18);
   border-radius: 20px;
-  padding: 4px 12px 4px 10px;
+  padding: 5px 12px 5px 10px;
   backdrop-filter: blur(8px);
-  margin-bottom: 10px;
-}
-
-.cover-category-icon {
-  font-size: 12px;
-}
-
-.cover-category-name {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.9);
-}
-
-/* 核心数字 */
-.cover-number {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.cover-number-text {
-  font-size: 96px;
-  font-weight: 200;
-  line-height: 0.9;
-  letter-spacing: -6px;
-  font-variant-numeric: tabular-nums;
-  text-shadow: 0 3px 16px rgba(0,0,0,0.3);
-}
-
-.cover-number-label {
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 4px;
-  color: rgba(255,255,255,0.75);
-  margin-top: 8px;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
-}
-
-/* 标题 */
-.cover-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 0 3px 14px rgba(0,0,0,0.38);
-  margin-bottom: 4px;
-}
-
-/* 日期 */
-.cover-date {
-  font-size: 13px;
-  font-weight: 400;
-  color: rgba(255,255,255,0.7);
-  letter-spacing: 1px;
-}
-
-/* 底部渐变：图片柔和融入背景色 */
-.cover-fade-bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: linear-gradient(to top, var(--theme-background) 0%, rgba(0,0,0,0) 100%);
-  pointer-events: none;
-  z-index: 6;
-}
-
-/* ===== 无封面时的布局 ===== */
-.no-cover-layout {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 60px 24px 0 24px;
-}
-
-.no-cover-logo-area {
-  margin-bottom: 16px;
-}
-
-.logo-img {
-  width: 100px;
-  height: auto;
-  opacity: 0.85;
-}
-
-/* ===== 主显示区 ===== */
-.main-display {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px 24px 12px 24px;
-}
-
-.display-number-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-bottom: 12px;
+  /* 由各主题覆盖背景 */
 }
 
-.display-number {
-  font-size: 120px;
-  font-weight: 200;
-  line-height: 1;
-  letter-spacing: -8px;
-  font-variant-numeric: tabular-nums;
+.detail-cover-tag-name {
+  font-size: 11px;
+  font-weight: 600;
 }
 
-.display-label {
-  font-size: 18px;
-  letter-spacing: 3px;
-  margin-top: 6px;
-  font-weight: 300;
-}
-
-.display-header {
+.detail-cover-number {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.display-title {
+.detail-cover-main-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.detail-cover-days {
+  font-size: 100px;
+  font-weight: 200;
+  line-height: 0.9;
+  letter-spacing: -6px;
+  font-variant-numeric: tabular-nums;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.detail-cover-days-label {
+  font-size: 28px;
+  font-weight: 300;
+  padding-bottom: 4px;
+}
+
+.detail-cover-hms {
+  font-size: 28px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  margin-top: 8px;
+}
+
+.detail-cover-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.detail-cover-date {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  opacity: 0.75;
+}
+
+.detail-cover-fade-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 90px;
+  z-index: 6;
+}
+
+/* ============================================================
+   无封面主展示区（通用）
+   ============================================================ */
+.detail-no-cover-logo {
+  padding: 80px 0 12px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.detail-logo-img {
+  width: 80px; height: auto;
+  opacity: 0.8;
+}
+
+.detail-no-cover-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 24px 12px 24px;
+}
+
+.detail-no-cover-main-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.detail-no-cover-days {
+  font-size: 120px;
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: -8px;
+  font-variant-numeric: tabular-nums;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.detail-no-cover-days-label {
+  font-size: 32px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  padding-bottom: 6px;
+}
+
+.detail-no-cover-hms {
+  font-size: 30px;
+  font-weight: 200;
+  letter-spacing: 2px;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.55;
+  margin-top: 4px;
+}
+
+.detail-no-cover-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px 16px 24px;
+  gap: 6px;
+}
+
+.detail-no-cover-title {
   font-size: 28px;
   font-weight: 600;
 }
 
-.display-date {
-  font-size: 18px;
-  margin-top: 4px;
+.detail-no-cover-date {
+  font-size: 16px;
+  letter-spacing: 0.5px;
 }
 
-/* 分隔线 */
-.divider {
-  width: 50px;
-  height: 1px;
-  margin: 20px 0 24px 0;
-  opacity: 0.2;
+.detail-no-cover-sentence-pill {
+  margin: 0 24px 16px 24px;
+  border-radius: 24px;
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 详细描述 */
-.detail-info {
+.detail-no-cover-sentence-text {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================================
+   详情信息区（通用）
+   ============================================================ */
+.detail-info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 24px 16px 24px;
+}
+
+.detail-divider {
+  width: 40px;
+  height: 1.5px;
+  margin-bottom: 24px;
+  opacity: 0.4;
+  /* 由各主题覆盖颜色 */
+}
+
+.detail-description-card {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -319,48 +309,399 @@
   padding: 0 12px;
 }
 
-.detail-main {
+.detail-main-text {
   font-size: 22px;
   font-weight: 500;
   text-align: center;
   line-height: 1.4;
 }
 
-.detail-sub {
+.detail-sub-text {
   font-size: 18px;
   text-align: center;
   max-width: 560rpx;
   line-height: 1.5;
 }
 
-/* 里程碑 */
-.milestone {
-  margin-top: 16px;
+.detail-milestone-row {
+  margin-top: 18px;
 }
 
-.milestone-text {
+.detail-milestone-text {
   font-size: 16px;
 }
 
-/* ===== 底部三按钮 ===== */
-.bottom-actions {
+.detail-elapsed-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 24px;
+  border-radius: 16px;
+  opacity: 0.85;
+}
+
+.detail-elapsed-icon {
+  font-size: 18px;
+}
+
+.detail-elapsed-text {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   底部三按钮（通用）
+   ============================================================ */
+.detail-bottom-actions {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 24px;
-  padding: 20px 24px 44px 24px;
+  gap: 28px;
+  padding: 20px 24px calc(24px + env(safe-area-inset-bottom, 20px)) 24px;
 }
 
-.bottom-btn {
+.detail-action-btn {
   padding: 6px 4px;
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.bottom-btn text {
+.detail-action-btn text {
   font-size: 14px;
-  font-weight: 400;
 }
 
-.bottom-sep {
-  font-size: 14px;
-  opacity: 0.3;
+.action-active {
+  font-weight: 600;
 }
+
+.detail-action-sep {
+  font-size: 14px;
+  opacity: 0.35;
+}
+
+/* ============================================================
+   ★★★ 主题1：🎂 生日 - 暖琥珀 + 金色衬线数字
+   ============================================================ */
+.cat-birthday {
+  /* 背景：温暖琥珀渐变 */
+  background: linear-gradient(175deg, #1C0D00 0%, #2A1500 40%, #1A0D00 100%);
+}
+
+/* 封面叠加色：暖琥珀 */
+.cat-birthday .detail-cover-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(26,13,0,0.18) 0%,
+    rgba(26,13,0,0.08) 30%,
+    rgba(26,13,0,0.52) 65%,
+    rgba(26,13,0,0.72) 100%
+  );
+}
+
+.cat-birthday .detail-cover-fade-top {
+  background: linear-gradient(to bottom, rgba(26,13,0,0.38) 0%, rgba(26,13,0,0) 100%);
+}
+
+.cat-birthday .detail-cover-fade-bottom {
+  background: linear-gradient(to top, #1C0D00 0%, rgba(26,13,0,0) 100%);
+}
+
+.cat-birthday .detail-back-arrow { color: rgba(255,228,181,0.9); }
+.cat-birthday .detail-edit-text { color: rgba(255,228,181,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.cat-birthday .detail-cover-tag { background: rgba(212,160,23,0.25); }
+.cat-birthday .detail-cover-tag-name { color: rgba(255,228,181,0.95); }
+
+/* 封面大数字：暖金色衬线 */
+.cat-birthday .detail-cover-days {
+  color: #FFE4B5;
+  text-shadow: 0 3px 20px rgba(212,160,23,0.5), 0 0 40px rgba(255,200,100,0.2);
+}
+.cat-birthday .detail-cover-days-label { color: rgba(255,228,181,0.7); }
+.cat-birthday .detail-cover-hms { color: rgba(255,228,181,0.55); }
+.cat-birthday .detail-cover-title { color: #FFECD2; text-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.cat-birthday .detail-cover-date { color: rgba(255,220,170,0.65); }
+
+/* 无封面区 */
+.cat-birthday .detail-no-cover-days { color: #FFE4B5; }
+.cat-birthday .detail-no-cover-days-label { color: rgba(212,160,23,0.7); }
+.cat-birthday .detail-no-cover-hms { color: rgba(255,228,181,0.5); }
+.cat-birthday .detail-no-cover-title { color: #FFECD2; }
+.cat-birthday .detail-no-cover-date { color: rgba(255,220,170,0.65); }
+.cat-birthday .detail-no-cover-sentence-pill { background: rgba(212,160,23,0.15); }
+.cat-birthday .detail-no-cover-sentence-text { color: #D4A017; }
+
+/* 详情区 */
+.cat-birthday .detail-divider { background: rgba(212,160,23,0.4); }
+.cat-birthday .detail-main-text { color: #FFECD2; }
+.cat-birthday .detail-sub-text { color: rgba(255,220,170,0.7); }
+.cat-birthday .detail-milestone-text { color: rgba(212,160,23,0.8); }
+.cat-birthday .detail-elapsed-card { background: rgba(212,160,23,0.12); }
+.cat-birthday .detail-elapsed-text { color: #D4A017; }
+
+/* 底部按钮 */
+.cat-birthday .detail-action-btn text { color: rgba(255,220,170,0.7); }
+.cat-birthday .action-active { color: #D4A017; }
+
+/* ============================================================
+   ★★★ 主题2：💕 恋爱 - 深玫瑰紫 + 粉光浪漫
+   ============================================================ */
+.cat-love {
+  background: linear-gradient(175deg, #1A0515 0%, #2D0A22 40%, #150510 100%);
+}
+
+.cat-love .detail-cover-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(26,5,15,0.2) 0%,
+    rgba(26,5,15,0.1) 30%,
+    rgba(45,10,30,0.55) 65%,
+    rgba(26,5,15,0.75) 100%
+  );
+}
+.cat-love .detail-cover-fade-top {
+  background: linear-gradient(to bottom, rgba(26,5,15,0.4) 0%, rgba(26,5,15,0) 100%);
+}
+.cat-love .detail-cover-fade-bottom {
+  background: linear-gradient(to top, #1A0515 0%, rgba(26,5,15,0) 100%);
+}
+
+.cat-love .detail-back-arrow { color: rgba(255,182,193,0.9); }
+.cat-love .detail-edit-text { color: rgba(255,182,193,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.cat-love .detail-cover-tag { background: rgba(232,113,154,0.25); }
+.cat-love .detail-cover-tag-name { color: rgba(255,210,220,0.95); }
+
+.cat-love .detail-cover-days {
+  color: #FFB6C1;
+  text-shadow: 0 3px 20px rgba(232,113,154,0.5), 0 0 40px rgba(255,150,180,0.2);
+}
+.cat-love .detail-cover-days-label { color: rgba(255,182,193,0.7); }
+.cat-love .detail-cover-hms { color: rgba(255,182,193,0.55); }
+.cat-love .detail-cover-title { color: #FFDDE5; text-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.cat-love .detail-cover-date { color: rgba(255,200,210,0.65); }
+
+.cat-love .detail-no-cover-days { color: #FFB6C1; }
+.cat-love .detail-no-cover-days-label { color: rgba(232,113,154,0.7); }
+.cat-love .detail-no-cover-hms { color: rgba(255,182,193,0.5); }
+.cat-love .detail-no-cover-title { color: #FFDDE5; }
+.cat-love .detail-no-cover-date { color: rgba(255,200,210,0.65); }
+.cat-love .detail-no-cover-sentence-pill { background: rgba(232,113,154,0.15); }
+.cat-love .detail-no-cover-sentence-text { color: #E8719A; }
+
+.cat-love .detail-divider { background: rgba(232,113,154,0.4); }
+.cat-love .detail-main-text { color: #FFDDE5; }
+.cat-love .detail-sub-text { color: rgba(255,200,210,0.7); }
+.cat-love .detail-milestone-text { color: rgba(232,113,154,0.8); }
+.cat-love .detail-elapsed-card { background: rgba(232,113,154,0.12); }
+.cat-love .detail-elapsed-text { color: #E8719A; }
+
+.cat-love .detail-action-btn text { color: rgba(255,200,210,0.7); }
+.cat-love .action-active { color: #E8719A; }
+
+/* ============================================================
+   ★★★ 主题3：💒 结婚 - 纯白 + 香槟金典雅
+   ============================================================ */
+.cat-wedding {
+  background: linear-gradient(175deg, #FAFAF8 0%, #FFFDF5 40%, #F8F5EE 100%);
+}
+
+.cat-wedding .detail-cover-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(250,248,245,0.05) 0%,
+    rgba(250,248,245,0) 30%,
+    rgba(201,169,110,0.2) 65%,
+    rgba(201,169,110,0.38) 100%
+  );
+}
+.cat-wedding .detail-cover-fade-top {
+  background: linear-gradient(to bottom, rgba(201,169,110,0.12) 0%, rgba(201,169,110,0) 100%);
+}
+.cat-wedding .detail-cover-fade-bottom {
+  background: linear-gradient(to top, #FAFAF8 0%, rgba(250,248,245,0) 100%);
+}
+
+.cat-wedding .detail-back-arrow { color: #C9A96E; }
+.cat-wedding .detail-edit-text { color: #C9A96E; }
+.cat-wedding .detail-cover-tag {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(201,169,110,0.5);
+}
+.cat-wedding .detail-cover-tag-name { color: #8B7355; }
+
+.cat-wedding .detail-cover-days {
+  color: #C9A96E;
+  text-shadow: 0 2px 16px rgba(201,169,110,0.35);
+}
+.cat-wedding .detail-cover-days-label { color: rgba(139,115,85,0.7); }
+.cat-wedding .detail-cover-hms { color: rgba(139,115,85,0.5); }
+.cat-wedding .detail-cover-title { color: #3D3D3D; }
+.cat-wedding .detail-cover-date { color: rgba(139,115,85,0.65); }
+
+.cat-wedding .detail-no-cover-days { color: #C9A96E; }
+.cat-wedding .detail-no-cover-days-label { color: rgba(139,115,85,0.65); }
+.cat-wedding .detail-no-cover-hms { color: rgba(139,115,85,0.45); }
+.cat-wedding .detail-no-cover-title { color: #2D2D2D; }
+.cat-wedding .detail-no-cover-date { color: rgba(139,115,85,0.65); }
+.cat-wedding .detail-no-cover-sentence-pill {
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.25);
+}
+.cat-wedding .detail-no-cover-sentence-text { color: #8B7355; }
+
+.cat-wedding .detail-divider { background: rgba(201,169,110,0.5); }
+.cat-wedding .detail-main-text { color: #2D2D2D; }
+.cat-wedding .detail-sub-text { color: rgba(139,115,85,0.8); }
+.cat-wedding .detail-milestone-text { color: rgba(201,169,110,0.8); }
+.cat-wedding .detail-elapsed-card { background: rgba(201,169,110,0.08); }
+.cat-wedding .detail-elapsed-text { color: #8B7355; }
+
+.cat-wedding .detail-action-btn text { color: rgba(139,115,85,0.7); }
+.cat-wedding .action-active { color: #C9A96E; }
+
+/* ============================================================
+   ★★★ 主题4：🙏 忌日 - 深空蓝 + 星光银紫
+   ============================================================ */
+.cat-death {
+  background: linear-gradient(175deg, #08081A 0%, #0E0E22 40%, #0A0A18 100%);
+}
+
+.cat-death .detail-cover-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(8,8,20,0.2) 0%,
+    rgba(8,8,20,0.12) 30%,
+    rgba(14,14,34,0.55) 65%,
+    rgba(8,8,20,0.78) 100%
+  );
+}
+.cat-death .detail-cover-fade-top {
+  background: linear-gradient(to bottom, rgba(8,8,20,0.4) 0%, rgba(8,8,20,0) 100%);
+}
+.cat-death .detail-cover-fade-bottom {
+  background: linear-gradient(to top, #08081A 0%, rgba(8,8,20,0) 100%);
+}
+
+.cat-death .detail-back-arrow { color: rgba(200,200,220,0.8); }
+.cat-death .detail-edit-text { color: rgba(200,200,220,0.7); text-shadow: 0 1px 4px rgba(0,0,0,0.3); }
+.cat-death .detail-cover-tag { background: rgba(144,144,176,0.18); }
+.cat-death .detail-cover-tag-name { color: rgba(200,200,220,0.9); }
+
+.cat-death .detail-cover-days {
+  color: #C8C8DC;
+  text-shadow: 0 3px 20px rgba(144,144,200,0.4), 0 0 40px rgba(100,100,180,0.15);
+}
+.cat-death .detail-cover-days-label { color: rgba(200,200,220,0.6); }
+.cat-death .detail-cover-hms { color: rgba(200,200,220,0.45); }
+.cat-death .detail-cover-title { color: #E0E0EC; text-shadow: 0 2px 12px rgba(0,0,0,0.5); }
+.cat-death .detail-cover-date { color: rgba(200,200,220,0.55); }
+
+.cat-death .detail-no-cover-days { color: #C8C8DC; }
+.cat-death .detail-no-cover-days-label { color: rgba(144,144,176,0.65); }
+.cat-death .detail-no-cover-hms { color: rgba(200,200,220,0.4); }
+.cat-death .detail-no-cover-title { color: #E0E0EC; }
+.cat-death .detail-no-cover-date { color: rgba(200,200,220,0.55); }
+.cat-death .detail-no-cover-sentence-pill { background: rgba(144,144,176,0.1); }
+.cat-death .detail-no-cover-sentence-text { color: #9090B0; }
+
+.cat-death .detail-divider { background: rgba(144,144,176,0.3); }
+.cat-death .detail-main-text { color: #E0E0EC; }
+.cat-death .detail-sub-text { color: rgba(200,200,220,0.65); }
+.cat-death .detail-milestone-text { color: rgba(144,144,176,0.7); }
+.cat-death .detail-elapsed-card { background: rgba(144,144,176,0.08); }
+.cat-death .detail-elapsed-text { color: #9090B0; }
+
+.cat-death .detail-action-btn text { color: rgba(200,200,220,0.6); }
+.cat-death .action-active { color: #9090B0; }
+
+/* ============================================================
+   ★★★ 主题5：🐾 宠物生日 - 暖奶油 + 焦糖棕温馨
+   ============================================================ */
+.cat-pet_birthday {
+  background: linear-gradient(175deg, #FFF8F0 0%, #FFE8D0 40%, #FFF0E0 100%);
+}
+
+.cat-pet_birthday .detail-cover-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(255,248,240,0.05) 0%,
+    rgba(255,248,240,0) 30%,
+    rgba(196,120,48,0.18) 65%,
+    rgba(196,120,48,0.32) 100%
+  );
+}
+.cat-pet_birthday .detail-cover-fade-top {
+  background: linear-gradient(to bottom, rgba(196,120,48,0.1) 0%, rgba(255,248,240,0) 100%);
+}
+.cat-pet_birthday .detail-cover-fade-bottom {
+  background: linear-gradient(to top, #FFF8F0 0%, rgba(255,248,240,0) 100%);
+}
+
+.cat-pet_birthday .detail-back-arrow { color: #C47830; }
+.cat-pet_birthday .detail-edit-text { color: #C47830; }
+.cat-pet_birthday .detail-cover-tag {
+  background: rgba(255,248,240,0.8);
+  border: 1px solid rgba(196,120,48,0.4);
+}
+.cat-pet_birthday .detail-cover-tag-name { color: #7A4820; }
+
+.cat-pet_birthday .detail-cover-days {
+  color: #C47830;
+  text-shadow: 0 2px 16px rgba(196,120,48,0.35);
+}
+.cat-pet_birthday .detail-cover-days-label { color: rgba(122,72,32,0.7); }
+.cat-pet_birthday .detail-cover-hms { color: rgba(122,72,32,0.5); }
+.cat-pet_birthday .detail-cover-title { color: #4A2810; }
+.cat-pet_birthday .detail-cover-date { color: rgba(122,72,32,0.65); }
+
+.cat-pet_birthday .detail-no-cover-days { color: #C47830; }
+.cat-pet_birthday .detail-no-cover-days-label { color: rgba(122,72,32,0.65); }
+.cat-pet_birthday .detail-no-cover-hms { color: rgba(196,120,48,0.45); }
+.cat-pet_birthday .detail-no-cover-title { color: #4A2810; }
+.cat-pet_birthday .detail-no-cover-date { color: rgba(122,72,32,0.65); }
+.cat-pet_birthday .detail-no-cover-sentence-pill {
+  background: rgba(196,120,48,0.1);
+  border: 1px solid rgba(196,120,48,0.25);
+}
+.cat-pet_birthday .detail-no-cover-sentence-text { color: #7A4820; }
+
+.cat-pet_birthday .detail-divider { background: rgba(196,120,48,0.4); }
+.cat-pet_birthday .detail-main-text { color: #4A2810; }
+.cat-pet_birthday .detail-sub-text { color: rgba(122,72,32,0.8); }
+.cat-pet_birthday .detail-milestone-text { color: rgba(196,120,48,0.8); }
+.cat-pet_birthday .detail-elapsed-card { background: rgba(196,120,48,0.08); }
+.cat-pet_birthday .detail-elapsed-text { color: #7A4820; }
+
+.cat-pet_birthday .detail-action-btn text { color: rgba(122,72,32,0.7); }
+.cat-pet_birthday .action-active { color: #C47830; }
+
+/* ============================================================
+   通用覆盖样式（未匹配分类时使用全局主题色）
+   ============================================================ */
+/* 当 .detail-page 没有 cat-xxx class 时使用这些兜底 */
+.detail-page:not([class*="cat-"]) .detail-cover-days { color: #ffffff; }
+.detail-page:not([class*="cat-"]) .detail-no-cover-days { color: var(--theme-text-primary, #1d1d1f); }
+
+/* ============================================================
+   Phase 5 补充：详情区文字在深色主题下需要覆盖
+   ============================================================ */
+
+/* ── 生日详情区文字：暖奶油色 ── */
+.cat-birthday .detail-info-section .detail-main-text { color: #FFECD2; }
+.cat-birthday .detail-info-section .detail-sub-text { color: rgba(255,220,170,0.75); }
+.cat-birthday .detail-info-section .detail-divider { background: rgba(212,160,23,0.35); }
+
+/* ── 恋爱详情区文字：柔粉色 ── */
+.cat-love .detail-info-section .detail-main-text { color: #FFDDE5; }
+.cat-love .detail-info-section .detail-sub-text { color: rgba(255,200,210,0.75); }
+.cat-love .detail-info-section .detail-divider { background: rgba(232,113,154,0.35); }
+
+/* ── 忌日详情区文字：银白色 ── */
+.cat-death .detail-info-section .detail-main-text { color: #E0E0EC; }
+.cat-death .detail-info-section .detail-sub-text { color: rgba(200,200,220,0.7); }
+.cat-death .detail-info-section .detail-divider { background: rgba(144,144,176,0.3); }
+
+/* ── 结婚/宠物 详情区：已使用主题默认色（浅色背景无需覆盖） ── */

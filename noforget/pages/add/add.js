@@ -1,7 +1,8 @@
-// pages/add/add.js - 添加/编辑页面逻辑
+// pages/add/add.js - 添加/编辑页面逻辑 v2
 const app = getApp()
 const countdown = require('../../utils/countdown.js')
 const categories = require('../../utils/categories.js')
+const { getIconPath } = require('../../utils/icons.js')
 
 Page({
   data: {
@@ -9,68 +10,75 @@ Page({
     title: '',
     targetDate: '',
     selectedCategory: 'birthday',
-    direction: 'countdown',
     remindDays: 1,
-    categories: categories.getAllCategories(),
+    categories: [],
     theme: {},
     currentTheme: 'apple',
     isEdit: false,
     editId: null,
-    previewDays: 0,
-    previewIsPast: false,
+
+    // 预览数据
+    previewCountdownDays: 0,
+    previewCountdownHms: '00:00:00',
+    previewPreciseIsPast: false,
+    previewIconPath: '',
     previewIcon: '🎂',
+
+    // 封面图片
     coverImage: '',
+
     // 裁切相关
     showCropper: false,
     cropImagePath: '',
-    cropFrameTop: 0,
-    cropFrameHeight: 240,
     imageHeight: 0,
     imageWidth: 0,
-    touchStartY: 0,
+    cropFrameTop: 0,
+    cropFrameHeight: 240,
+    grabOffset: 0,
     frameStartY: 0
+  },
+
+  computeCategories(currentTheme) {
+    return categories.getAllCategories().map(cat => ({
+      ...cat,
+      iconPath: getIconPath(currentTheme, cat.id)
+    }))
   },
 
   onLoad(options) {
     const systemInfo = wx.getSystemInfoSync()
     const currentTheme = wx.getStorageSync('currentTheme') || 'apple'
-    
+
     this.setData({
-      statusBarHeight: systemInfo.statusInfo ? systemInfo.statusBarHeight : 20,
+      statusBarHeight: systemInfo.statusBarHeight || 20,
       currentTheme,
-      theme: app.globalData.themes[currentTheme]
+      theme: app.globalData.themes[currentTheme],
+      categories: this.computeCategories(currentTheme),
+      selectedCategory: 'birthday',
+      previewIconPath: getIconPath(currentTheme, 'birthday')
     })
 
     if (options.id) {
-      this.setData({
-        isEdit: true,
-        editId: options.id
-      })
+      this.setData({ isEdit: true, editId: options.id })
       this.loadItem(options.id)
-    } else {
-      const cat = categories.getCategoryById('birthday')
-      this.setData({
-        direction: cat.direction,
-        selectedCategory: 'birthday'
-      })
     }
   },
 
   loadItem(id) {
     const items = wx.getStorageSync('countdownItems') || []
     const item = items.find(i => i.id === id)
-    if (item) {
-      const cat = categories.getCategoryById(item.categoryId)
-      this.setData({
-        title: item.title,
-        targetDate: item.targetDate.split(' ')[0],
-        selectedCategory: item.categoryId,
-        direction: item.direction,
-        remindDays: item.remindDays || 1,
-        coverImage: item.coverImage || ''
-      })
-      this.updatePreview()
-    }
+    if (!item) return
+
+    const cat = categories.getCategoryById(item.categoryId)
+    this.setData({
+      title: item.title,
+      targetDate: item.targetDate.split(' ')[0],
+      selectedCategory: item.categoryId,
+      remindDays: item.remindDays || 1,
+      coverImage: item.coverImage || '',
+      previewIconPath: getIconPath(this.data.currentTheme, item.categoryId)
+    })
+    this.updatePreview()
   },
 
   onTitleInput(e) {
@@ -85,16 +93,10 @@ Page({
 
   selectCategory(e) {
     const catId = e.currentTarget.dataset.id
-    const cat = categories.getCategoryById(catId)
     this.setData({
       selectedCategory: catId,
-      direction: cat.direction
+      previewIconPath: getIconPath(this.data.currentTheme, catId)
     })
-    this.updatePreview()
-  },
-
-  setDirection(e) {
-    this.setData({ direction: e.currentTarget.dataset.dir })
     this.updatePreview()
   },
 
@@ -102,18 +104,34 @@ Page({
     this.setData({ remindDays: parseInt(e.currentTarget.dataset.days) })
   },
 
+  // ★ 核心：预览使用新的双函数计算
   updatePreview() {
     if (!this.data.targetDate) return
     const now = new Date()
-    const diff = countdown.getExactDiff(new Date(this.data.targetDate), now)
     const cat = categories.getCategoryById(this.data.selectedCategory)
+
+    // 用新算法构建预览 item
+    const previewItem = {
+      targetDate: this.data.targetDate,
+      isRecurring: cat.isRecurring,
+      direction: cat.direction,
+      startDate: this.data.targetDate   // 默认startDate=targetDate
+    }
+
+    const mainCountdown = countdown.getMainCountdown(previewItem, now)
+    const elapsed = countdown.getElapsedText(previewItem, now)
+
+    const hmsPart = mainCountdown.totalFormatted.split(' ')[1] || mainCountdown.totalFormatted
+
     this.setData({
-      previewDays: diff.totalDays,
-      previewIsPast: diff.isPast,
+      previewCountdownDays: mainCountdown.days,
+      previewCountdownHms: hmsPart,
+      previewPreciseIsPast: mainCountdown.isPast,
       previewIcon: cat.icon
     })
   },
 
+  // ★ 核心：saveItem 完整保存所有字段
   saveItem() {
     if (!this.data.title.trim()) {
       wx.showToast({ title: '请输入名称', icon: 'none' })
@@ -126,17 +144,25 @@ Page({
 
     const items = wx.getStorageSync('countdownItems') || []
     const cat = categories.getCategoryById(this.data.selectedCategory)
-    
+
+    // ★ 完整数据模型（含所有新字段）
     const newItem = {
       id: this.data.isEdit ? this.data.editId : Date.now().toString(),
       title: this.data.title.trim(),
       targetDate: this.data.targetDate,
       categoryId: this.data.selectedCategory,
-      direction: this.data.direction,
       remindDays: this.data.remindDays,
       icon: cat.icon,
       coverImage: this.data.coverImage,
-      createdAt: this.data.isEdit ? items.find(i => i.id === this.data.editId)?.createdAt : Date.now(),
+
+      // ★ 新增核心字段
+      isRecurring: cat.isRecurring,     // 自动从分类判断
+      startDate: this.data.targetDate,  // 默认=targetDate
+      direction: cat.direction,          // 保留旧字段，向后兼容
+
+      createdAt: this.data.isEdit
+        ? items.find(i => i.id === this.data.editId)?.createdAt
+        : Date.now(),
       updatedAt: Date.now()
     }
 
@@ -148,10 +174,6 @@ Page({
     }
 
     wx.setStorageSync('countdownItems', items)
-
-    if (this.data.remindDays >= 0) {
-      this.requestRemindPermission(newItem)
-    }
 
     wx.showToast({
       title: this.data.isEdit ? '已更新' : '已保存',
@@ -196,7 +218,7 @@ Page({
     wx.navigateBack()
   },
 
-  // 选择封面图片
+  // ==================== 封面裁切 ====================
   pickCoverImage() {
     wx.chooseImage({
       count: 1,
@@ -204,80 +226,59 @@ Page({
       sourceType: ['album', 'camera'],
       success: (res) => {
         const tempFilePath = res.tempFilePaths[0]
-        // 获取图片原始尺寸
         wx.getImageInfo({
           src: tempFilePath,
           success: (info) => {
             const screenWidth = wx.getSystemInfoSync().windowWidth
             const displayHeight = (info.height / info.width) * screenWidth
-            // 裁切框高度 240px，初始居中
             const maxTop = Math.max(0, displayHeight - this.data.cropFrameHeight)
             this.setData({
               showCropper: true,
               cropImagePath: tempFilePath,
               imageWidth: info.width,
               imageHeight: info.height,
-              cropFrameTop: maxTop / 2  //居中
+              cropFrameTop: maxTop / 2
             })
           },
           fail: () => {
-            // 降级：直接使用
-            this.setData({
-              showCropper: true,
-              cropImagePath: tempFilePath,
-              cropFrameTop: 0
-            })
+            this.setData({ showCropper: true, cropImagePath: tempFilePath, cropFrameTop: 0 })
           }
         })
       }
     })
   },
 
-  // 取消裁切
   cancelCrop() {
-    this.setData({
-      showCropper: false,
-      cropImagePath: '',
-      cropFrameTop: 0
-    })
+    this.setData({ showCropper: false, cropImagePath: '', cropFrameTop: 0 })
   },
 
-  // 开始拖动
   onCropTouchStart(e) {
+    const touchY = e.touches[0].clientY
+    const frameTop = this.data.cropFrameTop
     this.setData({
-      touchStartY: e.touches[0].clientY,
-      frameStartY: this.data.cropFrameTop
+      grabOffset: touchY - frameTop,
+      frameStartY: frameTop
     })
   },
 
-  // 拖动中
   onCropTouchMove(e) {
     const touchY = e.touches[0].clientY
-    const delta = touchY - this.data.touchStartY
     const screenWidth = wx.getSystemInfoSync().windowWidth
-    // 估算图片在屏幕上的显示高度
     const displayHeight = this.data.imageHeight && this.data.imageWidth
       ? (this.data.imageHeight / this.data.imageWidth) * screenWidth
       : screenWidth * 1.5
     const maxTop = Math.max(0, displayHeight - this.data.cropFrameHeight)
-    let newTop = this.data.frameStartY + delta
-    // 边界限制
+    let newTop = touchY - this.data.grabOffset
     newTop = Math.max(0, Math.min(maxTop, newTop))
     this.setData({ cropFrameTop: newTop })
   },
 
-  // 拖动结束
-  onCropTouchEnd() {
-    // nothing
-  },
+  onCropTouchEnd() {},
 
-  // 确认裁切
   confirmCrop() {
     wx.showLoading({ title: '处理中...' })
     const ctx = wx.createCanvasContext('cropCanvas')
     const screenWidth = wx.getSystemInfoSync().windowWidth
-
-    // 计算实际裁切区域
     const displayHeight = this.data.imageHeight && this.data.imageWidth
       ? (this.data.imageHeight / this.data.imageWidth) * screenWidth
       : screenWidth
@@ -285,38 +286,24 @@ Page({
     const cropY = Math.round(this.data.cropFrameTop * scale)
     const cropH = Math.round(this.data.cropFrameHeight * scale)
 
-    this.setData({
-      canvasWidth: screenWidth,
-      canvasHeight: this.data.cropFrameHeight
-    })
+    this.setData({ canvasWidth: screenWidth, canvasHeight: this.data.cropFrameHeight })
 
     setTimeout(() => {
       ctx.drawImage(this.data.cropImagePath, 0, cropY, this.data.imageWidth, cropH, 0, 0, screenWidth, this.data.cropFrameHeight)
       ctx.draw(false, () => {
         wx.canvasToTempFilePath({
           canvasId: 'cropCanvas',
-          x: 0,
-          y: 0,
-          width: screenWidth,
-          height: this.data.cropFrameHeight,
-          destWidth: screenWidth,
-          destHeight: this.data.cropFrameHeight,
-          fileType: 'jpg',
-          quality: 0.9,
+          x: 0, y: 0,
+          width: screenWidth, height: this.data.cropFrameHeight,
+          destWidth: screenWidth, destHeight: this.data.cropFrameHeight,
+          fileType: 'jpg', quality: 0.9,
           success: (res) => {
             wx.hideLoading()
-            this.setData({
-              coverImage: res.tempFilePath,
-              showCropper: false
-            })
+            this.setData({ coverImage: res.tempFilePath, showCropper: false })
           },
           fail: () => {
             wx.hideLoading()
-            // 降级：直接用原图
-            this.setData({
-              coverImage: this.data.cropImagePath,
-              showCropper: false
-            })
+            this.setData({ coverImage: this.data.cropImagePath, showCropper: false })
             wx.showToast({ title: '裁切失败，使用原图', icon: 'none' })
           }
         })
@@ -324,21 +311,16 @@ Page({
     }, 100)
   },
 
-  // 移除封面图片
   removeCoverImage() {
     wx.showModal({
       title: '移除封面',
       content: '确定要移除封面照片吗？',
       confirmColor: '#FF3B30',
       success: (res) => {
-        if (res.confirm) {
-          this.setData({ coverImage: '' })
-        }
+        if (res.confirm) this.setData({ coverImage: '' })
       }
     })
   },
 
-  preventTouch(e) {
-    // 阻止裁切弹层背景滚动
-  }
+  preventTouch(e) {}
 })

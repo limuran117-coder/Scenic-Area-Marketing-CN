@@ -6,7 +6,7 @@
       {
         "id": "7b758a193f97ed54",
         "type": "tabs",
-        "dimension": 41.73505275498242,
+        "dimension": 48.944900351699886,
         "children": [
           {
             "id": "e72f00d3aecb37bd",
@@ -25,7 +25,7 @@
       {
         "id": "5f57462cbaf05dd0",
         "type": "tabs",
-        "dimension": 58.26494724501758,
+        "dimension": 51.055099648300114,
         "children": [
           {
             "id": "e4459f7a3c6fd6d1",
@@ -33,12 +33,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "电影小镇/历史数据/客流营收分析.md",
+                "file": "电影小镇/运营规划/环形水剧场与复古广场夏季运营方案.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "客流营收分析"
+              "title": "环形水剧场与复古广场夏季运营方案"
             }
           }
         ]
@@ -265,6 +265,13 @@
   },
   "active": "e4459f7a3c6fd6d1",
   "lastOpenFiles": [
+    "电影小镇/运营规划/index.md",
+    "电影小镇/运营规划/环形水剧场与复古广场夏季运营方案.md",
+    "电影小镇/票务系统接入方案.md",
+    "电影小镇/演出节目/穿越德化街.md",
+    "电影小镇/历史数据/W17期-20260427.md",
+    "电影小镇/历史数据/W16期-20260427.md",
+    "电影小镇/历史数据/客流营收分析.md",
     "impeccable-refs/critique.md",
     "impeccable-refs/typography.md",
     "impeccable-refs/color-and-contrast.md",
@@ -287,14 +294,7 @@
     "awesome-claude-design/recipes/pitch-deck-from-readme.md",
     "awesome-claude-design/recipes/landing-page-20-min.md",
     "awesome-claude-design/recipes/frontier-3d-shaders.md",
-    "awesome-claude-design/recipes/figma-to-design-md.md",
-    "awesome-claude-design/recipes/connectors-slack-docs.md",
-    "awesome-claude-design/recipes/comment-paste-workaround.md",
-    "awesome-claude-design/recipes/brand-extraction.md",
     "awesome-claude-design/recipes",
-    "awesome-claude-design/prompts/remix-two-brands.md",
-    "awesome-claude-design/prompts/family-picker.md",
-    "awesome-claude-design/prompts/break-default-aesthetic.md",
     "awesome-claude-design/prompts",
     "awesome-claude-design/design-md/warm",
     "awesome-claude-design/design-md/terminal",

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- 蛋糕底 -->
+  <rect x="4" y="14" width="16" height="6" rx="3" fill="currentColor" opacity="0.2"/>
+  <rect x="4" y="14" width="16" height="6" rx="3" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <!-- 蜡烛 -->
+  <rect x="11" y="8" width="2" height="6" rx="1" fill="currentColor" opacity="0.2"/>
+  <rect x="11" y="8" width="2" height="6" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <!-- 火焰 -->
+  <path d="M12 4c-.5 1.5.5 3 0 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <!-- 顶部装饰线 -->
+  <path d="M6 14c2-1 4-1 6 0s4 1 6 0" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+</svg>

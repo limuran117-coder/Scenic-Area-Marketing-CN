@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <!-- 时钟圆 -->
+  <circle cx="12" cy="12" r="9" fill="currentColor" opacity="0.1" stroke="currentColor" stroke-width="1.5"/>
+  <!-- 时针分针 -->
+  <polyline points="12 7 12 12 14.5 14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- 底部微笑 -->
+  <path d="M9 18c0 .8.7 1.5 3 1.5s3-.7 3-1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+</svg>

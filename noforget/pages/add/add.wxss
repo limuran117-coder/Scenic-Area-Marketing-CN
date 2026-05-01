@@ -2,11 +2,11 @@
 
 .container {
   min-height: 100vh;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  padding-bottom: 100px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding-bottom: 120px;
 }
 
-/* 顶部导航 */
+/* ===== 顶部导航 ===== */
 .nav-bar {
   padding: 0 20px 16px 20px;
   position: sticky;
@@ -26,39 +26,24 @@
   font-weight: 600;
 }
 
-.back-btn, .save-btn {
+.back-btn {
   padding: 8px 12px;
   min-width: 50px;
-  border-radius: 8px;
 }
 
-.back-btn {
-  text-align: left;
-}
-
-.save-btn {
-  text-align: right;
-  font-weight: 600;
-  background: rgba(0, 0, 0, 0.05);
-}
-
-.save-btn-text {
-  font-size: 16px;
-}
-
-/* 表单 */
+/* ===== 表单 ===== */
 .form {
   padding: 0 20px;
 }
 
 .form-item {
-  margin-bottom: 32px;
+  margin-bottom: 30px;
 }
 
 .form-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   text-transform: uppercase;
   margin-bottom: 12px;
   display: block;
@@ -68,9 +53,10 @@
   font-size: 17px;
   padding: 12px 0;
   width: 100%;
+  border-bottom: 1px solid var(--theme-border);
 }
 
-/* 日期选择器 */
+/* ===== 日期选择器 ===== */
 .date-picker {
   display: flex;
   justify-content: space-between;
@@ -79,52 +65,74 @@
   font-size: 17px;
 }
 
-/* 分类选择 */
+/* ===== 分类选择 ===== */
 .category-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 12px;  /* UX: Touch Spacing ≥8px */
 }
 
 .category-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 12px 8px;
-  border-radius: 12px;
-  border: 1px solid;
-  transition: all 0.2s;
+  padding: 14px 6px 10px 6px;
+  border-radius: var(--theme-radius-card, 12px);
+  border: 1.5px solid var(--theme-border);
+  /* UX: Transform Performance - 动画只用 transform/opacity */
+  transition:
+    border-color var(--theme-duration-micro, 150ms) var(--theme-ease-out-quart, ease-out),
+    background var(--theme-duration-micro, 150ms) ease,
+    transform var(--theme-duration-micro, 150ms) var(--theme-ease-out-quart, ease-out);
+  background: transparent;
+  min-height: 80px;  /* 触控友好 */
 }
 
+/* UX: Active state - 当前选中项 */
 .category-item.active {
-  background: rgba(0, 0, 0, 0.03);
+  border-color: var(--theme-text-accent);
+  background: var(--theme-accent-light, rgba(0,0,0,0.04));
 }
 
+/* UX: 按下弹性反馈 */
+.category-item:active {
+  transform: scale(0.93);
+}
+
+/* SVG 图标容器 */
 .category-icon {
-  font-size: 24px;
-  margin-bottom: 4px;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 6px;
+  /* UX: 固定尺寸防抖动 */
 }
 
 .category-name {
   font-size: 11px;
   text-align: center;
+  line-height: 1.2;
+  color: var(--theme-text-secondary);
 }
 
-/* 计时方向 */
+/* ===== 计时方向 ===== */
 .direction-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .direction-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px;
-  border-radius: 12px;
-  border: 1px solid;
-  transition: all 0.2s;
+  padding: 16px 12px;
+  border-radius: var(--theme-radius-card, 12px);
+  border: 1.5px solid;
+  transition: all var(--theme-duration-micro, 250ms) var(--theme-ease-out-quart, ease-out);
+}
+
+.direction-item:active {
+  transform: scale(0.97);
 }
 
 .direction-item text:first-child {
@@ -134,15 +142,15 @@
 }
 
 .direction-desc {
-  font-size: 12px;
+  font-size: 11px;
 }
 
-/* 计算方式说明 */
+/* ===== 计算方式说明 ===== */
 .calc-hint {
-  margin-top: 16px;
+  margin-top: 14px;
   padding: 12px 16px;
   background: rgba(0, 0, 0, 0.03);
-  border-radius: 10px;
+  border-radius: var(--theme-radius-card, 12px);
 }
 
 .hint-title {
@@ -157,7 +165,7 @@
   line-height: 1.6;
 }
 
-/* 提醒选项 */
+/* ===== 提醒选项 ===== */
 .remind-options {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -168,17 +176,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 8px;
-  border-radius: 8px;
-  border: 1px solid;
-  transition: all 0.2s;
+  padding: 10px 6px;
+  border-radius: var(--theme-radius-card, 12px);
+  border: 1.5px solid;
+  transition: all var(--theme-duration-micro, 150ms) var(--theme-ease-out-quart, ease-out);
 }
 
 .remind-item text {
   font-size: 12px;
 }
 
-/* 封面照片 */
+/* ===== 封面照片 ===== */
 .cover-picker {
   width: 100%;
 }
@@ -187,7 +195,7 @@
   position: relative;
   width: 100%;
   height: 180px;
-  border-radius: 12px;
+  border-radius: var(--theme-radius-card, 12px);
   overflow: hidden;
 }
 
@@ -217,7 +225,7 @@
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  border-radius: 12px;
+  border-radius: var(--theme-radius-card, 12px);
   background: rgba(0, 0, 0, 0.02);
 }
 
@@ -242,17 +250,18 @@
   margin-top: 8px;
 }
 
-/* 预览区域 */
+/* ===== 预览区域 ===== */
 .preview-section {
   margin-top: 40px;
   padding-top: 32px;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--theme-border);
 }
 
 .preview-title {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
+  color: var(--theme-text-secondary);
   text-transform: uppercase;
   display: block;
   margin-bottom: 16px;
@@ -263,14 +272,16 @@
   flex-direction: column;
   align-items: center;
   padding: 32px 24px;
-  border-radius: 20px;
+  border-radius: var(--theme-radius-card, 20px);
   overflow: hidden;
+  background: var(--theme-card-bg);
+  box-shadow: var(--theme-shadow-card);
 }
 
 .preview-cover {
   width: 100%;
   height: 120px;
-  border-radius: 12px;
+  border-radius: var(--theme-radius-card, 12px);
   overflow: hidden;
   margin-bottom: 16px;
 }
@@ -280,9 +291,10 @@
   height: 100%;
 }
 
-.preview-icon {
-  font-size: 32px;
-  margin-bottom: 8px;
+.preview-icon-img {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 10px;
 }
 
 .preview-days {
@@ -291,21 +303,34 @@
   letter-spacing: -2px;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  color: var(--theme-text-primary);
+  font-family: Georgia, 'Times New Roman', serif;
 }
 
 .preview-label {
   font-size: 12px;
   letter-spacing: 2px;
   margin-top: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
+  color: var(--theme-text-secondary);
+}
+
+.preview-hms {
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: var(--theme-text-secondary);
+  opacity: 0.7;
+  font-variant-numeric: tabular-nums;
 }
 
 .preview-name {
   font-size: 16px;
   font-weight: 500;
+  color: var(--theme-text-primary);
 }
 
-/* 底部按钮组 - 横排 */
+/* ===== 底部按钮组 ===== */
 .bottom-buttons {
   position: fixed;
   bottom: 40px;
@@ -313,15 +338,23 @@
   right: 20px;
   display: flex;
   gap: 12px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .bottom-btn-primary {
   flex: 1;
-  padding: 14px 16px;
-  border-radius: 12px;
+  padding: 15px 16px;
+  border-radius: var(--theme-radius-btn, 50px);
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: transform var(--theme-duration-micro, 150ms) var(--theme-ease-out-quart, ease-out),
+              box-shadow var(--theme-duration-micro, 150ms) var(--theme-ease-out-quart, ease-out);
+  box-shadow: var(--theme-shadow-card);
+}
+
+.bottom-btn-primary:active {
+  transform: scale(0.97);
 }
 
 .bottom-btn-primary.full-width {
@@ -330,12 +363,17 @@
 
 .bottom-btn-danger {
   width: 80px;
-  padding: 14px 12px;
-  border-radius: 12px;
+  padding: 15px 12px;
+  border-radius: var(--theme-radius-btn, 50px);
   background: #FF3B30;
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0 4px 12px rgba(255,59,48,0.3);
+}
+
+.bottom-btn-danger:active {
+  transform: scale(0.97);
 }
 
 .bottom-btn-danger.hide {
@@ -353,15 +391,16 @@
   letter-spacing: 0.5px;
 }
 
-/* 裁切弹层 */
+/* ===== 裁切弹层 ===== */
 .crop-modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: #000;
-  z-index: 9999;
+  background: rgba(0, 0, 0, 0.85);
+  /* UX: Z-Index Management - 层级规范 */
+  z-index: 500;
   display: flex;
   flex-direction: column;
 }
@@ -371,19 +410,32 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  background: rgba(0, 0, 0, 0.6);
+  padding-top: calc(16px + env(safe-area-inset-top, 0));
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   z-index: 10;
+  /* UX: 动效 - 进入 */
+  animation: crop-header-in 250ms var(--theme-ease-out-quart, ease-out) both;
+}
+
+@keyframes crop-header-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .crop-cancel {
   font-size: 16px;
   color: rgba(255, 255, 255, 0.7);
   padding: 8px 0;
+  min-width: 50px;
+  transition: color var(--theme-duration-micro, 150ms) ease;
 }
+
+.crop-cancel:active { color: rgba(255,255,255,1); }
 
 .crop-title {
   font-size: 16px;
@@ -394,9 +446,15 @@
 .crop-confirm {
   font-size: 16px;
   font-weight: 600;
-  color: #0071E3;
+  /* UX: 硬编码颜色 → 主题强调色 */
+  color: var(--theme-accent, #007AFF);
   padding: 8px 0;
+  min-width: 50px;
+  text-align: right;
+  transition: transform var(--theme-duration-micro, 150ms) var(--theme-ease-out-quart, ease-out);
 }
+
+.crop-confirm:active { transform: scale(0.93); }
 
 .crop-body {
   flex: 1;
@@ -412,6 +470,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  /* UX: 触控手势 - 允许垂直滚动但不触发外层滚动 */
+  touch-action: pan-y;
 }
 
 .crop-image {
@@ -419,27 +479,30 @@
   display: block;
 }
 
-/* 裁切框 - 固定高度，可拖动 */
 .crop-frame {
   position: absolute;
   left: 0;
   right: 0;
   height: 240px;
-  border-top: 1px solid rgba(255, 255, 255, 0.8);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-bottom: 1.5px solid rgba(255, 255, 255, 0.9);
   box-sizing: border-box;
   background: transparent;
   z-index: 5;
-  transition: none;
+  /* UX: 弹性感 - 用 box-shadow 表现光标位置 */
+  box-shadow:
+    0 2px 12px rgba(0,0,0,0.3) inset,
+    0 -2px 12px rgba(0,0,0,0.3) inset;
+  /* UX: 动画 - 拖动时边框略微高亮 */
+  transition: box-shadow 100ms ease;
 }
 
-/* 半透明遮罩 */
 .crop-mask-top {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 4;
   pointer-events: none;
 }
@@ -449,12 +512,11 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.6);
   z-index: 4;
   pointer-events: none;
 }
 
-/* 拖动提示 */
 .crop-hint {
   position: absolute;
   bottom: 80px;
@@ -466,10 +528,57 @@
   opacity: 0.8;
 }
 
-/* 隐藏canvas */
 .crop-canvas {
   position: fixed;
   top: -9999px;
   left: -9999px;
   opacity: 0;
 }
+/* ============================================================
+   Phase 2 补充：5主题预览卡片独立视觉
+   ============================================================ */
+
+/* ── 生日 ── 暖金色数字 ── */
+.preview-card.cat-birthday .preview-days {
+  color: #D4A017 !important;
+  font-family: Georgia, serif;
+  text-shadow: 0 2px 16px rgba(212,160,23,0.3);
+}
+.preview-card.cat-birthday .preview-label { color: rgba(212,160,23,0.65); }
+.preview-card.cat-birthday .preview-hms { color: rgba(212,160,23,0.5); }
+
+/* ── 恋爱 ── 玫瑰粉数字 ── */
+.preview-card.cat-love .preview-days {
+  color: #E8719A !important;
+  font-family: Georgia, serif;
+  text-shadow: 0 2px 16px rgba(232,113,154,0.3);
+}
+.preview-card.cat-love .preview-label { color: rgba(232,113,154,0.65); }
+.preview-card.cat-love .preview-hms { color: rgba(232,113,154,0.5); }
+
+/* ── 结婚 ── 香槟金数字 ── */
+.preview-card.cat-wedding .preview-days {
+  color: #C9A96E !important;
+  font-family: Georgia, serif;
+  text-shadow: 0 2px 12px rgba(201,169,110,0.25);
+}
+.preview-card.cat-wedding .preview-label { color: rgba(201,169,110,0.65); }
+.preview-card.cat-wedding .preview-hms { color: rgba(201,169,110,0.5); }
+
+/* ── 忌日 ── 银紫数字 ── */
+.preview-card.cat-death .preview-days {
+  color: #9090B0 !important;
+  font-family: Georgia, serif;
+  text-shadow: 0 2px 16px rgba(144,144,176,0.3);
+}
+.preview-card.cat-death .preview-label { color: rgba(144,144,176,0.65); }
+.preview-card.cat-death .preview-hms { color: rgba(144,144,176,0.5); }
+
+/* ── 宠物生日 ── 焦糖棕数字 ── */
+.preview-card.cat-pet_birthday .preview-days {
+  color: #C47830 !important;
+  font-family: Georgia, serif;
+  text-shadow: 0 2px 16px rgba(196,120,48,0.3);
+}
+.preview-card.cat-pet_birthday .preview-label { color: rgba(196,120,48,0.65); }
+.preview-card.cat-pet_birthday .preview-hms { color: rgba(196,120,48,0.5); }

@@ -48,51 +48,16 @@
       <text class="form-label" style="color: {{theme.textSecondary}};">分类</text>
       <view class="category-grid">
         <block wx:for="{{categories}}" wx:key="id">
-          <view 
+          <view
             class="category-item {{selectedCategory === item.id ? 'active' : ''}}"
-            style="border-color: {{selectedCategory === item.id ? item.color : theme.border}};"
+            style="border-color: {{selectedCategory === item.id ? theme.textAccent : theme.border}}; border-radius: {{theme.radiusBtn || '12px'}};"
             bindtap="selectCategory"
             data-id="{{item.id}}"
           >
-            <text class="category-icon">{{item.icon}}</text>
+            <image class="category-icon" src="{{item.iconPath}}" mode="aspectFit" style="width:22px;height:22px;"></image>
             <text class="category-name" style="color: {{selectedCategory === item.id ? theme.textPrimary : theme.textSecondary}};">{{item.name}}</text>
           </view>
         </block>
-      </view>
-    </view>
-
-    <!-- 计时方向 -->
-    <view class="form-item">
-      <text class="form-label" style="color: {{theme.textSecondary}};">计时方式</text>
-      <view class="direction-options">
-        <view 
-          class="direction-item {{direction === 'countdown' ? 'active' : ''}}"
-          style="background: {{direction === 'countdown' ? theme.textAccent : 'transparent'}}; border-color: {{theme.border}};"
-          bindtap="setDirection"
-          data-dir="countdown"
-        >
-          <text style="color: {{direction === 'countdown' ? '#FFF' : theme.textSecondary}};">倒计时</text>
-          <text class="direction-desc" style="color: {{direction === 'countdown' ? 'rgba(255,255,255,0.8)' : theme.textSecondary}};">还有多少天</text>
-        </view>
-        <view 
-          class="direction-item {{direction === 'countup' ? 'active' : ''}}"
-          style="background: {{direction === 'countup' ? theme.textAccent : 'transparent'}}; border-color: {{theme.border}};"
-          bindtap="setDirection"
-          data-dir="countup"
-        >
-          <text style="color: {{direction === 'countup' ? '#FFF' : theme.textSecondary}};">正向计时</text>
-          <text class="direction-desc" style="color: {{direction === 'countup' ? 'rgba(255,255,255,0.8)' : theme.textSecondary}};">已经多少天</text>
-        </view>
-      </view>
-      <!-- 计算方式说明 -->
-      <view class="calc-hint">
-        <text class="hint-title" style="color: {{theme.textSecondary}};">📌 计算说明</text>
-        <text class="hint-text" style="color: {{theme.textSecondary}};">
-          <text style="color: {{theme.textAccent}};">倒计时</text>：从创建日期当天起算，到目标日期还有多少天
-          <text style="display:block; margin-top:6px;">
-          <text style="color: {{theme.textAccent}};">正向计时</text>：从创建日期起，每年重复计算，已度过多少个365天
-        </text>
-        </text>
       </view>
     </view>
 
@@ -156,16 +121,17 @@
       </view>
     </view>
 
-    <!-- 预览 -->
+    <!-- 预览（5主题独立视觉） -->
     <view class="preview-section" wx:if="{{title && targetDate}}">
       <text class="preview-title" style="color: {{theme.textSecondary}};">预览</text>
-      <view class="preview-card" style="background: {{theme.cardBg}}; box-shadow: {{theme.shadow}};">
+      <view class="preview-card cat-{{selectedCategory}}" style="background: {{theme.cardBg}}; box-shadow: {{theme.shadow}};">
         <view wx:if="{{coverImage}}" class="preview-cover">
           <image src="{{coverImage}}" mode="aspectFill"></image>
         </view>
-        <text class="preview-icon">{{previewIcon}}</text>
-        <text class="preview-days" style="color: {{theme.textPrimary}};">{{previewDays}}</text>
-        <text class="preview-label" style="color: {{theme.textSecondary}};">{{previewIsPast ? '天已过' : '天'}}</text>
+        <image wx:if="{{previewIconPath}}" class="preview-icon-img" src="{{previewIconPath}}" mode="aspectFit" style="width:28px;height:28px;"></image>
+        <text class="preview-days">{{previewCountdownDays}}</text>
+        <text class="preview-label">{{previewPreciseIsPast ? '天已过' : '天'}}</text>
+        <text class="preview-hms">{{previewCountdownHms}}</text>
         <text class="preview-name" style="color: {{theme.textPrimary}};">{{title}}</text>
       </view>
     </view>
