@@ -74,6 +74,7 @@
 
     <view class="share-btn-huge" bindtap="shareCard">
       <view class="share-btn-glow"></view>
+      <image class="share-btn-icon" src="/static/icons/system/poster.svg" mode="aspectFit"></image>
       <text class="share-btn-text">生成纪念画报</text>
     </view>
 

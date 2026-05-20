@@ -2,7 +2,7 @@
 
   <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
     <view class="nav-left" bindtap="goBack">
-      <view class="nav-arrow"></view>
+      <image class="nav-arrow" src="/static/icons/system/back.svg" mode="aspectFit"></image>
     </view>
     <text class="nav-title">隐私政策</text>
     <view class="nav-right"></view>

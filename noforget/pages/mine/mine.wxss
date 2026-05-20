@@ -92,33 +92,7 @@
 .avatar-line-icon {
   width: 58rpx;
   height: 58rpx;
-  border-radius: 50%;
-  border: 3rpx solid #B7B2A8;
-  position: relative;
-  box-sizing: border-box;
-}
-
-.avatar-line-icon::before,
-.avatar-line-icon::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #B7B2A8;
-}
-
-.avatar-line-icon::before {
-  width: 20rpx;
-  height: 20rpx;
-  border-radius: 50%;
-  top: 11rpx;
-}
-
-.avatar-line-icon::after {
-  width: 34rpx;
-  height: 10rpx;
-  border-radius: 999rpx 999rpx 8rpx 8rpx;
-  bottom: 10rpx;
+  display: block;
 }
 
 .icon-wrap {

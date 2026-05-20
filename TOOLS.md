@@ -39,37 +39,21 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 Add whatever helps you do your job. This is your cheat sheet.
 
-## Related
+## 浏览器技术栈原则（2026-04-20确立，2026-04-23更新）
 
-- [Agent workspace](/concepts/agent-workspace)
+**专属浏览器**：CDP端口 **18800**，所有任务统一用 `target=host`
+- 标签0：小红书灵犀 https://idea.xiaohongshu.com/idea/trend/trendAnalyze
+- 标签1：百度
+- 标签2：抖音订阅页 https://creator.douyin.com/creator-micro/creator-count/my-subscript
+- 标签3：抖音iframe
+- 标签4：抖音关键词页 https://creator.douyin.com/creator-micro/creator-count/arithmetic-index
+- 标签5：抖音iframe
+- 标签6：小红书探索页 https://www.xiaohongshu.com/explore
 
----
+**定时自动任务**：一律用 Playwright 脚本，不依赖 browser-use CLI
+- 抖音数据采集 → `douyin_index_v9.py`（Playwright）
+- 竞品动态追踪 → `competitor_program_tracker.py`（Playwright）
 
-## 电影小镇运营助手特殊工具配置
-
-### peekaboo (macOS UI自动化) — 已安装未激活
-- 位置：`/opt/homebrew/bin/peekaboo`（brew安装）
-- 用途：CDP浏览器采集失败时的降级方案（抖音指数/竞品关键词）
-- 前提：需授予Screen Recording + Accessibility权限
-- 权限检查：`peekaboo permissions`
-- 状态：🔴 未配置权限，不可用
-
-### skill-creator (技能包创建)
-- 位置：`~/.npm-global/lib/node_modules/openclaw/skills/skill-creator/`
-- 脚本位置：`scripts/init_skill.py`、`scripts/package_skill.py`
-- 用途：将SOP转化为可自动触发的正式技能
-- 命名规范：自定义技能使用 `ops-*` 前缀
-- 状态：✅ 可用
-
-### summarize (URL/视频摘要)
-- 安装：`brew install steipete/tap/summarize`
-- 配置：需设置API Key（GOOGLE_GENERATIVE_AI_API_KEY等）
-- 状态：🔴 未安装
-
-### 已有但不常用技能索引
-| 技能 | 用途 | 文件位置 |
-|------|------|---------|
-| gog | Google Workspace（Gmail/Calendar/Drive） | ~/.npm-global/.../skills/gog/ |
-| session-logs | 会话日志检索 | ~/.npm-global/.../skills/session-logs/ |
-| taskflow | 多步骤持久化工作流 | ~/.npm-global/.../skills/taskflow/ |
-| model-usage | 模型使用成本统计 | ~/.npm-global/.../skills/model-usage/ |
+**browser-use 使用规则**：
+- **全面禁止**：包括专属 Chrome 标签页的任何操作，一概拒绝
+- **唯一例外**：临时性/没遇到过/复杂的探索任务（新平台/一次性调研），且 Playwright 脚本无法快速覆盖时，才能用

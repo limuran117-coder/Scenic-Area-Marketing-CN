@@ -37,7 +37,7 @@
 | [[cdp_keyword_deep]] | 关键词深度CDP采集 |
 | [[competitor_program_tracker]] | 竞品节目动态追踪 |
 | [[init_chrome_tabs]] | 浏览器标签页初始化 |
-| ~~[[{old}]~~（已删除）]] | 周期性提醒 |
+| [[periodic_nudge]] | 周期性提醒 |
 | [[project_drift_check]] | 项目漂移检查 |
 
 ---
@@ -46,10 +46,10 @@
 
 | 脚本 | 用途 |
 |------|------|
-| ~~[[{old}]~~（已删除）]] | 批量插入飞书记录 |
+| [[batch_insert_feishu]] | 批量插入飞书记录 |
 | [[insert_feishu_records]] | 插入飞书记录 |
-| ~~[[{old}]~~（已删除）]] | 全量飞书记录插入 |
-| ~~[[{old}]~~（已删除）]] | 票价数据录入 |
+| [[insert_all_feishu]] | 全量飞书记录插入 |
+| [[insert_price_fixed]] | 票价数据录入 |
 | [[insert_all_records.sh]] | 记录批量录入shell |
 | [[batch_insert_price]] | 批量票价录入 |
 | [[batch_insert_policy]] | 批量政策录入 |

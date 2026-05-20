@@ -38,21 +38,9 @@ page {
   align-items: center;
 }
 .nav-arrow {
-  position: relative;
   width: 40rpx;
   height: 40rpx;
-}
-.nav-arrow::before {
-  content: "";
-  position: absolute;
-  left: 10rpx;
-  top: 9rpx;
-  width: 16rpx;
-  height: 16rpx;
-  border-left: 2.6rpx solid #243247;
-  border-bottom: 2.6rpx solid #243247;
-  border-radius: 2rpx;
-  transform: rotate(45deg);
+  display: block;
 }
 .nav-title { font-size: 32rpx; font-weight: 600; color: #243247; text-align: center; flex: 1; }
 

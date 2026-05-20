@@ -1,6 +1,6 @@
 <view class="settings-page" >
   <view class="period-nav" style="padding-top: {{statusBarHeight}}px;">
-    <view class="nav-left" bindtap="goBack"><view class="nav-arrow"></view></view>
+    <view class="nav-left" bindtap="goBack"><image class="nav-arrow" src="/static/icons/system/back.svg" mode="aspectFit"></image></view>
     <text class="nav-title">🌸 隐私与提醒</text>
     <view class="nav-right"></view>
   </view>

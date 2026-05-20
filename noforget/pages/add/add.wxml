@@ -57,7 +57,7 @@
         </view>
 
         <view class="btn-cover" wx:if="{{categoryId !== 'period'}}" bindtap="pickCoverImage">
-          <view class="btn-cover-icon"></view>
+          <image class="btn-cover-icon" src="/static/icons/system/photo.svg" mode="aspectFit"></image>
           <text>{{coverImage ? '更换专属背景' : '添加专属背景'}}</text>
         </view>
         <view class="btn-cover-remove" wx:if="{{categoryId !== 'period' && coverImage}}" bindtap="removeCoverImage">移除背景</view>
@@ -81,10 +81,12 @@
           <picker mode="date" value="{{targetDate}}" bindchange="onDateChange" start="1900-01-01" end="2099-12-31">
             <view class="date-picker-btn">
               <view class="date-picker-left">
-                <view class="date-picker-icon"></view>
+                <view class="date-picker-icon-shell">
+                  <image class="date-picker-icon" src="/static/icons/system/calendar.svg" mode="aspectFit"></image>
+                </view>
                 <text class="date-val">{{targetDate ? targetDate : '设置日期'}}</text>
               </view>
-              <view class="date-arrow-icon"></view>
+              <image class="date-arrow-icon" src="/static/icons/system/chevron-right.svg" mode="aspectFit"></image>
             </view>
           </picker>
         </view>

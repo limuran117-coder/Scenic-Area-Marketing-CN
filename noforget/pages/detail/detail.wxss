@@ -464,6 +464,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12rpx;
   box-shadow: 0 14rpx 28rpx rgba(159, 183, 220, 0.16);
   position: relative;
   overflow: hidden;
@@ -477,6 +478,14 @@ page {
     radial-gradient(circle at 18% 22%, rgba(255,255,255,0.5), transparent 34%),
     radial-gradient(circle at 84% 78%, rgba(255,255,255,0.28), transparent 28%),
     linear-gradient(90deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+}
+
+.share-btn-icon {
+  position: relative;
+  z-index: 1;
+  width: 36rpx;
+  height: 36rpx;
+  display: block;
 }
 
 .share-btn-text {

@@ -15,7 +15,7 @@
   <view class="user-header">
     <button class="avatar-wrapper card-shadow" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
       <image class="avatar-real" src="{{userAvatar}}" mode="aspectFill" wx:if="{{userAvatar}}"></image>
-      <view class="avatar-placeholder" wx:else><view class="avatar-line-icon"></view></view>
+      <view class="avatar-placeholder" wx:else><image class="avatar-line-icon" src="/static/icons/system/user.svg" mode="aspectFit"></image></view>
     </button>
     <view class="user-text-area">
       <text class="nickname">{{userAvatar ? (nickName || '我') : '点击设置头像'}}</text>
