@@ -1,7 +1,0 @@
-{
-  "usingComponents": {
-    "tab-bar": "/components/tab-bar/tab-bar"
-  },
-  "navigationStyle": "custom",
-  "enablePullDownRefresh": true
-}

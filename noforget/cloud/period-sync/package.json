@@ -1,9 +1,0 @@
-{
-  "name": "period-sync",
-  "version": "1.0.0",
-  "description": "姨妈追踪数据同步 - 获取openid并读写周期数据",
-  "main": "index.js",
-  "dependencies": {
-    "wx-server-sdk": "~2.6.3"
-  }
-}
