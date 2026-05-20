@@ -16,6 +16,8 @@ An AI-powered autonomous agent that manages the entire marketing operations for 
 
 **Annual Goal (2026)**: 1.53 million visitors · ¥120M ticket revenue
 
+**YTD Actual (as of 2026-05-17)**: 656,067 visitors · **42.9% completion**
+
 ![System Overview](wiki/diagrams/system-overview-en.svg)
 
 ---
@@ -51,10 +53,12 @@ knowledge layer (abstract) ← business layer (raw data)
 
 | Layer | Purpose | Example |
 |-------|---------|---------|
-| `concepts/` | Why things work | 「情绪营销公式」— why suspense hooks go viral |
 | `entities/` | What things are | 「万岁山武侠城」— competitor profile |
-| `sources/` | Source summaries | 「穿越德化街数据分析」— key data points |
 | `queries/` | Valuable Q&A | 「抖音vs小红书差异」— when to use which platform |
+| `archived/concepts/` | Why things work (archived) | 「情绪营销公式」— why suspense hooks go viral |
+| `archived/sources/` | Source summaries (archived) | 「穿越德化街数据分析」— key data points |
+
+> **Note:** `concepts/` and `sources/` were archived on 2026-05-20. They remain accessible in `wiki/archived/`.
 
 **Weekly INGEST**: Every Sunday, new insights are distilled into the knowledge layer, so the system gets smarter over time.
 
@@ -62,7 +66,7 @@ knowledge layer (abstract) ← business layer (raw data)
 
 Every task has a dedicated SOP that survives session restarts. When a cron job fires, it reads the SOP first and executes precisely — no deviation, no forgotten steps.
 
-**13 Standardized SOPs**:
+**15+ Standardized SOPs**:
 - 抖音指数日报 (Douyin Index Daily)
 - 小红书日报 (Xiaohongshu Daily)
 - 竞品关键词深度分析 (Competitor Keyword Deep Dive)
@@ -179,14 +183,21 @@ Each competitor deep-dive covers: Douyin index · Xiaohongshu data · Baidu sear
 
 | Time | Report | Channel |
 |------|--------|---------|
-| 08:00 | Douyin Index Daily | Feishu Group |
+| 08:00 | CDP Health Probe (browser recovery) | Internal |
+| 08:05 | CDP Cookie Sync (refresh all logins) | Internal |
 | 10:00 | Xiaohongshu Daily | Feishu Group |
-| 10:00 | Travel Industry Hotspots | Feishu Group |
-| 15:00 | Competitor Keyword Deep Dive | DM |
+| 10:30 | Douyin Index Daily | Feishu Group |
+| 13:00 | Travel & Policy Intelligence | Feishu Group |
+| 15:00 | Viral Content Analysis | Feishu Group |
+| 16:00 | Competitor Keyword Deep Dive | Feishu Group |
 | 18:00 | Competitor Content Tracking | Feishu Group |
-| 21:00 | Nationwide Viral Content Analysis | Feishu Group |
-| 22:00 | Daily Review & Integration | DM |
-| Mon 09:00 | Weekly Passenger Insights | Feishu Group |
+| 20:00 | Case Library Update | Feishu Group |
+| 21:00 | Marketing Attribution | Internal |
+| 22:00 | Daily Review & Integration | Feishu Group |
+| Mon 08:00 | Marketing Calendar | Feishu Group |
+| Mon 09:30 | Weekly Passenger Insights | Feishu Group |
+| Sun 10:00 | Wiki Health Check | Internal |
+| Sun 11:00 | Codebase Drift Check | Internal |
 
 ---
 
@@ -199,7 +210,8 @@ Each competitor deep-dive covers: Douyin index · Xiaohongshu data · Baidu sear
 | Browser Automation | CDP (Chrome DevTools Protocol) |
 | Data Collection | Playwright + custom scripts |
 | Instant Messaging | Feishu (Lark) Bot API |
-| Scheduled Tasks | Cron (OpenClaw built-in) |
+| Scheduled Tasks | Cron (OpenClaw built-in, 15+ jobs) |
+| Cookie Management | CDP Cookie Hub (auto-sync from logged-in browser) |
 | Memory System | Multi-tier: daily logs → weekly dreaming → long-term MEMORY.md |
 | Code Repository | GitHub (auto-sync on Sundays) |
 
@@ -210,18 +222,21 @@ Each competitor deep-dive covers: Douyin index · Xiaohongshu data · Baidu sear
 ```
 .
 ├── wiki/                          # Knowledge base (Obsidian-compatible)
-│   ├── concepts/                  # 11 knowledge concepts
+│   ├── 电影小镇/                  # Core business: passenger flow, shows, strategy
+│   ├── 竞品分析/                  # Competitor deep profiles + daily tracking
+│   ├── 全国景区案例库/             # Weekly case studies (40+ cases)
+│   ├── 行业知识/                  # Decision rules, verification records
+│   ├── SOP/                       # 15+ standardized SOPs
+│   ├── 技术配置/                  # Browser + script configs
+│   ├── 系统/                      # Prediction scoreboard
 │   ├── entities/                  # 10 entities (scenic areas + platforms)
-│   ├── sources/                   # 5 source document summaries
-│   ├── queries/                   # 4 valuable Q&A archives
-│   ├── 电影小镇/                  # Core business data (untouched)
-│   ├── 竞品分析/                  # Daily competitor tracking
-│   ├── 全国景区案例库/             # Weekly case studies
-│   ├── 行业知识/                  # Industry knowledge
-│   ├── SOP/                       # 13 standardized SOPs
-│   └── 技术配置/                  # Browser + script configs
-├── scripts/                       # Automation scripts
-│   ├── douyin_index_v9.py        # Douyin index collection
+│   ├── queries/                   # Valuable Q&A archives
+│   ├── archived/                  # Archived old directories (concepts/sources/etc.)
+│   └── Excalidraw/               # System diagrams
+├── scripts/                       # Automation scripts (50+ Python scripts)
+│   ├── douyin_index_v9.py        # Douyin index collection (v10 internal)
+│   ├── cdp_cookie_hub.py         # Universal cookie sync from CDP browser
+│   ├── cdp_keyword_deep.py       # Keyword deep dive via CDP
 │   ├── xiaohongshu_crawl.py      # Xiaohongshu collection
 │   └── send_feishu_card.py       # Feishu card sender
 ├── memory/                        # AI memory & session logs
@@ -231,34 +246,31 @@ Each competitor deep-dive covers: Douyin index · Xiaohongshu data · Baidu sear
 
 ---
 
-## karpathy-wiki Knowledge Layer (Detailed)
+## Wiki Structure (Updated 2026-05-20)
+
+### Recent cleanup
+- `concepts/` / `sources/` / `knowledge/` / `impeccable-refs/` / `docs/` → archived to `archived/`
+- `_duplicate_backup/` → deleted (12 dead copies)
+- Passenger data updated from April 26 → **May 17** (CSV source restored)
+
+---
+
+## karpathy-wiki Knowledge Layer
 
 The knowledge layer is the system's "brain" — separate from the business execution layer:
 
-**concepts/** — Abstract principles
-- 演艺景区 (Performing Arts Scenic Areas)
-- 内容爆款规律 (Viral Content Patterns)
-- 情绪营销 (Emotional Marketing)
-- 季节性客流规律 (Seasonal Passenger Flow Patterns)
-- 景区营销漏斗 (Marketing Funnel)
-- 景区抖音运营 (Douyin Operations for Scenic Areas)
-- 景区小红书运营 (Xiaohongshu Operations for Scenic Areas)
-- 内容发布节奏 (Content Publishing Cadence)
-- ROI分析 (ROI Analysis)
-- 景区类型 (Scenic Area Types)
-- 平台算法规则 (Platform Algorithm Rules)
-
-**entities/** — Concrete entities
+**entities/** (active) — Concrete entities
 - 建业电影小镇 (Jianye Film Town)
-- 7 竞品 (7 competitors)
-- 抖音平台 (Douyin platform)
-- 小红书平台 (Xiaohongshu platform)
+- 7 competitors + 抖音 + 小红书 platforms
 
-**sources/** — Source document summaries
-- 穿越德化街数据分析 (Through Dehua Street Data Analysis)
-- 抖音指数追踪日报 (Douyin Index Daily Report)
-- 竞品深度档案 (Competitor Deep Dive Archives)
-- 客流营收历年分析 (Passenger Flow & Revenue Historical Analysis)
+**queries/** (active) — Valuable Q&A archives
+- Wiki重组决策 / 知识层与业务层关系 / 抖音vs小红书 / 旧目录重叠
+
+**archived/concepts/** — Abstract principles (available on demand)
+演艺景区 · 内容爆款规律 · 情绪营销 · 季节性客流 · 营销漏斗 · 景区抖音运营 · 景区小红书运营 · 内容发布节奏 · ROI分析 · 景区类型 · 平台算法规则
+
+**archived/sources/** — Source document summaries (available on demand)
+穿越德化街数据分析 · 抖音指数追踪日报 · 竞品深度档案 · 客流营收历年分析
 
 **queries/** — Valuable Q&A archives
 - Wiki重组决策 (Wiki Restructuring Decision)
@@ -272,12 +284,13 @@ The knowledge layer is the system's "brain" — separate from the business execu
 
 | Advantage | Detail |
 |-----------|--------|
-| **Autonomous Operation** | 13 cron jobs run daily without human intervention |
+| **Autonomous Operation** | 15+ cron jobs run daily without human intervention |
 | **Knowledge Compounding** | karpathy-wiki ensures insights accumulate and compound |
 | **Data-Driven** | All decisions backed by real-time platform data |
 | **Standardized SOPs** | Every task has a precise, version-controlled playbook |
 | **Multi-Platform** | Douyin + Xiaohongshu + Baidu + Feishu integrated |
 | **Competitor Intelligence** | 8 competitors × 21 keywords, tracked daily |
+| **CDP Cookie Hub** | Auto-syncs login cookies from running browser — no daily QR scan |
 | **Weekly INGEST** | Every Sunday, knowledge layer is refreshed and synced to GitHub |
 | **Historical Depth** | 2023–2026 passenger flow data + performing arts analysis |
 
@@ -292,6 +305,8 @@ The knowledge layer is the system's "brain" — separate from the business execu
 **建业电影小镇 AI 营销运营系统** — 一个覆盖抖音、小红书、竞品监控、客流分析、日报自动化的全链路AI运营助手。
 
 **年度目标（2026年）**：客流153万 · 门票收入1.2亿
+
+**YTD实际（截至2026-05-17）**：656,067人次 · **完成率42.9%**
 
 ---
 
@@ -449,7 +464,7 @@ Wiki重组决策 · 知识层与业务层关系 · 抖音与小红书平台差�
 
 | 优势 | 说明 |
 |------|------|
-| **全自动化运营** | 13个cron任务全天候自动执行，无需人工干预 |
+| **全自动化运营** | 15+个cron任务全天候自动执行，无需人工干预 |
 | **知识化合** | karpathy-wiki确保洞察积累而非遗忘 |
 | **数据驱动决策** | 所有策略基于实时平台数据，非经验主义 |
 | **标准化SOP** | 每个任务都有精确的版本控制操作手册 |

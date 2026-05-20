@@ -37,8 +37,9 @@
 | [[cdp_keyword_deep]] | 关键词深度CDP采集 |
 | [[competitor_program_tracker]] | 竞品节目动态追踪 |
 | [[init_chrome_tabs]] | 浏览器标签页初始化 |
-| [[periodic_nudge]] | 周期性提醒 |
-| [[project_drift_check]] | 项目漂移检查 |
+| ~~[[{old}]~~（已删除）]] | 周期性提醒 |
+| [[project_drift_check]] | 项目漂移检查（2026-05-17创建） |
+| [[wiki_drift_check]] | Wiki漂移检查（2026-05-17创建） |
 
 ---
 
@@ -46,15 +47,8 @@
 
 | 脚本 | 用途 |
 |------|------|
-| [[batch_insert_feishu]] | 批量插入飞书记录 |
-| [[insert_feishu_records]] | 插入飞书记录 |
-| [[insert_all_feishu]] | 全量飞书记录插入 |
-| [[insert_price_fixed]] | 票价数据录入 |
-| [[insert_all_records.sh]] | 记录批量录入shell |
-| [[batch_insert_price]] | 批量票价录入 |
-| [[batch_insert_policy]] | 批量政策录入 |
-| [[batch_insert_refund]] | 批量退款录入 |
-| [[validate_data]] | 数据验证 |
+| [[build_dashboard]] | 数据可视化看板 |
+| [[dashboard]] | 基础仪表盘 |
 
 ---
 
@@ -65,8 +59,19 @@
 | douyin_browser_final.py | 废弃（v9已替代） |
 | competitor_keyword_v2-v7.py | 废弃（v8已替代） |
 | send_wenhua_tracking_20260421.py | 旧版（保留参考） |
-| autonomous_skill_create.py | 实验性 |
+| test_card_send.py | 测试用 |
+| competitor_keyword_debug2.py | 调试用（debug替代） |
 
 ---
 
-*本索引由系统自动生成，录入时间：2026-04-26*
+## 废弃脚本清理建议（2026-05-17）
+
+以下废弃文件建议移入 `scripts/archive/` 减少目录杂乱：
+- `douyin_browser_final.py`
+- `competitor_keyword_v2.py` ~ `v7.py`（共6个）
+- `test_card_send.py`
+- `send_wenhua_tracking_20260421.py`
+
+---
+
+*本索引最后更新：2026-05-17*
