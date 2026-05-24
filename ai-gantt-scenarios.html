@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能工作场景 · 15张流程甘特图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #f4f6f9;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  padding: 32px 20px;
+}
+.header {
+  max-width: 1100px; margin: 0 auto 28px;
+}
+.header h1 { font-size: 26px; color: #1a1a2e; margin-bottom: 6px; }
+.header p { color: #666; font-size: 14px; }
+.color-ref {
+  display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px; font-size: 12px;
+}
+.color-ref span { display: flex; align-items: center; gap: 4px; }
+.dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+.grid {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.card {
+  background: #fff; border-radius: 10px; padding: 14px 18px;
+  border: 1px solid #e8ecf1; box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+.card-top {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
+}
+.num {
+  width: 24px; height: 24px; border-radius: 5px;
+  background: #4361ee; color: #fff; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.card-title { font-size: 14px; font-weight: 600; color: #1a1a2e; flex: 1; }
+.card-time { font-size: 11px; color: #94a3b8; flex-shrink: 0; }
+.tag {
+  font-size: 10px; padding: 1px 7px; border-radius: 8px; flex-shrink: 0;
+}
+.tag-h { background: #d4edda; color: #155724; }
+.tag-m { background: #fff3cd; color: #856404; }
+
+/* Gantt bar area */
+.gantt-row {
+  display: flex; align-items: center; gap: 0; margin-bottom: 2px;
+  min-height: 36px;
+}
+.gantt-label {
+  width: 120px; flex-shrink: 0; text-align: right; padding-right: 10px;
+  font-size: 11px; color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.gantt-track {
+  flex: 1; height: 30px; position: relative;
+  background: #f8fafc; border-radius: 4px; overflow: hidden;
+}
+.gantt-bar {
+  position: absolute; top: 3px; height: 24px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #fff; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  transition: top 0.1s;
+  min-width: 20px;
+}
+.bar-setup { background: #3b82f6; }      /* 准备/连接 */
+.bar-collect { background: #8b5cf6; }     /* 采集 */
+.bar-process { background: #10b981; }     /* 处理/分析 */
+.bar-ai { background: #f59e0b; }          /* AI解析 */
+.bar-output { background: #ef4444; }       /* 输出/推送 */
+.bar-monitor { background: #6366f1; }     /* 监控/检查 */
+.bar-archive { background: #14b8a6; }     /* 归档 */
+.bar-wait { background: #94a3b8; }        /* 等待/跳过 */
+.bar-decision { background: #f97316; }    /* 决策节点 */
+.bar-alert { background: #dc2626; }       /* 告警 */
+
+/* time scale dots */
+.scale-row {
+  display: flex; align-items: center; gap: 0; margin-top: 2px;
+}
+.scale-label { width: 120px; flex-shrink: 0; text-align: right; padding-right: 10px; }
+.scale-track { flex: 1; position: relative; height: 14px; }
+.scale-dot {
+  position: absolute; font-size: 9px; color: #94a3b8; white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.card-divider {
+  margin: 10px 0; border: 0; border-top: 1px dashed #e2e8f0;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .gantt-label { width: 80px; font-size: 10px; }
+  .gantt-bar { font-size: 9px; padding: 0 4px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>⏱ AI赋能工作场景 · 流程甘特图</h1>
+  <p>每个场景从触发到交付的完整作业步骤 · 横道图表示各环节耗时占比</p>
+  <div class="color-ref">
+    <span><span class="dot" style="background:#3b82f6"></span> 准备/连接</span>
+    <span><span class="dot" style="background:#8b5cf6"></span> 采集</span>
+    <span><span class="dot" style="background:#10b981"></span> 处理</span>
+    <span><span class="dot" style="background:#f59e0b"></span> AI分析</span>
+    <span><span class="dot" style="background:#ef4444"></span> 推送</span>
+    <span><span class="dot" style="background:#6366f1"></span> 监控</span>
+    <span><span class="dot" style="background:#14b8a6"></span> 归档</span>
+    <span><span class="dot" style="background:#dc2626"></span> 告警</span>
+  </div>
+</div>
+
+<div class="grid">
+
+<!-- 1. 抖音指数 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">1</span>
+    <span class="card-title">抖音指数日报自动采集</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">总耗时 ≈15min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">08:00 Cron触发</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:6%">CDP连</div>
+      <div class="gantt-bar bar-collect" style="left:6%; width:20%; background:#8b5cf6">Playwright采集8竞品指数</div>
+      <div class="gantt-bar bar-process" style="left:26%; width:6%">校验</div>
+      <div class="gantt-bar bar-ai" style="left:32%; width:12%">AI格式化</div>
+      <div class="gantt-bar bar-output" style="left:44%; width:6%">飞书推</div>
+      <div class="gantt-bar bar-archive" style="left:50%; width:6%">归档</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:25%">4'</span>
+      <span class="scale-dot" style="left:50%">8'</span>
+      <span class="scale-dot" style="left:75%">12'</span>
+      <span class="scale-dot" style="left:100%">15'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 2. 小红书灵犀 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">2</span>
+    <span class="card-title">小红书灵犀数据日报</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">总耗时 ≈18min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">10:00 执行</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:5%">CDP</div>
+      <div class="gantt-bar bar-collect" style="left:5%; width:22%; background:#8b5cf6">关键词搜索×8竞品</div>
+      <div class="gantt-bar bar-process" style="left:27%; width:8%">提取五维度</div>
+      <div class="gantt-bar bar-ai" style="left:35%; width:10%">AI格式化</div>
+      <div class="gantt-bar bar-output" style="left:45%; width:6%">飞书推</div>
+      <div class="gantt-bar bar-archive" style="left:51%; width:6%">归档</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:28%">5'</span>
+      <span class="scale-dot" style="left:55%">10'</span>
+      <span class="scale-dot" style="left:83%">15'</span>
+      <span class="scale-dot" style="left:100%">18'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 竞品关键词深度分析 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">3</span>
+    <span class="card-title">竞品关键词深度分析</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">总耗时 ≈20min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">15:00 执行</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:4%">CDP</div>
+      <div class="gantt-bar bar-collect" style="left:4%; width:20%; background:#8b5cf6">百度搜索采集</div>
+      <div class="gantt-bar bar-collect" style="left:24%; width:15%; background:#8b5cf6">抖音搜索采集</div>
+      <div class="gantt-bar bar-collect" style="left:39%; width:15%; background:#8b5cf6">小红书搜索采集</div>
+      <div class="gantt-bar bar-ai" style="left:54%; width:18%">AI结构化分析<br/>关联词+人群画像</div>
+      <div class="gantt-bar bar-output" style="left:72%; width:6%">私信</div>
+      <div class="gantt-bar bar-archive" style="left:78%; width:5%">归档</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:25%">5'</span>
+      <span class="scale-dot" style="left:50%">10'</span>
+      <span class="scale-dot" style="left:75%">15'</span>
+      <span class="scale-dot" style="left:100%">20'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 竞品内容动态追踪 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">4</span>
+    <span class="card-title">竞品内容动态追踪</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">总耗时 ≈12min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">18:00 执行</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:6%">CDP</div>
+      <div class="gantt-bar bar-collect" style="left:6%; width:25%; background:#8b5cf6">抖音竞品作品列表增量抓取</div>
+      <div class="gantt-bar bar-collect" style="left:31%; width:20%; background:#8b5cf6">小红书竞品笔记增量抓取</div>
+      <div class="gantt-bar bar-decision" style="left:51%; width:10%">变化检测</div>
+      <div class="gantt-bar bar-ai" style="left:61%; width:15%">AI策略分析</div>
+      <div class="gantt-bar bar-output" style="left:76%; width:8%">有变化→推送</div>
+      <div class="gantt-bar bar-wait" style="left:51%; width:10%; background:#94a3b8">无变化→跳过</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:33%">4'</span>
+      <span class="scale-dot" style="left:66%">8'</span>
+      <span class="scale-dot" style="left:100%">12'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 5. 爆款拆解 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">5</span>
+    <span class="card-title">全国景区爆款内容拆解</span>
+    <span class="tag tag-m">按需使用</span>
+    <span class="card-time">总耗时 ≈14min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">21:00 执行</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-collect" style="left:0%; width:20%; background:#8b5cf6">搜索21个关键词内容流</div>
+      <div class="gantt-bar bar-process" style="left:20%; width:12%">爆款阈值判定</div>
+      <div class="gantt-bar bar-ai" style="left:32%; width:22%">AI内容提取+模式分析</div>
+      <div class="gantt-bar bar-ai" style="left:54%; width:14%">生成可复制建议</div>
+      <div class="gantt-bar bar-output" style="left:68%; width:8%">飞书推</div>
+      <div class="gantt-bar bar-archive" style="left:76%; width:10%; background:#14b8a6">沉淀concepts</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:28%">4'</span>
+      <span class="scale-dot" style="left:57%">8'</span>
+      <span class="scale-dot" style="left:85%">12'</span>
+      <span class="scale-dot" style="left:100%">14'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 6. 文旅热点追踪 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">6</span>
+    <span class="card-title">文旅政策与热点AI追踪</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">总耗时 ≈10min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">10:00 执行</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-collect" style="left:0%; width:22%; background:#8b5cf6">web_fetch多源网站</div>
+      <div class="gantt-bar bar-ai" style="left:22%; width:18%">AI摘要生成</div>
+      <div class="gantt-bar bar-process" style="left:40%; width:10%">热度排序</div>
+      <div class="gantt-bar bar-ai" style="left:50%; width:16%">知识图谱关联</div>
+      <div class="gantt-bar bar-output" style="left:66%; width:8%">飞书推</div>
+      <div class="gantt-bar bar-archive" style="left:74%; width:8%">归档</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:30%">3'</span>
+      <span class="scale-dot" style="left:60%">6'</span>
+      <span class="scale-dot" style="left:90%">9'</span>
+      <span class="scale-dot" style="left:100%">10'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 7. 每日复盘 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">7</span>
+    <span class="card-title">每日AI自动复盘整合</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">总耗时 ≈8min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">22:00 执行</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-process" style="left:0%; width:6%">启动</div>
+      <div class="gantt-bar bar-collect" style="left:6%; width:14%; background:#6366f1">汇总#1抖音数据</div>
+      <div class="gantt-bar bar-collect" style="left:20%; width:12%; background:#6366f1">汇总#2小红书</div>
+      <div class="gantt-bar bar-collect" style="left:32%; width:12%; background:#6366f1">汇总#3竞品</div>
+      <div class="gantt-bar bar-collect" style="left:44%; width:10%; background:#6366f1">汇总#8客流</div>
+      <div class="gantt-bar bar-ai" style="left:54%; width:20%">AI整合+洞察生成</div>
+      <div class="gantt-bar bar-output" style="left:74%; width:8%">私信推</div>
+      <div class="gantt-bar bar-archive" style="left:82%; width:8%; background:#14b8a6">记memory</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:25%">2'</span>
+      <span class="scale-dot" style="left:50%">4'</span>
+      <span class="scale-dot" style="left:75%">6'</span>
+      <span class="scale-dot" style="left:100%">8'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 8. 客流分析 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">8</span>
+    <span class="card-title">客流数据AI智能分析</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">总耗时 ≈6min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">周一09:00</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-process" style="left:0%; width:10%">读CSV</div>
+      <div class="gantt-bar bar-process" style="left:10%; width:8%">校验</div>
+      <div class="gantt-bar bar-ai" style="left:18%; width:22%">AI趋势分析+同比</div>
+      <div class="gantt-bar bar-ai" style="left:40%; width:16%">渠道结构拆解</div>
+      <div class="gantt-bar bar-ai" style="left:56%; width:14%">模型预测</div>
+      <div class="gantt-bar bar-output" style="left:70%; width:10%">飞书周报</div>
+      <div class="gantt-bar bar-archive" style="left:80%; width:10%">归档</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:33%">2'</span>
+      <span class="scale-dot" style="left:66%">4'</span>
+      <span class="scale-dot" style="left:100%">6'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 9. Obsidian图谱 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">9</span>
+    <span class="card-title">Obsidian知识图谱可视化导航</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">一次性建设 ≈2周</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">建设阶段</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:12%">目录规划</div>
+      <div class="gantt-bar bar-process" style="left:12%; width:20%">文档四层分类</div>
+      <div class="gantt-bar bar-process" style="left:32%; width:18%">双向链接关联</div>
+      <div class="gantt-bar bar-process" style="left:50%; width:14%">标签体系</div>
+      <div class="gantt-bar bar-output" style="left:64%; width:12%">Graph View</div>
+      <div class="gantt-bar bar-archive" style="left:76%; width:12%; background:#14b8a6">持续维护</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">D1</span>
+      <span class="scale-dot" style="left:25%">D4</span>
+      <span class="scale-dot" style="left:50%">D7</span>
+      <span class="scale-dot" style="left:75%">D10</span>
+      <span class="scale-dot" style="left:100%">D14</span>
+    </div>
+  </div>
+</div>
+
+<!-- 10. karpathy-wiki INGEST -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">10</span>
+    <span class="card-title">karpathy-wiki知识化合与周度INGEST</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">每周日 ≈20min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">周日15:00</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-process" style="left:0%; width:8%">启动</div>
+      <div class="gantt-bar bar-collect" style="left:8%; width:15%; background:#6366f1">收集一周新数据</div>
+      <div class="gantt-bar bar-ai" style="left:23%; width:15%">AI判断是否有新洞察</div>
+      <div class="gantt-bar bar-decision" style="left:38%; width:8%">分流</div>
+      <div class="gantt-bar bar-ai" style="left:46%; width:14%">写入concepts</div>
+      <div class="gantt-bar bar-ai" style="left:60%; width:10%">更新entities</div>
+      <div class="gantt-bar bar-ai" style="left:70%; width:10%">归档sources</div>
+      <div class="gantt-bar bar-archive" style="left:80%; width:10%">GitHub push</div>
+      <div class="gantt-bar bar-monitor" style="left:90%; width:8%">LINT</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:25%">5'</span>
+      <span class="scale-dot" style="left:50%">10'</span>
+      <span class="scale-dot" style="left:75%">15'</span>
+      <span class="scale-dot" style="left:100%">20'</span>
+    </div>
+  </div>
+</div>
+
+<!-- 11. 多Agent协同 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">11</span>
+    <span class="card-title">多Agent协同编排</span>
+    <span class="tag tag-m">需平台支持</span>
+    <span class="card-time">单次编排 ≈12min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">任务触发</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:5%">启动</div>
+      <div class="gantt-bar bar-process" style="left:5%; width:10%">sessions_spawn</div>
+      <div class="gantt-bar bar-collect" style="left:15%; width:15%; background:#8b5cf6">抖音Agent (并)</div>
+      <div class="gantt-bar bar-collect" style="left:30%; width:12%; background:#8b5cf6">小红书Agent (并)</div>
+      <div class="gantt-bar bar-collect" style="left:42%; width:15%; background:#8b5cf6">竞品Agent (并)</div>
+      <div class="gantt-bar bar-collect" style="left:57%; width:10%; background:#8b5cf6">客流Agent (并)</div>
+      <div class="gantt-bar bar-process" style="left:67%; width:8%">汇总</div>
+      <div class="gantt-bar bar-ai" style="left:75%; width:12%">整合报告</div>
+      <div class="gantt-bar bar-output" style="left:87%; width:6%">输出</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:25%">3'</span>
+      <span class="scale-dot" style="left:50%">6'</span>
+      <span class="scale-dot" style="left:75%">9'</span>
+      <span class="scale-dot" style="left:100%">12'</span>
+    </div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label" style="color:#94a3b8;font-style:italic;">vs 串行</div>
+    <div class="gantt-track" style="background:#fef2f2;">
+      <div class="gantt-bar bar-wait" style="left:0%; width:3%"></div>
+      <div class="gantt-bar bar-collect" style="left:3%; width:8%; opacity:0.4; background:#8b5cf6">抖</div>
+      <div class="gantt-bar bar-collect" style="left:11%; width:7%; opacity:0.4; background:#8b5cf6">红</div>
+      <div class="gantt-bar bar-collect" style="left:18%; width:8%; opacity:0.4; background:#8b5cf6">竞</div>
+      <div class="gantt-bar bar-collect" style="left:26%; width:6%; opacity:0.4; background:#8b5cf6">客</div>
+      <div class="gantt-bar bar-wait" style="left:32%; width:68%; opacity:0.4; background:#94a3b8">串行总耗时≈40min</div>
+    </div>
+  </div>
+</div>
+
+<!-- 12. 飞书推送 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">12</span>
+    <span class="card-title">飞书卡片自动化报告推送</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">单次推送 ≈30s</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">各时段</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:10%">接收数据</div>
+      <div class="gantt-bar bar-process" style="left:10%; width:20%">模板引擎 schema2.0</div>
+      <div class="gantt-bar bar-process" style="left:30%; width:12%">渲染markdown</div>
+      <div class="gantt-bar bar-decision" style="left:42%; width:14%">渠道判定:群/私信</div>
+      <div class="gantt-bar bar-output" style="left:56%; width:14%">飞书API POST</div>
+      <div class="gantt-bar bar-monitor" style="left:70%; width:6%">成功</div>
+      <div class="gantt-bar bar-alert" style="left:76%; width:12%">失败→队列重试</div>
+    </div>
+  </div>
+</div>
+
+<!-- 13. CDP容错 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">13</span>
+    <span class="card-title">CDP浏览器自动化+三层容错</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">正常≈2s · 异常≤30s恢复</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">异常场景</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:8%">CDP连接</div>
+      <div class="gantt-bar bar-alert" style="left:8%; width:6%">失败</div>
+      <div class="gantt-bar bar-setup" style="left:14%; width:8%">第2次重试</div>
+      <div class="gantt-bar bar-alert" style="left:22%; width:6%">失败</div>
+      <div class="gantt-bar bar-setup" style="left:28%; width:8%">第3次重试</div>
+      <div class="gantt-bar bar-alert" style="left:36%; width:6%">失败</div>
+      <div class="gantt-bar bar-monitor" style="left:42%; width:14%; background:#dc2626">failureAlert飞书告警</div>
+      <div class="gantt-bar bar-wait" style="left:56%; width:20%; background:#94a3b8">等待人工介入</div>
+      <div class="gantt-bar bar-setup" style="left:76%; width:12%">修复后自动恢复</div>
+    </div>
+  </div>
+</div>
+
+<!-- 14. 铁律预警 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">14</span>
+    <span class="card-title">铁律记忆+节假日预警系统</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">持续监控 · 即时触发</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">持续监视</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-monitor" style="left:0%; width:18%; background:#6366f1">MEMORY.md读取铁律</div>
+      <div class="gantt-bar bar-monitor" style="left:18%; width:20%">数据实时监控</div>
+      <div class="gantt-bar bar-monitor" style="left:38%; width:14%">散客率/客流/节日</div>
+      <div class="gantt-bar bar-decision" style="left:52%; width:10%">条件判定</div>
+      <div class="gantt-bar bar-alert" style="left:62%; width:14%">触发预警规则</div>
+      <div class="gantt-bar bar-output" style="left:76%; width:12%">飞书推送</div>
+    </div>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label" style="color:#94a3b8;font-style:italic;font-size:10px;">预警条件</div>
+    <div class="gantt-track" style="height:18px; background:transparent;">
+      <div class="gantt-bar bar-alert" style="left:0%; width:8%; height:16px; font-size:8px;background:#dc2626c0">散客<30% C3</div>
+      <div class="gantt-bar bar-alert" style="left:10%; width:8%; height:16px; font-size:8px;background:#dc2626c0">散客<30% C7</div>
+      <div class="gantt-bar bar-alert" style="left:20%; width:8%; height:16px; font-size:8px;background:#f97316">节日≥14d</div>
+      <div class="gantt-bar bar-alert" style="left:30%; width:8%; height:16px; font-size:8px;background:#dc2626">断层≥3次</div>
+    </div>
+  </div>
+</div>
+
+<!-- 15. 健康自检 -->
+<div class="card">
+  <div class="card-top">
+    <span class="num">15</span>
+    <span class="card-title">系统健康自检+GitHub自动同步</span>
+    <span class="tag tag-h">高可推广</span>
+    <span class="card-time">每周日 ≈10min</span>
+  </div>
+  <div class="gantt-row">
+    <div class="gantt-label">周日10:00</div>
+    <div class="gantt-track">
+      <div class="gantt-bar bar-setup" style="left:0%; width:6%">启动</div>
+      <div class="gantt-bar bar-monitor" style="left:6%; width:14%">Wiki LINT</div>
+      <div class="gantt-bar bar-monitor" style="left:20%; width:12%">Cookie检测</div>
+      <div class="gantt-bar bar-monitor" style="left:32%; width:12%">脚本完整性</div>
+      <div class="gantt-bar bar-monitor" style="left:44%; width:12%">git漂移检查</div>
+      <div class="gantt-bar bar-ai" style="left:56%; width:12%">汇总健康报告</div>
+      <div class="gantt-bar bar-decision" style="left:68%; width:8%">有无异常</div>
+      <div class="gantt-bar bar-output" style="left:76%; width:8%">正常→push</div>
+      <div class="gantt-bar bar-alert" style="left:84%; width:10%">异常→告警</div>
+    </div>
+  </div>
+  <div class="scale-row">
+    <div class="scale-label"></div>
+    <div class="scale-track">
+      <span class="scale-dot" style="left:0%">0'</span>
+      <span class="scale-dot" style="left:25%">2.5'</span>
+      <span class="scale-dot" style="left:50%">5'</span>
+      <span class="scale-dot" style="left:75%">7.5'</span>
+      <span class="scale-dot" style="left:100%">10'</span>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div style="max-width:1100px; margin:20px auto 0;">
+  <p style="color:#999; font-size:12px; text-align:center;">
+    基于建业电影小镇 · AI全域营销运营系统 · 2026-05-22生成
+  </p>
+</div>
+</body>
+</html>

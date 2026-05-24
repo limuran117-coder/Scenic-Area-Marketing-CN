@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能工作场景 · 15场景大闭环全景图</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #f4f6f9;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  padding: 32px 20px;
+}
+.header { max-width: 1300px; margin: 0 auto 20px; }
+.header h1 { font-size: 26px; color: #1a1a2e; }
+.header p { color: #666; font-size: 14px; margin-top: 4px; }
+.main-svg { max-width: 1300px; margin: 0 auto; background: #fff; border-radius: 14px; box-shadow: 0 2px 16px rgba(0,0,0,0.06); border: 1px solid #e8ecf1; padding: 10px; overflow-x: auto; }
+.main-svg svg { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🔄 AI赋能工作场景 · 15场景大闭环全景图</h1>
+  <p>一条管线闭环：数据采集 → AI分析 → 知识沉淀 → 决策输出 → 反馈回流，15个场景各居其位</p>
+</div>
+<div class="main-svg">
+<svg viewBox="0 0 1300 960" xmlns="http://www.w3.org/2000/svg">
+<style>
+  text { font-family: 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+  .title { font-size: 12px; font-weight: 700; }
+  .sub { font-size: 9px; fill: #6b7280; }
+  .small { font-size: 8px; fill: #6b7280; }
+  .num-badge { font-size: 8px; font-weight: 700; fill: #fff; }
+</style>
+<defs>
+  <marker id="arr-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#2563eb"/></marker>
+  <marker id="arr-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#16a34a"/></marker>
+  <marker id="arr-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#9333ea"/></marker>
+  <marker id="arr-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#ea580c"/></marker>
+  <marker id="arr-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#dc2626"/></marker>
+  <marker id="arr-teal" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><polygon points="0 0,8 3,0 6" fill="#0891b2"/></marker>
+  <marker id="arr-teal-r" markerWidth="8" markerHeight="6" refX="1" refY="3" orient="auto"><polygon points="8 0,0 3,8 6" fill="#0891b2"/></marker>
+</defs>
+
+<rect width="1300" height="920" fill="#fafafa" rx="8"/>
+
+<!-- ===== TITLE ===== -->
+<text x="650" y="28" text-anchor="middle" font-size="18" font-weight="700" fill="#0f172a">AI赋能工作场景 · 15场景闭环全景图</text>
+<text x="650" y="46" text-anchor="middle" font-size="11" fill="#64748b">建业电影小镇 · AI全域营销运营系统 · 采集→分析→知识→输出→反馈 · 2026-05-22</text>
+
+<!-- ===== LEGEND ===== -->
+<rect x="20" y="58" width="1260" height="24" rx="5" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+<text x="35" y="74" font-size="10" font-weight="600" fill="#374151">图例：</text>
+<rect x="80" y="63" width="10" height="10" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="1"/><text x="94" y="73" font-size="9" fill="#6b7280">数据采集层</text>
+<rect x="170" y="63" width="10" height="10" rx="2" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/><text x="184" y="73" font-size="9" fill="#6b7280">AI分析层</text>
+<rect x="250" y="63" width="10" height="10" rx="2" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1"/><text x="264" y="73" font-size="9" fill="#6b7280">知识沉淀层</text>
+<rect x="340" y="63" width="10" height="10" rx="2" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/><text x="354" y="73" font-size="9" fill="#6b7280">输出分发层</text>
+<rect x="430" y="63" width="10" height="10" rx="2" fill="#f0fdfa" stroke="#0891b2" stroke-width="1"/><text x="444" y="73" font-size="9" fill="#6b7280">运维/反馈层</text>
+<text x="540" y="74" font-size="9" fill="#0891b2">➰ 虚线 = 反馈闭环（数据回流）</text>
+<text x="740" y="74" font-size="9" fill="#dc2626">⚠️ = 需账号登录/依赖外部服务</text>
+
+<!-- ==================== LAYER 1: 数据采集层 ==================== -->
+<rect x="20" y="90" width="1260" height="195" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5" stroke-dasharray="6,3"/>
+<text x="35" y="110" font-size="13" font-weight="700" fill="#92400e">🟧 第一阶段 · 数据采集层</text>
+
+<!-- #1 抖音指数 -->
+<rect x="35" y="120" width="170" height="148" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="35" y="120" width="170" height="22" rx="6" fill="#fff7ed"/>
+<circle cx="48" cy="131" r="7" fill="#ea580c"/><text x="48" y="134" text-anchor="middle" class="num-badge">1</text>
+<text x="65" y="134" font-size="10" font-weight="600" fill="#c2410c">抖音指数</text>
+<text x="43" y="154" class="sub">创作者中心·订阅页</text>
+<text x="43" y="166" class="sub">8竞品搜索/综合指数</text>
+<text x="43" y="178" class="sub">关联词TOP10+人群画像</text>
+<text x="43" y="192" class="small" fill="#dc2626">⚠️ Tab2+Tab4 需登录</text>
+<text x="43" y="204" class="small">工具：Playwright+CDP</text>
+<rect x="43" y="212" width="155" height="22" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="120" y="228" text-anchor="middle" font-size="9" fill="#92400e">→ #7每日复盘 + #12飞书推送</text>
+
+<!-- #2 小红书 -->
+<rect x="215" y="120" width="170" height="148" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="215" y="120" width="170" height="22" rx="6" fill="#fff7ed"/>
+<circle cx="228" cy="131" r="7" fill="#ea580c"/><text x="228" y="134" text-anchor="middle" class="num-badge">2</text>
+<text x="245" y="134" font-size="10" font-weight="600" fill="#c2410c">小红书灵犀</text>
+<text x="223" y="154" class="sub">灵犀后台·趋势分析</text>
+<text x="223" y="166" class="sub">五维度：搜索·排名·互动·人群</text>
+<text x="223" y="178" class="sub">关联词TOP10·品牌总览</text>
+<text x="223" y="192" class="small" fill="#dc2626">⚠️ 需JS注入搜索</text>
+<text x="223" y="204" class="small">工具：CDP+慢输入</text>
+<rect x="223" y="212" width="155" height="22" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="300" y="228" text-anchor="middle" font-size="9" fill="#92400e">→ #7每日复盘 + #12飞书</text>
+
+<!-- #3 竞品关键词 -->
+<rect x="395" y="120" width="170" height="148" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="395" y="120" width="170" height="22" rx="6" fill="#fff7ed"/>
+<circle cx="408" cy="131" r="7" fill="#ea580c"/><text x="408" y="134" text-anchor="middle" class="num-badge">3</text>
+<text x="425" y="134" font-size="10" font-weight="600" fill="#c2410c">竞品关键词</text>
+<text x="403" y="154" class="sub">百度+抖音+小红书 四平台</text>
+<text x="403" y="166" class="sub">8竞品×21关键词池</text>
+<text x="403" y="178" class="sub">7模块标准化报告</text>
+<text x="403" y="192" class="small" fill="#dc2626">⚠️ 均需CDP登录</text>
+<text x="403" y="204" class="small">工具：CDP+AI分析</text>
+<rect x="403" y="212" width="155" height="22" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="480" y="228" text-anchor="middle" font-size="9" fill="#92400e">→ #4内容 + #10知识沉淀</text>
+
+<!-- #4 竞品内容动态 -->
+<rect x="575" y="120" width="170" height="148" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="575" y="120" width="170" height="22" rx="6" fill="#fff7ed"/>
+<circle cx="588" cy="131" r="7" fill="#ea580c"/><text x="588" y="134" text-anchor="middle" class="num-badge">4</text>
+<text x="605" y="134" font-size="10" font-weight="600" fill="#c2410c">竞品内容动态</text>
+<text x="583" y="154" class="sub">抖音+小红书增量抓取</text>
+<text x="583" y="166" class="sub">AI变化检测→变化才推送</text>
+<text x="583" y="178" class="sub">主题解读·互动归因</text>
+<text x="583" y="192" class="small" fill="#dc2626">⚠️ 需CDP</text>
+<text x="583" y="204" class="small">工具：Playwright+AI</text>
+<rect x="583" y="212" width="155" height="22" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="660" y="228" text-anchor="middle" font-size="9" fill="#92400e">→ #7复盘 + 策略调整</text>
+
+<!-- #5 全国爆款拆解 -->
+<rect x="755" y="120" width="170" height="148" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="755" y="120" width="170" height="22" rx="6" fill="#fff7ed"/>
+<circle cx="768" cy="131" r="7" fill="#ea580c"/><text x="768" y="134" text-anchor="middle" class="num-badge">5</text>
+<text x="785" y="134" font-size="10" font-weight="600" fill="#c2410c">全国爆款拆解</text>
+<text x="763" y="154" class="sub">多平台内容流采集</text>
+<text x="763" y="166" class="sub">爆款阈值判定</text>
+<text x="763" y="178" class="sub">AI模式提取+规律总结</text>
+<text x="763" y="192" class="small">工具：web_fetch+AI</text>
+<text x="763" y="204" class="small">爆款👍&gt;1万/千</text>
+<rect x="763" y="212" width="155" height="22" rx="4" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+<text x="840" y="228" text-anchor="middle" font-size="9" fill="#7c3aed">→ #9图谱 + #10 INGEST</text>
+
+<!-- #6 文旅热点追踪 -->
+<rect x="935" y="120" width="170" height="148" rx="6" fill="#fff" stroke="#ea580c" stroke-width="1.5"/>
+<rect x="935" y="120" width="170" height="22" rx="6" fill="#fff7ed"/>
+<circle cx="948" cy="131" r="7" fill="#ea580c"/><text x="948" y="134" text-anchor="middle" class="num-badge">6</text>
+<text x="965" y="134" font-size="10" font-weight="600" fill="#c2410c">文旅热点追踪</text>
+<text x="943" y="154" class="sub">政府网站·行业媒体·微博</text>
+<text x="943" y="166" class="sub">web_fetch多源采集</text>
+<text x="943" y="178" class="sub">AI摘要·热度排序</text>
+<text x="943" y="192" class="small">工具：web_fetch+AI</text>
+<text x="943" y="204" class="small" fill="#dc2626">⚠️ web_search失效</text>
+<rect x="943" y="212" width="155" height="22" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="1020" y="228" text-anchor="middle" font-size="9" fill="#92400e">→ #7复盘+策略调整</text>
+
+<!-- 采集层汇聚箭头 -->
+<line x1="120" y1="268" x2="120" y2="298" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+<line x1="300" y1="268" x2="300" y2="298" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+<line x1="480" y1="268" x2="480" y2="298" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+<line x1="660" y1="268" x2="660" y2="298" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+<line x1="840" y1="268" x2="840" y2="298" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+<line x1="1020" y1="268" x2="1020" y2="298" stroke="#ea580c" stroke-width="2" marker-end="url(#arr-orange)"/>
+
+<!-- ==================== LAYER 2: AI分析层 ==================== -->
+<rect x="20" y="303" width="1260" height="175" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" stroke-dasharray="6,3"/>
+<text x="35" y="323" font-size="13" font-weight="700" fill="#166534">🟩 第二阶段 · AI分析与编排层</text>
+
+<!-- #7 每日复盘 -->
+<rect x="35" y="335" width="290" height="128" rx="6" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="35" y="335" width="290" height="22" rx="6" fill="#dcfce7"/>
+<circle cx="48" cy="346" r="7" fill="#16a34a"/><text x="48" y="349" text-anchor="middle" class="num-badge">7</text>
+<text x="65" y="349" font-size="10" font-weight="600" fill="#166534">每日AI自动复盘整合</text>
+<text x="43" y="370" class="sub">汇聚#1抖音 · #2小红书 · #3竞品 · #8客流</text>
+<text x="43" y="383" class="sub">→ AI跨维度趋势识别</text>
+<text x="43" y="396" class="sub">→ 深度洞察+明日建议</text>
+<text x="43" y="409" class="sub">→ 铁律触发检查（R01-R09）</text>
+<text x="43" y="422" class="sub">→ 待解决问题追踪</text>
+<text x="43" y="436" class="small">时间：22:00 · 渠道：私信</text>
+<rect x="43" y="443" width="275" height="18" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="180" y="456" text-anchor="middle" font-size="8" fill="#92400e">→ #14铁律+反哺#1-#6数据需求</text>
+
+<!-- #8 客流分析 -->
+<rect x="335" y="335" width="290" height="128" rx="6" fill="#fff" stroke="#16a34a" stroke-width="1.5"/>
+<rect x="335" y="335" width="290" height="22" rx="6" fill="#dcfce7"/>
+<circle cx="348" cy="346" r="7" fill="#16a34a"/><text x="348" y="349" text-anchor="middle" class="num-badge">8</text>
+<text x="365" y="349" font-size="10" font-weight="600" fill="#166534">客流数据AI智能分析</text>
+<text x="343" y="370" class="sub">读取2026游客量统计.csv</text>
+<text x="343" y="383" class="sub">→ 数据校验（散客/渠道/总计）</text>
+<text x="343" y="396" class="sub">→ AI趋势·YTD·同比计算</text>
+<text x="343" y="409" class="sub">→ 渠道结构拆解</text>
+<text x="343" y="422" class="sub">→ 模型预测·季节峰值</text>
+<text x="343" y="436" class="small" fill="#dc2626">⚠️ CSV断档&gt;15天</text>
+<rect x="343" y="443" width="275" height="18" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/>
+<text x="480" y="456" text-anchor="middle" font-size="8" fill="#92400e">→ #7复盘 + #14预警</text>
+
+<!-- #11 多Agent -->
+<rect x="635" y="335" width="290" height="128" rx="6" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="635" y="335" width="290" height="22" rx="6" fill="#dbeafe"/>
+<circle cx="648" cy="346" r="7" fill="#2563eb"/><text x="648" y="349" text-anchor="middle" class="num-badge">11</text>
+<text x="665" y="349" font-size="10" font-weight="600" fill="#1e40af">多Agent协同编排</text>
+<text x="643" y="370" class="sub">sessions_spawn并行分发</text>
+<text x="643" y="383" class="sub">5个Agent隔离执行</text>
+<text x="643" y="396" class="sub">错误隔离·失败跳过</text>
+<text x="643" y="409" class="sub">并行12min vs 串行40min</text>
+<text x="643" y="422" class="sub">效率提升70%</text>
+<text x="643" y="436" class="small">扩展性：未来可加#9/#14 Agent</text>
+<rect x="643" y="443" width="275" height="18" rx="4" fill="#dbeafe" stroke="#2563eb" stroke-width="1"/>
+<text x="780" y="456" text-anchor="middle" font-size="8" fill="#1e40af">编排所有Agent并行执行</text>
+
+<!-- #13 CDP容错 -->
+<rect x="935" y="335" width="290" height="128" rx="6" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="935" y="335" width="290" height="22" rx="6" fill="#ccfbf1"/>
+<circle cx="948" cy="346" r="7" fill="#0891b2"/><text x="948" y="349" text-anchor="middle" class="num-badge">13</text>
+<text x="965" y="349" font-size="10" font-weight="600" fill="#0e7490">CDP浏览器自动化+三层容错</text>
+<text x="943" y="370" class="sub">第一层：CDP连接异常 → 自动重试≤3次</text>
+<text x="943" y="383" class="sub">第二层：采集异常 → 自动重试+脚本降级</text>
+<text x="943" y="396" class="sub">第三层：连续2次失败 → failureAlert飞书告警</text>
+<text x="943" y="409" class="sub">数据降级：CDP异常标记不影响其他任务</text>
+<text x="943" y="422" class="sub">空数据不发送，标记待补录</text>
+<text x="943" y="436" class="small" fill="#16a34a">✅ 无人值守下稳定性达99%</text>
+<rect x="943" y="443" width="275" height="18" rx="4" fill="#ccfbf1" stroke="#0891b2" stroke-width="1"/>
+<text x="1080" y="456" text-anchor="middle" font-size="8" fill="#0e7490">保障#1-#6全部采集任务的稳定性</text>
+
+<!-- 分析层汇聚 -->
+<line x1="180" y1="478" x2="180" y2="508" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+<line x1="480" y1="478" x2="480" y2="508" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+<line x1="780" y1="478" x2="780" y2="508" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+<line x1="1080" y1="478" x2="1080" y2="508" stroke="#16a34a" stroke-width="2" marker-end="url(#arr-green)"/>
+
+<!-- ==================== LAYER 3: 知识沉淀层 ==================== -->
+<rect x="20" y="513" width="1260" height="155" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5" stroke-dasharray="6,3"/>
+<text x="35" y="533" font-size="13" font-weight="700" fill="#6d28d9">🟪 第三阶段 · 知识沉淀层</text>
+
+<!-- #9 Obsidian图谱 -->
+<rect x="35" y="545" width="390" height="110" rx="6" fill="#fff" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="35" y="545" width="390" height="22" rx="6" fill="#ede9fe"/>
+<circle cx="48" cy="556" r="7" fill="#9333ea"/><text x="48" y="559" text-anchor="middle" class="num-badge">9</text>
+<text x="65" y="559" font-size="10" font-weight="600" fill="#7c3aed">Obsidian知识图谱可视化导航</text>
+<text x="43" y="580" class="sub">200+文档 | concepts/entities/sources/queries 四层架构</text>
+<text x="43" y="593" class="sub">双向链接[[引用]] · Graph View可视化 · 标签体系</text>
+<text x="43" y="606" class="sub">新员工30min上手 vs 传统3天翻文件</text>
+<text x="43" y="619" class="sub">实体关联·雷达图·竞品全景画像</text>
+<text x="43" y="634" class="small">关联：#5拆解入concepts · #3竞品入entities</text>
+<rect x="43" y="640" width="375" height="14" rx="3" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+<text x="230" y="650" text-anchor="middle" font-size="8" fill="#7c3aed">← #5爆款→concepts  |  #3竞品→entities  |  #7复盘→sources</text>
+
+<!-- #10 INGEST -->
+<rect x="435" y="545" width="390" height="110" rx="6" fill="#fff" stroke="#9333ea" stroke-width="1.5"/>
+<rect x="435" y="545" width="390" height="22" rx="6" fill="#ede9fe"/>
+<circle cx="448" cy="556" r="7" fill="#9333ea"/><text x="448" y="559" text-anchor="middle" class="num-badge">10</text>
+<text x="465" y="559" font-size="10" font-weight="600" fill="#7c3aed">karpathy-wiki知识化合与周度INGEST</text>
+<text x="443" y="580" class="sub">周日15:00触发 · AI判断新洞察</text>
+<text x="443" y="593" class="sub">INGEST操作：concepts/entities/sources/queries 四层写入</text>
+<text x="443" y="606" class="sub">LINT检查 · GitHub Actions自动push</text>
+<text x="443" y="619" class="sub">系统越用越聪明：新知识可检索·可关联·可复用</text>
+<text x="443" y="634" class="small">而非传统Wiki只存不消化</text>
+<rect x="443" y="640" width="375" height="14" rx="3" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/>
+<text x="630" y="650" text-anchor="middle" font-size="8" fill="#7c3aed">每周日INGEST → GitHub sync → 知识化合</text>
+
+<!-- #15 健康自检 -->
+<rect x="835" y="545" width="390" height="110" rx="6" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/>
+<rect x="835" y="545" width="390" height="22" rx="6" fill="#ccfbf1"/>
+<circle cx="848" cy="556" r="7" fill="#0891b2"/><text x="848" y="559" text-anchor="middle" class="num-badge">15</text>
+<text x="865" y="559" font-size="10" font-weight="600" fill="#0e7490">系统健康自检+GitHub自动同步</text>
+<text x="843" y="580" class="sub">Wiki LINT · Cookie检测 · 脚本完整性</text>
+<text x="843" y="593" class="sub">git漂移检查 → 汇总健康报告</text>
+<text x="843" y="606" class="sub">正常→GitHub push · 异常→飞书告警+修复指引</text>
+<text x="843" y="619" class="sub">多重备份保护：脚本/Cookie/知识库全量</text>
+<text x="843" y="634" class="small">周日10:00 · 防止系统长期运行后不可逆退化</text>
+<rect x="843" y="640" width="375" height="14" rx="3" fill="#ccfbf1" stroke="#0891b2" stroke-width="1"/>
+<text x="1030" y="650" text-anchor="middle" font-size="8" fill="#0e7490">保障全部15个场景的长期稳定运行</text>
+
+<!-- 知识层汇聚 -->
+<line x1="230" y1="668" x2="230" y2="698" stroke="#9333ea" stroke-width="2" marker-end="url(#arr-purple)"/>
+<line x1="630" y1="668" x2="630" y2="698" stroke="#9333ea" stroke-width="2" marker-end="url(#arr-purple)"/>
+<line x1="1030" y1="668" x2="1030" y2="698" stroke="#9333ea" stroke-width="2" marker-end="url(#arr-purple)"/>
+
+<!-- ==================== LAYER 4: 输出分发层 ==================== -->
+<rect x="20" y="703" width="1260" height="105" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5" stroke-dasharray="6,3"/>
+<text x="35" y="723" font-size="13" font-weight="700" fill="#1e40af">🔵 第四阶段 · 输出与分发层</text>
+
+<!-- #12 飞书推送 -->
+<rect x="35" y="735" width="410" height="60" rx="6" fill="#fff" stroke="#2563eb" stroke-width="1.5"/>
+<rect x="35" y="735" width="410" height="22" rx="6" fill="#dbeafe"/>
+<circle cx="48" cy="746" r="7" fill="#2563eb"/><text x="48" y="749" text-anchor="middle" class="num-badge">12</text>
+<text x="65" y="749" font-size="10" font-weight="600" fill="#1e40af">飞书卡片自动化报告推送</text>
+<text x="43" y="770" class="sub">send_feishu_card.py · schema"2.0"模板 · 群+私信双渠道 · 失败队列重试</text>
+<text x="43" y="784" class="sub">统一格式·版本可控·定时覆盖08:00/10:00/15:00/18:00/21:00/22:00/周一09:00</text>
+
+<!-- #14 铁律预警 -->
+<rect x="455" y="735" width="410" height="60" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+<rect x="455" y="735" width="410" height="22" rx="6" fill="#fee2e2"/>
+<circle cx="468" cy="746" r="7" fill="#dc2626"/><text x="468" y="749" text-anchor="middle" class="num-badge">14</text>
+<text x="485" y="749" font-size="10" font-weight="600" fill="#dc2626">铁律记忆+节假日预警系统</text>
+<text x="463" y="770" class="sub">MEMORY.md规则引擎 · 散客&lt;30% C3/C7 · 节假日≥14天预警 · 断层≥3次🔴升格</text>
+<text x="463" y="784" class="sub">归因暂停逻辑：连续15次重复→暂停，待新营销动作恢复</text>
+
+<!-- #12+#14 输出到用户 -->
+<rect x="875" y="735" width="350" height="60" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
+<text x="1050" y="757" text-anchor="middle" font-size="12" font-weight="700" fill="#166534">👤 站长 / 电影小镇群</text>
+<text x="1050" y="775" text-anchor="middle" font-size="10" fill="#6b7280">飞书群 oc_2581 + 私信 → 每日6次报告</text>
+
+<line x1="445" y1="765" x2="455" y2="765" stroke="#2563eb" stroke-width="2" marker-end="url(#arr-blue)"/>
+<line x1="865" y1="765" x2="875" y2="765" stroke="#dc2626" stroke-width="2" marker-end="url(#arr-red)"/>
+
+<!-- ==================== FEEDBACK LOOP ==================== -->
+<!-- 左侧大回环 -->
+<path d="M 20 808 Q 2 845 2 895 Q 2 200 2 120 Q 2 98 20 98" stroke="#0891b2" stroke-width="3" fill="none" stroke-dasharray="8,4" marker-end="url(#arr-teal-r)"/>
+<rect x="25" y="820" width="160" height="60" rx="8" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5" stroke-dasharray="4,2"/>
+<text x="105" y="838" text-anchor="middle" font-size="11" font-weight="700" fill="#0e7490">🔄 反馈闭环</text>
+<text x="105" y="853" text-anchor="middle" font-size="9" fill="#6b7280">站长确认→铁律纠错</text>
+<text x="105" y="866" text-anchor="middle" font-size="9" fill="#6b7280">→认知更新→策略调整</text>
+<text x="105" y="879" text-anchor="middle" font-size="9" fill="#6b7280">→反哺采集/分析逻辑</text>
+
+<!-- 底部汇总说明 -->
+<rect x="210" y="818" width="1060" height="100" rx="8" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+<text x="230" y="838" font-size="12" font-weight="700" fill="#1a1a2e">📐 大闭环逻辑总结</text>
+<text x="230" y="856" font-size="10" fill="#475569">🧩 <tspan font-weight="bold" fill="#c2410c">采集层 (#1-#6)</tspan> → 从抖音/小红书/百度/CSV多源获取原始数据，由<tspan font-weight="bold" fill="#0891b2">#13 CDP容错</tspan>保障稳定</text>
+<text x="230" y="873" font-size="10" fill="#475569">🧠 <tspan font-weight="bold" fill="#16a34a">分析层 (#7-#8 #11)</tspan> → AI跨维度分析+<tspan font-weight="bold" fill="#2563eb">#11 多Agent</tspan>并行编排，产出洞察与建议</text>
+<text x="230" y="890" font-size="10" fill="#475569">📚 <tspan font-weight="bold" fill="#7c3aed">知识层 (#9-#10 #15)</tspan> → 知识图谱可视化+周度INGEST化合，<tspan font-weight="bold" fill="#0891b2">#15 健康自检</tspan>保障长期稳定</text>
+<text x="230" y="907" font-size="10" fill="#475569">📤 <tspan font-weight="bold" fill="#1e40af">输出层 (#12 #14)</tspan> → 飞书卡片定时推送+铁律预警即时触发，直达<tspan font-weight="bold" fill="#16a34a">站长/电影小镇群</tspan></text>
+
+<!-- 右侧大回环 -->
+<path d="M 1280 808 Q 1295 845 1295 895 Q 1295 200 1295 120 Q 1295 98 1280 98" stroke="#0891b2" stroke-width="3" fill="none" stroke-dasharray="8,4" marker-end="url(#arr-teal)"/>
+
+</svg>
+</div>
+
+<div style="max-width:1300px; margin:16px auto 0; padding:14px 18px; background:#f9fafb; border-radius:10px; border:1px solid #e5e7eb;">
+  <p style="font-size:13px; font-weight:600; color:#374151; margin-bottom:6px;">📋 15个场景在闭环中的位置速查</p>
+  <div style="display:grid; grid-template-columns: repeat(5, 1fr); gap:8px; font-size:10px; color:#6b7280;">
+    <div><b>🟧 采集层</b><br>#1 抖音指数<br>#2 小红书灵犀<br>#3 竞品关键词<br>#4 竞品内容动态<br>#5 全国爆款拆解<br>#6 文旅热点追踪</div>
+    <div><b>🟩 分析层</b><br>#7 每日复盘<br>#8 客流分析<br>#11 多Agent编排<br>#13 CDP容错</div>
+    <div><b>🟪 知识层</b><br>#9 Obsidian图谱<br>#10 karpathy-wiki INGEST<br>#15 健康自检</div>
+    <div><b>🔵 输出层</b><br>#12 飞书推送<br>#14 铁律预警</div>
+    <div><b>🔄 反馈闭环</b><br>站长确认→纠错→<br>认知更新→策略调整<br>→反哺全链路</div>
+  </div>
+  <p style="font-size:11px; color:#999; margin-top:6px;">基于建业电影小镇 · AI全域营销运营系统 · 2026-05-22</p>
+</div>
+</body>
+</html>
