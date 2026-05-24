@@ -234,6 +234,22 @@ core_mission: 年度客流153万、营收1.2亿
 > 关键发现：agent-skills (40K⭐, 月增11K)、Mem0 (52K⭐记忆层独立化)、pi-mono (43.9K⭐统一工具包)
 > 已设周任务：每周六00:00执行
 
+**[feedback] 自我进化原则确认（06-05-24）**
+> 每次升级必须做到真正的优化和提升，将先进知识学起来
+> 核心原则：自我进化、自我成长、越用越精、越用越进步
+> 落地方式：SOP质量升级 + 系统进化审视周任务 + GitHub高星标研究，三管齐下
+
+**[project] 系统进化审视周任务已建立（06-05-24）**
+> 每周六10:00执行，扫描SOP完整度+对比agent-skills+分析失败模式+输出进化建议
+> agent-skills已clone到/tmp/agent-skills供对比参考
+> 对比分析文档：wiki/技术配置/SOP质量升级计划.md
+> 3大差距：缺YAML元信息/缺Common Rationalizations/缺Verification检查
+> 第1批升级：抖音指数日报/每日复盘/竞品内容动态/竞品爆款拆解（4个核心SOP）✅已执行
+
+**[feedback] Mem0不可落地原因（06-05-24确认）**
+> 需要Python 3.10+(系统3.9.6)+Qdrant向量DB+Swap已87%
+> 结论：等机器升级后再考虑
+
 **[insight] 案例库采集工具全面受阻（06-04-30）**
 > 小红书爬虫：风控拦截，搜索结果为空
 > web_search：MiniMax API key未配置
