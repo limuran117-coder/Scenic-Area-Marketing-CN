@@ -99,8 +99,10 @@ def check_documented_vs_actual_scripts():
         if not inv_file.exists():
             continue
         content = inv_file.read_text()
-        # Extract script names mentioned
-        mentioned = set(re.findall(r'([\w]+\.py)', content))
+        # Extract script names mentioned (exclude archive/ and backup/ paths)
+        # Remove archive-path references first so only scripts/ root refs are counted
+        cleaned = re.sub(r'scripts/archive/[\w./-]+\.py', '', content)
+        mentioned = set(re.findall(r'([\w]+\.py)', cleaned))
         
         actual_set = set(actual)
         missing_from_doc = actual_set - mentioned

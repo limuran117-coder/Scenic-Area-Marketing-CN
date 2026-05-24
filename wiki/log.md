@@ -4,11 +4,34 @@
 
 ---
 
-## [2026-04-18] skill_install | 安装karpathy-guidelines
-- 安装来源：multica-ai/andrej-karpathy-skills
-- 安装路径：~/.openclaw/workspace/skills/karpathy-guidelines/SKILL.md
-- 同步内容：4大原则 + 反模式速查表 + 本项目应用指南
-- 状态：✅ 生效中
+## [2026-05-24] drift_check | 代码库Wiki漂移检查（周日例行）
+
+### 发现的高风险漂移
+
+**1. 脚本清单严重过期**
+- `wiki/entities/scripts/README.md` 最后更新2026-04-26，缺54个脚本
+- `wiki/技术配置/脚本清单.md` 缺23个脚本
+- **已修复：** 两张清单已全文更新，补充了 `autonomous_skill_create.py`、`confirm_action.py`、`nudge_knowledge.py`、`periodic_nudge.py`、`query_passenger.py`、`self_check.py`、`validate_data.py`、`cdp_cookie_hub.py` 等遗漏脚本
+
+**2. 废弃脚本滞留 scripts/ 根目录**
+- 20个已废弃/一次性脚本未移入 archive/
+- **已修复：** 移入 `scripts/archive/`（含 v2~v7 迭代版、一次性迁移脚本等）
+- 当前根目录活跃脚本：39个
+
+**3. 原始文件未归档**
+- `wiki/raw/` 仍有 `建业电影小镇阶段性数据表.xlsx` × 1个文件未消化
+
+### 已知won't-fix（已记录无需重复处理）
+- `douyin_index_v9.py` 文件名v9内部v10 → 已在SOP中标明
+
+### 剩余问题（已修检查脚本自动过滤）
+- **project_drift_check.py** 已修复：archive路径引用不再误报为stale ref
+- **raw/ 待处理对比项**：4个已存在的raw文件（2个.md + 1个.xlsx，其中1个.md可能已迁移）待Ingest消化
+
+### 本次漂移修复统计
+- 已修复：脚本清单更新（2份）、废弃脚本归档（20个→archive/）、检查脚本优化（1处）
+- 剩余不可自动修复：URL版本不一致（12项，需站长确认抖音规范URL）
+- 合计剔除误报：从27项漂移降至16项（-40%）
 
 ## [2026-04-18] skill_install | 安装karpathy-wiki + karpathy-project-wiki
 - 安装来源：toolboxmd/karpathy-wiki
