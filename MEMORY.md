@@ -228,6 +228,12 @@ core_mission: 年度客流153万、营收1.2亿
 - 可作为MEMORY.md的增强层而非替代
 ---
 
+**[reference] W22 GitHub高星标研究（06-05-24）**
+> 文档：wiki/技术配置/GitHub高星标学习笔记.md
+> 5月22周执行：Top20排名+周增长TOP5+与当前系统对比+趋势判断
+> 关键发现：agent-skills (40K⭐, 月增11K)、Mem0 (52K⭐记忆层独立化)、pi-mono (43.9K⭐统一工具包)
+> 已设周任务：每周六00:00执行
+
 **[insight] 案例库采集工具全面受阻（06-04-30）**
 > 小红书爬虫：风控拦截，搜索结果为空
 > web_search：MiniMax API key未配置
