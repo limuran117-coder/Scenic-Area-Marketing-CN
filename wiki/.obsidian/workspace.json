@@ -54,23 +54,8 @@
               "icon": "lucide-file",
               "title": "2026年每日客流数据"
             }
-          },
-          {
-            "id": "51400338cf6f75c4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "conflict-files-obsidian-git.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "conflict-files-obsidian-git"
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -292,8 +277,9 @@
       "bases:新建数据库": false
     }
   },
-  "active": "51400338cf6f75c4",
+  "active": "00d16cba3229cf03",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
     "案例库/爆款公式/INDEX.md",
     "案例库/索引.md",
     "案例库/爆款公式",
@@ -322,7 +308,6 @@
     "archived/docs/ai-analysis-spec.md",
     "archived/concepts/演艺景区.md",
     "archived/concepts/景区营销漏斗.md",
-    "archived/concepts/景区类型.md",
     "archived/sources",
     "archived/knowledge",
     "archived/impeccable-refs",
