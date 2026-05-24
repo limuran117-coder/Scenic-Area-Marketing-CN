@@ -39,6 +39,20 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 Add whatever helps you do your job. This is your cheat sheet.
 
+## 天气查询（2026-05-23新增）
+
+用 wttr.in 查天气，无需任何配置：
+```bash
+curl "wttr.in/中牟?format=%l:+%c+%t,+feels+%f,+rain+%p,+wind+%w"
+curl "wttr.in/郑州?format=j1"   # JSON格式
+```
+
+**用途：** 日报中附加当日天气预报，天气直接决定主题公园客流，辅助判断客流波动原因。
+- 中牟县（电影小镇所在地）每日天气
+- 郑州/开封区域天气（覆盖主要客源地）
+
+---
+
 ## 浏览器技术栈原则（2026-04-20确立，2026-04-23更新）
 
 **专属浏览器**：CDP端口 **18800**，所有任务统一用 `target=host`
