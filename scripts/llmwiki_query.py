@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 LLMWiki Query 脚本
 查询知识库，并将结果存回wiki

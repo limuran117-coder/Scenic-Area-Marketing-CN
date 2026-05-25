@@ -47,12 +47,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "电影小镇/历史数据/2026年每日客流数据.md",
+                "file": "竞品分析/竞品动态追踪/2026-04-27.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "2026年每日客流数据"
+              "title": "2026-04-27"
             }
           }
         ]
@@ -279,8 +279,20 @@
   },
   "active": "00d16cba3229cf03",
   "lastOpenFiles": [
-    "技术配置/SOP质量升级计划.md",
+    "竞品分析/竞品动态追踪/2026-04-20.md",
+    "技术配置/做图规范.md",
     "技术配置/GitHub高星标学习笔记.md",
+    "技术配置/index.md",
+    "技术配置/Skills探索笔记.md",
+    "电影小镇/历史数据/W17期-20260427.md",
+    "电影小镇/历史数据/W20期-20260511.md",
+    "电影小镇/历史数据/W16期-20260427.md",
+    "电影小镇/历史数据/客流营收分析.md",
+    "电影小镇/历史数据/规律洞察.md",
+    "电影小镇/历史数据/2026年门票政策.md",
+    "电影小镇/历史数据/2026年每日客流数据.md",
+    "电影小镇/历史数据/2026年/数据.md",
+    "技术配置/SOP质量升级计划.md",
     "全国景区案例库/泰山AI助力机器人科技赋能-2026W21.md",
     "全国景区案例库/湖北博物馆x爷爷不泡茶文创联名-2026W21.md",
     "全国景区案例库/龙里水乡300NPC沉浸小镇-2026W21.md",
@@ -295,18 +307,6 @@
     "做图规范.md",
     "schema.md",
     "overview.md",
-    "archived/sources/竞品深度档案.md",
-    "archived/sources/穿越德化街数据分析.md",
-    "archived/sources/抖音指数追踪日报.md",
-    "archived/sources/建业电影小镇阶段性数据表.md",
-    "archived/sources/客流营收历年分析.md",
-    "archived/sources/周度技能探索_2026-05-01.md",
-    "archived/sources/2026-04-25Wiki重组.md",
-    "archived/knowledge/记忆系统对比分析_2026-04-29.md",
-    "archived/knowledge/建业电影小镇阶段性数据表.md",
-    "archived/knowledge/2026年每日客流数据.md",
-    "archived/impeccable-refs/typography.md",
-    "archived/impeccable-refs/motion-design.md",
     "archived/docs/sop-schedule.yaml",
     "archived/sources",
     "archived/knowledge",

@@ -1,171 +1,143 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
-每天自动同步数据到Obsidian Wiki
-- 优先读取本地CSV最新数据（2026游客量统计.csv）
-- 备用：飞书多维表格
-- 更新当日日志文件
-- 追加到历史分析文档
+每天自动同步数据到 Obsidian Wiki（workspace版本 + Obsidian Vault）
+- 从2026游客量统计.csv提取最新客流数据
+- 同步到 ~/.openclaw/workspace/wiki 和 Obsidian Vault
+- 同时同步当日memory日志 和 穿越德化街数据
 """
-import json
-import subprocess
 import csv
+import os
+import re
+import shutil
 from datetime import datetime, timedelta
+from collections import defaultdict
 
 today = datetime.now().strftime('%Y-%m-%d')
 yesterday = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
 
 MEMORY_DIR = '/Users/tianjinzhan/.openclaw/workspace/memory'
 OBSIDIAN_DIR = '/Users/tianjinzhan/.openclaw/workspace/wiki'
+OBSIDIAN_VAULT = '/Users/tianjinzhan/Downloads/Scenic-Area-Marketing-CN-main/wiki'
 CSV_PATH = '/Users/tianjinzhan/Desktop/2026游客量统计.csv'
 
-def read_csv_data():
-    """从本地CSV读取最近数据"""
+WD_CN = {0:'周一',1:'周二',2:'周三',3:'周四',4:'周五',5:'周六',6:'周日'}
+BASE = datetime(2026, 1, 1)
+
+def parse_csv():
+    """解析2026游客量统计.csv，返回结构化数据"""
     try:
-        with open(CSV_PATH, encoding='utf-8') as f:
-            reader = csv.DictReader(f)
+        with open(CSV_PATH, 'r', encoding='utf-8') as f:
+            reader = csv.reader(f)
             rows = list(reader)
-        # 返回最新的几条记录
-        return rows[-5:] if len(rows) >= 5 else rows
     except Exception as e:
-        print(f'CSV读取失败: {e}')
-        return []
+        print(f'❌ CSV读取失败: {e}')
+        return None, None, None
+    
+    # Row 3 = 天气, Row 12 = 门票人数合计, Row 14 = 闸机入园人次
+    # Row 25 = 穿越德化街日期, Row 26=场次, Row 27=库存, Row 28=售卖
+    weather = {}
+    for i in range(2, len(rows[3])):
+        v = rows[3][i].strip()
+        if v: weather[BASE + timedelta(days=i-2)] = v
+    
+    tickets = {}
+    for i in range(2, len(rows[12])):
+        v = rows[12][i].strip()
+        if v and v != '0': tickets[BASE + timedelta(days=i-2)] = int(v)
+    
+    chuanyue = {}
+    for i in range(2, min(len(rows[25]), len(rows[28]))):
+        label = rows[25][i].strip()
+        if label:
+            d = BASE + timedelta(days=i-2)
+            chang = int(rows[26][i]) if rows[26][i].strip() else 0
+            ku = int(rows[27][i]) if rows[27][i].strip() else 0
+            sold = int(rows[28][i]) if rows[28][i].strip() else 0
+            chuanyue[d] = (chang, ku, sold)
+    
+    return weather, tickets, chuanyue
 
-def get_feishu_data():
-    """从飞书Bitable读取昨日数据（备用）"""
-    FEISHU_APP = 'GmqWbb21zamf6pszdxncIVwkn4e'
-    FEISHU_TABLE = 'tblQGnQGVI8THM3O'
-    
-    result = subprocess.run([
-        'curl', '-s', '-X', 'POST',
-        'https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal',
-        '-H', 'Content-Type: application/json',
-        '-d', '{"app_id":"cli_a941d5340639dcef","app_secret":"yNMaSBoHmrn9FcsrpWCzlcerQCD5aHji"}'
-    ], capture_output=True, text=True, timeout=10)
-    data = json.loads(result.stdout)
-    token = data.get('tenant_access_token', '')
-    if not token:
-        return None
-    
-    yesterday_start = int(datetime.strptime(yesterday, '%Y-%m-%d').timestamp() * 1000)
-    yesterday_end = int((datetime.strptime(yesterday, '%Y-%m-%d') + timedelta(days=1)).timestamp() * 1000)
-    
-    result = subprocess.run([
-        'curl', '-s', '-X', 'POST',
-        f'https://open.feishu.cn/open-apis/bitable/v1/apps/{FEISHU_APP}/tables/{FEISHU_TABLE}/records/search',
-        '-H', f'Authorization: Bearer {token}',
-        '-H', 'Content-Type: application/json',
-        '-d', json.dumps({
-            'filter': {'conjunction': 'and', 'conditions': [
-                {'field_name': '日期', 'operator': 'between', 'value': [yesterday_start, yesterday_end]}
-            ]}
-        })
-    ], capture_output=True, text=True, timeout=15)
-    
-    data = json.loads(result.stdout)
-    items = data.get('data', {}).get('items', [])
-    return items[0]['fields'] if items else None
 
-def update_daily_log(rows):
-    """更新memory日记文件"""
-    log_path = f'{MEMORY_DIR}/{yesterday}.md'
-    
-    if not rows:
-        print(f'{yesterday} 无数据')
-        return
-    
-    # 找昨天的数据
-    yesterday_row = None
-    for r in rows:
-        if r.get('日期', '').startswith(yesterday):
-            yesterday_row = r
-            break
-    
-    if not yesterday_row:
-        print(f'{yesterday} CSV中无记录')
-        return
-    
-    total = yesterday_row.get('合计', 0)
-    weather = yesterday_row.get('天气', '')
-    
-    content = f"""
-## 当日客流数据（自动同步）
-- 合计客流: {total}
-- 天气: {weather}
-- 数据来源: 2026游客量统计.csv
+def sync_memory_log(weather, tickets, chuanyue):
+    """追加昨日客流到当日的memory文件"""
+    d = datetime.now() - timedelta(days=1)
+    if d in tickets:
+        log_path = f'{MEMORY_DIR}/{d.strftime("%Y-%m-%d")}.md'
+        wt = weather.get(d, '')
+        # 追加
+        content = f"""
+## 当日客流（自动同步 {today}）
+- 日期: {d.strftime('%Y-%m-%d')} {WD_CN[d.weekday()]}
+- 合计客流: {tickets[d]:,}
+- 天气: {wt}
+- 穿越德化街: {chuanyue.get(d, ('N/A','N/A','N/A'))[0]}场 / 观演{chuanyue.get(d, ('N/A','N/A','N/A'))[2]:,}人次
 
 """
-    try:
-        with open(log_path, 'a') as f:
-            f.write(content)
-        print(f'已更新日志: {log_path}')
-    except:
-        pass
+        try:
+            with open(log_path, 'a', encoding='utf-8') as f:
+                f.write(content)
+            print(f'✅ 已追加memory: {os.path.basename(log_path)}')
+        except:
+            pass
 
-def update_obsidian_data(rows):
-    """更新Wiki 2026年数据文件"""
+
+def sync_workspace_wiki(weather, tickets, chuanyue):
+    """同步到workspace wiki（OBSIDIAN_DIR）"""
+    # 更新时间戳
+    last_date = max(tickets.keys()).strftime('%Y-%m-%d')
     data_path = f'{OBSIDIAN_DIR}/电影小镇/历史数据/2026年/数据.md'
     
-    if not rows:
-        print('无数据可更新')
-        return
-    
-    # 读取现有内容
     try:
         with open(data_path, 'r', encoding='utf-8') as f:
             content = f.read()
-    except:
-        content = ""
-    
-    # 更新每个有数据的日期
-    updated = []
-    for r in rows:
-        date = r.get('日期', '')
-        total = r.get('合计', '0')
-        weekday = r.get('星期', '')
-        weather = r.get('天气', '')
-        
-        if not date or date.startswith('2026') or total == '0':
-            continue
-        
-        # 检查这行是否已存在
-        import re
-        pattern = rf'\| {re.escape(date)} \|'
-        if re.search(pattern, content):
-            # 替换已有的行
-            old_line_pattern = rf'\| {re.escape(date)} \| [^\|]+ \| [^\|]+ \| [^\|]+ \|'
-            new_line = f'| {date} | {weekday} | {weather} | {total} |'
-            content = re.sub(old_line_pattern, new_line, content)
-            updated.append(date)
-    
-    if updated:
-        # 更新最后更新时间
-        content = content.replace(
-            '*AI Agent自动同步 | 最后更新：*',
-            f'*AI Agent自动同步 | 最后更新：{today}*'
-        )
+        content = re.sub(r'最后更新：\d{4}-\d{2}-\d{2}', f'最后更新：{today}', content)
+        content = re.sub(r'数据截止：[\d-]+', f'数据截止：{last_date}', content)
         with open(data_path, 'w', encoding='utf-8') as f:
             f.write(content)
-        print(f'已更新Wiki数据: {", ".join(updated)}')
-    else:
-        print('无需更新Wiki数据')
+        print(f'✅ 已更新workspace wiki: 数据.md (截止{last_date})')
+    except: pass
+
+
+def sync_obsidian_vault():
+    """同步workspace wiki → Obsidian Vault（同步关键文件）"""
+    if not os.path.exists(OBSIDIAN_VAULT):
+        print(f'⚠️ Obsidian Vault不存在: {OBSIDIAN_VAULT}')
+        return
+    
+    # 增量同步的文件映射 (workspace → obsidian vault)
+    mappings = [
+        (f'{OBSIDIAN_DIR}/电影小镇/历史数据/2026年/数据.md',
+         f'{OBSIDIAN_VAULT}/电影小镇/历史数据/2026年/数据.md'),
+        # 穿越德化街文件会自动更新（直接修改了Obsidian vault的文件）
+    ]
+    for src, dst in mappings:
+        if os.path.exists(src):
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
+            shutil.copy2(src, dst)
+            print(f'✅ 已同步到Obsidian Vault: {os.path.basename(dst)}')
+
 
 def main():
-    print(f'=== Wiki数据同步 {today} ===')
+    print(f'=== Obsidian同步 {today} ===')
     
-    # 优先从CSV读取
-    rows = read_csv_data()
-    if rows:
-        print(f'从CSV读取到 {len(rows)} 条记录')
-        update_daily_log(rows)
-        update_obsidian_data(rows)
-    else:
-        print('CSV无数据，尝试飞书...')
-        data = get_feishu_data()
-        if data:
-            update_daily_log([data])
-            print(f'飞书数据同步完成: {yesterday}')
-        else:
-            print(f'飞书也无数据: {yesterday}')
+    weather, tickets, chuanyue = parse_csv()
+    if tickets is None:
+        print('❌ CSV解析失败，中止')
+        return
+    
+    print(f'  客流数据: {len(tickets)}天, 截止{max(tickets.keys()).strftime("%Y-%m-%d")}')
+    print(f'  穿越德化街: {len(chuanyue)}天演出数据')
+    
+    # 1. 同步到memory日志
+    sync_memory_log(weather, tickets, chuanyue)
+    
+    # 2. 同步到workspace wiki
+    sync_workspace_wiki(weather, tickets, chuanyue)
+    
+    # 3. 同步到Obsidian Vault
+    sync_obsidian_vault()
+    
+    print('=== 同步完成 ===')
 
 if __name__ == '__main__':
     main()

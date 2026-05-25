@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 竞品关键词分析 v8 - 精确标签索引解析
 """

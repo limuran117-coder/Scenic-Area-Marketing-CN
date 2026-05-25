@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 抖音关键词深度数据采集脚本 v5（反爬增强版）
 完整流程：

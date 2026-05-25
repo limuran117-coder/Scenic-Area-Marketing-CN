@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 # -*- coding: utf-8 -*-
 import json
 import sys

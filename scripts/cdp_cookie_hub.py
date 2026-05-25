@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 CDP Cookie 总控中心 — 从已登录的专属浏览器(端口18800)批量同步所有服务的Cookie
 

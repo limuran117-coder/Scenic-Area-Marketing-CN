@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 代码库漂移检测脚本
 检测 scripts/ SOP/ wiki/ 三者之间的不一致

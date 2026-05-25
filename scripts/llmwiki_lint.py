@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 LLMWiki Lint 脚本
 定期检查知识库：矛盾点、过时信息、孤儿页面、缺失概念

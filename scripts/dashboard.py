@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 电影小镇运营数据看板 v2
 更新：2026-05-15

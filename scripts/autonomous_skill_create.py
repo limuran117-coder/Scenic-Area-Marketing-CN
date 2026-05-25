@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 Autonomous Skill Creation 脚本
 自动发现重复成功任务，生成Skill模板

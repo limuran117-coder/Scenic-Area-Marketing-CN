@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 CDP采集脚本（纯标准库，无外部依赖）
 通过Chrome远程调试端口连接已有Chrome窗口

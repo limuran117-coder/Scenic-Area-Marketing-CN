@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 Wiki漂移检测脚本
 检测wiki目录下所有markdown文件的lint状态，输出漂移报告

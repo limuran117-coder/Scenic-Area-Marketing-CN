@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """案例库更新：扫描抖音/小红书景区爆款内容"""
 import json
 import subprocess

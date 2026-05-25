@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """Send 文旅活动热点追踪 card"""
 import sys
 sys.path.insert(0, '/Users/tianjinzhan/.openclaw/workspace/scripts')

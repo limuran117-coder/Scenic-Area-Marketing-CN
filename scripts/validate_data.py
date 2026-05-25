@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 数据异常检测脚本
 验证采集数据的合理性，发现异常及时告警

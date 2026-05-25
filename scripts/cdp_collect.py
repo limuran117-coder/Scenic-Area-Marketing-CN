@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 CDP采集脚本 - 连接browser-use Chrome的3个Tab采集数据
 窗口常开，不走launch，不产生daemon

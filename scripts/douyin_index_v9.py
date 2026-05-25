@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 抖音指数数据采集脚本 v10
 使用Playwright浏览器自动化采集抖音创作者平台指数数据

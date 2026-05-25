@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 Nudge Knowledge - 任务结束前主动检查"我学到了什么"
 嵌入在每个cron任务的结束流程中

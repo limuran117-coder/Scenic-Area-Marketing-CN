@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 重要操作确认脚本
 在执行高风险操作前请求用户确认

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 Periodic Nudge 脚本
 主动检查被忽略的上下文/规则冲突/遗忘知识，主动提醒用户

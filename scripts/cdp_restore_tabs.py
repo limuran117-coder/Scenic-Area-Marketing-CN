@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 CDP浏览器标签页自动恢复脚本
 每次启动时检查7个固定标签页是否存在，缺失则自动恢复

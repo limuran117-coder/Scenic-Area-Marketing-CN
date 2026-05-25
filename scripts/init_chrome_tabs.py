@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 初始化专用Chrome（3个Tab常开）
 - 启动Chrome（调试端口9222）
