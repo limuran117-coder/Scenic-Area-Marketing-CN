@@ -1,476 +1,90 @@
-# 🎬 Scenic Area Marketing Agent
+# 建业电影小镇 AI 智能化营销系统
 
-> AI驱动的景区全域营销运营系统 | 数据驱动 × 知识沉淀 × 流程自动化
+景区营销中心AI自动化系统 — 数据驱动 + 每日决策简报 + 知识沉淀
 
-![系统全局关系图](wiki/diagrams/system-overview.svg)
-
-**[English](#english) | [中文说明](#中文说明)**
-
----
-
-# English
-
-## What This Project Does
-
-An AI-powered autonomous agent that manages the entire marketing operations for **Jianye Film Town** (建业电影小镇) — a performing arts-themed scenic area in Zhengzhou, China — covering Douyin, Xiaohongshu, competitor monitoring, passenger flow analysis, and daily automated reporting.
-
-**Annual Goal (2026)**: 1.53 million visitors · ¥120M ticket revenue
-
-**YTD Actual (as of 2026-05-17)**: 656,067 visitors · **42.9% completion**
-
-![System Overview](wiki/diagrams/system-overview-en.svg)
-
----
-
-## Why This Project Exists
-
-Most scenic area marketing teams operate reactively: they post content, manually check data, and learn from past campaigns with no systematic knowledge retention.
-
-This project is different. It runs **proactively**, 24/7, with:
-
-- **Scheduled automation** — Every critical task fires on time without human intervention
-- **Knowledge compounding** — Every insight is stored and linked, not forgotten
-- **Data-driven decisions** — Daily metrics inform strategy, not gut feelings
-- **Competitor intelligence** — 8 competitors tracked daily with standardized deep-dive reports
-
----
-
-## Core Advantages
-
-### 0. System-Wide Architecture
-
-![System Architecture](wiki/diagrams/system-architecture-en.svg)
-
-> Fig 12: MEMORY.md as the rule core → Cron scheduling → CDP 4-platform collection → AI 7-module analysis → Wiki archive + Feishu push → Feedback loop drives system evolution
-
-### 1. karpathy-wiki Knowledge Graph
-
-Unlike traditional wikis that accumulate documents you never read, this system is structured as a **compounding knowledge base** (karpathy-wiki standard):
+## 系统架构
 
 ```
-knowledge layer (abstract) ← business layer (raw data)
+AI Agent (OpenClaw + DeepSeek-V4)  
+  ├─ 📊 数据采集层  
+  │   ├── 抖音指数日报 (每日10:30)
+  │   ├── 小红书日报 (每日10:00)  
+  │   └── 客流CSV同步
+  ├─ 📱 内容洞察层
+  │   ├── 文旅情报日报 (每日13:00)
+  │   ├── 竞品爆款拆解 (每日15:00)
+  │   └── 竞品关键词深度分析 (每日16:00)
+  ├─ ⚡ 自动执行层
+  │   ├── 飞书卡片推送 (send_feishu_card.py)
+  │   ├── 23个cron定时任务
+  │   └── CDP浏览器Cookie轮换
+  └─ 🗄️ 知识层 (Obsidian Wiki)
+      ├── 20个竞品深度档案
+      ├── 全国景区案例库 (10公式+20案例)
+      └── 22个SOP操作手册
 ```
 
-| Layer | Purpose | Example |
-|-------|---------|---------|
-| `entities/` | What things are | 「万岁山武侠城」— competitor profile |
-| `queries/` | Valuable Q&A | 「抖音vs小红书差异」— when to use which platform |
-| `archived/concepts/` | Why things work (archived) | 「情绪营销公式」— why suspense hooks go viral |
-| `archived/sources/` | Source summaries (archived) | 「穿越德化街数据分析」— key data points |
+## 核心指标
 
-> **Note:** `concepts/` and `sources/` were archived on 2026-05-20. They remain accessible in `wiki/archived/`.
+| 指标 | 数值 | 目标 |
+|------|:----:|:----:|
+| 年度客流目标 | **153万** | 截至5/17完成 **65.6万 (42.9%)** |
+| 每日追踪景区 | **8个** | 7核心竞品 + 电影小镇 |
+| 竞品深度档案 | **20个** | 全国景区全覆盖 |
+| 爆款案例库 | **10条公式20案例** | 每周日自动更新 |
+| 每日自动化任务 | **12个cron** | 10:00~22:00全自动运行 |
 
-**Weekly INGEST**: Every Sunday, new insights are distilled into the knowledge layer, so the system gets smarter over time.
+## 自动化任务时间表
 
-### 2. SOP-Driven Execution
+| 时段 | 任务 | 状态 |
+|:----:|------|:----:|
+| 08:00 | CDP Cookie同步 / 营销日历(周一) | ✅ |
+| 10:00 | 小红书日报 | ✅ |
+| 10:30 | 抖音指数日报 | ✅ |
+| 13:00 | 文旅情报日报 | ✅ |
+| 15:00 | 竞品爆款拆解 | ✅ |
+| 16:00 | 竞品关键词深度分析 | ✅ |
+| 18:00 | 竞品内容动态 | ✅ |
+| 20:00 | 案例库更新 | ✅ |
+| 21:00 | 营销效果归因 | ✅ |
+| 22:00 | 每日复盘整合 | ✅ |
+| 周二9:30 | 周度客流洞察 | ✅ |
+| 周日 | 竞争格局报告/系统健康检查 | ✅ |
 
-Every task has a dedicated SOP that survives session restarts. When a cron job fires, it reads the SOP first and executes precisely — no deviation, no forgotten steps.
-
-**15+ Standardized SOPs**:
-- 抖音指数日报 (Douyin Index Daily)
-- 小红书日报 (Xiaohongshu Daily)
-- 竞品关键词深度分析 (Competitor Keyword Deep Dive)
-- 竞品内容动态 (Competitor Content Tracking)
-- 全国爆款拆解 (Nationwide Viral Content Analysis)
-- 文旅热点追踪 (Travel Industry Hotspots)
-- 每日复盘整合 (Daily Review)
-- 周度客流洞察 (Weekly Passenger Insights)
-- 客流数据Wiki同步 (Passenger Data Sync)
-- 案例库更新 (Case Library Update)
-- Wiki健康检查 (Wiki LINT)
-- 代码库漂移检查 (Codebase Drift Check)
-- 系统健康检查 (System Health Check)
-
-### 3. Multi-Platform Data Collection
-
-**Douyin (抖音)**
-- Search Index — tracks 8 competitors daily
-- Synthesis Index — content热度 + interaction + search
-- Keyword Deep Dive —关联词TOP10 + 人群画像
-- Automated collection via Playwright + CDP browser
-
-**Xiaohongshu (小红书)**
-- 灵犀后台 — brand search volume, related terms, content trends
-- Note tracking — new posts, engagement metrics
-- Crowd profiling — age/gender/geography
-
-### 4. Competitor Intelligence System
-
-**8 Core Competitors Tracked**:
-- 万岁山武侠城 (Wanshu Mountain)
-- 清明上河园 (Qingming Riverside Park)
-- 只有河南 (Only Henan)
-- 银基动物王国 (Yinji Animal Kingdom)
-- 郑州方特欢乐世界 (Zhengzhou Fantawild)
-- 郑州海昌海洋公园 (Zhengzhou Haichang Ocean Park)
-- 只有红楼梦 (Only Dream of Red Mansions)
-- 大唐不夜城 (Tang Dynasty Night City)
-
-**21 keyword pool** for nationwide trend monitoring.
-
-Each competitor deep-dive covers: Douyin index · Xiaohongshu data · Baidu search · crowd profiling · content strategy · actionable insights.
-
-### 5. Data-Driven Passenger Flow Management
-
-**Passenger flow data architecture**:
-- Daily CSV sync → Wiki → Feishu card
-- 散客 vs 渠道 split analysis
-- Historical comparison (2023–2026)
-- Weather correlation
-- Seasonal peak modeling (春节/暑期/国庆)
-
-### 6. AI Analytics & Metric Definitions
-
-**抖音指数计算逻辑**：
-
-| 指标 | 定义 | 数据来源 |
-|------|------|---------|
-| **搜索指数** | 用户主动搜索行为的量化反映，高=潜在游客主动找 | 抖音创作服务平台「我的订阅」|
-| **综合指数** | 内容创作热度 + 互动热度 + 搜索热度的综合加权 | 抖音创作服务平台 |
-| **权重分配** | 平台不公开具体权重，综合指数侧重内容端热度 | — |
-
-> ⚠️ 权重说明：抖音官方未公开综合指数各维度权重，我们以搜索指数（用户主动意图）和综合指数（平台推荐流量）两个维度交叉分析，相互验证。
-
-**小红书灵犀数据**：
-
-| 指标 | 定义 | 数据来源 |
-|------|------|---------|
-| **搜索总量** | 关键词在统计周期内的搜索次数 | 小红书灵犀后台 |
-| **互动总量** | 笔记的点赞+收藏+评论总和 | 小红书灵犀后台 |
-| **行业搜索排名** | 该关键词在其品类的搜索量排名 | 小红书灵犀后台 |
-| **人群资产** | 近30天与该关键词互动的人群去重总量 | 小红书灵犀后台 |
-
-**竞品爆款判定标准**：
-
-| 平台 | 爆款阈值 | 说明 |
-|------|---------|------|
-| 抖音 | 点赞 > 10,000 | 基于内容采集估算 |
-| 小红书 | 点赞 > 1,000 | 基于内容采集估算；1万赞难度过高，千级已是有效爆款 |
-| 微博 | 转发 > 1,000 | 基于内容采集估算 |
-| 搜索暴涨 | 日环比 > +50% | 触发溯源分析 |
-
-### 7. Error Handling & Reliability
-
-**三层容错机制**：
-
-| 层级 | 机制 | 说明 |
-|------|------|------|
-| **CDP 连接** | 异常捕获 + 自动重连 | 浏览器自动化遇错时自动重试3次 |
-| **Cron 任务** | failureAlert 告警 | 连续失败2次触发飞书通知 |
-| **数据采集** | 空数据不发送 | 数据缺失时跳过发送，标记为「待补录」 |
-
-**故障处理流程**：
+## 目录结构
 
 ```
-任务失败 → 等待下一周期自动重试
-↓ 连续2次失败
-飞书告警通知（failureAlert）
-↓
-人工介入检查 CDP 连接 / 平台接口
-↓
-修复后自动恢复，无需重启
+wiki/                   ← Obsidian知识库
+├── 电影小镇/            ← 景区核心业务
+│   ├── 基础档案/战略框架
+│   ├── 历史数据/ (2023-2026客流营收)
+│   └── 演出节目/ (穿越德化街分析)
+├── 竞品分析/            ← 竞品深度追踪
+│   ├── 竞品深度档案/ (20个全国景区)
+│   ├── 追踪数据/
+│   └── 关键词池状态/
+├── 全国景区案例库/      ← 爆款拆解沉淀
+├── SOP/                ← 标准化操作手册
+└── 行业知识/            ← 扩展视野
+
+scripts/                ← 自动化脚本
+├── douyin_index_v9.py  ← 抖音指数采集
+├── send_feishu_card.py ← 飞书卡片发送
+├── sync_obsidian_daily.py ← Wiki同步
+└── ... (45个脚本)
+
+README.md               ← 本文件
 ```
-
-**数据降级策略**：
-
-- CDP 采集失败 → 标记数据来源为「CDP异常」，不影响其他任务
-- 飞书推送失败 → 消息保留在队列，重试下一周期
-- 空数据不发送卡片，避免误导
-
----
-
-## Automated Reports Schedule
-
-| Time | Report | Channel |
-|------|--------|---------|
-| 08:00 | CDP Health Probe (browser recovery) | Internal |
-| 08:05 | CDP Cookie Sync (refresh all logins) | Internal |
-| 10:00 | Xiaohongshu Daily | Feishu Group |
-| 10:30 | Douyin Index Daily | Feishu Group |
-| 13:00 | Travel & Policy Intelligence | Feishu Group |
-| 15:00 | Viral Content Analysis | Feishu Group |
-| 16:00 | Competitor Keyword Deep Dive | Feishu Group |
-| 18:00 | Competitor Content Tracking | Feishu Group |
-| 20:00 | Case Library Update | Feishu Group |
-| 21:00 | Marketing Attribution | Internal |
-| 22:00 | Daily Review & Integration | Feishu Group |
-| Mon 08:00 | Marketing Calendar | Feishu Group |
-| Mon 09:30 | Weekly Passenger Insights | Feishu Group |
-| Sun 10:00 | Wiki Health Check | Internal |
-| Sun 11:00 | Codebase Drift Check | Internal |
-
----
-
-## Tech Stack
-
-| Component | Technology |
-|-----------|------------|
-| AI Agent | OpenClaw + MiniMax-M2.7 |
-| Knowledge Base | Obsidian Vault + karpathy-wiki |
-| Browser Automation | CDP (Chrome DevTools Protocol) |
-| Data Collection | Playwright + custom scripts |
-| Instant Messaging | Feishu (Lark) Bot API |
-| Scheduled Tasks | Cron (OpenClaw built-in, 15+ jobs) |
-| Cookie Management | CDP Cookie Hub (auto-sync from logged-in browser) |
-| Memory System | Multi-tier: daily logs → weekly dreaming → long-term MEMORY.md |
-| Code Repository | GitHub (auto-sync on Sundays) |
-
----
-
-## Repository Structure
-
-```
-.
-├── wiki/                          # Knowledge base (Obsidian-compatible)
-│   ├── 电影小镇/                  # Core business: passenger flow, shows, strategy
-│   ├── 竞品分析/                  # Competitor deep profiles + daily tracking
-│   ├── 全国景区案例库/             # Weekly case studies (40+ cases)
-│   ├── 行业知识/                  # Decision rules, verification records
-│   ├── SOP/                       # 15+ standardized SOPs
-│   ├── 技术配置/                  # Browser + script configs
-│   ├── 系统/                      # Prediction scoreboard
-│   ├── entities/                  # 10 entities (scenic areas + platforms)
-│   ├── queries/                   # Valuable Q&A archives
-│   ├── archived/                  # Archived old directories (concepts/sources/etc.)
-│   └── Excalidraw/               # System diagrams
-├── scripts/                       # Automation scripts (50+ Python scripts)
-│   ├── douyin_index_v9.py        # Douyin index collection (v10 internal)
-│   ├── cdp_cookie_hub.py         # Universal cookie sync from CDP browser
-│   ├── cdp_keyword_deep.py       # Keyword deep dive via CDP
-│   ├── xiaohongshu_crawl.py      # Xiaohongshu collection
-│   └── send_feishu_card.py       # Feishu card sender
-├── memory/                        # AI memory & session logs
-├── README.md                      # This file
-└── LICENSE                        # MIT
-```
-
----
-
-## Wiki Structure (Updated 2026-05-20)
-
-### Recent cleanup
-- `concepts/` / `sources/` / `knowledge/` / `impeccable-refs/` / `docs/` → archived to `archived/`
-- `_duplicate_backup/` → deleted (12 dead copies)
-- Passenger data updated from April 26 → **May 17** (CSV source restored)
-
----
-
-## karpathy-wiki Knowledge Layer
-
-The knowledge layer is the system's "brain" — separate from the business execution layer:
-
-**entities/** (active) — Concrete entities
-- 建业电影小镇 (Jianye Film Town)
-- 7 competitors + 抖音 + 小红书 platforms
-
-**queries/** (active) — Valuable Q&A archives
-- Wiki重组决策 / 知识层与业务层关系 / 抖音vs小红书 / 旧目录重叠
-
-**archived/concepts/** — Abstract principles (available on demand)
-演艺景区 · 内容爆款规律 · 情绪营销 · 季节性客流 · 营销漏斗 · 景区抖音运营 · 景区小红书运营 · 内容发布节奏 · ROI分析 · 景区类型 · 平台算法规则
-
-**archived/sources/** — Source document summaries (available on demand)
-穿越德化街数据分析 · 抖音指数追踪日报 · 竞品深度档案 · 客流营收历年分析
-
-**queries/** — Valuable Q&A archives
-- Wiki重组决策 (Wiki Restructuring Decision)
-- 知识层与业务层关系 (Knowledge Layer vs Business Layer)
-- 抖音与小红书平台差异 (Douyin vs Xiaohongshu Platform Differences)
-- 旧目录与知识层重叠分析 (Old Directory vs Knowledge Layer Overlap Analysis)
-
----
-
-## Competitive Advantages Summary
-
-| Advantage | Detail |
-|-----------|--------|
-| **Autonomous Operation** | 15+ cron jobs run daily without human intervention |
-| **Knowledge Compounding** | karpathy-wiki ensures insights accumulate and compound |
-| **Data-Driven** | All decisions backed by real-time platform data |
-| **Standardized SOPs** | Every task has a precise, version-controlled playbook |
-| **Multi-Platform** | Douyin + Xiaohongshu + Baidu + Feishu integrated |
-| **Competitor Intelligence** | 8 competitors × 21 keywords, tracked daily |
-| **CDP Cookie Hub** | Auto-syncs login cookies from running browser — no daily QR scan |
-| **Weekly INGEST** | Every Sunday, knowledge layer is refreshed and synced to GitHub |
-| **Historical Depth** | 2023–2026 passenger flow data + performing arts analysis |
-
----
-
----
-
-# 中文说明
-
-## 这个项目做什么
-
-**建业电影小镇 AI 营销运营系统** — 一个覆盖抖音、小红书、竞品监控、客流分析、日报自动化的全链路AI运营助手。
-
-**年度目标（2026年）**：客流153万 · 门票收入1.2亿
-
-**YTD实际（截至2026-05-17）**：656,067人次 · **完成率42.9%**
-
----
-
-## 核心优势
-
-### 0. 系统全局架构
-
-![系统全局关系图](wiki/diagrams/data-pipeline.svg)
-
-> 图12：MEMORY.md铁律中枢 → Cron调度 → CDP四平台采集 → AI七模块分析 → Wiki归档+飞书推送 → 反馈闭环驱动系统进化
-
-### 1. karpathy-wiki 知识图谱
-
-传统 Wiki 积累文档但无人阅读，本系统按 karpathy-wiki 标准构建**可化合的知识库**：
-
-```
-知识抽象层（concept/entity/source/query）← 业务执行层（每日数据/报告）
-```
-
-| 层级 | 作用 | 示例 |
-|------|------|------|
-| `concepts/` | 为什么 | 「情绪营销公式」— 情绪悬念为什么能爆 |
-| `entities/` | 是什么 | 「万岁山武侠城」— 竞品完整画像 |
-| `sources/` | 源文档摘要 | 「穿越德化街数据分析」— 关键数据提炼 |
-| `queries/` | 有价值的问答 | 「抖音vs小红书差异」— 什么场景用哪个平台 |
-
-**每周 INGEST**：每周日将新知识提炼到知识层，系统越用越聪明。
-
-### 2. SOP 驱动执行
-
-每个任务都有专属 SOP，cron 触发时先读 SOP 再执行，精确无误。
-
-**13 个标准化 SOP**：
-- 抖音指数日报 · 小红书日报 · 竞品关键词深度分析 · 竞品内容动态
-- 全国爆款拆解 · 文旅热点追踪 · 每日复盘整合 · 周度客流洞察
-- 客流数据Wiki同步 · 案例库更新 · Wiki健康检查 · 代码库漂移检查 · 系统健康检查
-
-### 3. 多平台数据采集
-
-**抖音**：搜索指数/综合指数/关联词TOP10/人群画像（CDP浏览器+Playwright）
-**小红书**：灵犀后台/笔记追踪/收藏数/互动总量（五维度日报格式）
-
-### 4. 竞品智能系统
-
-**8个核心竞品**：万岁山/清明上河园/只有河南/银基动物王国/郑州方特/郑州海昌/只有红楼梦/大唐不夜城
-**21个关键词池**：覆盖全国热点景区
-**四平台深度分析**：百度/抖音/灵犀/小红书搜索
-
-### 5. 客流数据驱动决策
-
-- 每日CSV同步Wiki → 飞书卡片
-- 散客/渠道拆分模型
-- 历年对比（2023-2026）
-- 天气相关性
-- 季节峰值模型（春节/暑期/国庆）
-
-### 6. AI 分析指标定义
-
-**抖音指数**：搜索指数（用户主动搜索热度）和综合指数（内容+互动+搜索加权），综合指数权重不公开，两指标交叉验证。
-
-**小红书灵犀**：搜索总量、互动总量、行业排名、人群资产，衡量关键词在平台的热度和覆盖人群规模。
-
-**竞品爆款阈值**：抖音点赞>1万/小红书点赞>5千/搜索暴涨日环比>+50%触发溯源。
-
-### 7. 容错与异常处理
-
-三层机制：CDP连接异常自动重连3次 → Cron任务连续失败2次触发飞书告警 → 数据缺失跳过发送不误导。故障自动恢复，无需重启。
-
----
-
-## 自动化报告排期
-
-| 时间 | 报告 | 发送渠道 |
-|------|------|---------|
-| 08:00 | 抖音指数日报 | 飞书群 |
-| 10:00 | 小红书日报 | 飞书群 |
-| 10:00 | 全国文旅热点 | 飞书群 |
-| 15:00 | 竞品关键词深度 | 私信 |
-| 18:00 | 竞品内容动态 | 飞书群 |
-| 21:00 | 全国爆款拆解 | 飞书群 |
-| 22:00 | 每日复盘整合 | 私信 |
-| 周一09:00 | 周度客流洞察 | 飞书群 |
-
----
-
-## 核心竞品关键词（8个）
-
-建业电影小镇 · 万岁山武侠城 · 清明上河园 · 只有河南戏剧幻城 · 郑州方特欢乐世界 · 郑州海昌海洋公园 · 银基动物王国 · 只有红楼梦戏剧幻城
-
----
 
 ## 技术栈
 
-| 组件 | 技术 |
-|------|------|
-| AI Agent | OpenClaw + MiniMax-M2.7 |
-| 知识库 | Obsidian Vault + karpathy-wiki |
-| 浏览器自动化 | CDP (Chrome DevTools Protocol) |
-| 数据采集 | Playwright + 自定义脚本 |
-| 消息推送 | 飞书 Bot API |
-| 定时任务 | Cron (OpenClaw 内置) |
-| 记忆系统 | 多层：每日日志 → 周度梦境 → 长期记忆MEMORY.md |
-| 代码仓库 | GitHub（每周日自动同步） |
+- **AI核心**: OpenClaw Agent + DeepSeek-V4-Flash
+- **数据采集**: Python Playwright + CDP浏览器
+- **推送渠道**: 飞书Bot API (interactive卡片)
+- **知识管理**: Obsidian Wiki (karpathy-wiki模式)
+- **定时任务**: OpenClaw cron (23个)
+- **运行环境**: macOS (Mac Mini)
 
 ---
 
-## 数据架构
-
-```
-数据来源
-├── 抖音创作服务平台（搜索/综合指数）
-├── 小红书灵犀后台（搜索/内容/趋势）
-├── 百度搜索（运营/媒体报道）
-├── 桌面CSV（每日客流）
-└── 飞书多维表格（协同）
-
-       ↓ AI Agent 处理
-
-知识沉淀
-├── concepts/（提炼概念）
-├── entities/（实体画像）
-├── sources/（数据摘要）
-└── queries/（问答归档）
-
-       ↓ 飞书推送
-
-报告输出
-├── 抖音指数日报（08:00）
-├── 小红书日报（10:00）
-├── 文旅热点（10:00）
-├── 竞品内容动态（18:00）
-├── 全国爆款拆解（21:00）
-└── 周度客流洞察（周一09:00）
-```
-
----
-
-## Wiki 知识层详情
-
-**concepts/（11个概念）**
-演艺景区 · 内容爆款规律 · 情绪营销 · 季节性客流规律 · 景区营销漏斗 · 景区抖音运营 · 景区小红书运营 · 内容发布节奏 · ROI分析 · 景区类型 · 平台算法规则
-
-**entities/（10个实体）**
-电影小镇 + 7个竞品 + 抖音平台 + 小红书平台
-
-**sources/（5个源文档摘要）**
-穿越德化街数据分析 · 抖音指数追踪日报 · 竞品深度档案 · 客流营收历年分析 · Wiki重组记录
-
-**queries/（4个问答归档）**
-Wiki重组决策 · 知识层与业务层关系 · 抖音与小红书平台差异 · 旧目录重叠分析
-
----
-
-## 竞争优势总结
-
-| 优势 | 说明 |
-|------|------|
-| **全自动化运营** | 15+个cron任务全天候自动执行，无需人工干预 |
-| **知识化合** | karpathy-wiki确保洞察积累而非遗忘 |
-| **数据驱动决策** | 所有策略基于实时平台数据，非经验主义 |
-| **标准化SOP** | 每个任务都有精确的版本控制操作手册 |
-| **多平台整合** | 抖音+小红书+百度+飞书一体化 |
-| **竞品智能** | 8竞品×21关键词，每日追踪 |
-| **每周INGEST** | 每周日知识层刷新并同步GitHub |
-| **历史深度** | 2023-2026客流数据+演出分析 |
-
----
+*由 AI Agent 维护 | 景区营销中心*
