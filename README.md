@@ -789,7 +789,381 @@ payload = {
 
 ---
 
-## 8. RESULTS & EFFECTIVENESS
+## 7.5 TOOLS & OPERATIONAL ECOSYSTEM
+
+Beyond the core modules, the system includes a rich ecosystem of supporting tools, operational mechanisms, and quality assurance processes.
+
+---
+
+### 7.5.1 Scripts Ecosystem (45+ Python Scripts)
+
+The system includes a comprehensive Python scripts library that handles everything from data collection to card delivery.
+
+| Script | Purpose | Type | Key Feature |
+|--------|---------|:----:|-------------|
+| `douyin_index_v9.py` | Douyin Index data collection | 📊 Data | Dual-channel (Playwright + CDP) |
+| `competitor_keyword_v8.py` | Competitor keyword deep analysis | 📊 Data | 4-platform aggregation |
+| `cdp_cookie_hub.py` | Cookie extraction from CDP browser | 🔧 Ops | Cross-platform (Douyin/XHS/Weibo) |
+| `cdp_keyword_deep.py` | Deep keyword analysis via CDP | 📊 Data | Auto-rotate between Tab 2/4 |
+| `cdp_collect.py` | General CDP data collector | 📊 Data | Tab-aware targeting |
+| `xiaohongshu_crawl.py` | Xiaohongshu data collection | 📊 Data | Anti-ratelimit handling |
+| `xhs_competitor_crawl.py` | XHS competitor page scraping | 📊 Data | Multi-keyword queue |
+| `send_feishu_card.py` | Feishu interactive card sender | 📨 Push | schema 2.0 validation |
+| `sync_obsidian_daily.py` | Obsidian Wiki sync agent | 🔄 Sync | CSV→Wiki→Vault pipeline |
+| `query_passenger.py` | Passenger CSV query helper | 📊 Data | Date-range filtering |
+| `self_check.py` | System self-diagnosis | 🔧 Ops | 8-point health checklist |
+| `cdp_restore_tabs.py` | CDP browser tab recovery | 🔧 Ops | Auto-restore on crash |
+| `case_library_scan.py` | Case library audit & repair | 🔄 Sync | Broken link detection |
+| `industry_news_browser.py` | Travel intel news collector | 📊 Data | Multi-source aggregation |
+| `llmwiki_ingest.py` | Wiki knowledge ingestion | 🔄 Sync | karpathy-wiki pattern |
+| `build_xhs_card.py` | XHS report card builder | 🎨 Card | Visual spec compliant |
+| `build_dashboard.py` | Dashboard HTML generator | 🎨 Card | Static page export |
+| `validate_data.py` | Data integrity validator | ✅ QA | Staleness & completeness |
+| `project_drift_check.py` | Project drift detection | ✅ QA | Content vs. reality mismatch |
+| `wiki_drift_check.py` | Wiki drift detection | ✅ QA | Cross-reference validation |
+
+> **Total: 45+ active scripts** (archived/legacy excluded)
+
+---
+
+### 7.5.2 Feishu Card System
+
+All reports are delivered as Feishu interactive cards (not plain text). The card system has its own design specification, validation script, and fault recovery.
+
+#### Card Architecture
+
+```
+{
+  "schema": "2.0",                          // Required for rendering
+  "header": {
+    "title": {
+      "tag": "plain_text",                   // NOT "lark_md"
+      "content": "📊 抖音指数日报 | 2026-05-25"
+    },
+    "template": "blue"                       // Optional color accent
+  },
+  "body": {
+    "elements": [                            // NOT root-level elements[]
+      {
+        "tag": "markdown",
+        "content": "| 景区 | 搜索指数 | ... |"  // Tables inside markdown
+      }
+    ]
+  }
+}
+```
+
+#### Design Rules (Hard Constraints)
+
+| Rule | Reason | Established |
+|------|--------|------------|
+| `header.title.tag` must be `"plain_text"` | `"lark_md"` causes rendering glitch | 2026-04-19 |
+| Content goes in `body.elements[]`, **not** root `elements[]` | Schema compliance | 2026-04-19 |
+| Tables inside markdown elements with `\|` pipe syntax | Feishu MD renderer | 2026-04-19 |
+| Line breaks use `<br/>` not `\n` | Feishu ignores `\n` | 2026-04-10 |
+| Must use `send_feishu_card.py`, not default message tool | `msg_type:"post"` doesn't render tables | 2026-05-25 |
+
+#### Visual Spec
+
+```
+Section separator: ━━━━━━━━━━━━━━━━━━━━━━━━
+Emoji hierarchy:   📌 → 🔍 → ⚠️ → 💡
+Bold for emphasis: **text**
+Code blocks:       `monospace text`
+Decision output:   D<number> | <one-line title>
+```
+
+#### Card Sending Flow
+
+```python
+# send_feishu_card.py (key logic)
+
+# 1. Validate card structure
+validate_card(card)  → checks schema/header/elements
+
+# 2. Get Feishu tenant token
+token = get_token()  # client_credentials grant
+
+# 3. Send with correct msg_type
+payload = {
+    "receive_id": chat_id,
+    "msg_type": "interactive",  # NOT "post"
+    "content": json.dumps(card, ensure_ascii=False)
+}
+
+# 4. Auto-retry on token expiry
+if result.code in (99991663, 19001):
+    token = refresh_token()
+    retry()
+```
+
+#### Failure History & Recovery
+
+| Date | Failure | Root Cause | Fix |
+|:----:|---------|------------|-----|
+| 05-25 | W22 marketing calendar shown as plain text | Agent used default `message` tool (msg_type: "post") instead of send_feishu_card.py | Updated all 9 cron jobs to enforce card script |
+| 04-27 | Card table not rendering | `header.title.tag` was `"lark_md"` | Changed to `"plain_text"` |
+| 04-19 | Elements in root instead of `body.elements[]` | Agent misread schema spec | Added validation in send_feishu_card.py |
+
+---
+
+### 7.5.3 Error Handling & Recovery
+
+The system uses a **multi-layer fallback strategy** to ensure uninterrupted daily operations:
+
+```
+Layer 1: Primary Script
+  └─ douyin_index_v9.py runs → [success?]
+       ├─ Yes → parse + use data
+       └─ No  → fall to Layer 2
+
+Layer 2: CDP Direct Extraction
+  └─ CDP browser navigates to target page → [success?]
+       ├─ Yes → parse + use data
+       └─ No  → fall to Layer 3
+
+Layer 3: Trend Inference
+  └─ Estimate from recent history + known patterns
+       → mark as "estimated" (lower confidence)
+```
+
+#### Known Error Patterns & Responses
+
+| Error Pattern | Trigger | Response | Recovery |
+|-------------|---------|----------|----------|
+| 503 Service Busy | DeepSeek API overload | Auto-retry at next cron cycle | No action needed (provider) |
+| Cookie Expired | Douyin/XHS session timeout | CDP browser fallback; next sync cycle | Re-login via QR code |
+| 667-char Truncation | Douyin SPA page partial render | Auto-switch to CDP extraction | Script update pending |
+| Tool Execution Timeout | CDP browser busy/heavy load | Agent retries with 30s timeout | Monitor, no manual fix |
+| Edit Failed | Wiki file write conflict | Agent retries with new content | Rare, auto-resolves |
+
+#### Failure Alert Chain
+
+Alert configuration per cron job (example):
+```json
+{
+  "failureAlert": {
+    "after": 2,              // Alert after 2 consecutive failures
+    "channel": "feishu",
+    "to": "oc_f109bcfd1bc7e166fd0ae077f70247cf",
+    "cooldownMs": 60000       // 1 hour between alerts
+  }
+}
+```
+
+---
+
+### 7.5.4 Agent Skill Ecosystem
+
+The agent's capabilities are extensible through OpenClaw's Skills system. Skills are loaded from ClawHub (community registry) or custom-written.
+
+#### Installed Skills Inventory
+
+| Skill | Purpose | Installed | Type |
+|-------|---------|:---------:|:----:|
+| `wechat-mini-program-builder` | WeChat mini-program rapid dev | ✅ | 📱 Dev |
+| `mini-program-dev` | Mini-program code templates & API | ✅ | 📱 Dev |
+| `wechat-miniprogram-skill` | Mini-program beginner→expert guide | ✅ | 📱 Dev |
+| `miniprogram-development` | General mini-program dev | ✅ | 📱 Dev |
+| `frontend-design-3` | Frontend design specification | ✅ | 🎨 UI |
+| `react-best-practices` | React best practices | ✅ | 💻 Code |
+| `typescript-skills` | TypeScript skill set | ✅ | 💻 Code |
+| `karpathy-coding-guidelines` | Karpathy coding principles | ✅ | 💻 Code |
+| `debug-pro` | Systematic debugging | ✅ | 🔧 Dev |
+| `api-tester` | HTTP request testing (GET/POST/PUT/DELETE) | ✅ | 🔧 Dev |
+| `browser-automation` | Browser automation via natural language | ✅ | 🤖 Auto |
+| `karpathy-guidelines` | General LLM coding wisdom | ✅ | 💻 Code |
+
+**Total skills available: 59** (system + workspace + installed)
+
+#### How Skills Work
+
+```
+Skill = SKILL.md (YAML frontmatter + Markdown instructions)
+  → Agent reads skill at load time
+  → Matches skill description against user request
+  → Activates relevant skills
+  → Filters by environment/config
+
+Priority: Workspace > Local > Bundled
+```
+
+#### ClawHub Integration
+
+- **Registry**: 13,729 community-built skills (as of Feb 2026)
+- **Installer**: `clawhub install <skill-slug> --dir ~/.openclaw/workspace/skills`
+- **Security**: VirusTotal integration for published skills
+
+---
+
+### 7.5.5 Memory & Learning System
+
+The agent maintains both **episodic memory** (daily logs) and **semantic memory** (curated rules), plus a **feedback loop** for continuous improvement.
+
+#### Memory Architecture
+
+```
+EPISODIC MEMORY (Raw logs)
+memory/
+├── YYYY-MM-DD.md        ← Daily execution records
+├── YYYY-MM-DD.md.bak    ← Archived (when compacted)
+
+SEMANTIC MEMORY (Curated)
+MEMORY.md                ← Long-term rules (max 100 lines)
+├── 铁律 (Ironclad rules)    — Violation must-correct
+├── 关键洞察 (Key insights)  — Reusable patterns
+├── [reference]              — System pointers (Feishu groups, file paths)
+├── [project]                — Active project status
+└── [feedback]               — Confirmed corrections/confirmations
+
+STATE (Machine-readable)
+memory/heartbeat-state.json   ← Heartbeat check tracking
+memory/topics/               ← Topic-specific knowledge
+  ├── feedback/               ← User corrections & confirmations
+  ├── projects/               ← Long-running project state
+  └── daily-tasks.md          ← Task roster
+```
+
+#### Feedback Loop
+
+```
+User says "不要" / "不对" / "停止"
+  → Agent records correction in memory/topics/feedback/
+  → Updates MEMORY.md rules if pattern confirmed
+  → Adjusts future behavior
+
+User says "对" / "很好" / "就这样"
+  → Agent records confirmation (success pattern)
+  → Reinforces existing rule
+  → No change needed
+```
+
+#### Entry Format
+
+```markdown
+**规则：** [Brief rule description]
+**Why:** [Why this rule exists]
+**How to apply:** [When/where to apply]
+```
+
+#### Memory Categories
+
+| Type | Purpose | Example |
+|------|---------|--------|
+| `[user]` | User role/preferences/goals | `user: 站长偏好详细数据报告` |
+| `[feedback]` | Work guidance (correction+confirmation) | `feedback: 达人必须绑定转化链路` |
+| `[project]` | Project status/targets | `project: 当前在优化多Agent系统` |
+| `[reference]` | External system pointers | `reference: 飞书群 oc_xxx` |
+
+#### Behavioral Rules (Examples from MEMORY.md)
+
+| Rule | Type | Established |
+|------|:----:|:-----------:|
+| Weekly passenger report moved to Tuesday | 铁律 | 2026-05-25 |
+| Feishu cards must use `send_feishu_card.py` | 铁律 | 2026-05-25 |
+| Search scope: unlimited national (not 21 fixed) | 铁律 | 2026-05-25 |
+| Data must be read from actual files, never guessing | 铁律 | 2026-04-22 |
+| browser-use is banned (use Playwright scripts) | 铁律 | 2026-04-20 |
+| Cron delivery mode: none (no redundant announce) | 铁律 | 2026-04-10 |
+
+---
+
+### 7.5.6 System Health & Operations
+
+#### Daily Health Checks
+
+The system self-diagnoses every 30 minutes via heartbeat:
+
+```
+Checklist:
+  □ Cron jobs ran successfully (check lastError)
+  □ CDP browser online (port 18800)
+  □ Cookie files fresh (not expired)
+  □ Passenger CSV not stale (last update < 14 days)
+  □ Feishu Bot token valid
+  □ Disk space adequate (< 90% usage)
+  □ No orphan session files (> 100 = cleanup needed)
+  □ Skills & plugins loaded without errors
+```
+
+#### Weekly Maintenance (Sundays 10:00-14:00)
+
+| Task | Time | Description |
+|------|:----:|-------------|
+| Wiki Health Check | 10:00 | Verify all wiki links, fix broken refs |
+| Codebase Drift Check | 10:00 | Detect workspace vs wiki content drift |
+| Orphan Session Cleanup | 11:00 | Archive/deleted unused .jsonl transcript files |
+| Skill Exploration | 14:00 | Discover new ClawHub skills, update skillset |
+| Weekly Evolution Review | Weekly | System upgrade, memory consolidation, SOP audit |
+
+#### CDP Browser Operations
+
+| Property | Detail |
+|----------|--------|
+| **Port** | 18800 (dedicated instance) |
+| **Target** | `host` (Mac Mini) |
+| **Tab 0** | Xiaohongshu Lingxi Backend (trend/trendAnalyze) |
+| **Tab 1** | Baidu Search |
+| **Tab 2** | Douyin Subscription Page (my-subscript) |
+| **Tab 3** | Douyin iframe |
+| **Tab 4** | Douyin Keyword Page (arithmetic-index) |
+| **Tab 5** | Douyin iframe |
+| **Tab 6** | Xiaohongshu Explore Page (explore) |
+| **Cookie Storage** | `/tmp/juLiang_cookies.json` (Douyin) |
+| | `/tmp/xiaohongshu_cookies.json` (XHS) |
+| | `/tmp/weibo_cookies.json` (Weibo) |
+| **Proxy** | 127.0.0.1:7897 (for Douyin) |
+| **Recovery**| `cdp_restore_tabs.py` on tab crash |
+
+#### Cookie Rotation Strategy
+
+```
+Cron: 每日 08:05 (cdp_cookie_hub.py)
+  → Connect to CDP browser (port 18800)
+  → Navigate each platform tab
+  → Extract cookies via document.cookie
+  → Save to /tmp/<platform>_cookies.json
+  → (Fallback: stale cookies still work for ~24h)
+```
+
+#### Data Quality Gates
+
+| Gate | Check | Action on Failure |
+|:----:|-------|-------------------|
+| ✅ | Script returns all 8 venues | Partial data → switch to CDP |
+| ✅ | Cookie age < 24h | Stale → CDP fallback, flag for refresh |
+| ✅ | CSV last update < 2 weeks | Stale → flag in weekly report, request sync |
+| ✅ | Feishu card delivery confirmed | Fail → retry with token refresh |
+| ✅ | Wiki write succeeds | Conflict → retry with unique content |
+
+---
+
+### 7.5.7 Weekly Evolution System
+
+Every Sunday, the system undergoes a structured evolution cycle:
+
+| Phase | Action | Output |
+|:-----:|--------|--------|
+| 🧹 **Cleanup** | Archive orphan sessions, compact memory | Clean state |
+| 📚 **Ingest** | Process new wiki content (raw/ → knowledge layer) | Updated wiki |
+| 🔍 **Audit** | Check prediction accuracy, error patterns | Accuracy report |
+| 🧠 **Learn** | Update decision rules based on validation results | Rule updates |
+| 🚀 **Explore** | Search ClawHub for new useful skills | Skill updates |
+| 📝 **Commit** | Git commit & push Wiki updates | GitHub sync |
+
+---
+
+### 7.5.8 Cost & Resource Management
+
+| Resource | Usage | Management Strategy |
+|----------|:-----:|-------------------|
+| **API Tokens** | ~200K tokens/day (DeepSeek-V4-Flash) | Single model to max context window; isolated sessions prevent state bloat |
+| **Disk** | 81Gi available / 228Gi total | Weekly orphan cleanup; Ollama models removed (reclaimed 26Gi) |
+| **CDP Browser** | 6 permanent tabs | Tab-specific targeting prevents resource waste |
+| **Cron Sessions** | 23 isolated sessions | Ephemeral (deleted after run); 30s-600s timeout per task |
+| **Feishu API** | ~30 calls/day | Token caching reduces auth requests |
+
+---
 
 ### 8.1 Operational Metrics
 
@@ -1524,7 +1898,322 @@ payload = {
 
 ---
 
-## 七、效果数据
+## 六点五、工具与运维生态
+
+除核心模块外，系统还包含丰富的支持工具、运维机制和质量保障流程。
+
+---
+
+### 6.5.1 脚本生态（45+个Python脚本）
+
+| 脚本 | 用途 | 类型 | 特点 |
+|------|------|:----:|------|
+| `douyin_index_v9.py` | 抖音指数采集 | 📊 数据 | 双通道(Playwright+CDP) |
+| `competitor_keyword_v8.py` | 竞品关键词深度分析 | 📊 数据 | 四平台聚合 |
+| `cdp_cookie_hub.py` | CDP浏览器Cookie提取 | 🔧 运维 | 跨平台(抖音/小红书/微博) |
+| `cdp_keyword_deep.py` | CDP深度关键词分析 | 📊 数据 | Tab2/4自动切换 |
+| `cdp_collect.py` | 通用CDP数据采集 | 📊 数据 | Tab感知定位 |
+| `xiaohongshu_crawl.py` | 小红书数据采集 | 📊 数据 | 反限流处理 |
+| `xhs_competitor_crawl.py` | 小红书竞品页面抓取 | 📊 数据 | 多关键词队列 |
+| `send_feishu_card.py` | 飞书交互卡片发送 | 📨 推送 | schema 2.0验证 |
+| `sync_obsidian_daily.py` | Obsidian Wiki同步 | 🔄 同步 | CSV→Wiki→Vault流水线 |
+| `query_passenger.py` | 客流CSV查询助手 | 📊 数据 | 日期范围筛选 |
+| `self_check.py` | 系统自检诊断 | 🔧 运维 | 8项健康检查清单 |
+| `cdp_restore_tabs.py` | CDP浏览器Tab恢复 | 🔧 运维 | 崩溃自动恢复 |
+| `case_library_scan.py` | 案例库审计修复 | 🔄 同步 | 断链检测 |
+| `industry_news_browser.py` | 文旅情报新闻采集 | 📊 数据 | 多源聚合 |
+| `llmwiki_ingest.py` | Wiki知识接入 | 🔄 同步 | karpathy-wiki模式 |
+| `validate_data.py` | 数据完整性验证 | ✅ 质控 | 过时&完整性检查 |
+| `wiki_drift_check.py` | Wiki漂移检测 | ✅ 质控 | 交叉引用验证 |
+
+> **总计：45+个活跃脚本**（不含已归档/遗留脚本）
+
+---
+
+### 6.5.2 飞书卡片系统
+
+所有报告以飞书交互卡片（interactive card）形式推送，非纯文本。卡片系统拥有独立的设计规范、验证脚本和故障恢复机制。
+
+#### 卡片架构
+
+```json
+{
+  "schema": "2.0",                          // 必须
+  "header": {
+    "title": {
+      "tag": "plain_text",                   // 非"lark_md"
+      "content": "📊 抖音指数日报 | 2026-05-25"
+    },
+    "template": "blue"
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "| 景区 | 搜索指数 | ... |"
+      }
+    ]
+  }
+}
+```
+
+#### 设计规则（硬约束）
+
+| 规则 | 原因 | 建立时间 |
+|------|------|---------|
+| `header.title.tag`必须为`"plain_text"` | `"lark_md"`导致渲染异常 | 2026-04-19 |
+| 内容放在`body.elements[]`，非根级`elements[]` | Schema合规 | 2026-04-19 |
+| 表格用`\|`管道符放在markdown元素内 | 飞书MD解析器 | 2026-04-19 |
+| 换行用`<br/>`不用`\n` | 飞书忽略`\n` | 2026-04-10 |
+| 必须用`send_feishu_card.py`，非默认message tool | `msg_type:"post"`不渲染表格 | 2026-05-25 |
+
+#### 视觉规范
+
+```
+章节分隔符：━━━━━━━━━━━━━━━━━━━━━━━━
+Emoji层级：  📌 → 🔍 → ⚠️ → 💡
+加粗强调：   **文字**
+等宽代码：   `等宽文字`
+决策输出：   D<序号> | <一行标题>
+```
+
+#### 发送流程
+
+```python
+# 1. 验证卡片结构
+validate_card(card)  → 检查schema/header/elements
+
+# 2. 获取飞书tenant token
+token = get_token()  # client_credentials授权
+
+# 3. 以正确msg_type发送
+payload = {
+    "receive_id": chat_id,
+    "msg_type": "interactive",  # 非"post"
+    "content": json.dumps(card, ensure_ascii=False)
+}
+
+# 4. Token过期自动重试
+if result.code in (99991663, 19001):
+    token = refresh_token()
+    retry()
+```
+
+#### 故障记录与恢复
+
+| 日期 | 故障 | 根因 | 修复 |
+|:----:|------|------|------|
+| 05-25 | W22营销日历显示为纯文本 | Agent用了默认message tool(msg_type:"post") | 9个cron任务统一为send_feishu_card.py |
+| 04-27 | 卡片表格不渲染 | `header.title.tag`为`"lark_md"` | 改为`"plain_text"` |
+| 04-19 | elements在根级而非`body.elements[]` | Agent误解schema | 在send_feishu_card.py中增加验证 |
+
+---
+
+### 6.5.3 错误处理与恢复
+
+系统使用**多层降级策略**保障每日运行不间断：
+
+```
+第一层：主脚本
+  └─ douyin_index_v9.py运行 → [成功?]
+       ├─ 是 → 解析+使用
+       └─ 否 → 降级至第二层
+
+第二层：CDP直连提取
+  └─ CDP浏览器导航至目标页 → [成功?]
+       ├─ 是 → 解析+使用
+       └─ 否 → 降级至第三层
+
+第三层：趋势推断
+  └─ 基于近期数据+已知模式估算
+       → 标记为"估算"（低置信度）
+```
+
+#### 已知错误模式及响应
+
+| 错误模式 | 触发条件 | 响应 | 恢复方式 |
+|---------|---------|------|---------|
+| 503服务繁忙 | DeepSeek API过载 | 下一cron周期自动重试 | 无需操作（服务商） |
+| Cookie过期 | 抖音/小红书登录超时 | CDP浏览器降级；下一同步周期 | 扫码重新登录 |
+| 667字符截断 | 抖音SPA页面部分渲染 | 自动切换CDP提取 | 等待脚本更新 |
+| 工具执行超时 | CDP浏览器繁忙/负载高 | Agent以30s超时重试 | 监控，无需手修 |
+| 编辑失败 | Wiki文件写入冲突 | Agent重试新内容 | 极少发生，自动恢复 |
+
+#### 故障告警链
+
+cron任务的告警配置示例：
+```json
+{
+  "failureAlert": {
+    "after": 2,              // 连续2次失败后告警
+    "channel": "feishu",
+    "to": "oc_f109bcfd1bc7e166fd0ae077f70247cf",
+    "cooldownMs": 60000       // 告警间隔1小时
+  }
+}
+```
+
+---
+
+### 6.5.4 Agent技能生态
+
+Agent的能力通过OpenClaw的Skills系统可扩展。技能来源：ClawHub（社区仓库）+ 自定义编写。
+
+#### 已安装技能清单
+
+| 技能 | 用途 | 类型 |
+|------|------|:----:|
+| `wechat-mini-program-builder` | 微信小程序快速搭建 | 📱 开发 |
+| `mini-program-dev` | 小程序代码模板&API | 📱 开发 |
+| `wechat-miniprogram-skill` | 小程序从入门到精通指南 | 📱 开发 |
+| `miniprogram-development` | 通用小程序开发 | 📱 开发 |
+| `frontend-design-3` | 前端设计规范 | 🎨 UI |
+| `react-best-practices` | React最佳实践 | 💻 代码 |
+| `typescript-skills` | TypeScript技能集 | 💻 代码 |
+| `karpathy-coding-guidelines` | Karpathy编码准则 | 💻 代码 |
+| `debug-pro` | 系统化调试 | 🔧 开发 |
+| `api-tester` | HTTP请求测试(GET/POST/PUT/DELETE) | 🔧 开发 |
+| `browser-automation` | 自然语言浏览器自动化 | 🤖 自动化 |
+| `karpathy-guidelines` | LLM编程通用智慧 | 💻 代码 |
+
+**可用技能总数：59**（系统内置 + 工作区 + 已安装）
+
+---
+
+### 6.5.5 记忆与学习系统
+
+Agent维护两种记忆：**情景记忆**（日常日志）和**语义记忆**（精炼规则），以及**反馈闭环**实现持续改进。
+
+#### 记忆架构
+
+```
+情景记忆（原始日志）
+memory/
+├── YYYY-MM-DD.md        ← 每日执行记录
+
+语义记忆（精炼）
+MEMORY.md                ← 长期规则（最长100行）
+├── 铁律（不可违反）
+├── 关键洞察（可复用模式）
+├── [reference]（系统指针）
+├── [project]（项目状态）
+└── [feedback]（纠错/确认）
+
+状态（机器可读）
+memory/heartbeat-state.json
+memory/topics/
+  ├── feedback/          ← 用户纠错&确认
+  └── projects/          ← 长运行项目状态
+```
+
+#### 反馈闭环
+
+```
+用户说"不要"/"不对"/"停止"
+  → Agent记录纠错至memory/topics/feedback/
+  → 如模式确认则更新MEMORY.md规则
+  → 调整后续行为
+
+用户说"对"/"很好"/"就这样"
+  → Agent记录确认（成功模式）
+  → 强化已有规则
+  → 无需变更
+```
+
+#### 记忆分类
+
+| 类型 | 用途 | 示例 |
+|------|------|------|
+| `[user]` | 用户角色/偏好/目标 | `user: 站长偏好详细数据报告` |
+| `[feedback]` | 工作指导（纠错+确认） | `feedback: 达人必须绑定转化链路` |
+| `[project]` | 项目状态/目标 | `project: 当前在优化多Agent系统` |
+| `[reference]` | 外部系统指针 | `reference: 飞书群 oc_xxx` |
+
+---
+
+### 6.5.6 系统健康与运维
+
+#### 每日健康检查（每30分钟心跳检测）
+
+```
+检查清单：
+  □ cron任务正常运行（检查lastError）
+  □ CDP浏览器在线（端口18800）
+  □ Cookie文件未过期
+  □ 客流CSV未过时（更新<14天）
+  □ 飞书Bot Token有效
+  □ 磁盘空间充足（<90%）
+  □ 无orphan会话文件（>100需清理）
+  □ Skills&Plugins加载无错误
+```
+
+#### 每周维护（周日10:00-14:00）
+
+| 任务 | 时间 | 说明 |
+|------|:----:|------|
+| Wiki健康检查 | 10:00 | 验证所有Wiki链接，修复断链 |
+| 代码漂移检查 | 10:00 | 检测workspace与Wiki内容漂移 |
+| Orphan会话清理 | 11:00 | 归档/删除未使用的.jsonl文件 |
+| 技能探索 | 14:00 | 发现ClawHub新技能，更新技能集 |
+| 周度演进评审 | 每周 | 系统升级、记忆整理、SOP审计 |
+
+#### CDP浏览器运维
+
+| 属性 | 详情 |
+|------|------|
+| **端口** | 18800 |
+| **目标** | `host`（Mac Mini） |
+| **Tab 0** | 小红书灵犀后台 |
+| **Tab 1** | 百度搜索 |
+| **Tab 2** | 抖音订阅页 |
+| **Tab 3** | 抖音iframe |
+| **Tab 4** | 抖音关键词页 |
+| **Tab 5** | 抖音iframe |
+| **Tab 6** | 小红书探索页 |
+| **Cookie存储** | `/tmp/juLiang_cookies.json`（抖音） |
+| | `/tmp/xiaohongshu_cookies.json`（小红书） |
+| | `/tmp/weibo_cookies.json`（微博） |
+| **代理** | 127.0.0.1:7897（抖音专用） |
+| **恢复** | `cdp_restore_tabs.py` Tab崩溃恢复 |
+
+#### 数据质量门控
+
+| 门控 | 检查项 | 失败处理 |
+|:----:|--------|---------|
+| ✅ | 脚本返回全部8个景区 | 部分数据→切换CDP |
+| ✅ | Cookie时效<24h | 过期→CDP降级，标记需刷新 |
+| ✅ | CSV更新<2周 | 过期→周报标记，请求同步 |
+| ✅ | 飞书卡片送达确认 | 失败→Token刷新重试 |
+| ✅ | Wiki写入成功 | 冲突→唯一内容重试 |
+
+---
+
+### 6.5.7 周度演进系统
+
+每周日，系统执行结构化演进周期：
+
+| 阶段 | 行动 | 产出 |
+|:----:|------|------|
+| 🧹 **清理** | 归档orphan会话、压缩记忆 | 干净状态 |
+| 📚 **接入** | 处理新Wiki内容（raw/→知识层） | 更新Wiki |
+| 🔍 **审计** | 检查预测准确率、错误模式 | 准确率报告 |
+| 🧠 **学习** | 基于验证结果更新决策规则 | 规则更新 |
+| 🚀 **探索** | 搜索ClawHub新技能 | 技能更新 |
+| 📝 **提交** | Git commit & push Wiki更新 | GitHub同步 |
+
+---
+
+### 6.5.8 成本与资源管理
+
+| 资源 | 用量 | 管理策略 |
+|------|:----:|---------|
+| **API Token** | ~20万token/天 | 单一模型最大化上下文窗口；isolated session防止状态膨胀 |
+| **磁盘** | 81Gi可用/228Gi总 | 每周orphan清理；已删除Ollama模型（回收26Gi） |
+| **CDP浏览器** | 6个永久Tab | Tab级精确定位防止资源浪费 |
+| **Cron会话** | 23个isolated session | 临时性（运行后删除）；每任务30s-600s超时 |
+| **飞书API** | ~30次调用/天 | Token缓存减少认证请求 |
+
+---
 
 ### 7.1 运营指标
 
