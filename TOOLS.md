@@ -71,3 +71,8 @@ curl "wttr.in/郑州?format=j1"   # JSON格式
 **browser-use 使用规则**：
 - **全面禁止**：包括专属 Chrome 标签页的任何操作，一概拒绝
 - **唯一例外**：临时性/没遇到过/复杂的探索任务（新平台/一次性调研），且 Playwright 脚本无法快速覆盖时，才能用
+用户指定PRO模型名: deepseek-v4-pro
+用法:
+- 默认: deepseek/deepseek-v4-flash（闪速版）
+- 特定任务: 用户说用PRO/v4pro时 → model="deepseek/deepseek-v4-pro"
+
