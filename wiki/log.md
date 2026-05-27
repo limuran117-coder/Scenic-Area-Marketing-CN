@@ -471,3 +471,8 @@
 - F03: 全国景区案例库/索引.md → 更新台账.md（消除歧义）
 - F06: 电影小镇/index.md新增历史数据区（10个文件链接）
 - F07: SOP/index.md补充7个缺失SOP文件
+## [2026-05-27] PRO系统审计修复 | 脚本清理+cron更新
+- R3: 重命名 douyin_index_v9.py→douyin_index.py, competitor_keyword_v8.py→competitor_keyword.py
+- R3: 清理 .trash/(14个旧文件), xhs_report_payload.json（空文件）
+- M4: 清理 config 历史备份（.bak.1~.bak.4）
+- 更新抖音指数日报 cron prompt 脚本路径（v9→去版本号）
