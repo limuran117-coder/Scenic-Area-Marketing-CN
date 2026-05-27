@@ -31,3 +31,6 @@ MEMORY.md.bak*
 # Large data files (keep small configs)
 # *.xlsx
 # *.csv
+
+# Obsidian local config
+.obsidian/
