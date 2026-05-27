@@ -69,6 +69,14 @@ role: 景区营销中心总经理 | update_time: 2026-05-27 | core_mission: 年�
 > 已有：抖音/CDP双通道、timeout调增、时间调整
 > **待验证假设：** 引入任务健康检查确保关键任务至少有一条路径可用
 
+**[fix] CDP 探针/Python urllib 无法连接 CDP 18800 端口**
+> 2026-05-27 15:10 确认根因：Python urllib（含3.9/3.12）无法连接 localhost:18800，socket 超时
+> 而 curl + Playwright 均可正常连接
+> cdp_restore_tabs.py 原使用 urllib+websockets → 全部失败
+> **修复：** 重写为纯 Playwright CDP 连接，脚本测试通过 ✅
+> CDP探针 timeout 60s→300s，Cookie同步 30s→120s
+> 案例库写入改用 exec 追加代替 edit 替换
+
 **[insight] 文旅情报合并成功验证**
 > 5/26合并12:00(文旅活动)+14:00(政策资本)→13:00执行成功，减少1个cron实例
 > 收益：降低30%晚高峰API调用风险，提高内容质量（合并后更全面）
