@@ -477,4 +477,4 @@
 - M4: 清理 config 历史备份（.bak.1~.bak.4）
 - 更新抖音指数日报 cron prompt 脚本路径（v9→去版本号）
 | M1-M3 | PRO系统审计修复 | cron错开+huashu精简+skills清理 |
-| S1-S3 | Cron体系优化 | 案例库每日→每周三 / SOP yaml与实际对齐 / 标注废弃项 |"
+| S1-S3 | Cron体系优化 | 案例库每日→每周三 / SOP yaml与实际对齐 / 标注废弃项 |
