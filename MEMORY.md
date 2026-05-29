@@ -75,6 +75,7 @@ role: 景区营销中心总经理 | update_time: 2026-05-28 | core_mission: 客�
 # [project] 项目状态
 
 **活跃** 抖音双通道采集✅ | 竞品关键词轮换（5/7完成）| 爆款公式库周日更新 | 端午已过（未执行）| API晚高峰观察至5/30
+**Ontology架构改造** 🆕 2026-05-29启动 | 对标Palantir Foundry/AIP | 已产出: ontology.json v1 (7 ObjectTypes+11 Links+7 Functions+5 Actions) + 实现路线图 | Phase1搭建中 | 每周五20:00 Pro深度研究
 
 **待办** 任务健康检查实施 | 老君山/重渡沟/龙门石窟Wiki归档 | 案例库4连败修复
 
