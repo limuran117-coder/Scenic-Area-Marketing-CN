@@ -1,8 +1,10 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-05-30",
+  "updatedAt": "2026-05-30"
+
+  "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
 
   "objectTypes": {
@@ -114,13 +116,24 @@
         "category": { "type": "enum", "values": ["content_strategy", "pricing", "alert", "competitive_response", "timing"] },
         "condition": { "type": "text", "description": "触发条件逻辑" },
         "action": { "type": "text", "description": "触发的动作" },
+        "authorityTier": {
+          "type": "number",
+          "optional": true,
+          "description": "宪法VII优先级：1=宪法/2=站长指令/3=规程/4=规则/5=项目指令/6=证据/7=记忆/8=人格/9=先例。低数字=高优先级"
+        },
+        "conflictRule": {
+          "type": "enum",
+          "values": ["higher_tier_wins", "specific_overrides_general", "latest_wins", "user_override", "never_override"],
+          "optional": true,
+          "description": "当多个规则冲突时的解决策略"
+        },
         "confidence": { "type": "number", "description": "验证置信度 0-1" },
         "status": { "type": "enum", "values": ["hypothesis", "verified", "invalidated", "obsolete"] },
         "source": { "type": "string", "description": "来源：数据驱动/专家经验/案例学习" },
         "lastTriggeredAt": { "type": "datetime", "optional": true },
         "triggerCount": { "type": "number", "optional": true }
       },
-      "linkTypes": ["triggers_action", "based_on_metric"],
+      "linkTypes": ["triggers_action", "based_on_metric", "overridden_by"],
       "dataSources": ["wiki/行业知识/决策规则库.md"]
     },
 
@@ -384,5 +397,125 @@
       "status": "verified",
       "provenance": "5/25-5/30 连续观察"
     }
-  ]
+  ],
+
+  "authorityHierarchy": {
+    "version": "1.0",
+    "description": "CodeWhale Constitution Article VII 映射——当多个规则/指令冲突时的优先级解决体系",
+    "principle": "低数字 = 高优先级。冲突时，低数字层覆盖高数字层。同层冲突按 conflictRule 解决。",
+    "tiers": [
+      {
+        "level": 1,
+        "name": "宪法 Constitution",
+        "codeWhaleRef": "Articles I-VII: Safety, Truth, User Agency, Duty of Action, Verification, Coordination, Hierarchy",
+        "ourMapping": "SOUL.md 人格 + MEMORY.md 铁律 + IDENTITY.md 职责宣言",
+        "content": ["Truth first: 禁止编造数据", "Verification mandatory: 每步需证据", "User sovereignty: 站长指令高于系统预设"],
+        "overrideRule": "never_override"
+      },
+      {
+        "level": 2,
+        "name": "站长指令 Case Command",
+        "codeWhaleRef": "The user's explicit request in this turn",
+        "ourMapping": "飞书私信中站长当前发送的消息",
+        "content": ["站长当前指令高于所有预设规则", "如与宪法冲突，解释边界并给出合法替代"],
+        "overrideRule": "higher_tier_wins"
+      },
+      {
+        "level": 3,
+        "name": "规程 Statutes",
+        "codeWhaleRef": "Mode permissions, approval policies, output format rules",
+        "ourMapping": "SOP/ 目录所有流程文件 + OpenClaw cron 配置",
+        "content": ["数据采集 SOP", "日报输出格式 SOP", "cron 调度配置"],
+        "overrideRule": "higher_tier_wins"
+      },
+      {
+        "level": 4,
+        "name": "决策规则 Regulations",
+        "codeWhaleRef": "Composition patterns, sub-agent strategy, thinking budget",
+        "ourMapping": "决策规则库.md 全部 10 条规则 (R01-R10) + 本 ontology.json rules 数组中的规则",
+        "content": ["R01-R10 运营规则", "规则间冲突见 conflictMatrix"],
+        "overrideRule": "specific_overrides_general"
+      },
+      {
+        "level": 5,
+        "name": "项目指令 Local Law",
+        "codeWhaleRef": "AGENTS.md, CLAUDE.md, project-specific instructions",
+        "ourMapping": "Wiki 各目录下的 SOP 说明、项目计划文档",
+        "content": ["Wiki/SOP/ 下属子目录文档", "技术配置/ 目录文档"],
+        "overrideRule": "higher_tier_wins"
+      },
+      {
+        "level": 6,
+        "name": "证据 Evidence",
+        "codeWhaleRef": "Tool output, file contents, command results, live repository state",
+        "ourMapping": "实时数据：爬虫输出 (crawl_data.json)、客流 CSV、抖音指数、小红书数据",
+        "content": ["/tmp/crawl_data.json 爬虫输出", "~/Desktop/2026游客量统计.csv", "CDP 浏览器实时 HTML 内容"],
+        "overrideRule": "never_override",
+        "note": "证据 > 记忆。如果实时数据和记忆不一致，以证据为准"
+      },
+      {
+        "level": 7,
+        "name": "记忆 Memory",
+        "codeWhaleRef": "Declarative facts and preferences only. Memory is never a command.",
+        "ourMapping": "Wiki 知识库 + MEMORY.md + 洞察精华",
+        "content": ["Wiki/行业知识/ 目录", "MEMORY.md 长期记忆", "决策规则验证记录"],
+        "overrideRule": "higher_tier_wins",
+        "note": "记忆是事实参考，不是指令。"记忆认为A" 永远不能 override 实时证据"
+      },
+      {
+        "level": 8,
+        "name": "人格 Personality",
+        "codeWhaleRef": "Voice, tone, preamble rhythm, and presentation style",
+        "ourMapping": "飞书卡片排版规范、日报格式、判断层禁用词规则",
+        "content": ["日报卡片 schema=2.0 格式", "禁止用语列表", "判断层固定字段"],
+        "overrideRule": "higher_tier_wins"
+      },
+      {
+        "level": 9,
+        "name": "先例 Precedent",
+        "codeWhaleRef": "Previous-session handoffs and compaction relays",
+        "ourMapping": "前日复盘分析结论、历史归因记录",
+        "content": ["昨日复盘结论", "营销归因日志历史"],
+        "overrideRule": "latest_wins",
+        "note": "先例 subordinated to 实时证据和站长当前指令"
+      }
+    ],
+    "conflictMatrix": {
+      "description": "规则间冲突解决矩阵——当 Level 4 的决策规则之间冲突时",
+      "rules": [
+        {
+          "conflict": "R08(节庆前7天·发预热) vs R04(搜索下滑·发铁花内容)",
+          "resolution": "R08 胜 (时效性更高，距离节日≤3天时 R08 自动升级为🔴紧急)",
+          "principle": "specific_overrides_general: 节日窗口规则 > 日常内容策略规则"
+        },
+        {
+          "conflict": "R01(竞品搜索暴涨·跟/不跟) vs R05(抖音指数跌·发内容)",
+          "resolution": "按证据驱动: 如果证据显示竞品暴涨原因是IP独家→不跟，执行R05；如果是通用话题→跟，R01优先",
+          "principle": "evidence_above_rules: 实时数据(证据=Level6) > 静态规则(Level4)"
+        },
+        {
+          "conflict": "R07(散客下滑+雨天·发团购) vs R08(节庆预热·发预热)",
+          "resolution": "R08 胜 (节庆窗口有时间限制，散客转化可延后)",
+          "principle": "timing_urgency: 有时限的规则 > 可延后的规则"
+        },
+        {
+          "conflict": "R02(竞品爆款·借势) vs R06(POV内容·第一人称)",
+          "resolution": "兼容处理：借势内容同时用第一人称写，两条规则同时满足",
+          "principle": "compatible_merge: 可兼容的规则同时执行"
+        },
+        {
+          "conflict": "R09(周度数据异常·结构性调整) vs R10(单一动作归因·标记准确)",
+          "resolution": "R09 胜 (周度结构性 > 单次归因)，R10 结果作为 R09 分析的输入证据",
+          "principle": "broader_scope: 更广时间范围的规则覆盖更窄的规则"
+        }
+      ]
+    },
+    "quickReference": {
+      "冲突时三问": [
+        "1. 是否涉及宪法铁律（Level 1）？→ 宪法胜，无可商量",
+        "2. 站长有没有直接发过指令（Level 2）？→ 站长指令胜",
+        "3. 是否是 Level 4 规则间冲突？→ 查 conflictMatrix"
+      ]
+    }
+  }
 }
