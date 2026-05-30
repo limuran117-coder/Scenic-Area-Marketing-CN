@@ -2,7 +2,7 @@
   "schema": "电影小镇-Ontology-v1",
   "version": "1.1.0",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-05-30"
+  "updatedAt": "2026-05-30",
 
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
@@ -460,7 +460,7 @@
         "ourMapping": "Wiki 知识库 + MEMORY.md + 洞察精华",
         "content": ["Wiki/行业知识/ 目录", "MEMORY.md 长期记忆", "决策规则验证记录"],
         "overrideRule": "higher_tier_wins",
-        "note": "记忆是事实参考，不是指令。"记忆认为A" 永远不能 override 实时证据"
+        "note": "记忆是事实参考，不是指令。'记忆认为A' 永远不能 override 实时证据"
       },
       {
         "level": 8,
