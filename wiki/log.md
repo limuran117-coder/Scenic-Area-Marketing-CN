@@ -478,3 +478,10 @@
 - 更新抖音指数日报 cron prompt 脚本路径（v9→去版本号）
 | M1-M3 | PRO系统审计修复 | cron错开+huashu精简+skills清理 |
 | S1-S3 | Cron体系优化 | 案例库每日→每周三 / SOP yaml与实际对齐 / 标注废弃项 |
+
+## [2026-05-30] ingest | 周度技能探索_2026-05-30
+- 来源: wiki/sources/周度技能探索_2026-05-30.md
+- 评估57个npm-global skills + 18个workspace skills
+- 结论: 当前栈已成熟，无新增技能建议
+- 关键发现: github/gh已验证可用、spike工作流模式记录到TOOLS.md
+- 更新: TOOLS.md（+GitHub可用性 + spike工作流）、wiki/index.md（来源索引）

@@ -76,3 +76,29 @@ curl "wttr.in/郑州?format=j1"   # JSON格式
 - 默认: deepseek/deepseek-v4-flash（闪速版）
 - 特定任务: 用户说用PRO/v4pro时 → model="deepseek/deepseek-v4-pro"
 
+---
+
+## GitHub/版本控制
+
+**已验证可用**（2026-05-30周度技能探索确认）：
+```bash
+gh auth status    # ✅ Logged in as limuran117-coder
+```
+- Remote: `limuran117-coder/Scenic-Area-Marketing-CN`
+- git + gh CLI + Obsidian Git插件自动备份
+- 无需额外配置，已正常运作
+
+---
+
+## spike工作流模式（参考·非工具）
+
+当需要**快速验证新数据源可行性**时，用spike代替直接写完整生产脚本：
+1. 先确认具体可行性问题
+2. 快速查文档确定方案
+3. 建最小可运行验证物（`.tmp/openclaw-spikes/`）
+4. 测一个边缘情况
+5. 输出 VALIDATED / PARTIAL / INVALIDATED
+
+适用场景：新竞品API、新的数据采集接口、替代方案A/B对比
+不适合：日常已有成熟脚本的数据采集
+
