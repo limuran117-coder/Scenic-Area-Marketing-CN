@@ -1,7 +1,8 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "createdAt": "2026-05-29",
+  "updatedAt": "2026-05-30",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
 
   "objectTypes": {
@@ -38,7 +39,7 @@
         "collectedAt": { "type": "datetime" }
       },
       "linkTypes": ["belongs_to"],
-      "dataSources": ["/tmp/crawl_data.json", "~/Desktop/2026游客量统计.csv"]
+      "dataSources": ["adapter-douyin.py::/tmp/crawl_data.json", "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json", "~/Desktop/2026游客量统计.csv"]
     },
 
     "ContentAsset": {
@@ -62,7 +63,7 @@
         "collectedAt": { "type": "datetime" }
       },
       "linkTypes": ["mentions", "promotes", "triggers_sentiment"],
-      "dataSources": ["xiaohongshu_crawl.py", "competitor_program_tracker.py"]
+      "dataSources": ["adapter-xiaohongshu.py (预留: 爬虫升级后启用详细笔记)", "competitor_program_tracker.py"]
     },
 
     "Event": {
@@ -123,6 +124,22 @@
       "dataSources": ["wiki/行业知识/决策规则库.md"]
     },
 
+    "OntologyAdapter": {
+      "description": "Ontology Adapter——原始数据到 Ontology 对象的转换器",
+      "properties": {
+        "id": { "type": "string", "key": true },
+        "name": { "type": "string", "description": "如 adapter-douyin.py" },
+        "sourceFormat": { "type": "string", "description": "输入数据格式描述" },
+        "targetObjectType": { "type": "array", "items": { "type": "string" }, "description": "生成的 Ontology ObjectType" },
+        "confidence": { "type": "number", "description": "该适配器的默认数据置信度 0-1" },
+        "status": { "type": "enum", "values": ["active", "partial", "pending"] },
+        "lastRunAt": { "type": "datetime", "optional": true },
+        "outputPath": { "type": "string", "description": "输出到 data/ 的路径模式" }
+      },
+      "linkTypes": ["transforms_to"],
+      "dataSources": []
+    },
+
     "AgentTask": {
       "description": "Agent 定时任务——cron 调度的所有自动化工作流",
       "properties": {
@@ -158,6 +175,14 @@
       "sourceTypes": ["MetricSnapshot", "MarketingCampaign"],
       "targetTypes": ["ScenicSpot"],
       "properties": {}
+    },
+    "transforms_to": {
+      "description": "Adapter 转换数据到 Ontology Object",
+      "sourceTypes": ["OntologyAdapter"],
+      "targetTypes": ["MetricSnapshot", "ContentAsset"],
+      "properties": {
+        "confidence": { "type": "number", "optional": true, "description": "转换置信度" }
+      }
     },
     "mentions": {
       "description": "内容提及景区",
