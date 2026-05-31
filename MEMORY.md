@@ -10,7 +10,7 @@ role: 景区营销中心总经理 | update_time: 2026-05-28 | core_mission: 客�
 # ⭐ 铁律（违反必纠）
 
 **客流日报格式** 密码912530 | 5章: YTD→月度→近7日→德化街→建议 | ≤5表/卡
-**飞书卡片** schema=2.0 走 `scripts/send_feishu_card.py`，禁止message工具文本发送 | 换行用`<br/>`
+**飞书卡片** schema=2.0 走 `scripts/send_feishu_card.py`，禁止message工具文本发送 | 表格外换行用`\n\n`，表格内行间用`\n`，表头列名可直接用`⚠️`
 **双通道数据采集** 抖音脚本+CDP交替验证，任一失败走另一通道
 **CDP连接必须用Playwright** Python urllib/websockets连CDP 18800会socket超时
 **数据必须读实际值** 禁止经验主义 | 搜索用「建业电影小镇」禁止「建业华谊兄弟」| 不限7核心竞品
