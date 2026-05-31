@@ -1,95 +1,165 @@
 {
-  "timestamp": "2026-05-24T12:01:56.894284",
-  "issues_count": 130,
+  "timestamp": "2026-05-31T15:40:32.683085",
+  "issues_count": 139,
   "issues": [
     {
       "type": "stale",
-      "file": "竞品分析/关键词池状态.md",
-      "last_update": "2026-04-22",
-      "days_old": 32,
+      "file": "SOP/案例库更新.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/每日复盘整合.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/抖音指数日报.md",
+      "last_update": "2026-04-25",
+      "days_old": 36,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/竞品内容动态.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/专属浏览器Tab配置.md",
+      "last_update": "2026-04-28",
+      "days_old": 33,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/文旅活动热点追踪日报.md",
       "last_update": "2026-04-18",
+      "days_old": 43,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/小红书日报.md",
+      "last_update": "2026-04-25",
       "days_old": 36,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/代码库Wiki漂移检查.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品深度分析流程.md",
       "last_update": "2026-04-20",
-      "days_old": 34,
+      "days_old": 41,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/飞书卡片视觉规范.md",
       "last_update": "2026-04-19",
-      "days_old": 35,
+      "days_old": 42,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/Wiki健康检查.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/竞品关键词深度分析流程.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/竞品爆款拆解.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "SOP/竞品深度档案标准格式.md",
+      "last_update": "2026-04-24",
+      "days_old": 37,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/每日任务总览.md",
       "last_update": "2026-04-22",
-      "days_old": 32,
+      "days_old": 39,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/飞书配置.md",
       "last_update": "2026-04-22",
-      "days_old": 32,
+      "days_old": 39,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/Skills探索笔记.md",
       "last_update": "2026-04-18",
-      "days_old": 36,
+      "days_old": 43,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/主题乐园.md",
       "last_update": "2026-04-20",
-      "days_old": 34,
+      "days_old": 41,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/演艺景区.md",
       "last_update": "2026-04-20",
-      "days_old": 34,
+      "days_old": 41,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/古镇古街.md",
       "last_update": "2026-04-20",
-      "days_old": 34,
+      "days_old": 41,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/自然景区.md",
       "last_update": "2026-04-20",
-      "days_old": 34,
+      "days_old": 41,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/文旅小镇.md",
       "last_update": "2026-04-20",
-      "days_old": 34,
+      "days_old": 41,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
-      "file": "电影小镇/人群画像.md",
-      "last_update": "2026-04-18",
+      "file": "电影小镇/演出节目/穿越德化街.md",
+      "last_update": "2026-04-25",
       "days_old": 36,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
@@ -97,29 +167,58 @@
       "type": "stale",
       "file": "电影小镇/历史数据/2026年门票政策.md",
       "last_update": "2026-04-20",
-      "days_old": 34,
+      "days_old": 41,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
-      "file": "电影小镇/历史数据/规律洞察.md",
-      "last_update": "2026-04-20",
-      "days_old": 34,
+      "file": "entities/scripts/send_feishu_card.md",
+      "last_update": "2026-04-26",
+      "days_old": 35,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "entities/scripts/douyin_index_v9.md",
+      "last_update": "2026-04-26",
+      "days_old": 35,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "entities/scripts/query_passenger.md",
+      "last_update": "2026-04-26",
+      "days_old": 35,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "orphan",
-      "file": "做图规范.md",
+      "file": "全国景区案例库/苏超文体旅融合升级-2026W22.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
-      "file": "做图规范.md",
+      "file": "全国景区案例库/泰山AI助力机器人科技赋能-2026W21.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
-      "file": "全国景区案例库/索引.md",
+      "file": "全国景区案例库/武汉光谷文旅+科技融合-2026W22.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/杨柳青古镇全域NPC沉浸式舞台-2026W22.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/跳城游县域旅游崛起-交通网络定位-2026W22.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/南京色彩漫步+票根经济升级-2026W22.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -134,12 +233,62 @@
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/电影票根联动景区互惠-2026W21.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/更新台账.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/景区淡季免票潮庐山策略-2026W11-W12.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/临湘大石坳媒企联动数字化营销-2026W22.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/常州太湖湾音乐节超级IP-2026W22.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/第18周更新记录-20260428.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/出片秘境审美驱动旅游-高定出行-2026W22.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/淄博非遗工艺沉浸体验-2026W22.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/湖北博物馆x爷爷不泡茶文创联名-2026W21.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/龙里水乡300NPC沉浸小镇-2026W21.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/第17周更新记录-20260426.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/川西竹海全员NPC武侠沉浸-2026W21.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -154,12 +303,17 @@
     },
     {
       "type": "orphan",
-      "file": "全国景区案例库/GitHub高星项目研究/CowAgent研究.md",
+      "file": "全国景区案例库/深度文化游研学经济-景区文教产品化-2026W22.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
-      "file": "全国景区案例库/GitHub高星项目研究/EvoMap_evolver研究.md",
+      "file": "竞品分析/清明上河园深度分析.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "竞品分析/万岁山武侠城深度分析.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -209,17 +363,7 @@
     },
     {
       "type": "orphan",
-      "file": "竞品分析/追踪数据/抖音指数追踪.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
       "file": "竞品分析/追踪数据/抖音指数每日追踪.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "竞品分析/追踪数据/小红书爆款追踪.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -344,6 +488,16 @@
     },
     {
       "type": "orphan",
+      "file": "技术配置/SOP质量升级计划.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/GitHub高星标学习笔记.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "技术配置/schema.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
@@ -364,22 +518,47 @@
     },
     {
       "type": "orphan",
+      "file": "技术配置/Ontology架构设计/实现路线图.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/每日工作流.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/电影小镇-Ontology架构设计.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/BEST_PRACTICES.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/data/README.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/GitHub高星项目研究/CowAgent研究.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/GitHub高星项目研究/EvoMap_evolver研究.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "系统/记忆系统对比分析_2026-04-29.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
       "file": "系统/critique.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "系统/ai-analysis-spec.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "系统/maintenance-guide.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -459,16 +638,6 @@
     },
     {
       "type": "orphan",
-      "file": "案例库/索引.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "案例库/爆款公式/INDEX.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
       "file": "sources/客流营收历年分析.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
@@ -489,6 +658,11 @@
     },
     {
       "type": "orphan",
+      "file": "sources/周度技能探索_2026-05-30.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "sources/抖音指数追踪日报.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
@@ -504,6 +678,11 @@
     },
     {
       "type": "orphan",
+      "file": "行业知识/宪法VII_决策权威等级.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "行业知识/小红书灵犀深度探索报告.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
@@ -514,142 +693,37 @@
     },
     {
       "type": "orphan",
-      "file": "archived/impeccable-refs/critique.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/impeccable-refs/motion-design.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/impeccable-refs/typography.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/impeccable-refs/color-and-contrast.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/docs/insight-template.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/knowledge/记忆系统对比分析_2026-04-29.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/knowledge/2026年每日客流数据.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/knowledge/建业电影小镇阶段性数据表.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/景区营销漏斗.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/ROI分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/演艺景区.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/情绪营销.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/内容爆款规律.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/平台算法规则.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/内容发布节奏.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/景区类型.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/景区抖音运营.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/景区小红书运营.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/concepts/季节性客流规律.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/sources/客流营收历年分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/sources/2026-04-25Wiki重组.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/sources/穿越德化街数据分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/sources/周度技能探索_2026-05-01.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/sources/抖音指数追踪日报.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/sources/竞品深度档案.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "archived/sources/建业电影小镇阶段性数据表.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
       "file": "电影小镇/建业电影小镇阶段性数据表.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
+      "file": "电影小镇/历史数据/W21期-20260527.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W20期-20260526.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W18期-20260527.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W19期-20260527.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "电影小镇/历史数据/2026年每日客流数据.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W21期-20260525.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -682,18 +756,6 @@
       "files": [
         "overview.md",
         "sources/客流营收历年分析.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "archived/sources/客流营收历年分析.md"
       ],
       "values": [
         "153"
