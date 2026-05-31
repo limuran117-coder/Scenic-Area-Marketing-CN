@@ -2,7 +2,7 @@
   "schema": "电影小镇-Ontology-v1",
   "version": "1.1.0",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-05-30",
+  "updatedAt": "2026-05-31",
 
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
@@ -40,7 +40,7 @@
         "confidence": { "type": "number", "optional": true, "description": "数据置信度 0-1" },
         "collectedAt": { "type": "datetime" }
       },
-      "linkTypes": ["belongs_to"],
+      "linkTypes": ["belongs_to", "aggregated_from"],
       "dataSources": ["adapter-douyin.py::/tmp/crawl_data.json", "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json", "~/Desktop/2026游客量统计.csv"]
     },
 
@@ -64,7 +64,7 @@
         "isViral": { "type": "boolean", "optional": true },
         "collectedAt": { "type": "datetime" }
       },
-      "linkTypes": ["mentions", "promotes", "triggers_sentiment"],
+      "linkTypes": ["mentions", "promotes", "triggers_sentiment", "contributes_to"],
       "dataSources": ["adapter-xiaohongshu.py (预留: 爬虫升级后启用详细笔记)", "competitor_program_tracker.py"]
     },
 
@@ -246,6 +246,22 @@
       "sourceTypes": ["AgentTask"],
       "targetTypes": ["Event", "DecisionRule"],
       "properties": {}
+    },
+    "aggregated_from": {
+      "description": "数据快照由哪些内容资产聚合生成（M:1 正向引用）",
+      "sourceTypes": ["MetricSnapshot"],
+      "targetTypes": ["ContentAsset"],
+      "properties": {
+        "contributionRatio": { "type": "number", "optional": true, "description": "该资产对快照值的贡献比例 0-1" }
+      }
+    },
+    "contributes_to": {
+      "description": "内容资产贡献了哪个数据快照（1:M 反向引用）",
+      "sourceTypes": ["ContentAsset"],
+      "targetTypes": ["MetricSnapshot"],
+      "properties": {
+        "contributionType": { "type": "enum", "values": ["engagement", "reach", "conversion"], "optional": true }
+      }
     },
     "writes_to": {
       "description": "Agent 任务输出到知识库",

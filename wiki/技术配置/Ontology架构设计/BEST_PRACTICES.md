@@ -1,7 +1,7 @@
 # Ontology 架构设计 · 最佳实践参考
 
 > 从 Palantir OSDK、JSON-LD、Knowledge Graph 等领域研究中提炼
-> 最后更新: 2026-05-30
+> 最后更新: 2026-05-31
 
 ---
 
@@ -138,13 +138,84 @@ CONFIDENCE_BY_SOURCE = { "douyin": 0.9, "xiaohongshu": 0.7 }
 
 ---
 
+## 实践 6：双向映射模式（Bidirectional Object Mapping）
+
+**来源：** AgentO (Agentic AI Ontology) 的关系建模 & Palantir OSDK ObjectSet
+
+**核心思想：**
+当两个 Ontology Object 之间存在因果关系时（一个聚合自多个），应同时在两个方向上建立引用：
+- **正向引用** (MetricSnapshot → ContentAsset[]): 记录快照由哪些内容资产聚合生成
+- **反向引用** (ContentAsset → MetricSnapshot): 记录单个内容资产贡献了哪个快照
+
+**AgentO 的启发：**
+```
+Team → hasAgentMember → Agent
+Agent → hasTask → Task
+Task → hasAssociatedTask → WorkflowStep (反向)
+```
+AgentO 中的每条关系都是双向可遍历的，这对审计和溯因至关重要。
+
+**我们的实现（adapter-xiaohongshu.py 中）：**
+```python
+# 正向：MetricSnapshot.metadata.content_asset_ids = ["xhs::movie_town::2026-05-31::note_0", ...]
+# 反向：ContentAsset.derivedFromMetricSnapshotId = "movie_town::2026-05-31::content_count::xhs"
+```
+
+**设计原则：**
+- ✅ 每条 Link 都应有明确的 sourceTypes → targetTypes 方向
+- ✅ 聚合关系 (N:1) 需 2 条 Link：正向聚合 + 反向贡献
+- ✅ 双向引用使查询无需全表扫描
+- ⚠️ 维护成本增加：更新内容时需同步两侧
+
+**在 ontology.json 中的体现：**
+```json
+{
+  "aggregated_from": { "sourceTypes": ["MetricSnapshot"], "targetTypes": ["ContentAsset"] },
+  "contributes_to": { "sourceTypes": ["ContentAsset"], "targetTypes": ["MetricSnapshot"] }
+}
+```
+
+---
+
+## 实践 7：操作型本体 vs 知识型本体（Operational vs Knowledge Ontology）
+
+**来源：** [Agentic AI Ontology (AgentO)](https://github.com/agentic-patterns/agentic-ai-onto) & Lior Limonad 的 Agent Design 文章
+
+**核心思想：**
+现代 AI Agent 的本体设计有两类：
+- **知识型本体** (Knowledge Ontology): OWL/RDF，用于学术研究、跨系统互操作
+- **操作型本体** (Operational Ontology): 轻量级 JSON Schema，驱动实际决策和动作
+
+**AgentO 的 14 个核心类：**
+| 类 | 说明 | 我们的映射 |
+|:---|:---|:---|
+| Agent | AI 智能体 | IDENTITY.md (李涯) |
+| Task | 具体任务 | AgentTask (cron jobs) |
+| Goal | 目标 | customer: 153万客流目标 |
+| Capability | 能力 | Functions (calculateSearchTrend, etc) |
+| Constraint | 约束 | DecisionRule[] + AuthorityHierarchy |
+| KnowledgeBase | 知识库 | wiki/ 目录体系 |
+| Memory | 记忆 | MEMORY.md + memory/*.md |
+| Tool | 工具 | Actions (SendFeishuCard, etc) |
+| WorkflowPattern | 工作流模板 | cron 调度配置 |
+| Environment | 运行环境 | macOS + CDP 浏览器 |
+
+**启示：**
+- ✅ 我们已有 10/14 核心类映射，操作型本体设计充分
+- 🔮 AgentO 的 `Resource` 和 `Team` 类可作为未来多 Agent 协作的参考
+- ⚠️ 不要追求知识型本体的完整性——操作型本体够用即可
+
+---
+
 ## 总结
 
-这 5 条实践从 Palantir OSDK 文档、JSON-LD 规范和实际开发中发现提炼而来。核心原则：
-1. **轻量优于完整**：JSON Schema 而非 OWL，够用就好
+这 7 条实践从 Palantir OSDK 文档、AgentO 语义模型、JSON-LD 规范和实际开发中发现提炼而来。核心原则：
+1. **轻量优于完整**：JSON Schema 而非 OWL，操作型本体够用就好
 2. **适配器模式**：每个数据源独立 adapter，对标 Palantir OSDK
 3. **渐进式丰富**：本体随数据接入逐步生长
 4. **决策驱动**：本体终极目标是触发 Actions，而非纯存储
 5. **共享优于重复**：常量尽早提取，避免分散维护
+6. **双向映射**：聚合关系建立正反两个方向的引用，支持高效溯因
+7. **操作型定位**：对标 AgentO 的 10 个核心类，不追求知识型本体的完整性
 
 _文档维护：Ontology架构研究 每周深化任务_

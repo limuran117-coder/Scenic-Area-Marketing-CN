@@ -110,7 +110,12 @@ def parse_likes_to_avg(likes_list):
 # ─── Ontology 对象构建 ──────────────────────────
 
 def build_metric_object(scenic_spot_id, date_str, metric_type, value, confidence, collected_at, metadata=None):
-    """构建 MetricSnapshot Ontology 对象"""
+    """
+    构建 MetricSnapshot Ontology 对象
+    
+    🔗 双向映射：metadata 中可携带 content_asset_ids 列表，
+       建立 MetricSnapshot → ContentAsset 正向引用
+    """
     obj = {
         "schema": "MetricSnapshot",
         "version": "1.0.0",
@@ -126,22 +131,62 @@ def build_metric_object(scenic_spot_id, date_str, metric_type, value, confidence
     }
     if metadata:
         obj["metadata"] = metadata
+    # 🔗 预留：当 ContentAsset 生成后，aggregatedFromContentAssets 字段
+    # 将被 populate，建立 MetricSnapshot → ContentAsset 正向链接
+    # 格式: ["xhs::movie_town::2026-05-31::note_0", ...]
+    if not metadata or "content_asset_ids" not in (metadata or {}):
+        obj["aggregatedFromContentAssets"] = []
     return obj
 
 
-def build_content_asset(scenic_spot_id, keyword, date_str, collected_at, note_index=0, note_data=None):
-    """构建 ContentAsset Ontology 对象（预留，当爬虫升级后启用）"""
+def build_content_asset(scenic_spot_id, keyword, date_str, collected_at, note_index=0, note_data=None, 
+                        derived_from_metric_id=None):
+    """
+    构建 ContentAsset Ontology 对象
+    
+    🔗 双向映射设计 (Bidirectional Mapping):
+    ┌─────────────────────────────────────────────────────────┐
+    │  xiaohongshu_crawl.py 输出                               │
+    │  ┌─────────────────┐  ┌──────────────────────────────┐  │
+    │  │ notes_count      │  │ individual notes[]           │  │
+    │  │ (估算/精确)       │  │ [{title, url, author,        │  │
+    │  │                  │  │   likes, comments, tags}]    │  │
+    │  └────────┬────────┘  └──────────────┬───────────────┘  │
+    │           │                          │                   │
+    │           ▼                          ▼                   │
+    │  ┌─────────────────┐  ┌──────────────────────────────┐  │
+    │  │ MetricSnapshot   │  │ ContentAsset[]               │  │
+    │  │ content_count    │◄─┤ contributes_to (反向引用)     │  │
+    │  │ engagement_rate  │  │ mentions → ScenicSpot        │  │
+    │  │ ┌─────────────┐ │  │ ┌──────────────────────────┐ │  │
+    │  │ │ metadata:    │ │  │ │ derivedFromMetricSnapshot│ │  │
+    │  │ │ contentAssets│ │  │ │    = metric_snapshot_id  │ │  │
+    │  │ │     [ids...] │ │  │ └──────────────────────────┘ │  │
+    │  │ └─────────────┘ │  └──────────────────────────────┘  │
+    │  └─────────────────┘                                     │
+    └─────────────────────────────────────────────────────────┘
+    
+    ⚠️ 当前状态 (2026-05-31):
+    - xiaohongshu_crawl.py 仅输出 notes_approx (估算值) + content_length
+    - 详细笔记列表 (notes[]) 尚未支持，ContentAsset 为预留设计
+    - 爬虫升级后，transform_xiaohongshu_to_ontology() 将同时生成
+      MetricSnapshot 和 ContentAsset，并通过 derivedFromMetricSnapshot
+      建立反向引用
+    """
     obj = {
         "schema": "ContentAsset",
         "version": "1.0.0",
-        "id": f"xhs::{keyword}::{date_str}::{note_index}",
+        "id": f"xhs::{scenic_spot_id}::{date_str}::note_{note_index}",
         "title": note_data.get("title", f"{keyword}笔记#{note_index}") if note_data else f"{keyword}笔记#{note_index}",
         "platform": "xiaohongshu",
         "type": "note",
         "publishDate": date_str,
-        "mentions": [scenic_spot_id],
         "collectedAt": collected_at,
-        "createdAt": datetime.datetime.now().isoformat()
+        "createdAt": datetime.datetime.now().isoformat(),
+        # mentions 建立 ContentAsset → ScenicSpot 正向链接
+        "mentions": [scenic_spot_id],
+        # 🔗 双向映射：反向引用到相关的 MetricSnapshot
+        "derivedFromMetricSnapshotId": derived_from_metric_id
     }
     
     if note_data:
@@ -150,6 +195,7 @@ def build_content_asset(scenic_spot_id, keyword, date_str, collected_at, note_in
         obj["views"] = note_data.get("views", None)
         obj["likes"] = note_data.get("likes", None)
         obj["comments"] = note_data.get("comments", None)
+        obj["shares"] = note_data.get("shares", None)
         obj["tags"] = note_data.get("tags", [])
         # 根据互动数据判断是否爆款
         if note_data.get("likes", 0) > 1000:
@@ -244,12 +290,45 @@ def transform_xiaohongshu_to_ontology(xhs_data):
             ontology_objects.append(obj)
             transform_log.append(f"  [MetricSnapshot] {keyword} engagement_rate = {avg_likes} (avg of top {len(top_likes)})")
     
-    # ── ContentAsset: 热门笔记（预留）──
-    # 当前 xiaohongshu_crawl.py 不输出详细笔记列表
-    # 当爬虫升级后，在此处生成 ContentAsset 对象
-    # for i, note in enumerate(data.get("notes", [])):
-    #     obj = build_content_asset(scenic_id, keyword, date_str, crawled_at, i, note)
-    #     ontology_objects.append(obj)
+    # ── ContentAsset: 双向映射 -- 热门笔记 ──
+    # 🔗 双向映射实现 (Phase 3 爬虫升级后激活)：
+    # 当 xiaohongshu_crawl.py 输出详细笔记列表后，此处生成 ContentAsset 对象
+    # 每个 ContentAsset 通过 derivedFromMetricSnapshotId 反向引用其 MetricSnapshot
+    # MetricSnapshot 通过 metadata.content_asset_ids 正向引用其 ContentAsset 列表
+    notes = data.get("notes", [])
+    if notes:
+        # 为内容计数 MetricSnapshot 收集 ContentAsset ID
+        content_asset_ids = []
+        for i, note in enumerate(notes):
+            note_metric_id = f"{scenic_id}::{date_str}::content_count::xhs"
+            asset = build_content_asset(
+                scenic_spot_id=scenic_id,
+                keyword=keyword,
+                date_str=date_str,
+                collected_at=crawled_at,
+                note_index=i,
+                note_data=note,
+                derived_from_metric_id=note_metric_id  # 反向引用
+            )
+            ontology_objects.append(asset)
+            content_asset_ids.append(asset["id"])
+            transform_log.append(
+                f"  [ContentAsset] {keyword} 笔记#{i}: "
+                f"{note.get('title','?')} "
+                f"(likes={note.get('likes',0)})"
+            )
+        
+        # 将 ContentAsset ID 列表注入到对应的 MetricSnapshot metadata 中
+        for obj in ontology_objects:
+            if (obj.get("schema") == "MetricSnapshot" and 
+                obj.get("metricType") == "content_count" and
+                obj.get("scenicSpotId") == scenic_id):
+                obj.setdefault("metadata", {})
+                obj["metadata"]["content_asset_ids"] = content_asset_ids
+                transform_log.append(
+                    f"  [🔗 Bidirectional] {keyword}: "
+                    f"MetricSnapshot ↔ {len(content_asset_ids)} ContentAsset(s)"
+                )
     
     return ontology_objects, transform_log
 
