@@ -13,6 +13,7 @@ role: 景区营销中心总经理 | update_time: 2026-05-28 | core_mission: 客�
 **飞书卡片** schema=2.0 走 `scripts/send_feishu_card.py`，禁止message工具文本发送 | 表格外换行用`\n\n`，表格内行间用`\n`，表头列名可直接用`⚠️`
 **双通道数据采集** 抖音脚本+CDP交替验证，任一失败走另一通道
 **CDP连接必须用Playwright** Python urllib/websockets连CDP 18800会socket超时
+**timeout配置** agents.defaults.timeoutSeconds=300 + models.providers.deepseek.timeoutSeconds=120（2026-05-31）
 **数据必须读实际值** 禁止经验主义 | 搜索用「建业电影小镇」禁止「建业华谊兄弟」| 不限7核心竞品
 **晚高峰14-21点** 关键词提前11:00、内容动态提前14:00、timeout 900s
 **cron delivery.mode=none** | **browser-use全面禁止**（走Playwright脚本）
@@ -76,9 +77,12 @@ role: 景区营销中心总经理 | update_time: 2026-05-28 | core_mission: 客�
 
 **活跃** 抖音双通道采集✅ | 竞品关键词轮换（5/7完成）| 爆款公式库周日更新 | 端午已过（未执行）| API晚高峰观察至5/30
 **Ontology架构改造** 🆕 2026-05-29启动 | 对标Palantir Foundry/AIP | 已产出: ontology.json v1 (7 ObjectTypes+11 Links+7 Functions+5 Actions) + 实现路线图 | Phase1搭建中 | 每周五20:00 Pro深度研究
+**GitHub调研印证方向：** codegraph(34K⭐)预索引知识图思路验证Ontology方向正确；Caveman(65K⭐)提示可追加prompt压缩层；Skills生态大爆发(mattpocock/skills 112K)验证文旅垂直Skill包模式有先发机会
 
 **SOP质量升级（W23启动）** 5/31审核：32个SOP中仅4个全质量(13%)、17个零质量(57%)。已输出wiki/技术配置/SOP质量升级计划.md。优先级：小红书日报→文旅活动热点追踪→案例库更新 3个关键日常SOP先补充质量标准四件套(YAML/RedFlag/Verify/Common)。同时废弃每日任务总览.md(过时40天)、合并竞品深度分析流程.md.
 
-**待办** 任务健康检查实施 | 老君山/重渡沟/龙门石窟Wiki归档 | 案例库4连败修复 | 小红书日报等3个SOP质量升级 | 每日任务总览.md废弃
+**Token压缩机会（5/31GitHub调研发现）** Caveman(65K⭐)=45行JS实现prompt极简压缩减token 65%。可直接应用于日报prompt预压缩→降50-65%API成本。实施路径：日报生成前加一步prompt minify步骤，或参考Caveman规则写本站版skill。**MemPalace(52K⭐)** 基准测试超越Mem0，三级记忆(工作/情节/语义)可作Ontology Memory层参考。**codegraph(34K⭐)** 思路验证Ontology架构方向正确——预索引知识图降token消耗40%+
+
+**待办** 任务健康检查实施 | 老君山/重渡沟/龙门石窟Wiki归档 | 案例库4连败修复 | 小红书日报等3个SOP质量升级 | 每日任务总览.md废弃 | **调研Caveman token压缩应用于日报prompt** | **升级memory架构参考MemPalace三级记忆**
 
 **已结项** 五一排期公告 | 历史bug(换行/announce/cron) | 方特截流 | 图3-LLM架构放弃 | 5/27系统重构(详记存topics/)
