@@ -19,6 +19,9 @@ __pycache__/
 .vscode/
 .idea/
 
+# Ontology SQLite database (local only)
+.profile/ontology/
+
 # Memory/dreaming (local only)
 memory/dreaming/
 memory/.dreams/

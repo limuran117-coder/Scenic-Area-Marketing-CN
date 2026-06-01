@@ -1,7 +1,7 @@
 {
   "objectType": "MetricSnapshot",
   "date": "2026-05-29",
-  "generatedAt": "2026-05-31T09:48:51.404701",
+  "generatedAt": "2026-06-01T09:07:14.321973",
   "sourceAdapter": "adapter-douyin.py",
   "ontologyVersion": "1.0.0",
   "objects": [
@@ -17,7 +17,7 @@
       "dailyChange": 26.19,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404650"
+      "createdAt": "2026-06-01T09:07:14.321886"
     },
     {
       "schema": "MetricSnapshot",
@@ -31,7 +31,7 @@
       "dailyChange": 27.09,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404655"
+      "createdAt": "2026-06-01T09:07:14.321899"
     },
     {
       "schema": "MetricSnapshot",
@@ -45,7 +45,7 @@
       "dailyChange": -2.7,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404658"
+      "createdAt": "2026-06-01T09:07:14.321902"
     },
     {
       "schema": "MetricSnapshot",
@@ -59,7 +59,7 @@
       "dailyChange": 4.79,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404659"
+      "createdAt": "2026-06-01T09:07:14.321904"
     },
     {
       "schema": "MetricSnapshot",
@@ -73,7 +73,7 @@
       "dailyChange": 43.63,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404661"
+      "createdAt": "2026-06-01T09:07:14.321907"
     },
     {
       "schema": "MetricSnapshot",
@@ -87,7 +87,7 @@
       "dailyChange": 40.87,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404663"
+      "createdAt": "2026-06-01T09:07:14.321908"
     },
     {
       "schema": "MetricSnapshot",
@@ -101,7 +101,7 @@
       "dailyChange": 6.25,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404665"
+      "createdAt": "2026-06-01T09:07:14.321910"
     },
     {
       "schema": "MetricSnapshot",
@@ -115,7 +115,7 @@
       "dailyChange": 6.64,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404666"
+      "createdAt": "2026-06-01T09:07:14.321912"
     },
     {
       "schema": "MetricSnapshot",
@@ -129,7 +129,7 @@
       "dailyChange": 11.67,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404667"
+      "createdAt": "2026-06-01T09:07:14.321914"
     },
     {
       "schema": "MetricSnapshot",
@@ -143,7 +143,7 @@
       "dailyChange": 11.09,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404670"
+      "createdAt": "2026-06-01T09:07:14.321915"
     },
     {
       "schema": "MetricSnapshot",
@@ -157,7 +157,7 @@
       "dailyChange": 20.22,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404672"
+      "createdAt": "2026-06-01T09:07:14.321918"
     },
     {
       "schema": "MetricSnapshot",
@@ -171,7 +171,7 @@
       "dailyChange": 64.45,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404673"
+      "createdAt": "2026-06-01T09:07:14.321920"
     },
     {
       "schema": "MetricSnapshot",
@@ -185,7 +185,7 @@
       "dailyChange": -16.06,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404675"
+      "createdAt": "2026-06-01T09:07:14.321922"
     },
     {
       "schema": "MetricSnapshot",
@@ -199,7 +199,7 @@
       "dailyChange": -23.08,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404676"
+      "createdAt": "2026-06-01T09:07:14.321923"
     },
     {
       "schema": "MetricSnapshot",
@@ -213,7 +213,7 @@
       "dailyChange": -9.33,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404678"
+      "createdAt": "2026-06-01T09:07:14.321925"
     },
     {
       "schema": "MetricSnapshot",
@@ -227,7 +227,7 @@
       "dailyChange": -11.88,
       "confidence": 0.9,
       "collectedAt": "2026-05-29T11:00:03.738484",
-      "createdAt": "2026-05-31T09:48:51.404679"
+      "createdAt": "2026-06-01T09:07:14.321927"
     }
   ],
   "count": 16

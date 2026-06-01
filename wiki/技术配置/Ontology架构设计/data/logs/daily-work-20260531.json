@@ -15,7 +15,7 @@
     "万岁山武侠城小红书数据采集失败 (redirect_to_login)"
   ],
   "tomorrow_plan": [
-    "创建 adapter-visitors.py (客流CSV → MetricSnapshot)",
+    "（周二）创建 adapter-visitors.py (客流CSV → MetricSnapshot) — 站长周二同步数据",
     "创建 ontology_constants.py 共享常量模块 (SCENIC_SPOT_MAP + CONFIDENCE_BY_SOURCE)",
     "研究 Ontology Query Layer 设计 (跨 ObjectType 查询接口)"
   ],
@@ -73,7 +73,10 @@
     "xiaohongshu": {
       "file": "adapter-xiaohongshu.py",
       "source": "/tmp/xiaohongshu_*.json",
-      "target": ["MetricSnapshot", "ContentAsset (预留, 代码已就绪)"],
+      "target": [
+        "MetricSnapshot",
+        "ContentAsset (预留, 代码已就绪)"
+      ],
       "confidence": 0.3,
       "status": "active",
       "note": "双向映射已设计完毕，ContentAsset 详细笔记待爬虫升级后激活"
@@ -92,5 +95,6 @@
       "confidence": 0.6,
       "status": "pending"
     }
-  }
+  },
+  "note": "⚠️ 客流数据仅周二更新，adapter-visitors.py 移到周二执行"
 }

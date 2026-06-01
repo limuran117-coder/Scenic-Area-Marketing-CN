@@ -120,6 +120,23 @@ def transform_douyin_to_ontology(crawl_data):
     
     return ontology_objects, transform_log
 
+# ─── SQLite 双轨写入 ─────────────────────────────
+
+def write_to_sqlite(objects, adapter_name="adapter-douyin"):
+    """
+    🔗 双轨策略: 将 MetricSnapshot 对象写入 SQLite
+    返回: (inserted_count, error_message)
+    """
+    try:
+        from ontology_store import OntologyStore
+        store = OntologyStore()
+        with store:
+            count = store.ingest_metric_snapshots(objects, adapter_name)
+        return count, None
+    except Exception as e:
+        return 0, str(e)[:200]
+
+
 # ─── 输出 ────────────────────────────────────────
 
 def write_ontology_output(objects, output_dir, date_str):
@@ -217,7 +234,7 @@ def main():
         print(line)
     
     print(f"\n[✅] 成功转换 {len(objects)} 个 MetricSnapshot 对象")
-    print(f"[📁] 输出: {file_path}")
+    print(f"[📁] JSON输出: {file_path}")
     print(f"[📋] 日志: {log_file}")
     
     # 统计
@@ -225,6 +242,14 @@ def main():
     types = set(o["metricType"] for o in objects)
     print(f"[📊] 覆盖景区: {scenic_count} 个")
     print(f"[📊] 度量类型: {', '.join(sorted(types))}")
+    
+    # 🔗 双轨: 同步写入 SQLite
+    sqlite_count, sqlite_err = write_to_sqlite(objects, "adapter-douyin")
+    if sqlite_err:
+        print(f"[⚠️] SQLite 写入失败: {sqlite_err}")
+        print(f"[💡] JSON 备份仍然有效，可稍后手动导入")
+    else:
+        print(f"[🗄️] SQLite: {sqlite_count} 条已写入 ontology_store.db")
     
     return 0
 
