@@ -76,13 +76,23 @@ role: 景区营销中心总经理 | update_time: 2026-05-28 | core_mission: 客�
 # [project] 项目状态
 
 **活跃** 抖音双通道采集✅ | 竞品关键词轮换（5/7完成）| 爆款公式库周日更新 | 端午已过（未执行）| API晚高峰观察至5/30
-**Ontology架构改造** 🆕 2026-05-29启动 | 对标Palantir Foundry/AIP | 已产出: ontology.json v1 (7 ObjectTypes+11 Links+7 Functions+5 Actions) + 实现路线图 | Phase1搭建中 | 每周五20:00 Pro深度研究
+
+**Ontology架构改造** 🔥 2026-06-01全面Deep Dive | 站长确认全部方向深入研究
+- Day 3完成: ontology_store.py (699行, 13表), SQLite 148KB (20指标+8景区)
+- 5大研究方向排期:
+  ① Palantir OSDK深度拆解 (每周五20:00·Pro)
+  ② 时序知识图谱 (Graphiti方法论, W25启动)
+  ③ 跨源关联分析 (本周-下月, 数据积累后)
+  ④ Query Layer LLM Bridge (本周-下月)
+  ⑤ 行业本体研究 (IEEE+AgentO, 持续)
+- 接入路径: JSON→SQLite双轨过渡方案已就绪
+
 **GitHub调研印证方向：** codegraph(34K⭐)预索引知识图思路验证Ontology方向正确；Caveman(65K⭐)提示可追加prompt压缩层；Skills生态大爆发(mattpocock/skills 112K)验证文旅垂直Skill包模式有先发机会
 
 **SOP质量升级（W23启动）** 5/31审核：32个SOP中仅4个全质量(13%)、17个零质量(57%)。已输出wiki/技术配置/SOP质量升级计划.md。优先级：小红书日报→文旅活动热点追踪→案例库更新 3个关键日常SOP先补充质量标准四件套(YAML/RedFlag/Verify/Common)。同时废弃每日任务总览.md(过时40天)、合并竞品深度分析流程.md.
 
-**Token压缩机会（5/31GitHub调研发现）** Caveman(65K⭐)=45行JS实现prompt极简压缩减token 65%。可直接应用于日报prompt预压缩→降50-65%API成本。实施路径：日报生成前加一步prompt minify步骤，或参考Caveman规则写本站版skill。**MemPalace(52K⭐)** 基准测试超越Mem0，三级记忆(工作/情节/语义)可作Ontology Memory层参考。**codegraph(34K⭐)** 思路验证Ontology架构方向正确——预索引知识图降token消耗40%+
+**Token压缩机会（5/31GitHub调研发现）** prompt_minify.py已创建(scritps/prompt_minify.py), 当前对中文prompt压缩率约4%, 后续优化
 
-**待办** 任务健康检查实施 | 老君山/重渡沟/龙门石窟Wiki归档 | 案例库4连败修复 | 小红书日报等3个SOP质量升级 | 每日任务总览.md废弃 | **调研Caveman token压缩应用于日报prompt** | **升级memory架构参考MemPalace三级记忆**
+**待办** 任务健康检查实施 | 老君山/重渡沟/龙门石窟Wiki归档 | 案例库4连败修复 | 小红书日报等3个SOP质量升级 | 每日任务总览.md废弃 | **升级memory架构参考MemPalace三级记忆**
 
-**已结项** 五一排期公告 | 历史bug(换行/announce/cron) | 方特截流 | 图3-LLM架构放弃 | 5/27系统重构(详记存topics/)
+**已结项** 五一排期公告 | 历史bug(换行/announce/cron) | 方特截流 | 图3-LLM架构放弃 | 5/27系统重构(详记存topics/) | GitHub项目验证(6/1) | codegraph MCP集成(6/1) | Ontology本地接入方案(6/1)
