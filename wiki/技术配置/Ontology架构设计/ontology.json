@@ -1,8 +1,8 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-05-31",
+  "updatedAt": "2026-06-02",
 
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
@@ -41,7 +41,7 @@
         "collectedAt": { "type": "datetime" }
       },
       "linkTypes": ["belongs_to", "aggregated_from"],
-      "dataSources": ["adapter-douyin.py::/tmp/crawl_data.json", "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json", "~/Desktop/2026游客量统计.csv"]
+      "dataSources": ["adapter-douyin.py::/tmp/crawl_data.json", "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json", "adapter-visitors.py::~/Desktop/2026游客量统计.csv", "ontology_query.py::预定义查询引擎"]
     },
 
     "ContentAsset": {

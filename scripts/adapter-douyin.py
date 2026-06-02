@@ -27,23 +27,13 @@ import datetime
 import argparse
 from pathlib import Path
 
-# ─── Ontology 常量 ──────────────────────────────
+# ─── 共享常量（来自 ontology_constants.py）─────
+
+from ontology_constants import SCENIC_SPOT_MAP, resolve_spot_id
 
 METRIC_TYPES = {
     "search": "search_index",
     "synth": "composite_index"
-}
-
-SCENIC_SPOT_MAP = {
-    "建业电影小镇": "movie_town",
-    "万岁山武侠城": "wansui_mountain",
-    "清明上河园": "qingming_riverside",
-    "只有河南戏剧幻城": "only_henan",
-    "郑州方特欢乐世界": "fangte",
-    "郑州海昌海洋公园": "haichang",
-    "郑州银基动物王国": "yinji",
-    "只有红楼梦戏剧幻城": "only_dream",
-    # 扩展映射
 }
 
 # ─── Ontology 对象构建 ──────────────────────────
@@ -86,7 +76,7 @@ def transform_douyin_to_ontology(crawl_data):
     
     for spot in competitors:
         name = spot.get("name", "")
-        scenic_id = SCENIC_SPOT_MAP.get(name, name.lower().replace(" ", "_"))
+        scenic_id = resolve_spot_id(name)
         
         # 搜索指数
         if spot.get("search", 0) > 0:

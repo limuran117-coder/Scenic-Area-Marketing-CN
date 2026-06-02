@@ -207,9 +207,43 @@ AgentO 中的每条关系都是双向可遍历的，这对审计和溯因至关�
 
 ---
 
+## 实践 8：查询层与共享常量 — 关注点分离（Concern Separation）
+
+**来源：** Day 4 重构实践（2026-06-02）
+
+**核心思想：**
+Ontology 系统应严格分层，每层职责单一：
+```
+数据采集层 (crawler)
+    ↓
+适配层 (adapter-*.py) — 原始数据 → Ontology Object
+    ↓
+存储层 (ontology_store.py) — SQLite CRUD
+    ↓
+查询层 (ontology_query.py) — 预定义查询 + 格式化输出
+    ↓
+应用层 (日报/飞书/Canvas) — 消费查询结果
+```
+
+**分层要点：**
+- `ontology_constants.py`: **单一事实来源**，所有 adapter 和 query 统一引用，消除 SCENIC_SPOT_MAP 多头维护
+- `ontology_query.py`: 封装 `JOIN + GROUP BY + ORDER BY` 等重复 SQL 模式，应用层不直接写 SQL
+- adapter 只负责转换，不负责查询；query 只负责查询，不负责写入
+
+**为什么分层：**
+- 修改 SPOT_MAP 加景区：只改 `ontology_constants.py` 一处
+- 日报需要新统计维度：只改 `ontology_query.py`，不影响 adapter
+- 换存储引擎（SQLite→PostgreSQL）：只影响 `ontology_store.py`，query 层通过 store 接口访问
+
+**启示：**
+- ✅ Day 4 已验证：adapter-{douyin,xiaohongshu,visitors}.py 全部改用 `from ontology_constants import ...`
+- 🔮 未来可考虑：`ontology_query.py` 的 `daily_overview()` 方法直接替代日报中硬编码的查询逻辑
+
+---
+
 ## 总结
 
-这 7 条实践从 Palantir OSDK 文档、AgentO 语义模型、JSON-LD 规范和实际开发中发现提炼而来。核心原则：
+这 8 条实践从 Palantir OSDK 文档、AgentO 语义模型、JSON-LD 规范和实际开发中发现提炼而来。核心原则：
 1. **轻量优于完整**：JSON Schema 而非 OWL，操作型本体够用就好
 2. **适配器模式**：每个数据源独立 adapter，对标 Palantir OSDK
 3. **渐进式丰富**：本体随数据接入逐步生长
@@ -217,5 +251,6 @@ AgentO 中的每条关系都是双向可遍历的，这对审计和溯因至关�
 5. **共享优于重复**：常量尽早提取，避免分散维护
 6. **双向映射**：聚合关系建立正反两个方向的引用，支持高效溯因
 7. **操作型定位**：对标 AgentO 的 10 个核心类，不追求知识型本体的完整性
+8. **关注点分离**：adapter → store → query 三层，每层职责单一、互不越界
 
-_文档维护：Ontology架构研究 每周深化任务_
+_文档维护：Ontology架构研究 每周深化任务

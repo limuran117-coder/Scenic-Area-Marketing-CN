@@ -25,19 +25,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from ontology_store import OntologyStore
+from ontology_constants import MONTH_MAP, safe_float as _safe_float, get_confidence
 
 # ─── 常量 ────────────────────────────────────────
 
 CSV_PATH = Path.home() / "Desktop" / "2026游客量统计.csv"
 SPOT_ID = "movie_town"
 SOURCE = "csv"
-
-# 中文月份 → 数字
-MONTH_MAP = {
-    "1月": "01", "2月": "02", "3月": "03", "4月": "04",
-    "5月": "05", "6月": "06", "7月": "07", "8月": "08",
-    "9月": "09", "10月": "10", "11月": "11", "12月": "12",
-}
 
 # ─── CSV 解析 ────────────────────────────────────
 
@@ -98,19 +92,6 @@ def read_visitor_csv(csv_path: str = None) -> list[dict]:
     valid_dates = [d for d in dates if d]
     print(f"[OK] CSV解析完成: {len(objects)} 条数据 (截止 {valid_dates[-1] if valid_dates else 'N/A'})")
     return objects
-
-
-def _safe_float(val: str) -> float | None:
-    """安全转float，空值/非数字返回None"""
-    if not val:
-        return None
-    val = val.strip().replace(",", "")
-    if not val:
-        return None
-    try:
-        return float(val)
-    except (ValueError, TypeError):
-        return None
 
 
 def _build_metric(metric_type: str, date_str: str, value: float) -> dict:

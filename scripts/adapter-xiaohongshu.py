@@ -47,20 +47,8 @@ METRIC_TYPES = {
     "avg_likes": "engagement_rate"
 }
 
-SCENIC_SPOT_MAP = {
-    "建业电影小镇": "movie_town",
-    "万岁山武侠城": "wansui_mountain",
-    "清明上河园": "qingming_riverside",
-    "只有河南": "only_henan",
-    "只有河南戏剧幻城": "only_henan",
-    "只有河南·戏剧幻城": "only_henan",
-    "郑州方特欢乐世界": "fangte",
-    "方特欢乐世界": "fangte",
-    "郑州海昌海洋公园": "haichang",
-    "郑州银基动物王国": "yinji",
-    "银基动物王国": "yinji",
-    "只有红楼梦戏剧幻城": "only_dream",
-}
+# ─── 共享常量（来自 ontology_constants.py）─────
+from ontology_constants import SCENIC_SPOT_MAP, resolve_spot_id
 
 def parse_notes_count(notes_str):
     """解析 '约2.5万篇' → 25000"""
@@ -218,7 +206,7 @@ def transform_xiaohongshu_to_ontology(xhs_data):
         date_str = datetime.date.today().strftime("%Y-%m-%d")
     
     # 景区映射
-    scenic_id = SCENIC_SPOT_MAP.get(keyword, keyword.lower().replace(" ", "_"))
+    scenic_id = resolve_spot_id(keyword)
     
     ontology_objects = []
     transform_log = []
