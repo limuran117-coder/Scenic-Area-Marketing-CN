@@ -61,12 +61,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "电影小镇/历史数据/2023年/数据.md",
+                "file": "电影小镇/演出节目/穿越德化街.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "数据"
+              "title": "穿越德化街"
             }
           }
         ]
@@ -293,13 +293,14 @@
   },
   "active": "00d16cba3229cf03",
   "lastOpenFiles": [
+    "电影小镇/历史数据/W16期-20260427.md",
+    "电影小镇/历史数据/2023年/数据.md",
     "技术配置/Ontology架构设计/data/logs/daily-work-20260603.json",
     "全国景区案例库/沉浸式演艺行业大剧转轻量化趋势-2026W23.md",
     "全国景区案例库/万岁山商业模型低价引流高密演艺深度拆解-2026W23.md",
     "全国景区案例库/电影+文旅票根经济国家政策红利-2026W23.md",
     "电影小镇/历史数据/W22期-20260602.md",
     "技术配置/Ontology架构设计/data/logs/daily-work-20260602.json",
-    "电影小镇/历史数据/2023年/数据.md",
     "技术配置/Ontology架构设计/data/logs/adapter-xiaohongshu-20260601.json",
     "技术配置/Ontology架构设计/data/metric_snapshots_xhs_20260601.json",
     "技术配置/Ontology架构设计/data/logs/daily-work-20260601.json",
@@ -312,7 +313,6 @@
     "技术配置/Ontology架构设计/data/logs/daily-work-20260530.json",
     "技术配置/Ontology架构设计/BEST_PRACTICES.md",
     "技术配置/Ontology架构设计/data/logs/adapter-xiaohongshu-20260530.json",
-    "技术配置/Ontology架构设计/data/metric_snapshots_xhs_20260530.json",
     "技术配置/Ontology架构设计/data/README.md",
     "技术配置/Ontology架构设计/每日工作流.md",
     "技术配置/Ontology架构设计/实现路线图.md",
