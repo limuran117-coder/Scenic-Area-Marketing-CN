@@ -6,7 +6,7 @@
       {
         "id": "7b758a193f97ed54",
         "type": "tabs",
-        "dimension": 48.944900351699886,
+        "dimension": 64.19379258137774,
         "children": [
           {
             "id": "e72f00d3aecb37bd",
@@ -19,26 +19,54 @@
               "icon": "lucide-git-fork",
               "title": "关系图谱"
             }
+          },
+          {
+            "id": "a4a9ca6ac4b4af99",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          },
+          {
+            "id": "648fc6075a128dc0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "电影小镇/历史数据/2023年/数据.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "数据"
+            }
           }
         ]
       },
       {
         "id": "5f57462cbaf05dd0",
         "type": "tabs",
-        "dimension": 51.055099648300114,
+        "dimension": 35.80620741862226,
         "children": [
           {
-            "id": "e4459f7a3c6fd6d1",
+            "id": "00d16cba3229cf03",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "电影小镇/运营规划/环形水剧场与复古广场夏季运营方案.md",
+                "file": "电影小镇/历史数据/2023年/数据.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "环形水剧场与复古广场夏季运营方案"
+              "title": "数据"
             }
           }
         ]
@@ -98,7 +126,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 266.5
+    "width": 320.5
   },
   "right": {
     "id": "94261d0a92be1a07",
@@ -263,44 +291,44 @@
       "bases:新建数据库": false
     }
   },
-  "active": "e4459f7a3c6fd6d1",
+  "active": "00d16cba3229cf03",
   "lastOpenFiles": [
-    "sources/周度技能探索_2026-05-01.md",
-    "电影小镇/运营规划/index.md",
+    "技术配置/Ontology架构设计/data/logs/daily-work-20260603.json",
+    "全国景区案例库/沉浸式演艺行业大剧转轻量化趋势-2026W23.md",
+    "全国景区案例库/万岁山商业模型低价引流高密演艺深度拆解-2026W23.md",
+    "全国景区案例库/电影+文旅票根经济国家政策红利-2026W23.md",
+    "电影小镇/历史数据/W22期-20260602.md",
+    "技术配置/Ontology架构设计/data/logs/daily-work-20260602.json",
+    "电影小镇/历史数据/2023年/数据.md",
+    "技术配置/Ontology架构设计/data/logs/adapter-xiaohongshu-20260601.json",
+    "技术配置/Ontology架构设计/data/metric_snapshots_xhs_20260601.json",
+    "技术配置/Ontology架构设计/data/logs/daily-work-20260601.json",
+    "技术配置/Ontology架构设计/本地接入方案.md",
+    "技术配置/Ontology架构设计/data/logs/daily-work-20260531.json",
+    "技术配置/Ontology架构设计/data/logs/adapter-xiaohongshu-20260531.json",
+    "技术配置/Ontology架构设计/data/metric_snapshots_xhs_20260531.json",
+    "行业知识/宪法VII_决策权威等级.md",
+    "sources/周度技能探索_2026-05-30.md",
+    "技术配置/Ontology架构设计/data/logs/daily-work-20260530.json",
+    "技术配置/Ontology架构设计/BEST_PRACTICES.md",
+    "技术配置/Ontology架构设计/data/logs/adapter-xiaohongshu-20260530.json",
+    "技术配置/Ontology架构设计/data/metric_snapshots_xhs_20260530.json",
+    "技术配置/Ontology架构设计/data/README.md",
+    "技术配置/Ontology架构设计/每日工作流.md",
+    "技术配置/Ontology架构设计/实现路线图.md",
+    "技术配置/Ontology架构设计/电影小镇-Ontology架构设计.md",
+    "conflict-files-obsidian-git.md",
+    "index.md",
+    "电影小镇/历史数据/W21期-20260525.md",
+    "电影小镇/基础档案.md",
+    "电影小镇/自媒体平台运维方法/小红书运营方法.md",
+    "电影小镇/自媒体平台运维方法/小红书灵犀后台运营方法.md",
+    "电影小镇/自媒体平台运维方法/抖音运营方法.md",
     "电影小镇/运营规划/环形水剧场与复古广场夏季运营方案.md",
-    "电影小镇/票务系统接入方案.md",
     "电影小镇/演出节目/穿越德化街.md",
-    "电影小镇/历史数据/W17期-20260427.md",
-    "电影小镇/历史数据/W16期-20260427.md",
-    "电影小镇/历史数据/客流营收分析.md",
-    "impeccable-refs/critique.md",
-    "impeccable-refs/typography.md",
-    "impeccable-refs/color-and-contrast.md",
-    "impeccable-refs/motion-design.md",
-    "impeccable-refs",
-    "竞品分析/景德镇深度分析.md",
-    "awesome-claude-design/showcase/case-studies/mercury-90-percent-inference.md",
-    "awesome-claude-design/showcase/case-studies/datadog-week-to-conversation.md",
-    "awesome-claude-design/showcase/case-studies/README.md",
-    "awesome-claude-design/showcase/case-studies/brilliant-20-to-2-prompts.md",
-    "awesome-claude-design/showcase/case-studies",
-    "awesome-claude-design/showcase/README.md",
-    "awesome-claude-design/showcase",
-    "awesome-claude-design/recipes/wireframe-to-hifi.md",
-    "awesome-claude-design/recipes/web-capture-to-prototype.md",
-    "awesome-claude-design/recipes/tweaks-panel-sidebar.md",
-    "awesome-claude-design/recipes/token-budget-claude-design.md",
-    "awesome-claude-design/recipes/speaker-notes-pitch-deck.md",
-    "awesome-claude-design/recipes/repo-to-design-system.md",
-    "awesome-claude-design/recipes/pitch-deck-from-readme.md",
-    "awesome-claude-design/recipes/landing-page-20-min.md",
-    "awesome-claude-design/recipes",
-    "awesome-claude-design/prompts",
-    "awesome-claude-design/design-md/warm",
-    "awesome-claude-design/design-md/terminal",
-    "awesome-claude-design/design-md/remix",
-    "awesome-claude-design/design-md/playful",
-    "awesome-claude-design/design-md/indie",
+    "电影小镇/历史数据/W20期-20260526.md",
+    "电影小镇/历史数据/W19期-20260527.md",
+    "电影小镇/历史数据/W18期-20260527.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 行业热点采集脚本 v5（文章正文版）
 核心：访问不需要登录的旅游媒体，直接提取文章正文

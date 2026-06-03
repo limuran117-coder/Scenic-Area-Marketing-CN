@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能工作场景 · 15个流程图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #f4f6f9;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  padding: 40px 24px;
+}
+.header {
+  max-width: 1200px; margin: 0 auto 32px;
+}
+.header h1 {
+  font-size: 28px; color: #1a1a2e; margin-bottom: 8px;
+}
+.header p {
+  color: #666; font-size: 14px;
+}
+.grid {
+  max-width: 1200px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 20px;
+  border: 1px solid #e8ecf1;
+  break-inside: avoid;
+}
+.card-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f2f5;
+}
+.card-num {
+  background: #4361ee; color: #fff;
+  width: 28px; height: 28px; border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; flex-shrink: 0;
+}
+.card-title {
+  font-size: 15px; font-weight: 600; color: #1a1a2e;
+}
+.card-tag {
+  font-size: 11px; padding: 2px 8px; border-radius: 10px;
+  margin-left: auto; flex-shrink: 0;
+}
+.tag-high { background: #d4edda; color: #155724; }
+.tag-mid { background: #fff3cd; color: #856404; }
+.mermaid-container {
+  width: 100%;
+  overflow-x: auto;
+}
+.mermaid-container svg { max-width: 100%; height: auto; }
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🧩 AI赋能工作场景 · 流程图谱</h1>
+  <p>建业电影小镇 · AI全域营销运营系统 · 共15个场景</p>
+  <p style="margin-top:4px; color:#999; font-size:13px;">🟦 数据源 / 🟩 AI处理 / 🟪 输出交付 / 🟧 监控运维</p>
+</div>
+<div class="grid">
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">1</span>
+    <span class="card-title">抖音指数日报自动采集</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 抖音创作服务平台<br/>我的订阅页"] -->|CDP连接| B["🟩 Playwright<br/>自动采集脚本"]
+  B -->|提取指数| C{"🟩 数据校验<br/>是否有数据"}
+  C -->|是| D["🟩 AI解析<br/>格式化"]
+  C -->|否| E["🟧 跳过发送<br/>标记待补录"]
+  D --> F["🟪 飞书互动卡片<br/>08:00自动推送"]
+  D --> G["🟪 归档wiki<br/>douyin-index/*"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">2</span>
+    <span class="card-title">小红书灵犀数据日报</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 小红书灵犀后台<br/>趋势分析页"] -->|CDP登录态| B["🟩 慢输入+Enter<br/>精确搜索关键词"]
+  B -->|提取五维度| C["🟩 AI解析<br/>搜索总量<br/>互动总量<br/>行业排名<br/>人群资产"]
+  C --> D["🟩 格式化日报<br/>结构化输出"]
+  D --> E["🟪 飞书群推送<br/>10:00"]
+  D --> F["🟪 归档wiki<br/>daily-notes/*"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">3</span>
+    <span class="card-title">竞品关键词深度分析</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 8竞品×21关键词<br/>多平台数据源"] -->|CDP采集| B["🟩 百度搜索<br/>搜索指数"]
+  A -->|CDP采集| C["🟩 抖音搜索<br/>综合/搜索指数"]
+  A -->|CDP采集| D["🟩 小红书搜索<br/>搜索总量"]
+  B & C & D --> E["🟩 AI结构化分析<br/>关联词TOP10<br/>人群画像"]
+  E --> F["🟪 标准化深度报告<br/>15:00私信推送"]
+  E --> G["🟪 归档竞品库<br/>entities/competitors/*"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">4</span>
+    <span class="card-title">竞品内容动态追踪</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 竞品抖音主页<br/>作品列表"] -->|CDP采集| B["🟩 Playwright<br/>增量内容抓取"]
+  C["🟦 竞品小红书<br/>笔记列表"] -->|CDP采集| B
+  B --> D["🟩 AI变化检测<br/>对比上次采集"]
+  D -->|有新内容| E["🟩 AI策略分析<br/>主题/互动/趋势"]
+  D -->|无变化| F["🟧 跳过推送"]
+  E --> G["🟪 飞书群推送<br/>18:00发布"]
+  E --> H["🟪 归档竞品动态<br/>竞品分析/*"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">5</span>
+    <span class="card-title">全国景区爆款内容拆解</span>
+    <span class="card-tag tag-mid">按需使用</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 多平台内容流<br/>抖音/小红书/微博"] -->|搜索阈值| B{"🟩 爆款判定<br/>抖音👍>1万<br/>小红书👍>1千"}
+  B -->|达到阈值| C["🟩 AI内容提取<br/>标题/话题/互动量"]
+  B -->|未达到| D["🟧 跳过"]
+  C --> E["🟩 AI模式提取<br/>情绪营销/悬念/节奏"]
+  E --> F["🟩 生成可复制建议<br/>适配电影小镇"]
+  F --> G["🟪 飞书群推送&nbsp;21:00"]
+  E --> H["🟪 沉淀concepts/<br/>内容爆款规律"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">6</span>
+    <span class="card-title">文旅政策与热点AI追踪</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 多元信源<br/>政府网站/行业媒体<br/>微博热搜/公众号"] -->|web_fetch| B["🟩 AI摘要生成<br/>关键信息提取"]
+  B --> C["🟩 热度排序<br/>按影响力排序"]
+  C --> D["🟩 知识图谱关联<br/>链接到竞品/节日/政策"]
+  D --> E["🟪 飞书群推送<br/>10:00行业头条"]
+  D --> F["🟪 归档行业知识<br/>行业知识/*"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">7</span>
+    <span class="card-title">每日AI自动复盘整合</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟩 #1 抖音Agent<br/>指数数据"] --> E
+  B["🟩 #2 小红书Agent<br/>灵犀数据"] --> E
+  C["🟩 #3 竞品Agent<br/>关键词+动态"] --> E
+  D["🟩 #8 客流Agent<br/>客流数据"] --> E
+  E["🟩 AI整合中枢<br/>多源数据聚合"] --> F["🟩 深度洞察生成<br/>趋势+对比+建议"]
+  F --> G["🟪 完整复盘卡片<br/>22:00私信推送"]
+  F --> H["🟪 归档每日复盘<br/>memory/YYYY-MM-DD"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">8</span>
+    <span class="card-title">客流数据AI智能分析</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 桌面CSV文件<br/>每日游客量统计"] -->|定时读取| B["🟩 数据校验<br/>格式/完整性"]
+  B -->|通过| C["🟩 AI趋势分析<br/>同比/环比/YTD达成率"]
+  B -->|异常| D["🟧 标记缺失<br/>断档>15天告警"]
+  C --> E["🟩 渠道结构拆解<br/>散客率/渠道依赖"]
+  E --> F["🟩 模型预测<br/>季节峰值/趋势线"]
+  F --> G["🟪 飞书周报告<br/>周一09:00"]
+  F --> H["🟪 归档客流数据<br/>电影小镇/客流/"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">9</span>
+    <span class="card-title">Obsidian知识图谱可视化导航</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart BT
+  A["🟦 200+原始文档<br/>日报/分析/报告"] -->|人工标记+AI| B["🟩 四层分类<br/>concepts/entities<br/>sources/queries"]
+  B --> C["🟩 Obsidian<br/>双向链接关联"]
+  C --> D["🟪 Graph View<br/>可视化图谱"]
+  C --> E["🟪 实体雷达图<br/>竞品全景画像"]
+  D --> F["新员工30分钟<br/>看懂全知识体系"]
+  E --> F
+  F -.->|反馈| B
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">10</span>
+    <span class="card-title">karpathy-wiki知识化合与周度INGEST</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟦 一周业务数据<br/>日报/竞品/复盘"] -->|周日INGEST| B{"🟩 AI提炼<br/>是否有新洞察"}
+  B -->|有| C["🟩 写入concepts/<br/>抽象规律提炼"]
+  B -->|有| D["🟩 更新entities/<br/>实体画像补充"]
+  B -->|有| E["🟩 归档sources/<br/>源数据摘要"]
+  B -->|有| F["🟩 追加queries/<br/>问答沉淀"]
+  B -->|无| G["🟧 skip"]
+  C & D & E & F --> H["🟪 GitHub同步<br/>自动push"]
+  H --> I["🟪 LINT检查<br/>链接完整性验证"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">11</span>
+    <span class="card-title">多Agent协同编排</span>
+    <span class="card-tag tag-mid">需平台支持</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart TD
+  A["🟩 主Agent<br/>日报协调器"] -->|sessions_spawn| B["🟩 抖音Agent<br/>采集+分析"]
+  A -->|sessions_spawn| C["🟩 小红书Agent<br/>采集+分析"]
+  A -->|sessions_spawn| D["🟩 竞品Agent<br/>关键词+动态"]
+  A -->|sessions_spawn| E["🟩 客流Agent<br/>趋势+预测"]
+  B & C & D & E -->|并行执行| F{"🟩 汇总等待<br/>所有Agent完成"}
+  F --> G["🟩 错误隔离<br/>失败Agent跳过"]
+  G --> H["🟪 综合报告输出<br/>串行40→并行12min"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">12</span>
+    <span class="card-title">飞书卡片自动化报告推送</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟩 各Agent输出<br/>结构化数据"] -->|send_feishu_card.py| B["🟪 模板引擎<br/>schema '2.0'<br/>markdown元素"]
+  B --> C["🟪 飞书API<br/>POST消息"]
+  C --> D{"🟩 渠道分发<br/>群还是私信"}
+  D -->|群消息| E["🟪 电影小镇群<br/>oc_2581..."]
+  D -->|私信| F["🟪 站长私信<br/>复盘/预警"]
+  C -->|失败| G["🟧 队列重试<br/>下一周期推送"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">13</span>
+    <span class="card-title">CDP浏览器自动化+三层容错</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart TD
+  A["🟧 Cron触发<br/>定时任务执行"] --> B["🟩 CDP连接<br/>Chrome DevTools"]
+  B -->|连接失败| C{"🟧 重试计数<br/>第N次"}
+  C -->|≤3次| B
+  C -->|>3次| D["🟧 failureAlert<br/>飞书告警"]
+  D --> E["🟧 人工介入<br/>检查Cookie/CDP"]
+  B -->|成功| F["🟩 数据采集<br/>Playwright脚本"]
+  F -->|异常| C
+  F -->|成功| G["🟪 正常输出<br/>继续后续流程"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">14</span>
+    <span class="card-title">铁律记忆+节假日预警系统</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart LR
+  A["🟧 MEMORY.md<br/>铁律规则中枢"] -->|读取规则| B["🟩 数据监控<br/>散客率/客流/节日"]
+  B --> C{"🟩 条件判定"}
+  C -->|散客率<30%<br/>连续3天| D["🟧 散客预警<br/>启动关注"]
+  C -->|散客率<30%<br/>连续7天| E["🟧 渠道依赖惯性<br/>标记恶性循环"]
+  C -->|距节假日<br/>≥14天| F["🟧 节假日预警<br/>附带最小可行方案"]
+  C -->|判断-执行<br/>断层≥3次| G["🔴 升格紧急<br/>附带方案"]
+  D & E & F & G --> H["🟪 飞书推送<br/>群+私信"]
+</pre>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-header">
+    <span class="card-num">15</span>
+    <span class="card-title">系统健康自检+GitHub自动同步</span>
+    <span class="card-tag tag-high">可推广</span>
+  </div>
+  <div class="mermaid-container">
+<pre class="mermaid">
+flowchart TD
+  A["🟧 Cron触发<br/>每周日"] --> B["🟩 Wiki LINT<br/>检查raw/漂移"]
+  A --> C["🟩 Cookie检测<br/>抖音/小红书有效性"]
+  A --> D["🟩 脚本完整性<br/>scripts/是否存在"]
+  A --> E["🟩 代码库漂移<br/>git status检查"]
+  B & C & D & E --> F{"🟩 汇总健康报告"}
+  F -->|全部正常| G["🟪 GitHub Actions<br/>auto-sync push"]
+  F -->|有异常| H["🟧 飞书告警<br/>异常项+修复指引"]
+  G --> I["🟪 健康状态可视化<br/>wiki/log.md更新"]
+  H --> I
+</pre>
+  </div>
+</div>
+
+</div>
+
+<div style="max-width:1200px; margin:24px auto 0;">
+  <p style="color:#999; font-size:12px; text-align:center;">
+    基于建业电影小镇 · AI全域营销运营系统 · 2026-05-22生成
+  </p>
+</div>
+</body>
+</html>

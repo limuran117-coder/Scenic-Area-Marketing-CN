@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 飞书卡片发送脚本（防错版）
 用法: python3 send_feishu_card.py <chat_id> <card_json>

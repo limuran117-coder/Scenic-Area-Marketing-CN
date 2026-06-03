@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """调试版本 - 打印完整页面文本和截图"""
 
 import json

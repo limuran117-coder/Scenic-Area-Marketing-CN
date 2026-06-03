@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 行业热点RSS采集脚本
 使用 feedparser 读取各行业媒体RSS源

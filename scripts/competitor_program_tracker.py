@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 竞品节目活动追踪脚本
 追踪：只有河南、银基动物王国、万岁山武侠城、方特欢乐世界、清明上河园

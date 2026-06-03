@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 自检脚本 - 任务完成后自动评估打分
 触发：每次isolated任务完成后，由cron/agent调用

@@ -1,97 +1,200 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
-代码库知识库漂移检查
-运行 karpathy-project-wiki LINT 操作：
-- 对比 wiki 与实际代码库结构
-- 检查 entity 页面的文件引用是否还存在
-- 检查过时文档
+代码库漂移检测脚本
+检测 scripts/ SOP/ wiki/ 三者之间的不一致
+重点关注：脚本已改但知识文档没跟上
+用于karpathy-project-wiki漂移检查 cron任务
+
+创建: 2026-05-17（从SOP文档反哺创建）
 """
+
+import json
 import os
 import re
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
-WORKSPACE = Path.home() / '.openclaw' / 'workspace'
-WIKI_DIR = WORKSPACE / 'wiki'
-CODE_DIR = WORKSPACE
+WORKSPACE = Path.home() / ".openclaw" / "workspace"
+SCRIPTS_DIR = WORKSPACE / "scripts"
+WIKI_DIR = WORKSPACE / "wiki"
+SOP_DIR = WIKI_DIR / "SOP"
 
-def get_actual_files():
-    """获取实际代码库文件结构"""
-    scripts = list((CODE_DIR / 'scripts').glob('*.py')) if (CODE_DIR / 'scripts').exists() else []
-    skill_dirs = [d for d in (CODE_DIR / 'skills').iterdir()] if (CODE_DIR / 'skills').exists() else []
+def check_script_versions():
+    """检查脚本内部版本号与文件名的一致性"""
+    drifts = []
+    for f in sorted(SCRIPTS_DIR.glob("*.py")):
+        content = f.read_text()
+        lines = content.split("\n")
+        header = "\n".join(lines[:15])  # look in first 15 lines
+        
+        # Check for version mismatch
+        v_match = re.search(r"v(\d+)", f.stem)
+        header_match = re.search(r"[Vv](\d+)", header)
+        
+        if v_match and header_match:
+            file_v = int(v_match.group(1))
+            header_v = int(header_match.group(1))
+            if file_v != header_v:
+                drifts.append({
+                    "file": f.name,
+                    "file_version": file_v,
+                    "header_version": header_v,
+                    "type": "version_mismatch",
+                })
+        
+        # Check for URL changes vs documented URLs
+        url_match = re.findall(r'creator\.douyin\.com/[^\s"\']+', content)
+        if url_match:
+            documented_urls_file = WIKI_DIR / "技术配置" / "脚本清单.md"
+            if documented_urls_file.exists():
+                doc_content = documented_urls_file.read_text()
+                for url in url_match:
+                    if url not in doc_content:
+                        drifts.append({
+                            "file": f.name,
+                            "url": url,
+                            "type": "url_changed_not_documented",
+                        })
     
-    files = {
-        'scripts': [f.name for f in scripts],
-        'skill_count': len(skill_dirs),
-        'skill_names': [d.name for d in skill_dirs if d.is_dir()][:10],
-    }
-    return files
+    return drifts
 
-def get_wiki_entities():
-    """从 wiki 中提取 entity 引用"""
-    if not (WIKI_DIR / 'entities').exists():
-        return []
+def check_sop_vs_scripts():
+    """检查SOP引用的脚本文件是否存在"""
+    drifts = []
+    for sop_file in sorted(SOP_DIR.glob("*.md")):
+        content = sop_file.read_text()
+        # Find plain script references: standalone xxx.py or xxx.sh
+        # Filter out: path references, Chinese text anomalies, markdown links
+        refs = re.findall(r'(?<![\w/]) ([a-zA-Z_]\w*\.py)\b', content)
+        refs += re.findall(r'(?<![\w/]) ([a-zA-Z_]\w*\.sh)\b', content)
+        unique_refs = set(ref.strip() for ref in refs if ref.strip())
+        
+        # Also check for path-containing references with valid filenames
+        path_refs = re.findall(r'scripts/([a-zA-Z_]\w*\.py)', content)
+        unique_refs.update(path_refs)
+        
+        for ref in sorted(unique_refs):
+            ref_path = SCRIPTS_DIR / ref
+            if not ref_path.exists():
+                drifts.append({
+                    "sop": sop_file.name,
+                    "referenced_script": ref,
+                    "type": "broken_script_reference",
+                })
     
-    entities = []
-    for page in (WIKI_DIR / 'entities').glob('*.md'):
-        try:
-            content = page.read_text()
-            # 提取文件引用格式: `path:line` 或类似
-            refs = re.findall(r'`([^`]+`:\d+)`', content)
-            if refs:
-                entities.append({'page': page.name, 'refs': refs})
-        except:
-            pass
-    return entities
+    return drifts
 
-def check_drift():
-    """检查代码库与 wiki 之间的漂移"""
-    actual = get_actual_files()
-    entities = get_wiki_entities()
+def check_documented_vs_actual_scripts():
+    """检查脚本清单与实际脚本的一致性"""
+    inventory_files = [
+        WIKI_DIR / "技术配置" / "脚本清单.md",
+        WIKI_DIR / "entities" / "scripts" / "README.md",
+    ]
     
-    issues = []
+    actual = sorted(f.name for f in SCRIPTS_DIR.glob("*.py"))
+    drifts = []
     
-    # 检查 scripts/ 文件是否在 wiki 中有对应文档
-    wiki_files_mentioned = set()
-    if WIKI_DIR.exists():
-        for page in WIKI_DIR.rglob('*.md'):
-            try:
-                content = page.read_text()
-                for script in actual['scripts']:
-                    if script in content:
-                        wiki_files_mentioned.add(script)
-            except:
-                pass
+    for inv_file in inventory_files:
+        if not inv_file.exists():
+            continue
+        content = inv_file.read_text()
+        # Extract script names mentioned (exclude archive/ and backup/ paths)
+        # Remove archive-path references first so only scripts/ root refs are counted
+        cleaned = re.sub(r'scripts/archive/[\w./-]+\.py', '', content)
+        mentioned = set(re.findall(r'([\w]+\.py)', cleaned))
+        
+        actual_set = set(actual)
+        missing_from_doc = actual_set - mentioned
+        stale_refs = mentioned - actual_set
+        
+        if missing_from_doc:
+            drifts.append({
+                "inventory": str(inv_file.relative_to(WORKSPACE)),
+                "missing_count": len(missing_from_doc),
+                "missing": sorted(missing_from_doc),
+                "type": "scripts_not_in_inventory",
+            })
+        if stale_refs:
+            drifts.append({
+                "inventory": str(inv_file.relative_to(WORKSPACE)),
+                "stale_count": len(stale_refs),
+                "stale": sorted(stale_refs),
+                "type": "stale_references_in_inventory",
+            })
     
-    # 检查是否有脚本还没在 wiki 中被提及
-    undocumented = [s for s in actual['scripts'] if s not in wiki_files_mentioned]
-    if undocumented:
-        issues.append(f"scripts/ 下有 {len(undocumented)} 个脚本未在 wiki 中提及")
+    return drifts
+
+def check_raw_unprocessed():
+    """检查raw/目录是否有未处理文件"""
+    raw_dir = WORKSPACE / "raw"
+    if not raw_dir.exists():
+        return [{"type": "raw_dir_missing", "detail": "raw/目录已不存在，可能是被清理了"}]
     
-    return {
-        'actual_files': actual,
-        'undocumented_scripts': undocumented,
-        'entities_checked': len(entities),
-    }
+    log_file = WIKI_DIR / "log.md"
+    if not log_file.exists():
+        return [{"type": "log_missing", "detail": "wiki/log.md 不存在，无法判断漂移状态"}]
+    
+    log_content = log_file.read_text()
+    unprocessed = []
+    
+    for f in sorted(raw_dir.rglob("*")):
+        if f.is_file() and not f.name.startswith("."):
+            basename = f.name
+            if basename not in log_content and str(f.relative_to(raw_dir)).replace("/", "") not in log_content:
+                unprocessed.append(str(f.relative_to(WORKSPACE)))
+    
+    return unprocessed
 
 def generate_report():
-    """生成漂移报告"""
-    drift = check_drift()
+    """生成完整的漂移检测报告"""
+    report = {
+        "timestamp": datetime.now().isoformat(),
+        "schema": "2.0",
+        "drift_categories": [],
+    }
     
-    lines = []
-    lines.append(f"## 代码库Wiki漂移检查 | {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-    lines.append(f"scripts/ 共 {len(drift['actual_files']['scripts'])} 个 Python 脚本")
-    lines.append(f"skills/ 共 {drift['actual_files']['skill_count']} 个 Skill")
+    # Category 1: Script version mismatches
+    version_drifts = check_script_versions()
+    if version_drifts:
+        report["drift_categories"].append({
+            "category": "脚本版本不一致",
+            "severity": "中",
+            "items": version_drifts,
+        })
     
-    if drift['undocumented_scripts']:
-        lines.append(f"\n⚠️ **未归档脚本 ({len(drift['undocumented_scripts'])}个)**：")
-        for s in drift['undocumented_scripts']:
-            lines.append(f"  - scripts/{s}")
-        lines.append("\n建议：下次问答时可顺便归档这些脚本到 wiki/entities/")
-    else:
-        lines.append("\n✅ 所有 scripts/ 均已在 wiki 中归档")
+    # Category 2: SOP references broken scripts
+    sop_drifts = check_sop_vs_scripts()
+    if sop_drifts:
+        report["drift_categories"].append({
+            "category": "SOP引用的脚本不存在",
+            "severity": "高",
+            "items": sop_drifts,
+        })
     
-    return '\n'.join(lines)
+    # Category 3: Inventory drift
+    inventory_drifts = check_documented_vs_actual_scripts()
+    if inventory_drifts:
+        report["drift_categories"].append({
+            "category": "脚本清单与实际不符",
+            "severity": "中",
+            "items": inventory_drifts,
+        })
+    
+    # Category 4: Raw unprocessed
+    raw_issues = check_raw_unprocessed()
+    if raw_issues:
+        report["drift_categories"].append({
+            "category": "raw/目录状态异常",
+            "severity": "低",
+            "items": raw_issues,
+        })
+    
+    report["total_drifts"] = sum(len(c["items"]) for c in report["drift_categories"])
+    report["status"] = "clean" if report["total_drifts"] == 0 else "has_drifts"
+    
+    return report
 
-if __name__ == '__main__':
-    print(generate_report())
+if __name__ == "__main__":
+    report = generate_report()
+    print(json.dumps(report, ensure_ascii=False, indent=2))

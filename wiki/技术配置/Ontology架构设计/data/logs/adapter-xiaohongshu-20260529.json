@@ -1,0 +1,10 @@
+{
+  "date": "2026-05-29",
+  "adapter": "adapter-xiaohongshu.py",
+  "transformedCount": 1,
+  "sourcePattern": "/tmp/xiaohongshu_*.json",
+  "status": "success",
+  "log": [
+    "  [MetricSnapshot] 建业电影小镇 content_count ≈ 697352B (估算, confidence=0.3)"
+  ]
+}

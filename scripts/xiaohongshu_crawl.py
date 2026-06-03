@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 小红书数据采集脚本 v2
 使用Playwright + 已有CDP浏览器连接

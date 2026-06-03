@@ -1,0 +1,138 @@
+{
+  "date": "2026-06-02",
+  "day": 4,
+  "phase": "Phase 2→3: 查询层 + 共享常量重构",
+  "completed": [
+    "✅ adapter-visitors.py 验证通过: 298条数据 (149客流+149收入) 入SQLite, 范围197~44970",
+    "✅ ontology_constants.py 创建完成: SCENIC_SPOT_MAP(12条目) + CONFIDENCE_BY_SOURCE(7级别) + resolve_spot_id/name + safe_float + MONTH_MAP + 路径常量",
+    "✅ adapter-douyin.py 重构: 删除内联 SCENIC_SPOT_MAP → from ontology_constants import ...",
+    "✅ adapter-xiaohongshu.py 重构: 删除内联 SCENIC_SPOT_MAP + 别名 → from ontology_constants import ...",
+    "✅ adapter-visitors.py 重构: 删除内联 MONTH_MAP + _safe_float → from ontology_constants import ...",
+    "✅ ontology_query.py 创建完成 (356行): daily_ranking / trend / anomaly_check / visitor_summary / cross_source_correlation / competitor_comparison / store_stats",
+    "✅ ontology_query.py 全功能测试通过: daily/visitors/stats/anomaly/trend/correlate",
+    "✅ ontology.json 更新: version 1.1.0→1.1.1, updatedAt→2026-06-02, 新增 adapter-visitors + ontology_query 到 dataSources",
+    "✅ BEST_PRACTICES.md 扩充: 新增实践8 (查询层与共享常量 — 关注点分离)",
+    "✅ 6个脚本全部通过 py_compile 编译验证"
+  ],
+  "blockers": [],
+  "tomorrow_plan": [
+    "[Day 5] 评估 adapter-baidu.py 可行性 (百度指数数据源)",
+    "[Day 5] 将日报查询切换为 ontology_query.py (替代直接读JSON)",
+    "[Day 5] 检查 ContentAsset 表是否需要种子数据",
+    "[Day 5] 如站长有新数据，重新运行 adapter-visitors.py"
+  ],
+  "decisions": [
+    "共享常量模块作为所有 adapter 的单一事实来源 — 消除 SCENIC_SPOT_MAP 的 3 处重复定义",
+    "查询层独立于存储层: ontology_query.py 不直接写 SQL 到应用层, 封装所有 JOIN/GROUP BY/聚合逻辑",
+    "三层架构确立: adapter(转换) → store(CRUD) → query(查询+格式化)",
+    "adapter-visitors.py 的 CSV 解析已验证正确: Row 5=日期头, Row 13=客流, Row 14=收入",
+    "MONTH_MAP 也从 adapter-visitors.py 提取到 ontology_constants.py (避免未来 adapter-baidu/adapter-weibo 重复)"
+  ],
+  "research_findings": [],
+  "files_modified": [
+    {
+      "path": "scripts/ontology_constants.py",
+      "action": "新建",
+      "status": "success",
+      "details": "128行, 共享常量: SCENIC_SPOT_MAP + 反向映射 + CONFIDENCE_BY_SOURCE + METRIC_TYPES + SOURCE_TYPES + 工具函数(safe_float, resolve_spot_id/name, get_confidence) + 路径常量"
+    },
+    {
+      "path": "scripts/ontology_query.py",
+      "action": "新建",
+      "status": "success",
+      "details": "356行, 6个查询方法 + CLI + 测试套件, 封装 daily_ranking/trend/anomaly/cross_source_correlation/visitor_summary/store_stats"
+    },
+    {
+      "path": "scripts/adapter-douyin.py",
+      "action": "重构",
+      "status": "success",
+      "changes": "删除内联 SCENIC_SPOT_MAP(13行) → from ontology_constants import SCENIC_SPOT_MAP, resolve_spot_id"
+    },
+    {
+      "path": "scripts/adapter-xiaohongshu.py",
+      "action": "重构",
+      "status": "success",
+      "changes": "删除内联 SCENIC_SPOT_MAP(14行含别名) → from ontology_constants import SCENIC_SPOT_MAP, resolve_spot_id"
+    },
+    {
+      "path": "scripts/adapter-visitors.py",
+      "action": "重构",
+      "status": "success",
+      "changes": "删除内联 MONTH_MAP(4行) + _safe_float(12行) → from ontology_constants import MONTH_MAP, safe_float, get_confidence"
+    },
+    {
+      "path": "wiki/技术配置/Ontology架构设计/ontology.json",
+      "action": "更新",
+      "status": "success",
+      "changes": "version 1.1.0→1.1.1, updatedAt→2026-06-02, MetricSnapshot.dataSources 新增 adapter-visitors+ontology_query"
+    },
+    {
+      "path": "wiki/技术配置/Ontology架构设计/BEST_PRACTICES.md",
+      "action": "扩充",
+      "status": "success",
+      "changes": "新增实践8 (查询层与共享常量 — 关注点分离) + 总结从7条增至8条"
+    }
+  ],
+  "adapter_registry": {
+    "douyin": {
+      "file": "adapter-douyin.py",
+      "source": "/tmp/crawl_data.json",
+      "target": "MetricSnapshot",
+      "confidence": 0.9,
+      "status": "active",
+      "lastRun": "2026-06-01 (dual-write verified)",
+      "sqliteTable": "metric_snapshots",
+      "recordsInStore": 16,
+      "uses_constants": true
+    },
+    "xiaohongshu": {
+      "file": "adapter-xiaohongshu.py",
+      "source": "/tmp/xiaohongshu_*.json",
+      "target": ["MetricSnapshot", "ContentAsset"],
+      "confidence": 0.3,
+      "status": "active",
+      "lastRun": "2026-06-01 (dual-write verified)",
+      "sqliteTable": "metric_snapshots + content_assets",
+      "recordsInStore": 4,
+      "uses_constants": true
+    },
+    "visitors": {
+      "file": "adapter-visitors.py",
+      "source": "~/Desktop/2026游客量统计.csv",
+      "target": "MetricSnapshot",
+      "confidence": 1.0,
+      "status": "active",
+      "lastRun": "2026-06-02 (verified: 298 records)",
+      "sqliteTable": "metric_snapshots",
+      "recordsInStore": 298,
+      "uses_constants": true,
+      "note": "149条客流 + 149条收入, 截止2026-05-31"
+    },
+    "baidu": {
+      "file": "adapter-baidu.py",
+      "source": "百度指数",
+      "target": "MetricSnapshot",
+      "confidence": 0.6,
+      "status": "pending"
+    },
+    "query_engine": {
+      "file": "ontology_query.py",
+      "status": "active",
+      "lastRun": "2026-06-02 (all tests passed)",
+      "methods": ["daily_ranking", "trend", "anomaly_check", "visitor_summary", "cross_source_correlation", "competitor_comparison", "store_stats"]
+    }
+  },
+  "store_stats": {
+    "dbPath": ".profile/ontology/ontology_store.db",
+    "scenicSpots": 8,
+    "metricSnapshots": 318,
+    "contentAssets": 0,
+    "events": 0,
+    "bySource": {
+      "csv": 298,
+      "douyin": 16,
+      "xiaohongshu": 4
+    }
+  },
+  "next_day_note": "🔵 Day 5: 评估百度指数adapter + 将日报切换为 ontology_query 查询"
+}

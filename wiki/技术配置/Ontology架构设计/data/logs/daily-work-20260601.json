@@ -1,0 +1,104 @@
+{
+  "date": "2026-06-01",
+  "day": 3,
+  "phase": "Phase 2→3: SQLite Store 接入",
+  "completed": [
+    "✅ scripts/ontology_store.py 创建完成 (SQLite Store: 6表+2视图+完整查询API)",
+    "✅ .profile/ontology/ 目录 + .gitignore 配置完成",
+    "✅ adapter-douyin.py → 双轨写入 (JSON + SQLite) 验证通过: 16条 MetricSnapshot 入SQLite",
+    "✅ adapter-xiaohongshu.py → 双轨写入 (JSON + SQLite) 验证通过: 4条 MetricSnapshot 入SQLite",
+    "✅ ontology_store.py init: 8个景区种子数据 + schema v1.0.0",
+    "✅ 查询验证: daily_ranking(), anomaly_detection(), trend() 均正常运行",
+    "✅ 3个脚本均通过 py_compile 编译验证"
+  ],
+  "blockers": [
+    "小红书数据质量低 (content_length估算, confidence=0.3) — 需爬虫升级后才可获取详细笔记"
+  ],
+  "tomorrow_plan": [
+    "[Day 2] 开发 adapter-visitors.py (需站长同步CSV到 ~/Desktop/)",
+    "[Day 2] 创建 scripts/ontology_query.py (预定义查询引擎 — 封装重复查询模式)",
+    "[Day 2] 测试: 用 ontology_query 替代日报中直接读JSON的部分",
+    "[Day 2] 写入 2026游客量统计.csv 数据到 SQLite (若站长已同步)"
+  ],
+  "decisions": [
+    "SQLite schema 采用语义化 ID 前缀 (ss_/ms_/ca_/ev_/mc_) — 未来跨表 JOIN 更清晰",
+    "双轨策略确认: adapter 不修改现有 JSON 输出逻辑，仅在最后追加 write_to_sqlite()",
+    "OntologyStore 作为 Python context manager 使用 (with store:) — 保证连接自动关闭",
+    "injest_log 表记录每次 adapter 执行 — 可追踪数据新鲜度"
+  ],
+  "research_findings": [],
+  "files_modified": [
+    {
+      "path": ".gitignore",
+      "action": "追加 .profile/ontology/ 排除规则",
+      "status": "success"
+    },
+    {
+      "path": "scripts/ontology_store.py",
+      "action": "新建",
+      "status": "success",
+      "details": "278行, 6张数据表+3张元数据表+2个视图+8景区种子数据+4个查询方法"
+    },
+    {
+      "path": "scripts/adapter-douyin.py",
+      "action": "新增 write_to_sqlite() + main() 调用",
+      "status": "success",
+      "changes": "在 JSON 输出后追加 SQLite 写入, 16条验证通过"
+    },
+    {
+      "path": "scripts/adapter-xiaohongshu.py",
+      "action": "新增 write_to_sqlite() + main() 调用",
+      "status": "success",
+      "changes": "同时写入 MetricSnapshot 和 ContentAsset 到 SQLite, 4条验证通过"
+    }
+  ],
+  "adapter_registry": {
+    "douyin": {
+      "file": "adapter-douyin.py",
+      "source": "/tmp/crawl_data.json",
+      "target": "MetricSnapshot",
+      "confidence": 0.9,
+      "status": "active",
+      "lastRun": "2026-06-01 (dual-write verified)",
+      "sqliteTable": "metric_snapshots",
+      "recordsInStore": 16
+    },
+    "xiaohongshu": {
+      "file": "adapter-xiaohongshu.py",
+      "source": "/tmp/xiaohongshu_*.json",
+      "target": ["MetricSnapshot", "ContentAsset (预留)"],
+      "confidence": 0.3,
+      "status": "active",
+      "lastRun": "2026-06-01 (dual-write verified)",
+      "sqliteTable": "metric_snapshots + content_assets",
+      "recordsInStore": 4
+    },
+    "visitors": {
+      "file": "adapter-visitors.py",
+      "source": "~/Desktop/2026游客量统计.csv",
+      "target": "MetricSnapshot",
+      "confidence": 0.95,
+      "status": "pending",
+      "note": "周二 (6/2) 开发"
+    },
+    "baidu": {
+      "file": "adapter-baidu.py",
+      "source": "百度指数",
+      "target": "MetricSnapshot",
+      "confidence": 0.6,
+      "status": "pending"
+    }
+  },
+  "store_stats": {
+    "dbPath": ".profile/ontology/ontology_store.db",
+    "sizeBytes": 151552,
+    "scenicSpots": 8,
+    "metricSnapshots": 20,
+    "contentAssets": 0,
+    "recentIngests": [
+      "adapter-xiaohongshu: +4 @ 2026-06-01 01:07:18",
+      "adapter-douyin: +16 @ 2026-06-01 01:07:14"
+    ]
+  },
+  "next_day_note": "🔴 周二关键依赖: 站长需先同步 ~/Desktop/2026游客量统计.csv，否则 adapter-visitors.py 无法测试"
+}

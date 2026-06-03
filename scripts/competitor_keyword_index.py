@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 竞品关键词深度分析 - 抖音关键词页采集
 目标URL: https://creator.douyin.com/creator-micro/creator-count/arithmetic-index

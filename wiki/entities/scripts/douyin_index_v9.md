@@ -1,4 +1,6 @@
-# douyin_index_v9.py
+# douyin_index_v9
+
+> ⚠️ 文件名与内部版本不一致：脚本内部声明v10（2026-05-16大更新），文件名仍为v9.py
 
 > 抖音指数数据采集脚本 | v9（最新）
 
@@ -41,7 +43,7 @@
 
 - **技术栈**：Playwright + CDP 浏览器自动化
 - **Cookie存储**：`/tmp/juLiang_cookies.json`（代理：127.0.0.1:7897）
-- **数据订阅页**：https://creator.douyin.com/creator-micro/creator-count/my-subscript
+- **数据订阅页**：https://creator.douyin.com/creator-micro/creator-count/arithmetic-index
 - **注意事项**：页面下午更新，08:00采的是昨日数据
 
 ---

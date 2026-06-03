@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 LLMWiki Lint 脚本
 定期检查知识库：矛盾点、过时信息、孤儿页面、缺失概念
@@ -84,9 +84,14 @@ def check_orphan_pages():
     # 找未被引用的文件
     for f in all_files:
         f_normalized = f.replace('\\', '/')
-        if f_normalized not in referenced:
-            # 排除 schema 和 orphans 目录
-            if not f.startswith('schema/') and not f.startswith('orphans/'):
+        # 去除 .md 后缀后再比对（index中[[xxx]]引用不带扩展名）
+        f_stem = f_normalized.rsplit('.md', 1)[0] if f_normalized.endswith('.md') else f_normalized
+        # 同时处理 [[wiki/xxx]] 和 [[xxx]] 两种引用格式
+        f_stem_with_wiki = 'wiki/' + f_stem
+        if f_stem in referenced or f_stem_with_wiki in referenced or f_normalized in referenced:
+            continue
+        # 排除 schema 和 orphans 目录
+        if not f.startswith('schema/') and not f.startswith('orphans/'):
                 issues.append({
                     "type": "orphan",
                     "file": f,

@@ -1,0 +1,120 @@
+{
+  "objectType": "MetricSnapshot",
+  "date": "2026-05-30",
+  "generatedAt": "2026-05-30T09:37:35.418190",
+  "sourceAdapter": "adapter-xiaohongshu.py",
+  "ontologyVersion": "1.0.0",
+  "objects": [
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "only_henan::2026-05-29::content_count::xhs",
+      "scenicSpotId": "only_henan",
+      "date": "2026-05-29",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 695023,
+      "confidence": 0.3,
+      "collectedAt": "2026-05-29T10:08:08.554392",
+      "createdAt": "2026-05-30T09:37:35.417644",
+      "metadata": {
+        "estimation_method": "content_length_bytes",
+        "raw_bytes": 695023
+      }
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "only_henan::2026-05-27::content_count::xhs",
+      "scenicSpotId": "only_henan",
+      "date": "2026-05-27",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 696993,
+      "confidence": 0.3,
+      "collectedAt": "2026-05-27T10:03:10.077076",
+      "createdAt": "2026-05-30T09:37:35.417751",
+      "metadata": {
+        "estimation_method": "content_length_bytes",
+        "raw_bytes": 696993
+      }
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "movie_town::2026-05-29::content_count::xhs",
+      "scenicSpotId": "movie_town",
+      "date": "2026-05-29",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 697352,
+      "confidence": 0.3,
+      "collectedAt": "2026-05-29T10:07:43.234256",
+      "createdAt": "2026-05-30T09:37:35.417844",
+      "metadata": {
+        "estimation_method": "content_length_bytes",
+        "raw_bytes": 697352
+      }
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "fangte::2026-05-27::content_count::xhs",
+      "scenicSpotId": "fangte",
+      "date": "2026-05-27",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 694651,
+      "confidence": 0.3,
+      "collectedAt": "2026-05-27T10:03:49.886798",
+      "createdAt": "2026-05-30T09:37:35.417959",
+      "metadata": {
+        "estimation_method": "content_length_bytes",
+        "raw_bytes": 694651
+      }
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "qingming_riverside::2026-05-29::content_count::xhs",
+      "scenicSpotId": "qingming_riverside",
+      "date": "2026-05-29",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 692454,
+      "confidence": 0.3,
+      "collectedAt": "2026-05-29T10:08:19.312115",
+      "createdAt": "2026-05-30T09:37:35.418082",
+      "metadata": {
+        "estimation_method": "content_length_bytes",
+        "raw_bytes": 692454
+      }
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "yinji::2026-05-29::content_count::xhs",
+      "scenicSpotId": "yinji",
+      "date": "2026-05-29",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 694272,
+      "confidence": 0.3,
+      "collectedAt": "2026-05-29T10:08:36.182649",
+      "createdAt": "2026-05-30T09:37:35.418167",
+      "metadata": {
+        "estimation_method": "content_length_bytes",
+        "raw_bytes": 694272
+      }
+    }
+  ],
+  "summary": {
+    "metricSnapshots": 6,
+    "contentAssets": 0,
+    "scenicSpotsCovered": 5,
+    "metricTypes": [
+      "content_count"
+    ]
+  },
+  "count": 6
+}

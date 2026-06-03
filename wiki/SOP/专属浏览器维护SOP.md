@@ -70,7 +70,7 @@ browser(action="tabs", profile="openclaw", target="host")
 
 ```python
 browser(action="open", profile="openclaw", target="host",
-        url="https://creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator")
+        url="https://creator.douyin.com/creator-micro/creator-count/arithmetic-index")
 ```
 
 ### 关闭Tab

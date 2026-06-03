@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 CDP轻量采集脚本
 通过Chrome调试端口连接已有Chrome窗口，刷新页面并采集数据

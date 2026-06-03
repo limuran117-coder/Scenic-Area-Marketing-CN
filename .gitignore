@@ -19,6 +19,9 @@ __pycache__/
 .vscode/
 .idea/
 
+# Ontology SQLite database (local only)
+.profile/ontology/
+
 # Memory/dreaming (local only)
 memory/dreaming/
 memory/.dreams/
@@ -31,3 +34,6 @@ MEMORY.md.bak*
 # Large data files (keep small configs)
 # *.xlsx
 # *.csv
+
+# Obsidian local config
+.obsidian/

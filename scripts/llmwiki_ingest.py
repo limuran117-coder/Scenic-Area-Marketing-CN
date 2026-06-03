@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 LLMWiki Ingest 脚本
 新知识入库：读取raw文件 → 生成wiki页面 → 更新索引 → 记录日志

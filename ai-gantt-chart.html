@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能工作场景 · 项目管理甘特图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #f4f6f9;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  padding: 40px 32px;
+}
+.header {
+  max-width: 1300px; margin: 0 auto 28px;
+  display: flex; align-items: flex-start; justify-content: space-between;
+}
+.header-left h1 {
+  font-size: 28px; color: #1a1a2e; margin-bottom: 6px;
+}
+.header-left p { color: #666; font-size: 14px; }
+.status-legend {
+  display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px;
+}
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+.dot-done { background: #10b981; }
+.dot-active { background: #3b82f6; }
+.dot-warn { background: #f59e0b; }
+.dot-plan { background: #94a3b8; }
+
+.stats-row {
+  max-width: 1300px; margin: 0 auto 20px;
+  display: flex; gap: 16px; flex-wrap: wrap;
+}
+.stat-card {
+  background: #fff; border-radius: 10px; padding: 14px 20px;
+  border: 1px solid #e8ecf1; min-width: 120px;
+}
+.stat-num { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 12px; color: #666; margin-top: 2px; }
+.stat-done .stat-num { color: #10b981; }
+.stat-warn .stat-num { color: #f59e0b; }
+.stat-active .stat-num { color: #3b82f6; }
+
+.main-card {
+  max-width: 1300px; margin: 0 auto;
+  background: #fff; border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 24px; border: 1px solid #e8ecf1;
+  overflow-x: auto;
+}
+.mermaid-container { min-width: 1000px; }
+.mermaid-container svg { max-width: 100%; }
+
+.phase-cards {
+  max-width: 1300px; margin: 20px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 14px;
+}
+.phase-card {
+  background: #fff; border-radius: 10px; padding: 16px;
+  border: 1px solid #e8ecf1;
+}
+.phase-card h3 { font-size: 14px; color: #1a1a2e; margin-bottom: 10px; }
+.phase-bar {
+  height: 8px; border-radius: 4px; margin-bottom: 6px;
+  display: flex; overflow: hidden;
+}
+.phase-bar-done { background: #10b981; height: 100%; }
+.phase-bar-partial { background: #3b82f6; height: 100%; }
+.phase-bar-warn { background: #f59e0b; height: 100%; }
+.phase-bar-bg { background: #e2e8f0; height: 100%; flex: 1; }
+.phase-items { font-size: 12px; color: #666; line-height: 1.8; }
+.phase-items .ok { color: #10b981; }
+.phase-items .warn { color: #f59e0b; }
+.phase-items .running { color: #3b82f6; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-left">
+    <h1>📊 AI赋能工作场景 · 项目管理看板</h1>
+    <p>建业电影小镇 · AI全域营销运营系统 · 2026年度</p>
+    <div class="status-legend">
+      <div class="legend-item"><span class="legend-dot dot-done"></span> 已完成</div>
+      <div class="legend-item"><span class="legend-dot dot-active"></span> 运行中</div>
+      <div class="legend-item"><span class="legend-dot dot-warn"></span> 需关注</div>
+      <div class="legend-item"><span class="legend-dot dot-plan"></span> 规划中</div>
+    </div>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card stat-done">
+    <div class="stat-num">8</div>
+    <div class="stat-label">✅ 稳定运行</div>
+  </div>
+  <div class="stat-card stat-warn">
+    <div class="stat-num">4</div>
+    <div class="stat-label">⚠️ 需修复</div>
+  </div>
+  <div class="stat-card stat-active">
+    <div class="stat-num">3</div>
+    <div class="stat-label">🔧 持续优化</div>
+  </div>
+</div>
+
+<div class="main-card">
+  <div class="mermaid-container">
+<pre class="mermaid">
+gantt
+    title AI赋能工作场景 · 开发与运营时间线
+    dateFormat  YYYY-MM-DD
+    axisFormat  %m.%d
+
+    section 🏗 基础数据采集
+    1. 抖音指数日报自动采集       :done, d1, 2026-01-05, 45d
+    2. 小红书灵犀数据日报          :done, d2, 2026-01-12, 40d
+    12. 飞书卡片自动化报告推送     :done, d12, 2026-02-01, 30d
+    13. CDP浏览器自动化+三层容错   :active, d13, 2026-03-01, 60d
+
+    section 🔍 竞品情报体系
+    3. 竞品关键词深度分析          :done, d3, 2026-02-15, 40d
+    4. 竞品内容动态追踪            :done, d4, 2026-03-01, 35d
+    5. 全国景区爆款内容拆解        :done, d5, 2026-03-10, 40d
+    6. 文旅政策与热点AI追踪        :warn, d6, 2026-04-01, 30d
+
+    section 🧠 知识分析体系
+    7. 每日AI自动复盘整合          :done, d7, 2026-04-01, 30d
+    8. 客流数据AI智能分析          :warn, d8, 2026-04-01, 35d
+    9. Obsidian知识图谱可视化导航   :done, d9, 2026-03-15, 50d
+    10. karpathy-wiki知识化合INGEST :active, d10, 2026-04-10, 50d
+
+    section 🤖 智能编排与运维
+    11. 多Agent协同编排            :active, d11, 2026-05-01, 30d
+    14. 铁律记忆+节假日预警系统    :done, d14, 2026-05-01, 25d
+    15. 系统健康自检+GitHub同步    :done, d15, 2026-04-20, 35d
+</pre>
+  </div>
+</div>
+
+<div class="phase-cards">
+
+<div class="phase-card" style="border-left: 4px solid #3b82f6;">
+  <h3>🏗 基础数据采集</h3>
+  <div class="phase-bar">
+    <div class="phase-bar-done" style="width:75%"></div>
+    <div class="phase-bar-partial" style="width:25%"></div>
+  </div>
+  <div class="phase-items">
+    <span class="ok">✅ #1 抖音指数 稳定运行</span><br>
+    <span class="warn">⚠️ #2 小红书 Cookie过期&gt;3周</span><br>
+    <span class="ok">✅ #12 飞书推送 定时运行</span><br>
+    <span class="running">🔧 #13 CDP容错 05-20架构升级</span>
+  </div>
+</div>
+
+<div class="phase-card" style="border-left: 4px solid #10b981;">
+  <h3>🔍 竞品情报体系</h3>
+  <div class="phase-bar">
+    <div class="phase-bar-done" style="width:90%"></div>
+    <div class="phase-bar-warn" style="width:10%"></div>
+  </div>
+  <div class="phase-items">
+    <span class="ok">✅ #3 竞品关键词 15:00每日推送</span><br>
+    <span class="ok">✅ #4 竞品动态 18:00每日推送</span><br>
+    <span class="ok">✅ #5 爆款拆解 21:00每日推送</span><br>
+    <span class="warn">⚠️ #6 文旅热点 web_search失效</span>
+  </div>
+</div>
+
+<div class="phase-card" style="border-left: 4px solid #8b5cf6;">
+  <h3>🧠 知识分析体系</h3>
+  <div class="phase-bar">
+    <div class="phase-bar-done" style="width:50%"></div>
+    <div class="phase-bar-partial" style="width:30%"></div>
+    <div class="phase-bar-warn" style="width:20%"></div>
+  </div>
+  <div class="phase-items">
+    <span class="ok">✅ #7 每日复盘 22:00自动输出</span><br>
+    <span class="warn">⚠️ #8 客流 CSV断档&gt;15天</span><br>
+    <span class="ok">✅ #9 Obsidian图谱 200+文档互联</span><br>
+    <span class="running">🔧 #10 INGEST 每周日自动执行</span>
+  </div>
+</div>
+
+<div class="phase-card" style="border-left: 4px solid #f59e0b;">
+  <h3>🤖 智能编排与运维</h3>
+  <div class="phase-bar">
+    <div class="phase-bar-done" style="width:60%"></div>
+    <div class="phase-bar-partial" style="width:20%"></div>
+    <div class="phase-bar-bg" style="width:20%"></div>
+  </div>
+  <div class="phase-items">
+    <span class="running">🔧 #11 多Agent 并行编排运行中</span><br>
+    <span class="ok">✅ #14 铁律预警 规则引擎就绪</span><br>
+    <span class="ok">✅ #15 健康自检 每周日自动同步</span>
+  </div>
+</div>
+
+</div>
+
+<div style="max-width:1300px; margin:20px auto 0;">
+  <p style="color:#999; font-size:12px; text-align:center;">
+    基于建业电影小镇 · AI全域营销运营系统 · 2026-05-22
+  </p>
+</div>
+</body>
+</html>

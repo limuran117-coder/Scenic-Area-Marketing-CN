@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/opt/homebrew/bin/python3.12
 """
 客流数据查询脚本 v2
 从Excel提取客流数据

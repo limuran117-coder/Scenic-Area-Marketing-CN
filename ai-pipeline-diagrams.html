@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能工作场景 · 全链路数据流图（全15张）</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #f4f6f9;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  padding: 32px 20px;
+}
+.header { max-width: 1200px; margin: 0 auto 24px; }
+.header h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 6px; }
+.header p { color: #666; font-size: 14px; }
+.grid { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.card {
+  background: #fff; border-radius: 12px; padding: 14px 16px 10px;
+  border: 1px solid #e8ecf1; box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.card-top {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+}
+.num {
+  width: 26px; height: 26px; border-radius: 6px;
+  background: #4361ee; color: #fff; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.card-title { font-size: 14px; font-weight: 600; color: #1a1a2e; flex: 1; }
+.card-time { font-size: 11px; color: #94a3b8; flex-shrink: 0; }
+.tag { font-size: 10px; padding: 1px 7px; border-radius: 8px; flex-shrink: 0; }
+.tag-h { background: #d4edda; color: #155724; }
+.tag-m { background: #fff3cd; color: #856404; }
+.svg-container { width: 100%; overflow-x: auto; }
+.svg-container svg { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>🔄 AI赋能工作场景 · 全链路数据流图</h1>
+  <p>参照图2全链路数据流图风格，每张按 数据源→采集→AI分析→输出→反馈 五段式呈现</p>
+  <p style="margin-top:4px; color:#999; font-size:12px;">
+    🟧 数据采集 · 🟩 数据清洗 · 🟪 AI分析 · ⬜ 输出/分发 · 🟦 反馈闭环
+  </p>
+</div>
+<div class="grid">
+
+<!-- 1 -->
+<div class="card">
+  <div class="card-top"><span class="num">1</span><span class="card-title">抖音指数日报自动采集</span><span class="tag tag-h">高可推广</span><span class="card-time">~15min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m1-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m1-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m1-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m1-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">8:00触发 douyin_index_v9.py</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">数据采集</text>
+<rect x="26" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" font-weight="600" fill="#c2410c">抖音创作者中心</text><text x="42" y="76" font-size="9" fill="#6b7280">我的订阅页 8景区数据</text><text x="42" y="90" font-size="9" fill="#6b7280">搜索/综合指数</text>
+<rect x="26" y="104" width="180" height="40" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="42" y="118" font-size="10" font-weight="600" fill="#dc2626">⚠️ 关键词页(Tab4)</text><text x="42" y="134" font-size="9" fill="#6b7280">关联词TOP10+人群画像</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m1-o)"/>
+<rect x="238" y="26" width="175" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">数据清洗</text>
+<rect x="246" y="48" width="160" height="52" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#166534" font-weight="600">Playwright解析</text><text x="262" y="76" font-size="9" fill="#6b7280">CDP直连提取</text><text x="262" y="90" font-size="9" fill="#6b7280">搜索/综合指数结构化</text>
+<rect x="246" y="104" width="160" height="42" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="118" font-size="10" fill="#166534" font-weight="600">排名+涨跌%计算</text><text x="262" y="134" font-size="9" fill="#6b7280">8景区统一格式化</text>
+<line x1="413" y1="118" x2="435" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m1-g)"/>
+<rect x="438" y="26" width="195" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="446" y="42" font-size="11" font-weight="600" fill="#6d28d9">AI分析/决策</text>
+<rect x="446" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="462" y="62" font-size="10" fill="#7c3aed" font-weight="600">AI指数解读</text><text x="462" y="76" font-size="9" fill="#6b7280">8景区排名·双指标趋势</text><text x="462" y="90" font-size="9" fill="#6b7280">电影小镇定位分析</text>
+<rect x="446" y="104" width="180" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="462" y="118" font-size="10" fill="#b45309" font-weight="600">AI决策建议</text><text x="462" y="134" font-size="9" fill="#6b7280">①②③④建议+竞品预警</text>
+<line x1="633" y1="118" x2="655" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m1-p)"/>
+<rect x="658" y="26" width="175" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="666" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="666" y="48" width="160" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="682" y="62" font-size="10" fill="#166534" font-weight="600">飞书互动卡片</text><text x="682" y="78" font-size="9" fill="#6b7280">电影小镇群 08:00</text>
+<rect x="666" y="94" width="160" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="682" y="108" font-size="10" fill="#7c3aed" font-weight="600">Wiki归档</text><text x="682" y="124" font-size="9" fill="#6b7280">douyin-index/YYYY-MM-DD</text>
+<line x1="833" y1="118" x2="855" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m1-b)"/>
+<rect x="858" y="26" width="220" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="866" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环</text>
+<rect x="866" y="48" width="200" height="42" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="882" y="62" font-size="10" fill="#0e7490" font-weight="600">站长浏览/确认/纠错</text><text x="882" y="78" font-size="9" fill="#6b7280">反馈→铁律纠错→认知更新</text>
+<rect x="866" y="94" width="200" height="42" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="882" y="108" font-size="10" fill="#b45309" font-weight="600">策略调整执行</text><text x="882" y="124" font-size="9" fill="#6b7280">影响次日采集/分析逻辑</text>
+<path d="M 968 179 Q 550 195 225 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m1-b)"/><text x="550" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环</text>
+</svg>
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="card">
+  <div class="card-top"><span class="num">2</span><span class="card-title">小红书灵犀数据日报</span><span class="tag tag-h">高可推广</span><span class="card-time">~18min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m2-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m2-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m2-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m2-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">10:00触发 CDP登录态采集</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">数据采集</text>
+<rect x="26" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" font-weight="600" fill="#c2410c">小红书灵犀后台</text><text x="42" y="76" font-size="9" fill="#6b7280">idea.xiaohongshu.com</text><text x="42" y="90" font-size="9" fill="#6b7280">品牌总览+趋势分析</text>
+<rect x="26" y="104" width="180" height="40" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="42" y="118" font-size="10" font-weight="600" fill="#dc2626">⚠️ JS注入搜索8关键词</text><text x="42" y="134" font-size="9" fill="#6b7280">慢输入+Enter精确匹配</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m2-o)"/>
+<rect x="238" y="26" width="175" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">数据清洗</text>
+<rect x="246" y="48" width="160" height="52" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#166534" font-weight="600">五维度提取</text><text x="262" y="76" font-size="9" fill="#6b7280">搜索总量·行业排名</text><text x="262" y="90" font-size="9" fill="#6b7280">互动总量·人群资产</text>
+<rect x="246" y="104" width="160" height="42" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="118" font-size="10" fill="#166534" font-weight="600">趋势符号标准化</text><text x="262" y="134" font-size="9" fill="#6b7280">📈📉➡️涨跌%</text>
+<line x1="413" y1="118" x2="435" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m2-g)"/>
+<rect x="438" y="26" width="195" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="446" y="42" font-size="11" font-weight="600" fill="#6d28d9">AI分析/决策</text>
+<rect x="446" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="462" y="62" font-size="10" fill="#7c3aed" font-weight="600">品牌健康度分析</text><text x="462" y="76" font-size="9" fill="#6b7280">搜索变化·竞品对比</text><text x="462" y="90" font-size="9" fill="#6b7280">UGC产出·爆款归因</text>
+<rect x="446" y="104" width="180" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="462" y="118" font-size="10" fill="#b45309" font-weight="600">D1-D5建议</text><text x="462" y="134" font-size="9" fill="#6b7280">优化CTR/启动端午/包装IP</text>
+<line x1="633" y1="118" x2="655" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m2-p)"/>
+<rect x="658" y="26" width="175" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="666" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="666" y="48" width="160" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="682" y="62" font-size="10" fill="#166534" font-weight="600">飞书群推送</text><text x="682" y="78" font-size="9" fill="#6b7280">电影小镇群 10:00</text>
+<rect x="666" y="94" width="160" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="682" y="108" font-size="10" fill="#7c3aed" font-weight="600">日度归档</text><text x="682" y="124" font-size="9" fill="#6b7280">memory/YYYY-MM-DD</text>
+<line x1="833" y1="118" x2="855" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m2-b)"/>
+<rect x="858" y="26" width="220" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="866" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环</text>
+<rect x="866" y="48" width="200" height="42" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="882" y="62" font-size="10" fill="#0e7490" font-weight="600">站长确认/策略调整</text><text x="882" y="78" font-size="9" fill="#6b7280">反馈→内容方向优化</text>
+<rect x="866" y="94" width="200" height="42" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="882" y="108" font-size="10" fill="#b45309" font-weight="600">迭代运营策略</text><text x="882" y="124" font-size="9" fill="#6b7280">爆款→铁花IP升级</text>
+<path d="M 968 179 Q 550 195 225 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m2-b)"/><text x="550" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环</text>
+</svg>
+  </div>
+</div>
+
+<!-- 3 -->
+<div class="card">
+  <div class="card-top"><span class="num">3</span><span class="card-title">竞品关键词深度分析</span><span class="tag tag-h">高可推广</span><span class="card-time">~20min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m3-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m3-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m3-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m3-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">15:00触发 状态文件轮换 指定竞品</text>
+<rect x="18" y="26" width="225" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">多平台数据采集</text>
+<rect x="26" y="48" width="68" height="52" rx="4" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="60" y="66" text-anchor="middle" font-size="10" font-weight="600" fill="#c2410c">百度</text><text x="60" y="82" text-anchor="middle" font-size="9" fill="#6b7280">搜索指数</text><text x="60" y="96" text-anchor="middle" font-size="9" fill="#6b7280">舆情·规模</text>
+<rect x="98" y="48" width="68" height="52" rx="4" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="132" y="66" text-anchor="middle" font-size="10" font-weight="600" fill="#c2410c">抖音</text><text x="132" y="82" text-anchor="middle" font-size="9" fill="#6b7280">搜索/综合</text><text x="132" y="96" text-anchor="middle" font-size="9" fill="#6b7280">关联词</text>
+<rect x="170" y="48" width="68" height="52" rx="4" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="204" y="66" text-anchor="middle" font-size="10" font-weight="600" fill="#c2410c">小红书</text><text x="204" y="82" text-anchor="middle" font-size="9" fill="#6b7280">灵犀搜索</text><text x="204" y="96" text-anchor="middle" font-size="9" fill="#6b7280">内容采集</text>
+<rect x="26" y="104" width="212" height="44" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="132" y="120" text-anchor="middle" font-size="10" font-weight="600" fill="#dc2626">⚠️ 均需CDP+重试3次</text><text x="132" y="136" text-anchor="middle" font-size="9" fill="#6b7280">21个关键词池</text>
+<line x1="243" y1="118" x2="265" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m3-o)"/>
+<rect x="268" y="26" width="195" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="276" y="42" font-size="11" font-weight="600" fill="#166534">数据清洗</text>
+<rect x="276" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="292" y="62" font-size="10" fill="#166534" font-weight="600">四平台数据合并</text><text x="292" y="76" font-size="9" fill="#6b7280">7模块结构化</text><text x="292" y="90" font-size="9" fill="#6b7280">核心数据/分析/建议</text>
+<rect x="276" y="104" width="180" height="42" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="292" y="118" font-size="10" fill="#166534" font-weight="600">人群画像四字段清洗</text><text x="292" y="134" font-size="9" fill="#6b7280">年龄/性别/地域/兴趣</text>
+<line x1="463" y1="118" x2="485" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m3-g)"/>
+<rect x="488" y="26" width="195" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="496" y="42" font-size="11" font-weight="600" fill="#6d28d9">AI分析/决策</text>
+<rect x="496" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="512" y="62" font-size="10" fill="#7c3aed" font-weight="600">全景竞争分析</text><text x="512" y="76" font-size="9" fill="#6b7280">搜索对比·关联词TOP10</text><text x="512" y="90" font-size="9" fill="#6b7280">人群差异·策略建议</text>
+<rect x="496" y="104" width="180" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="512" y="118" font-size="10" fill="#b45309" font-weight="600">精准投放建议</text><text x="512" y="134" font-size="9" fill="#6b7280">7大模块完整报告</text>
+<line x1="683" y1="118" x2="705" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m3-p)"/>
+<rect x="708" y="26" width="175" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="716" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="716" y="48" width="160" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="732" y="62" font-size="10" fill="#166534" font-weight="600">私信推送</text><text x="732" y="78" font-size="9" fill="#6b7280">站长 15:00</text>
+<rect x="716" y="94" width="160" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="732" y="108" font-size="10" fill="#7c3aed" font-weight="600">Wiki归档</text><text x="732" y="124" font-size="9" fill="#6b7280">竞品分析/[竞品名].md</text>
+<line x1="883" y1="118" x2="905" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m3-b)"/>
+<rect x="908" y="26" width="170" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="916" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环</text>
+<rect x="916" y="48" width="155" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="930" y="64" font-size="10" fill="#0e7490" font-weight="600">知识沉淀</text><text x="930" y="80" font-size="9" fill="#6b7280">→ entities/更新</text><text x="930" y="94" font-size="9" fill="#6b7280">→ concepts/提炼</text>
+<path d="M 995 179 Q 580 195 255 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m3-b)"/><text x="580" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环</text>
+</svg>
+  </div>
+</div>
+
+<!-- 4 -->
+<div class="card">
+  <div class="card-top"><span class="num">4</span><span class="card-title">竞品内容动态追踪</span><span class="tag tag-h">高可推广</span><span class="card-time">~12min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m4-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m4-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m4-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m4-y" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ca8a04"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">18:00触发 增量内容抓取</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">数据采集</text>
+<rect x="26" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" font-weight="600" fill="#c2410c">抖音竞品作品列表</text><text x="42" y="76" font-size="9" fill="#6b7280">增量抓取</text><text x="42" y="90" font-size="9" fill="#6b7280">互动数据</text>
+<rect x="26" y="104" width="180" height="42" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="118" font-size="10" font-weight="600" fill="#c2410c">小红书竞品笔记</text><text x="42" y="134" font-size="9" fill="#6b7280">增量抓取 互动数据</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m4-o)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">变化检测</text>
+<rect x="246" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#166534" font-weight="600">对比上次采集结果</text><text x="262" y="78" font-size="9" fill="#6b7280">新作品/新笔记</text><text x="262" y="90" font-size="9" fill="#6b7280">互动数据变化趋势</text>
+<rect x="246" y="107" width="180" height="38" rx="5" fill="#fef3c7" stroke="#ca8a04" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#92400e" font-weight="600">有无变化 分流</text><text x="262" y="136" font-size="9" fill="#6b7280">有→推送 无→跳过</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m4-g)"/>
+<rect x="458" y="26" width="195" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#6d28d9">AI分析</text>
+<rect x="466" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="482" y="62" font-size="10" fill="#7c3aed" font-weight="600">AI策略分析</text><text x="482" y="78" font-size="9" fill="#6b7280">主题解读·互动归因</text><text x="482" y="90" font-size="9" fill="#6b7280">内容趋势判断</text>
+<rect x="466" y="107" width="180" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="482" y="122" font-size="10" fill="#b45309" font-weight="600">应对建议</text><text x="482" y="138" font-size="9" fill="#6b7280">电影小镇可借鉴策略</text>
+<line x1="653" y1="118" x2="675" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m4-p)"/>
+<rect x="678" y="26" width="195" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="686" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="686" y="48" width="180" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="702" y="62" font-size="10" fill="#166534" font-weight="600">飞书群推送</text><text x="702" y="78" font-size="9" fill="#6b7280">电影小镇群 18:00</text>
+<rect x="686" y="94" width="180" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="702" y="108" font-size="10" fill="#7c3aed" font-weight="600">竞品动态归档</text><text x="702" y="124" font-size="9" fill="#6b7280">竞品分析/[竞品名]/动态/</text>
+<line x1="873" y1="118" x2="895" y2="118" stroke="#ca8a04" stroke-width="2" marker-end="url(#m4-y)"/>
+<rect x="898" y="26" width="180" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="906" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环</text>
+<rect x="906" y="48" width="165" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="920" y="64" font-size="10" fill="#0e7490" font-weight="600">跟进差距分析</text><text x="920" y="80" font-size="9" fill="#6b7280">→竞品威胁评估</text><text x="920" y="94" font-size="9" fill="#6b7280">→差异化策略</text>
+<path d="M 990 179 Q 580 195 225 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m4-o)"/><text x="580" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环</text>
+</svg>
+  </div>
+</div>
+
+<!-- 5 -->
+<div class="card">
+  <div class="card-top"><span class="num">5</span><span class="card-title">全国景区爆款内容拆解</span><span class="tag tag-m">按需使用</span><span class="card-time">~14min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m5-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m5-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m5-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">21:00触发 21个关键词内容采集</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">数据采集</text>
+<rect x="26" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" font-weight="600" fill="#c2410c">抖音/小红书/微博</text><text x="42" y="76" font-size="9" fill="#6b7280">搜索21个关键词</text><text x="42" y="90" font-size="9" fill="#6b7280">获得热门内容流</text>
+<rect x="26" y="104" width="180" height="40" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="118" font-size="10" font-weight="600" fill="#c2410c">提取点赞/收藏/评论</text><text x="42" y="134" font-size="9" fill="#6b7280">互动数据TOP筛选</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m5-o)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">爆款判定+清洗</text>
+<rect x="246" y="48" width="180" height="55" rx="5" fill="#fef3c7" stroke="#ca8a04" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#92400e" font-weight="600">爆款阈值判定</text><text x="262" y="78" font-size="9" fill="#6b7280">抖音👍&gt;1万·小红书&gt;1千</text><text x="262" y="90" font-size="9" fill="#6b7280">搜索日环比&gt;+50%</text>
+<rect x="246" y="107" width="180" height="40" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#166534" font-weight="600">内容结构化提取</text><text x="262" y="138" font-size="9" fill="#6b7280">标题·话题·互动·博主类型</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m5-g)"/>
+<rect x="458" y="26" width="220" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#6d28d9">AI分析与沉淀</text>
+<rect x="466" y="48" width="205" height="55" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="482" y="62" font-size="10" fill="#7c3aed" font-weight="600">AI模式提取</text><text x="482" y="78" font-size="9" fill="#6b7280">情绪营销·悬念·发布节奏</text><text x="482" y="90" font-size="9" fill="#6b7280">规律总结·可复制建议</text>
+<rect x="466" y="107" width="205" height="40" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="482" y="122" font-size="10" fill="#7c3aed" font-weight="600">→ concepts/ 沉淀</text><text x="482" y="138" font-size="9" fill="#6b7280">内容爆款规律·情绪营销</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m5-p)"/>
+<rect x="703" y="26" width="175" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="711" y="48" width="160" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="727" y="62" font-size="10" fill="#166534" font-weight="600">飞书群推送</text><text x="727" y="78" font-size="9" fill="#6b7280">电影小镇群 21:00</text>
+<rect x="711" y="94" width="160" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="727" y="108" font-size="10" fill="#7c3aed" font-weight="600">案例库更新</text><text x="727" y="124" font-size="9" fill="#6b7280">全国景区案例库/W22</text>
+<line x1="878" y1="118" x2="900" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m5-p)"/>
+<rect x="903" y="26" width="175" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="911" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环</text>
+<rect x="911" y="48" width="160" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="927" y="64" font-size="10" fill="#0e7490" font-weight="600">规律→运营测试</text><text x="927" y="80" font-size="9" fill="#6b7280">→验证→修正→</text><text x="927" y="94" font-size="9" fill="#6b7280">→持续完善concepts</text>
+<path d="M 990 179 Q 580 195 225 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m5-o)"/><text x="580" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环</text>
+</svg>
+  </div>
+</div>
+
+<!-- 6 -->
+<div class="card">
+  <div class="card-top"><span class="num">6</span><span class="card-title">文旅政策与热点AI追踪</span><span class="tag tag-h">高可推广</span><span class="card-time">~10min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m6-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m6-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m6-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m6-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">10:00触发 web_fetch多源采集</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">数据采集</text>
+<rect x="26" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" font-weight="600" fill="#c2410c">多来源信息采集</text><text x="42" y="78" font-size="9" fill="#6b7280">政府网站·行业媒体</text><text x="42" y="90" font-size="9" fill="#6b7280">微博热搜·微信公众号</text>
+<rect x="26" y="107" width="180" height="38" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="122" font-size="10" font-weight="600" fill="#c2410c">web_fetch提取</text><text x="42" y="138" font-size="9" fill="#6b7280">关联到景区行业</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m6-o)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">AI摘要+排序</text>
+<rect x="246" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#166534" font-weight="600">AI全文摘要生成</text><text x="262" y="78" font-size="9" fill="#6b7280">关键信息提取</text><text x="262" y="90" font-size="9" fill="#6b7280">影响力/关联度排序</text>
+<rect x="246" y="107" width="180" height="40" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#7c3aed" font-weight="600">知识图谱关联</text><text x="262" y="138" font-size="9" fill="#6b7280">→ 链接到竞品·节日·policy</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m6-g)"/>
+<rect x="458" y="26" width="175" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#6d28d9">AI决策分析</text>
+<rect x="466" y="48" width="160" height="55" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="482" y="62" font-size="10" fill="#7c3aed" font-weight="600">影响等级判定</text><text x="482" y="78" font-size="9" fill="#6b7280">高/中/低 三档分层</text><text x="482" y="90" font-size="9" fill="#6b7280">P0-P2优先级</text>
+<rect x="466" y="107" width="160" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="482" y="122" font-size="10" fill="#b45309" font-weight="600">行动建议</text><text x="482" y="138" font-size="9" fill="#6b7280">直接关联电影小镇动作</text>
+<line x1="633" y1="118" x2="655" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m6-p)"/>
+<rect x="658" y="26" width="195" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="666" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="666" y="48" width="180" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="682" y="62" font-size="10" fill="#166534" font-weight="600">飞书群推送</text><text x="682" y="78" font-size="9" fill="#6b7280">电影小镇群 10:00</text>
+<rect x="666" y="94" width="180" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="682" y="108" font-size="10" fill="#7c3aed" font-weight="600">归档行业知识</text><text x="682" y="124" font-size="9" fill="#6b7280">行业知识/YYYY-MM-DD.md</text>
+<line x1="853" y1="118" x2="875" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m6-b)"/>
+<rect x="878" y="26" width="200" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="886" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环</text>
+<rect x="886" y="48" width="185" height="42" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="902" y="62" font-size="10" fill="#0e7490" font-weight="600">政策跟踪→策略调整</text><text x="902" y="78" font-size="9" fill="#6b7280">大会政策→落地影响评估</text>
+<rect x="886" y="94" width="185" height="42" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="902" y="108" font-size="10" fill="#b45309" font-weight="600">来源过滤优化</text><text x="902" y="124" font-size="9" fill="#6b7280">提升相关性精度</text>
+<path d="M 980 179 Q 580 195 225 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m6-o)"/><text x="580" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环</text>
+</svg>
+  </div>
+</div>
+
+<!-- 7 -->
+<div class="card">
+  <div class="card-top"><span class="num">7</span><span class="card-title">每日AI自动复盘整合</span><span class="tag tag-h">高可推广</span><span class="card-time">~8min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m7-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m7-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m7-y" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ca8a04"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">22:00触发 多Agent数据汇总</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#6d28d9">多源数据汇总</text>
+<rect x="26" y="48" width="42" height="52" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="47" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#dc2626">#1</text><text x="47" y="80" text-anchor="middle" font-size="9" fill="#6b7280">抖音</text>
+<rect x="72" y="48" width="42" height="52" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="93" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#dc2626">#2</text><text x="93" y="80" text-anchor="middle" font-size="9" fill="#6b7280">小红</text>
+<rect x="118" y="48" width="42" height="52" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="139" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#dc2626">#3</text><text x="139" y="80" text-anchor="middle" font-size="9" fill="#6b7280">竞品</text>
+<rect x="164" y="48" width="42" height="52" rx="4" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="185" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#dc2626">#8</text><text x="185" y="80" text-anchor="middle" font-size="9" fill="#6b7280">客流</text>
+<rect x="26" y="104" width="180" height="42" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="42" y="118" font-size="10" fill="#7c3aed" font-weight="600">每日任务状态汇总</text><text x="42" y="134" font-size="9" fill="#6b7280">✅/⚠️/❌ 标记</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m7-p)"/>
+<rect x="238" y="26" width="220" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">AI整合分析</text>
+<rect x="246" y="48" width="205" height="55" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#166534" font-weight="600">跨维度趋势识别</text><text x="262" y="78" font-size="9" fill="#6b7280">同比·环比·YTD达成率</text><text x="262" y="90" font-size="9" fill="#6b7280">竞品格局变化</text>
+<rect x="246" y="107" width="205" height="40" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#b45309" font-weight="600">深度洞察+明日建议</text><text x="262" y="138" font-size="9" fill="#6b7280">数据背后原因+可执行动作</text>
+<line x1="458" y1="118" x2="480" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m7-g)"/>
+<rect x="483" y="26" width="195" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="491" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="491" y="48" width="180" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="507" y="62" font-size="10" fill="#166534" font-weight="600">复盘卡片 私信推送</text><text x="507" y="78" font-size="9" fill="#6b7280">站长 22:00</text>
+<rect x="491" y="94" width="180" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="507" y="108" font-size="10" fill="#7c3aed" font-weight="600">归档memory/</text><text x="507" y="124" font-size="9" fill="#6b7280">YYYY-MM-DD.md</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#ca8a04" stroke-width="2" marker-end="url(#m7-y)"/>
+<rect x="703" y="26" width="375" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环 · 决策规则检查</text>
+<rect x="711" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="727" y="64" font-size="10" fill="#0e7490" font-weight="600">铁律触发检查</text><text x="727" y="80" font-size="9" fill="#6b7280">R01-R09规则评估</text><text x="727" y="94" font-size="9" fill="#6b7280">哪些今天触发了</text>
+<rect x="893" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="909" y="64" font-size="10" fill="#0e7490" font-weight="600">待解决问题追踪</text><text x="909" y="80" font-size="9" fill="#6b7280">🔴/🟡/🟢 状态更新</text><text x="909" y="94" font-size="9" fill="#6b7280">→ 明日优先级排序</text>
+<rect x="711" y="107" width="358" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="727" y="122" font-size="10" fill="#b45309" font-weight="600">判断-执行断层≥3次 → 🔴升格</text><text x="727" y="138" font-size="9" fill="#6b7280">归因疲劳暂停/恢复逻辑</text>
+<path d="M 1050 179 Q 580 195 240 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m7-p)"/><text x="580" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环（影响明日策略）</text>
+</svg>
+  </div>
+</div>
+
+<!-- 8 -->
+<div class="card">
+  <div class="card-top"><span class="num">8</span><span class="card-title">客流数据AI智能分析</span><span class="tag tag-h">高可推广</span><span class="card-time">~6min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m8-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m8-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m8-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m8-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">周一09:00触发 读取客流CSV</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">数据读取</text>
+<rect x="26" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" font-weight="600" fill="#c2410c">读取CSV原始数据</text><text x="42" y="78" font-size="9" fill="#6b7280">Desktop/2026游客量统计.csv</text><text x="42" y="90" font-size="9" fill="#6b7280">每日散客/渠道/总计</text>
+<rect x="26" y="107" width="180" height="38" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="42" y="122" font-size="10" fill="#dc2626" font-weight="600">⚠️ 断档检测</text><text x="42" y="138" font-size="9" fill="#6b7280">&gt;15天断档→告警</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m8-o)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">数据清洗</text>
+<rect x="246" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#166534" font-weight="600">数据校验</text><text x="262" y="78" font-size="9" fill="#6b7280">散客=线上+线下+体验票</text><text x="262" y="90" font-size="9" fill="#6b7280">渠道=研学+大客户+导游+旅行社</text>
+<rect x="246" y="107" width="180" height="38" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#166534" font-weight="600">天气标注+异常标记</text><text x="262" y="138" font-size="9" fill="#6b7280">BOM去除·一致性检查</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m8-g)"/>
+<rect x="458" y="26" width="220" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#6d28d9">AI分析/预测</text>
+<rect x="466" y="48" width="205" height="55" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="482" y="62" font-size="10" fill="#7c3aed" font-weight="600">趋势分析·同比·YTD</text><text x="482" y="78" font-size="9" fill="#6b7280">周度/月度同比、YTD达成率</text><text x="482" y="90" font-size="9" fill="#6b7280">目标153万 vs 实际</text>
+<rect x="466" y="107" width="205" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="482" y="122" font-size="10" fill="#b45309" font-weight="600">渠道结构拆解+模型预测</text><text x="482" y="138" font-size="9" fill="#6b7280">散客率·渠道依赖·季节峰值</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m8-p)"/>
+<rect x="703" y="26" width="175" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#374151">输出/分发</text>
+<rect x="711" y="48" width="160" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="727" y="62" font-size="10" fill="#166534" font-weight="600">飞书周报</text><text x="727" y="78" font-size="9" fill="#6b7280">电影小镇群 周一09:00</text>
+<rect x="711" y="94" width="160" height="42" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="727" y="108" font-size="10" fill="#7c3aed" font-weight="600">Wiki归档</text><text x="727" y="124" font-size="9" fill="#6b7280">电影小镇/客流/W19.md</text>
+<line x1="878" y1="118" x2="900" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m8-b)"/>
+<rect x="903" y="26" width="175" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="911" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环</text>
+<rect x="911" y="48" width="160" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="927" y="64" font-size="10" fill="#0e7490" font-weight="600">预警触发</text><text x="927" y="80" font-size="9" fill="#6b7280">×铁律预警系统(#14)</text><text x="927" y="94" font-size="9" fill="#6b7280">→策略调整</text>
+<path d="M 990 179 Q 580 195 240 179" stroke="#0891b2" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#m8-o)"/><text x="580" y="192" text-anchor="middle" font-size="9" fill="#0891b2">⬅ 反馈闭环</text>
+</svg>
+  </div>
+</div>
+
+<!-- 9 -->
+<div class="card">
+  <div class="card-top"><span class="num">9</span><span class="card-title">Obsidian知识图谱可视化导航</span><span class="tag tag-h">高可推广</span><span class="card-time">建设2周</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m9-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m9-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">一次性建设 + 持续维护</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#166534">文档体系搭建</text>
+<rect x="26" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="42" y="62" font-size="10" fill="#166534" font-weight="600">200+原始文档</text><text x="42" y="78" font-size="9" fill="#6b7280">日报·分析·报告·竞品</text><text x="42" y="90" font-size="9" fill="#6b7280">统一Markdown格式</text>
+<rect x="26" y="107" width="180" height="38" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="42" y="122" font-size="10" fill="#7c3aed" font-weight="600">四层分类标记</text><text x="42" y="138" font-size="9" fill="#6b7280">concepts/entities/sources/queries</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m9-g)"/>
+<rect x="238" y="26" width="220" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#6d28d9">Obsidian 知识关联</text>
+<rect x="246" y="48" width="205" height="55" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#7c3aed" font-weight="600">双向链接关联</text><text x="262" y="78" font-size="9" fill="#6b7280">文档间[[引用]]</text><text x="262" y="90" font-size="9" fill="#6b7280">标签体系·属性元数据</text>
+<rect x="246" y="107" width="205" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#b45309" font-weight="600">Graph View 可视化</text><text x="262" y="138" font-size="9" fill="#6b7280">节点网络·关联发现</text>
+<line x1="458" y1="118" x2="480" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m9-p)"/>
+<rect x="483" y="26" width="195" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="491" y="42" font-size="11" font-weight="600" fill="#374151">应用价值</text>
+<rect x="491" y="48" width="180" height="55" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="507" y="62" font-size="10" fill="#166534" font-weight="600">新员工30min上手</text><text x="507" y="78" font-size="9" fill="#6b7280">直觉式知识体系导航</text><text x="507" y="90" font-size="9" fill="#6b7280">不再3天翻文件</text>
+<rect x="491" y="107" width="180" height="38" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="507" y="122" font-size="10" fill="#7c3aed" font-weight="600">实体雷达图</text><text x="507" y="138" font-size="9" fill="#6b7280">竞品全景画像可视化</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m9-p)"/>
+<rect x="703" y="26" width="375" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#0e7490">持续维护与反馈</text>
+<rect x="711" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="727" y="64" font-size="10" fill="#0e7490" font-weight="600">新文档→标记关联</text><text x="727" y="80" font-size="9" fill="#6b7280">每周新增文档分类</text><text x="727" y="94" font-size="9" fill="#6b7280">→充实四层结构</text>
+<rect x="893" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="909" y="64" font-size="10" fill="#0e7490" font-weight="600">LINT健康检查</text><text x="909" y="80" font-size="9" fill="#6b7280">断链检测·漂移发现</text><text x="909" y="94" font-size="9" fill="#6b7280">内容过时标记</text>
+<rect x="711" y="107" width="358" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="727" y="122" font-size="10" fill="#b45309" font-weight="600">周日INGEST(#10) 同步更新图谱</text><text x="727" y="138" font-size="9" fill="#6b7280">知识层与业务层双向更新</text>
+</svg>
+  </div>
+</div>
+
+<!-- 10 -->
+<div class="card">
+  <div class="card-top"><span class="num">10</span><span class="card-title">karpathy-wiki知识化合与周度INGEST</span><span class="tag tag-h">高可推广</span><span class="card-time">~20min/周日</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m10-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m10-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m10-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m10-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">周日15:00触发 一周数据INGEST</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">一周数据收集</text>
+<rect x="26" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" fill="#c2410c" font-weight="600">汇总每日业务数据</text><text x="42" y="78" font-size="9" fill="#6b7280">抖音/小红书/竞品/客流</text><text x="42" y="90" font-size="9" fill="#6b7280">七天的报告+日志</text>
+<rect x="26" y="107" width="180" height="38" rx="5" fill="#fef3c7" stroke="#ca8a04" stroke-width="1"/><text x="42" y="122" font-size="10" fill="#92400e" font-weight="600">AI判断是否有新洞察</text><text x="42" y="138" font-size="9" fill="#6b7280">无→skip 有→INGEST</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ca8a04" stroke-width="2" marker-end="url(#m10-g)"/>
+<rect x="238" y="26" width="220" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#6d28d9">INGEST 四层写入</text>
+<rect x="246" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="270" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#7c3aed">con</text><text x="270" y="80" text-anchor="middle" font-size="8" fill="#6b7280">概念</text>
+<rect x="298" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="322" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#7c3aed">ent</text><text x="322" y="80" text-anchor="middle" font-size="8" fill="#6b7280">实体</text>
+<rect x="350" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="374" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#7c3aed">src</text><text x="374" y="80" text-anchor="middle" font-size="8" fill="#6b7280">源库</text>
+<rect x="402" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="426" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#7c3aed">qry</text><text x="426" y="80" text-anchor="middle" font-size="8" fill="#6b7280">问答</text>
+<text x="246" y="118" font-size="10" fill="#7c3aed" font-weight="600">AI自动归类写入对应层级</text>
+<text x="246" y="134" font-size="9" fill="#6b7280">新洞察→concepts/实体更新→entities/源摘要→sources/问答→queries</text>
+<rect x="246" y="140" width="205" height="34" rx="5" fill="#ede9fe" stroke="#a78bfa" stroke-width="1"/><text x="262" y="156" font-size="10" fill="#7c3aed" font-weight="600">🧠 系统越用越聪明</text>
+<line x1="458" y1="118" x2="480" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m10-p)"/>
+<rect x="483" y="26" width="195" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="491" y="42" font-size="11" font-weight="600" fill="#374151">LINT+同步</text>
+<rect x="491" y="48" width="180" height="42" rx="5" fill="#f0fdfa" stroke="#0891b2" stroke-width="1"/><text x="507" y="62" font-size="10" fill="#0e7490" font-weight="600">LINT检查</text><text x="507" y="78" font-size="9" fill="#6b7280">链接完整性·漂移检测</text>
+<rect x="491" y="94" width="180" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="507" y="108" font-size="10" fill="#166534" font-weight="600">GitHub auto-sync</text><text x="507" y="124" font-size="9" fill="#6b7280">GitHub Actions 自动push</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m10-b)"/>
+<rect x="703" y="26" width="375" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环·持续进化</text>
+<rect x="711" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="727" y="64" font-size="10" fill="#0e7490" font-weight="600">知识复用</text><text x="727" y="80" font-size="9" fill="#6b7280">下次分析直接调用</text><text x="727" y="94" font-size="9" fill="#6b7280">不再从零开始</text>
+<rect x="893" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="909" y="64" font-size="10" fill="#0e7490" font-weight="600">进化指标</text><text x="909" y="80" font-size="9" fill="#6b7280">concepts+1/entities+1</text><text x="909" y="94" font-size="9" fill="#6b7280">系统越用越聪明</text>
+<rect x="711" y="107" width="358" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="727" y="122" font-size="10" fill="#b45309" font-weight="600">并非存储，而是化合——新旧知识交叉产生新洞见</text><text x="727" y="138" font-size="9" fill="#6b7280">← feedback loop</text>
+</svg>
+  </div>
+</div>
+
+<!-- 11 -->
+<div class="card">
+  <div class="card-top"><span class="num">11</span><span class="card-title">多Agent协同编排</span><span class="tag tag-m">需平台支持</span><span class="card-time">~12min</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m11-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m11-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m11-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">各时段触发 sessions_spawn 并行编排</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#1e40af">主Agent调度</text>
+<rect x="26" y="48" width="180" height="42" rx="5" fill="#fff" stroke="#2563eb" stroke-width="1"/><text x="42" y="62" font-size="10" fill="#1e40af" font-weight="600">sessions_spawn</text><text x="42" y="78" font-size="9" fill="#6b7280">并行分发任务</text>
+<rect x="26" y="94" width="180" height="50" rx="5" fill="#fff" stroke="#2563eb" stroke-width="1"/><text x="42" y="108" font-size="10" fill="#1e40af" font-weight="600">错误隔离</text><text x="42" y="124" font-size="9" fill="#6b7280">单个失败不影响其他</text><text x="42" y="140" font-size="9" fill="#6b7280">汇总跳过失败源</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m11-g)"/>
+<rect x="238" y="26" width="220" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">5个专用Agent并行执行</text>
+<rect x="246" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="270" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">抖音</text><text x="270" y="80" text-anchor="middle" font-size="8" fill="#6b7280">指数</text>
+<rect x="298" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="322" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">红书</text><text x="322" y="80" text-anchor="middle" font-size="8" fill="#6b7280">灵犀</text>
+<rect x="350" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="374" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">竞品</text><text x="374" y="80" text-anchor="middle" font-size="8" fill="#6b7280">分析</text>
+<rect x="402" y="48" width="48" height="52" rx="4" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="426" y="66" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">客流</text><text x="426" y="80" text-anchor="middle" font-size="8" fill="#6b7280">预测</text>
+<text x="246" y="118" font-size="10" fill="#166534" font-weight="600">并行执行，互不干扰</text>
+<text x="246" y="134" font-size="9" fill="#6b7280">单个15-20min → 并行12min完成</text>
+<rect x="246" y="140" width="205" height="28" rx="4" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="262" y="155" font-size="9" fill="#b45309" font-weight="600">vs 串行40min 效率提升70%</text>
+<line x1="458" y1="118" x2="480" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m11-g)"/>
+<rect x="483" y="26" width="195" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="491" y="42" font-size="11" font-weight="600" fill="#6d28d9">结果汇总</text>
+<rect x="491" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="507" y="62" font-size="10" fill="#7c3aed" font-weight="600">AI整合分析</text><text x="507" y="78" font-size="9" fill="#6b7280">多Agent结果合并</text><text x="507" y="90" font-size="9" fill="#6b7280">去重·冲突处理</text>
+<rect x="491" y="107" width="180" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="507" y="122" font-size="10" fill="#b45309" font-weight="600">综合报告生成</text><text x="507" y="138" font-size="9" fill="#6b7280">飞书卡片统一输出</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m11-p)"/>
+<rect x="703" y="26" width="375" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#0e7490">反馈闭环·持续优化</text>
+<rect x="711" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="727" y="64" font-size="10" fill="#0e7490" font-weight="600">Agent执行日志</text><text x="727" y="80" font-size="9" fill="#6b7280">→优化编排策略</text><text x="727" y="94" font-size="9" fill="#6b7280">→调整并行粒度</text>
+<rect x="893" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="909" y="64" font-size="10" fill="#0e7490" font-weight="600">稳定性监控</text><text x="909" y="80" font-size="9" fill="#6b7280">失败率趋势</text><text x="909" y="94" font-size="9" fill="#6b7280">告警阈值调整</text>
+<rect x="711" y="107" width="358" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="727" y="122" font-size="10" fill="#b45309" font-weight="600">扩展能力：未来可加入#9图谱Agent / #14预警Agent</text>
+</svg>
+  </div>
+</div>
+
+<!-- 12 -->
+<div class="card">
+  <div class="card-top"><span class="num">12</span><span class="card-title">飞书卡片自动化报告推送</span><span class="tag tag-h">高可推广</span><span class="card-time">~30s/次</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m12-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m12-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m12-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">各时段触发 send_feishu_card.py</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">数据接收</text>
+<rect x="26" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="62" font-size="10" fill="#c2410c" font-weight="600">各Agent输出数据</text><text x="42" y="78" font-size="9" fill="#6b7280">结构化JSON数据</text><text x="42" y="90" font-size="9" fill="#6b7280">sent_feishu_card.py接收</text>
+<rect x="26" y="107" width="180" height="38" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="122" font-size="10" fill="#c2410c" font-weight="600">schema "2.0" 模板引擎</text><text x="42" y="138" font-size="9" fill="#6b7280">统一卡片格式</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m12-o)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#166534">卡片渲染</text>
+<rect x="246" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#16a34a" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#166534" font-weight="600">markdown元素填充</text><text x="262" y="78" font-size="9" fill="#6b7280">表格·标签·数据</text><text x="262" y="90" font-size="9" fill="#6b7280">格式化验证</text>
+<rect x="246" y="107" width="180" height="38" rx="5" fill="#fef3c7" stroke="#ca8a04" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#92400e" font-weight="600">是否私信？判断</text><text x="262" y="138" font-size="9" fill="#6b7280">群消息/私信 双渠道分发</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#16a34a" stroke-width="2" marker-end="url(#m12-g)"/>
+<rect x="458" y="26" width="195" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#374151">飞书API发送</text>
+<rect x="466" y="48" width="180" height="55" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="482" y="62" font-size="10" fill="#166534" font-weight="600">POST互动卡片</text><text x="482" y="78" font-size="9" fill="#6b7280">飞书开放API</text><text x="482" y="90" font-size="9" fill="#6b7280">电影小镇群+数据群</text>
+<rect x="466" y="107" width="180" height="38" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="482" y="122" font-size="10" fill="#dc2626" font-weight="600">⚠️ 失败→队列重试</text><text x="482" y="138" font-size="9" fill="#6b7280">下一周期自动重发</text>
+<line x1="653" y1="118" x2="675" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m12-p)"/>
+<rect x="678" y="26" width="400" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="686" y="42" font-size="11" font-weight="600" fill="#0e7490">全时段覆盖 + 反馈闭环</text>
+<rect x="686" y="48" width="86" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="728" y="65" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">08:00 抖音</text><text x="728" y="80" text-anchor="middle" font-size="8" fill="#6b7280">群</text>
+<rect x="776" y="48" width="86" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="818" y="65" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">10:00 小红</text><text x="818" y="80" text-anchor="middle" font-size="8" fill="#6b7280">群</text>
+<rect x="866" y="48" width="86" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="908" y="65" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">15:00 竞品</text><text x="908" y="80" text-anchor="middle" font-size="8" fill="#6b7280">私信</text>
+<rect x="958" y="48" width="110" height="42" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="1012" y="65" text-anchor="middle" font-size="9" font-weight="600" fill="#166534">22:00 复盘</text><text x="1012" y="80" text-anchor="middle" font-size="8" fill="#6b7280">私信</text>
+<rect x="686" y="94" width="382" height="42" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="702" y="110" font-size="10" fill="#0e7490" font-weight="600">格式统一·版本可控·接收方无需额外操作</text><text x="702" y="126" font-size="9" fill="#6b7280">可推广至任何使用飞书/钉钉/企微的团队</text>
+</svg>
+  </div>
+</div>
+
+<!-- 13 -->
+<div class="card">
+  <div class="card-top"><span class="num">13</span><span class="card-title">CDP浏览器自动化+三层容错</span><span class="tag tag-h">高可推广</span><span class="card-time">正常2s·异常≤30s</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m13-r" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#dc2626"/></marker><marker id="m13-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">异常场景容错流程</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#dc2626">第一层·CDP连接</text>
+<rect x="26" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#dc2626" stroke-width="1"/><text x="42" y="62" font-size="10" fill="#dc2626" font-weight="600">异常捕获</text><text x="42" y="76" font-size="9" fill="#6b7280">CDP连接失败</text><text x="42" y="90" font-size="9" fill="#6b7280">Cookie过期/网络波动</text>
+<rect x="26" y="104" width="180" height="40" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="42" y="118" font-size="10" fill="#ea580c" font-weight="600">自动重试 (≤3次)</text><text x="42" y="134" font-size="9" fill="#6b7280">每次间隔5s</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#dc2626" stroke-width="2" marker-end="url(#m13-r)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#dc2626">第二层·数据采集</text>
+<rect x="246" y="48" width="180" height="52" rx="5" fill="#fff" stroke="#dc2626" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#dc2626" font-weight="600">Playwright执行异常</text><text x="262" y="76" font-size="9" fill="#6b7280">元素未找到/超时</text><text x="262" y="90" font-size="9" fill="#6b7280">页面加载失败</text>
+<rect x="246" y="104" width="180" height="40" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="262" y="118" font-size="10" fill="#ea580c" font-weight="600">自动重试 (≤3次)</text><text x="262" y="134" font-size="9" fill="#6b7280">备份脚本降级</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#dc2626" stroke-width="2" marker-end="url(#m13-r)"/>
+<rect x="458" y="26" width="220" height="155" rx="7" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#dc2626">第三层·Cron告警</text>
+<rect x="466" y="48" width="205" height="55" rx="5" fill="#fff" stroke="#dc2626" stroke-width="1"/><text x="482" y="62" font-size="10" fill="#dc2626" font-weight="600">failureAlert触发</text><text x="482" y="78" font-size="9" fill="#6b7280">连续2次失败</text><text x="482" y="90" font-size="9" fill="#6b7280">飞书告警通知站长</text>
+<rect x="466" y="107" width="205" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="482" y="122" font-size="10" fill="#b45309" font-weight="600">人工介入修复</text><text x="482" y="138" font-size="9" fill="#6b7280">修复后自动恢复</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#dc2626" stroke-width="2" marker-end="url(#m13-g)"/>
+<rect x="703" y="26" width="375" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#0e7490">数据降级策略</text>
+<rect x="711" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="727" y="64" font-size="10" fill="#0e7490" font-weight="600">CDP采集失败</text><text x="727" y="80" font-size="9" fill="#6b7280">标记"CDP异常"</text><text x="727" y="94" font-size="9" fill="#6b7280">不影响其他任务</text>
+<rect x="893" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="909" y="64" font-size="10" fill="#0e7490" font-weight="600">空数据不发送</text><text x="909" y="80" font-size="9" fill="#6b7280">跳过卡片推送</text><text x="909" y="94" font-size="9" fill="#6b7280">标记待补录</text>
+<rect x="711" y="107" width="358" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="727" y="122" font-size="10" fill="#b45309" font-weight="600">无人值守下稳定性达99%·无需重启自动恢复</text>
+</svg>
+  </div>
+</div>
+
+<!-- 14 -->
+<div class="card">
+  <div class="card-top"><span class="num">14</span><span class="card-title">铁律记忆+节假日预警系统</span><span class="tag tag-h">高可推广</span><span class="card-time">持续监控·即时触发</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m14-r" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#dc2626"/></marker><marker id="m14-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">持续运行·各时段检查铁律条件</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#0e7490">规则引擎</text>
+<rect x="26" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="42" y="62" font-size="10" fill="#0e7490" font-weight="600">MEMORY.md铁律中枢</text><text x="42" y="78" font-size="9" fill="#6b7280">散客率&lt;30%预警</text><text x="42" y="90" font-size="9" fill="#6b7280">节假日≥14天预警</text>
+<rect x="26" y="107" width="180" height="38" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="42" y="122" font-size="10" fill="#0e7490" font-weight="600">判断-执行断层检测</text><text x="42" y="138" font-size="9" fill="#6b7280">≥3次→🔴升格</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#0891b2" stroke-width="2" marker-end="url(#m14-g)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#fef3c7" stroke="#fed7aa" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#92400e">条件监控与判定</text>
+<rect x="246" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#c2410c" font-weight="600">实时数据监控</text><text x="262" y="78" font-size="9" fill="#6b7280">每日客流·散客率</text><text x="262" y="90" font-size="9" fill="#6b7280">日历节日检测</text>
+<rect x="246" y="107" width="180" height="38" rx="5" fill="#fef3c7" stroke="#ca8a04" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#92400e" font-weight="600">条件判定器</text><text x="262" y="138" font-size="9" fill="#6b7280">C3/C7/节假日/断层数</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#ca8a04" stroke-width="2" marker-end="url(#m14-r)"/>
+<rect x="458" y="26" width="220" height="155" rx="7" fill="#fef2f2" stroke="#fecaca" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#dc2626">预警触发</text>
+<rect x="466" y="48" width="100" height="55" rx="4" fill="#fff" stroke="#dc2626" stroke-width="1"/><text x="516" y="66" text-anchor="middle" font-size="10" font-weight="600" fill="#dc2626">散客&lt;30% C3</text><text x="516" y="82" text-anchor="middle" font-size="9" fill="#6b7280">启动关注</text>
+<rect x="570" y="48" width="100" height="55" rx="4" fill="#fff" stroke="#dc2626" stroke-width="1"/><text x="620" y="66" text-anchor="middle" font-size="10" font-weight="600" fill="#dc2626">散客&lt;30% C7</text><text x="620" y="82" text-anchor="middle" font-size="9" fill="#6b7280">渠道依赖惯性</text>
+<text x="466" y="118" font-size="10" fill="#dc2626" font-weight="600">节假日≥14天→预警+最小可行方案</text>
+<text x="466" y="134" font-size="9" fill="#6b7280">断层≥3次→附带方案而非仅标记</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#dc2626" stroke-width="2" marker-end="url(#m14-r)"/>
+<rect x="703" y="26" width="375" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#374151">输出与反馈</text>
+<rect x="711" y="48" width="177" height="55" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="727" y="64" font-size="10" fill="#166534" font-weight="600">飞书推送</text><text x="727" y="80" font-size="9" fill="#6b7280">群消息+私信</text><text x="727" y="94" font-size="9" fill="#6b7280">节假日预警主动推送</text>
+<rect x="893" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="909" y="64" font-size="10" fill="#0e7490" font-weight="600">归因暂停逻辑</text><text x="909" y="80" font-size="9" fill="#6b7280">连续15次重复→暂停</text><text x="909" y="94" font-size="9" fill="#6b7280">待新动作恢复</text>
+<rect x="711" y="107" width="358" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="727" y="122" font-size="10" fill="#b45309" font-weight="600">铁律动态更新：站长确认→MEMORY.md追加→下次自动生效</text>
+</svg>
+  </div>
+</div>
+
+<!-- 15 -->
+<div class="card">
+  <div class="card-top"><span class="num">15</span><span class="card-title">系统健康自检+GitHub自动同步</span><span class="tag tag-h">高可推广</span><span class="card-time">~10min/周日</span></div>
+  <div class="svg-container">
+<svg viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="m15-o" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#ea580c"/></marker><marker id="m15-g" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#16a34a"/></marker><marker id="m15-p" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#9333ea"/></marker><marker id="m15-b" markerWidth="6" markerHeight="4" refX="5" refY="2" orient="auto"><polygon points="0 0,6 2,0 4" fill="#2563eb"/></marker></defs>
+<text x="18" y="16" font-size="10" font-weight="600" fill="#374151">周日10:00触发 系统健康检查</text>
+<rect x="18" y="26" width="195" height="155" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="26" y="42" font-size="11" font-weight="600" fill="#c2410c">多项自检</text>
+<rect x="26" y="48" width="86" height="42" rx="4" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="68" y="63" text-anchor="middle" font-size="10" font-weight="600" fill="#c2410c">Wiki LINT</text><text x="68" y="78" text-anchor="middle" font-size="9" fill="#6b7280">raw漂移</text>
+<rect x="116" y="48" width="86" height="42" rx="4" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="158" y="63" text-anchor="middle" font-size="10" font-weight="600" fill="#c2410c">Cookie检测</text><text x="158" y="78" text-anchor="middle" font-size="9" fill="#6b7280">有效性</text>
+<rect x="26" y="94" width="86" height="42" rx="4" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="68" y="109" text-anchor="middle" font-size="10" font-weight="600" fill="#c2410c">脚本完整性</text><text x="68" y="124" text-anchor="middle" font-size="9" fill="#6b7280">scripts/</text>
+<rect x="116" y="94" width="86" height="42" rx="4" fill="#fff" stroke="#ea580c" stroke-width="1"/><text x="158" y="109" text-anchor="middle" font-size="10" font-weight="600" fill="#c2410c">git漂移</text><text x="158" y="124" text-anchor="middle" font-size="9" fill="#6b7280">未提交</text>
+<line x1="213" y1="118" x2="235" y2="118" stroke="#ea580c" stroke-width="2" marker-end="url(#m15-o)"/>
+<rect x="238" y="26" width="195" height="155" rx="7" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/><text x="246" y="42" font-size="11" font-weight="600" fill="#6d28d9">汇总健康报告</text>
+<rect x="246" y="48" width="180" height="55" rx="5" fill="#fff" stroke="#9333ea" stroke-width="1"/><text x="262" y="62" font-size="10" fill="#7c3aed" font-weight="600">AI汇总分析</text><text x="262" y="78" font-size="9" fill="#6b7280">全部正常/有异常</text><text x="262" y="90" font-size="9" fill="#6b7280">异常项+修复指引</text>
+<rect x="246" y="107" width="180" height="38" rx="5" fill="#fef3c7" stroke="#ca8a04" stroke-width="1"/><text x="262" y="122" font-size="10" fill="#92400e" font-weight="600">有无异常 分流</text><text x="262" y="138" font-size="9" fill="#6b7280">有→告警 无→push</text>
+<line x1="433" y1="118" x2="455" y2="118" stroke="#9333ea" stroke-width="2" marker-end="url(#m15-p)"/>
+<rect x="458" y="26" width="220" height="155" rx="7" fill="#fff" stroke="#d1d5db" stroke-width="1.5"/><text x="466" y="42" font-size="11" font-weight="600" fill="#374151">输出/同步</text>
+<rect x="466" y="48" width="205" height="55" rx="5" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/><text x="482" y="62" font-size="10" fill="#166534" font-weight="600">GitHub Actions</text><text x="482" y="78" font-size="9" fill="#6b7280">auto-sync push</text><text x="482" y="90" font-size="9" fill="#6b7280">工作树clean</text>
+<rect x="466" y="107" width="205" height="38" rx="5" fill="#fef2f2" stroke="#dc2626" stroke-width="1"/><text x="482" y="122" font-size="10" fill="#dc2626" font-weight="600">异常→飞书告警</text><text x="482" y="138" font-size="9" fill="#6b7280">异常项列表+修复指引</text>
+<line x1="678" y1="118" x2="700" y2="118" stroke="#2563eb" stroke-width="2" marker-end="url(#m15-b)"/>
+<rect x="703" y="26" width="375" height="155" rx="7" fill="#f0fdfa" stroke="#0891b2" stroke-width="1.5"/><text x="711" y="42" font-size="11" font-weight="600" fill="#0e7490">持续维护·反馈闭环</text>
+<rect x="711" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="727" y="64" font-size="10" fill="#0e7490" font-weight="600">系统健康度可视化</text><text x="727" y="80" font-size="9" fill="#6b7280">wiki/log.md更新</text><text x="727" y="94" font-size="9" fill="#6b7280">健康状态追踪</text>
+<rect x="893" y="48" width="177" height="55" rx="5" fill="#fff" stroke="#0891b2" stroke-width="1"/><text x="909" y="64" font-size="10" fill="#0e7490" font-weight="600">代码不丢失</text><text x="909" y="80" font-size="9" fill="#6b7280">多重备份保护</text><text x="909" y="94" font-size="9" fill="#6b7280">脚本/Cookie/KB全量</text>
+<rect x="711" y="107" width="358" height="38" rx="5" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="727" y="122" font-size="10" fill="#b45309" font-weight="600">系统长期运行不会不可逆退化·每次故障都有记录和恢复</text>
+</svg>
+  </div>
+</div>
+
+</div>
+
+<div style="max-width:1200px; margin:24px auto 0; padding:14px 18px; background:#f9fafb; border-radius:10px; border:1px solid #e5e7eb;">
+  <p style="font-size:13px; font-weight:600; color:#374151; margin-bottom:8px;">📋 图例</p>
+  <div style="display:flex; flex-wrap:wrap; gap:14px; font-size:11px; color:#6b7280;">
+    <span>🟧 <b>数据采集</b>：从各平台/文件获取原始数据</span>
+    <span>🟩 <b>数据清洗</b>：结构化、校验、格式化</span>
+    <span>🟪 <b>AI分析</b>：智能解读、模式提取、决策建议</span>
+    <span>⬜ <b>输出/分发</b>：飞书卡片/私信/Wiki/案例库</span>
+    <span>🟦 <b>反馈闭环</b>：站长确认→策略调整→铁律固化</span>
+    <span>⚠️ 红色 = 需关注/异常处理路径</span>
+    <span>⬅ 虚线 = 反馈回环</span>
+  </div>
+  <p style="font-size:11px; color:#999; margin-top:8px;">基于建业电影小镇 · AI全域营销运营系统 · 参照图2-全链路数据流图风格 · 2026-05-22</p>
+</div>
+
+</body>
+</html>
