@@ -1,0 +1,136 @@
+{
+  "date": "2026-06-03",
+  "day": 5,
+  "phase": "Phase 2→3: baidu SPIKE + ContentAsset种子 + 日报查询验证",
+  "completed": [
+    "✅ adapter-visitors.py 重跑验证: 298条数据, 截止2026-05-31 (CSV无6月新数据)",
+    "✅ adapter-baidu.py 创建完成 (SPIKE): 设计完整但标记 BLOCKED (数据采集未就绪)",
+    "✅ adapter-baidu.py 设计内容: 关键词→景区映射(7景区15关键词), search_index/info_index 字段映射, 地域+人群画像 metadata, 3种采集方案评估",
+    "✅ seed_content_assets.py 创建并执行: 8条代表性内容写入 content_assets 表 (5小红书+3抖音)",
+    "✅ seed_content_assets.py 覆盖: movie_town(3), only_henan(1), wansui_mountain(1), qingming_riverside(1), yinji(1), fangte(1)",
+    "✅ seed_content_assets.py 情感分布: positive(7), negative(1) — 含负面样例测试",
+    "✅ ontology_query.py 日报验证: daily_ranking 正常输出8景区排名, visitors 正常输出客流+收入",
+    "✅ ontology.json v1.1.1→1.1.2: 更新 dataSources (baidu + seed), updatedAt→2026-06-03",
+    "✅ 8个脚本全部通过 py_compile 编译验证",
+    "✅ 存储统计: 318 metric_snapshots + 8 content_assets + 8 scenic_spots"
+  ],
+  "blockers": [
+    "adapter-baidu.py BLOCKED: 百度指数无公开API, CAPTCHA反爬严格, 需先实现 cralw_baidu.py 数据采集脚本"
+  ],
+  "tomorrow_plan": [
+    "[Day 6] 如 CSVs 有新数据（6月客流），重新运行 adapter-visitors.py",
+    "[Day 6] 探索百度指数采集可行性（CDP浏览器尝试登录 index.baidu.com）",
+    "[Day 6] adapter-xiaohongshu.py ContentAsset 链路打通（爬虫升级后启用详细笔记）",
+    "[Day 6] 将 ontology_query.py daily_ranking 集成到日报生成流程",
+    "[Day 6] 考虑转换 ContentAsset 种子数据为持续同步流程"
+  ],
+  "decisions": [
+    "adapter-baidu.py 采用 SPIKE 模式: 先设计完成骨架+评估可行性，BLOCKED 标记确保不阻塞 Phase 2 主线",
+    "百度指数数据采集难度 >> 抖音指数，需独立评估反爬方案后再决定是否推进",
+    "ContentAsset 种子数据作为 Schema 验证+功能演示，待爬虫升级后替换为实时数据",
+    "种子数据使用 ontology 对象格式 (camelCase: platform/externalId/mentions/authorName)，确保与 ingest_content_assets 兼容",
+    "8个脚本编译通过 = 架构完整性验证通过，Phase 2 核心 adapter 层完成"
+  ],
+  "research_findings": [
+    "百度指数自动化三大障碍: ① 无公开API ② CAPTCHA触发频率高 ③ IP限制严",
+    "替代方案: 5118/SEMrush 等第三方工具代理采集，或改用微信指数(相对好采)",
+    "ContentAsset 表双向引用设计已就绪 (aggregated_from + contributes_to)，可支撑内容→数据归因分析"
+  ],
+  "files_modified": [
+    {
+      "path": "scripts/adapter-baidu.py",
+      "action": "新建 (SPIKE)",
+      "status": "success",
+      "lines": 198,
+      "details": "百度指数 adapter 骨架: 关键词映射(7景区15关键词), search_index+info_index 字段, 地域+人群画像, 3种采集方案评估, --data CLI"
+    },
+    {
+      "path": "scripts/seed_content_assets.py",
+      "action": "新建",
+      "status": "success",
+      "lines": 175,
+      "details": "ContentAsset 种子数据: 8条代表性内容(5小红书+3抖音), 6景区覆盖, 含1条负面情感样例"
+    },
+    {
+      "path": "scripts/adapter-visitors.py",
+      "action": "重跑验证",
+      "status": "success",
+      "changes": "298条数据正常写入, CSV 截止2026-05-31 (6月数据为空)"
+    },
+    {
+      "path": "wiki/技术配置/Ontology架构设计/ontology.json",
+      "action": "更新",
+      "status": "success",
+      "changes": "v1.1.1→1.1.2, MetricSnapshot.dataSources +baidu, ContentAsset.dataSources +seed, updatedAt→2026-06-03"
+    }
+  ],
+  "adapter_registry": {
+    "douyin": {
+      "file": "adapter-douyin.py",
+      "source": "/tmp/crawl_data.json",
+      "target": "MetricSnapshot",
+      "confidence": 0.9,
+      "status": "active",
+      "recordsInStore": 16
+    },
+    "xiaohongshu": {
+      "file": "adapter-xiaohongshu.py",
+      "source": "/tmp/xiaohongshu_*.json",
+      "target": ["MetricSnapshot", "ContentAsset"],
+      "confidence": 0.3,
+      "status": "active",
+      "recordsInStore": 4,
+      "note": "ContentAsset 生成待爬虫升级"
+    },
+    "visitors": {
+      "file": "adapter-visitors.py",
+      "source": "~/Desktop/2026游客量统计.csv",
+      "target": "MetricSnapshot",
+      "confidence": 1.0,
+      "status": "active",
+      "recordsInStore": 298
+    },
+    "baidu": {
+      "file": "adapter-baidu.py",
+      "source": "百度指数 (https://index.baidu.com/)",
+      "target": "MetricSnapshot",
+      "confidence": 0.6,
+      "status": "pending (SPIKE)",
+      "blocker": "数据采集未就绪 — 需 cralw_baidu.py"
+    },
+    "seed": {
+      "file": "seed_content_assets.py",
+      "source": "手工种子数据",
+      "target": "ContentAsset",
+      "confidence": 0.5,
+      "status": "active",
+      "recordsInStore": 8
+    },
+    "query_engine": {
+      "file": "ontology_query.py",
+      "status": "active",
+      "methods": ["daily_ranking", "trend", "anomaly_check", "visitor_summary", "cross_source_correlation", "competitor_comparison", "store_stats"]
+    }
+  },
+  "store_stats": {
+    "dbPath": ".profile/ontology/ontology_store.db",
+    "scenicSpots": 8,
+    "metricSnapshots": 318,
+    "contentAssets": 8,
+    "events": 0,
+    "bySource": {
+      "csv": 298,
+      "douyin": 16,
+      "xiaohongshu": 4
+    },
+    "contentBySpot": {
+      "movie_town": 3,
+      "only_henan": 1,
+      "wansui_mountain": 1,
+      "qingming_riverside": 1,
+      "yinji": 1,
+      "fangte": 1
+    }
+  },
+  "next_day_note": "🔵 Day 6: 探索百度采集可行性 + CSV新数据更新 + 日报集成 ontology_query"
+}

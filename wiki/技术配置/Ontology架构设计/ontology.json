@@ -1,8 +1,8 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-06-02",
+  "updatedAt": "2026-06-03",
 
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
@@ -41,7 +41,7 @@
         "collectedAt": { "type": "datetime" }
       },
       "linkTypes": ["belongs_to", "aggregated_from"],
-      "dataSources": ["adapter-douyin.py::/tmp/crawl_data.json", "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json", "adapter-visitors.py::~/Desktop/2026游客量统计.csv", "ontology_query.py::预定义查询引擎"]
+      "dataSources": ["adapter-douyin.py::/tmp/crawl_data.json", "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json", "adapter-visitors.py::~/Desktop/2026游客量统计.csv", "adapter-baidu.py::/tmp/baidu_index.json (SPIKE/待采集)", "ontology_query.py::预定义查询引擎"]
     },
 
     "ContentAsset": {
@@ -65,7 +65,7 @@
         "collectedAt": { "type": "datetime" }
       },
       "linkTypes": ["mentions", "promotes", "triggers_sentiment", "contributes_to"],
-      "dataSources": ["adapter-xiaohongshu.py (预留: 爬虫升级后启用详细笔记)", "competitor_program_tracker.py"]
+      "dataSources": ["adapter-xiaohongshu.py (预留: 爬虫升级后启用详细笔记)", "seed_content_assets.py (种子数据: 8条代表性内容)", "competitor_program_tracker.py"]
     },
 
     "Event": {
