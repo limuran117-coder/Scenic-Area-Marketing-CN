@@ -1,6 +1,8 @@
 // utils/period.js — 姨妈追踪核心预测算法 v1.0
 // 基于国际标准 28 天周期 + 14 天暴躁期，V2.0 接入动态修正
 
+const { parseDateSafe, daysBetween, addDays, formatDate, formatMonthDay } = require('./date-utils')
+
 // ─── 阶段定义 ───────────────────────────────────────
 const PHASES = {
   menstruate: {
@@ -213,10 +215,12 @@ function predictNext(entries, settings) {
   const recentCycles = intervalData.slice(0, Math.min(6, intervalData.length))
   let avgCycle = recentCycles.reduce((sum, item) => sum + item.length, 0) / recentCycles.length
 
-  // V2.0 趋势修正（3个周期后启用）
+  // V2.1 趋势修正（3个周期后启用）
+  // ✅ P2#21 修复：clamp 趋势贡献在 ±7 天内，防止因单次异常偏移大量抖动
   if (recentCycles.length >= 3) {
-    const trend = recentCycles[0].length - recentCycles[1].length
-    avgCycle = avgCycle + (trend / recentCycles.length)
+    const rawTrend = recentCycles[0].length - recentCycles[1].length
+    const clampedTrend = Math.min(7, Math.max(-7, rawTrend))
+    avgCycle = avgCycle + (clampedTrend / recentCycles.length)
   }
 
   avgCycle = Math.round(avgCycle)
@@ -278,12 +282,15 @@ function getPhaseForDate(date, entries, prediction, mode = 'normal') {
     const lastStart = sortedEntries[0].startDate
     const lastEntry = sortedEntries[0]
 
-    // 🌟 核心修复：如果没有结束日期，用默认姨妈天数兜底（而非无限蔓延）
+    // P1-2修复：如果没有结束日期，用默认天数兜底但保留弹性窗口
+    // 如果无endDate且距今天<14天，按未结束处理（防止超过5天就自动截断）
     let periodEnd
     if (lastEntry.endDate) {
       periodEnd = parseDateSafe(lastEntry.endDate)
     } else {
-      periodEnd = addDays(lastStart, defaultPeriodLength - 1)
+      const daysSinceStart = daysBetween(lastStart, dateObj)
+      const maxTolerant = Math.max(defaultPeriodLength - 1, 13) // 至少14天窗口
+      periodEnd = addDays(lastStart, Math.min(daysSinceStart + 1, maxTolerant))
     }
 
     if (dateObj >= parseDateSafe(lastStart) && dateObj <= periodEnd) {
@@ -733,48 +740,7 @@ function buildFertileWindow(ovulationDate, mode = 'normal') {
   ]
 }
 
-// ─── 工具函数 ────────────────────────────────────────
-
-/**
- * iOS 安全日期解析：接受 'YYYY-MM-DD' 或 'YYYY/MM/DD'
- * iOS Safari 不认横杠，换成斜杠后构造避免 NaN
- */
-function parseDateSafe(str) {
-  if (!str) return new Date(NaN)
-  if (str instanceof Date) return new Date(str.getTime())
-  if (typeof str !== 'string') {
-    const d = new Date(str)
-    return isNaN(d.getTime()) ? new Date(NaN) : d
-  }
-  const normalized = str.replace(/\-/g, '/')
-  const d = new Date(normalized)
-  // ★ 修复：不再静默返回当前时间，改为返回 Invalid Date
-  return isNaN(d.getTime()) ? new Date(NaN) : d
-}
-
-function daysBetween(dateA, dateB) {
-  const a = parseDateSafe(dateA)
-  const b = parseDateSafe(dateB)
-  const diff = Math.abs(a - b)
-  return Math.floor(diff / (1000 * 60 * 60 * 24))
-}
-
-function addDays(dateStr, days) {
-  const d = parseDateSafe(dateStr)
-  d.setDate(d.getDate() + days)
-  return formatDate(d)
-}
-
-function formatDate(date) {
-  const d = date instanceof Date ? date : parseDateSafe(date)
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
-
-function formatMonthDay(dateStr) {
-  if (!dateStr) return '—'
-  const d = parseDateSafe(dateStr)
-  return `${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`
-}
+// ─── 工具函数：已迁移至 utils/date-utils.js ──────────
 
 /**
  * 删除一条姨妈记录

@@ -39,9 +39,14 @@ const SubscribeHelper = {
             return resolve(false)
           }
 
-          // 用户确认 → 调用微信官方订阅接口（同时请求2个模板）
+          // 用户确认 → 调用微信官方订阅接口（同时请求3个模板）
+          // ⚠️ 微信限制单次最多3个模板ID，当前刚好3个
           try {
-            const tmplIds = [SUBSCRIBE_TEMPLATES.PERIOD, SUBSCRIBE_TEMPLATES.DANGER].filter(Boolean)
+            const tmplIds = [
+              SUBSCRIBE_TEMPLATES.PERIOD,
+              SUBSCRIBE_TEMPLATES.DANGER,
+              SUBSCRIBE_TEMPLATES.COUNTDOWN
+            ].filter(Boolean)
             if (!tmplIds.length) {
               wx.showToast({title: '提醒模板未配置', icon: 'none'})
               return resolve(false)
@@ -51,8 +56,9 @@ const SubscribeHelper = {
               success: async (res) => {
                 const acceptPeriod = res[SUBSCRIBE_TEMPLATES.PERIOD] === 'accept'
                 const acceptDanger = res[SUBSCRIBE_TEMPLATES.DANGER] === 'accept'
+                const acceptCountdown = res[SUBSCRIBE_TEMPLATES.COUNTDOWN] === 'accept'
 
-                if (acceptPeriod || acceptDanger) {
+                if (acceptPeriod || acceptDanger || acceptCountdown) {
                   // ★ 修复：await 确保云同步完成，失败时有日志
                   try {
                     await periodCloud.syncSubscribed(true)

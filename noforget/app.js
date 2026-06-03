@@ -1,6 +1,7 @@
 // app.js - No Forget 入口文件
 const themeModule = require('./utils/theme.js')
 const countdownStore = require('./utils/countdownStore.js')
+const { CLOUD_ENV_ID } = require('./config/constant.js')
 
 // 让 app.js 和 utils/theme.js 共用同一份主题数据
 // globalData.themes = color-value版本（供各页面 setData 绑定）
@@ -45,7 +46,7 @@ App({
     } else {
       try {
         wx.cloud.init({
-          env: 'cloud1-d5gxwed6aa4581e97', // 云环境ID
+          env: CLOUD_ENV_ID,
           traceUser: true
         })
         // 启动后异步同步，不阻塞用户首帧

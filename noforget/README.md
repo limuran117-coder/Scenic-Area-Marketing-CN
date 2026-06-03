@@ -255,6 +255,23 @@ exports.main = async (event, context) => {
 - 🔧 UI交互完整性
 - 🔧 多设备同步一致性
 
+### v1.2（2026-06-03 体系加固）
+
+**V4 Pro 全量评审修复（20项中完成16项）**
+
+- ✅ **get-slogan云函数瘦身**：76MB→3MB，冷启动从8s降至<1s
+- ✅ **parseDateSafe去重**：5份独立实现→1份全局模块
+- ✅ **WXS替代详情页倒计时**：每秒setData 5字段→视图层零开销
+- ✅ **数据导出PIN加密**：4位XOR加密保护隐私
+- ✅ **数据注销**：3次确认+本地清除+云端deleteAll
+- ✅ **period-sync冲突合并升级**：按updatedAt取最新版本
+- ✅ **get-slogan限流**：每分类/用户60秒3次上限
+- ✅ **copyTemplates缓存**：文案按周缓存，避免页面切换变化
+- ✅ **env ID集中化**：硬编码移至config/constant.js
+- ✅ **scope.userLocation权限删除**：未使用，降低审核风险
+- ✅ **onLoad农历延迟渲染**：setTimeout 100ms，不阻塞首帧
+- ✅ **periodData容量监控**：接近1MB上限告警
+
 ### v1.0（2026-04 初始版本）
 - 纪念日CRUD
 - 分类主题系统

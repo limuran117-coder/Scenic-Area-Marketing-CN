@@ -8,12 +8,19 @@ const db = cloud.database()
 const COLLECTION = 'periodData'
 const COUNTDOWN_COLLECTION = 'countdownItems'
 
+// ─── 模板ID（微信公众平台 → 订阅消息 → 我的模板）──────────
+const TEMPLATES = {
+  // 姨妈提醒模板（keyword: date1/phrase2/thing3）
+  PERIOD: 'L6aIoXgdKCQpd6wuR1VGYLzQLDZq6SsLlqDdffI8s7w',
+  // 纪念日倒计时模板（keyword: 名称/具体日期/天数/温馨提示）
+  COUNTDOWN: 'L6aIoXgdKCQpd6wuR1VGYDUZTWngDH1TfJh90aVtWh0',
+}
+
 // ─── 周期计算工具 ──────────────────────────────
 function parseDateSafe(value) {
   if (!value) return null
-  const normalized = String(value).replace(/\-/g, '/')
+  const normalized = String(value).replace(/-/g, '/')
   const date = new Date(normalized)
-  // ★ 修复：不再静默返回有效 Date，改用 null 表示无效
   return Number.isNaN(date.getTime()) ? null : date
 }
 
@@ -27,7 +34,7 @@ function daysBetween(dateA, dateB) {
 function getCycleIntervals(entries = []) {
   const sorted = entries
     .slice()
-    .sort((a, b) => new Date(String(b.startDate).replace(/\-/g, '/')) - new Date(String(a.startDate).replace(/\-/g, '/')))
+    .sort((a, b) => new Date(String(b.startDate).replace(/-/g, '/')) - new Date(String(a.startDate).replace(/-/g, '/')))
 
   const intervals = []
   for (let i = 0; i < sorted.length - 1; i++) {
@@ -92,7 +99,7 @@ async function sendPeriodReminder(openid, predictedDateStr, daysLeft) {
   try {
     const result = await cloud.openapi.subscribeMessage.send({
       touser: openid,
-      template_id: 'L6aIoXgdKCQpd6wuR1VGYLzQLDZq6SsLlqDdffI8s7w',
+      template_id: TEMPLATES.PERIOD,
       page: 'pages/period/period',
       data: {
         date1: {value: predictedDateStr},
@@ -112,9 +119,7 @@ async function sendPeriodReminder(openid, predictedDateStr, daysLeft) {
 async function sendCountdownReminder(openid, item, daysLeft) {
   const title = (item && item.title) || '纪念日'
   const targetDate = (item && item.targetDate) || ''
-  // 纪念日提醒模板ID：优先从常量读取，暂无则跳过发消息只打印日志
-  // TODO: 在 config/constant.js 中添加 COUNTDOWN 模板ID
-  const COUNTDOWN_TEMPLATE_ID = '' // 预留，待配置
+  const COUNTDOWN_TEMPLATE_ID = TEMPLATES.COUNTDOWN
 
   if (!COUNTDOWN_TEMPLATE_ID) {
     console.log(`[${openid}] 纪念日「${title}」距${targetDate}还有${daysLeft}天 (模板ID未配置，跳过发送)`)
@@ -141,30 +146,39 @@ async function sendCountdownReminder(openid, item, daysLeft) {
   }
 }
 
-async function listCountdownItems() {
-  let query = db.collection(COUNTDOWN_COLLECTION)
+// ─── 分页查询所有纪念日（修复：支持分页，不限于500条）──────
+async function listAllCountdownItems() {
+  const allItems = []
+  let hasMore = true
+  let skip = 0
+  const BATCH_SIZE = 100
 
-  if (query && typeof query.limit === 'function') {
-    return query.limit(500).get()
+  while (hasMore) {
+    try {
+      const res = await db.collection(COUNTDOWN_COLLECTION)
+        .where({})
+        .field({_openid: true, id: true, title: true, targetDate: true, remindDays: true, categoryId: true})
+        .skip(skip)
+        .limit(BATCH_SIZE)
+        .get()
+      const items = res.data || []
+      if (items.length > 0) {
+        allItems.push(...items)
+        skip += items.length
+      }
+      hasMore = items.length >= BATCH_SIZE
+    } catch (e) {
+      console.error('[send-reminder] listAllCountdownItems 分页查询失败:', e.message)
+      break
+    }
   }
 
-  if (query && typeof query.where === 'function') {
-    query = query.where({})
-    if (query && typeof query.field === 'function') {
-      query = query.field({_openid: true, id: true, title: true, targetDate: true, remindDays: true, categoryId: true})
-    }
-    if (query && typeof query.skip === 'function') {
-      query = query.skip(0)
-    }
-    if (query && typeof query.limit === 'function') {
-      query = query.limit(500)
-    }
-    if (query && typeof query.get === 'function') {
-      return query.get()
-    }
-  }
+  return {data: allItems}
+}
 
-  return {data: []}
+// ─── 获取用户 openid（兼容 openid 和 _openid 字段）────────
+function getUserId(user) {
+  return user.openid || user._openid || null
 }
 
 // ─── 云函数入口 ──────────────────────────────
@@ -178,10 +192,12 @@ exports.main = async (_event, _context) => {
     const allUsers = []
     let hasMore = true
     let skip = 0
+
+    // ✅ P0#2 修复：查询时同时获取 openid 和 _openid，兼容两种字段命名
     while (hasMore) {
       const {data: users} = await db.collection(COLLECTION)
         .where({subscribed: true})
-        .field({openid: true, entries: true, settings: true})
+        .field({openid: true, _openid: true, entries: true, settings: true})
         .skip(skip)
         .limit(100)
         .get()
@@ -202,12 +218,10 @@ exports.main = async (_event, _context) => {
     const results = []
 
     for (const user of allUsers) {
-      const {openid, entries, settings = {}} = user
+      const openid = getUserId(user)
+      const {entries, settings = {}} = user
 
       if (!openid || !entries || entries.length === 0) continue
-
-      // 从 entries 数组提取最近一次开始日期
-      const remindDays = settings.remindBefore ?? 1
 
       // 计算下次姨妈日期
       const nextPeriod = getPredictedNextPeriod(entries, settings)
@@ -217,7 +231,7 @@ exports.main = async (_event, _context) => {
       const daysLeft = getDaysUntil(nextPeriod)
       if (daysLeft === null) continue
 
-      console.log(`[${openid}] 下次: ${formatDate(nextPeriod)}, 剩余: ${daysLeft}天, 提醒阈值: ${remindDays}天`)
+      console.log(`[${openid}] 下次: ${formatDate(nextPeriod)}, 剩余: ${daysLeft}天, 提醒阈值: ${settings.remindBefore ?? 1}天`)
 
       // 3. 判断是否发送：当天 或 提前 N 天
       if (shouldSendReminder(daysLeft, settings)) {
@@ -229,49 +243,62 @@ exports.main = async (_event, _context) => {
       }
     }
 
-    // 3. 纪念日倒计时提醒
+    // 3. 纪念日倒计时提醒（✅ P0#1修复：使用专用 COUNTDOWN 模板ID，不再混用姨妈模板）
     let countdownSent = 0
     let countdownFailed = 0
-    try {
-      // ★ 修复：条件放宽，获取所有有提醒天数的项（remindDays 可能存在也可能不存在）
-      const {data: countdownItems} = await listCountdownItems()
+    let countdownSkippedNoTemplate = 0
 
-      if (countdownItems && countdownItems.length > 0) {
-        console.log(`[send-reminder] 倒计时提醒: ${countdownItems.length} 个候选项`)
-        for (const item of countdownItems) {
-          // ★ 修复：必须有 _openid + remindDays 才处理
-          if (!item._openid || item.remindDays === undefined || item.remindDays === null) continue
-          const targetDate = parseDateSafe(item.targetDate)
-          if (!targetDate) continue
-          const daysLeft = getDaysUntil(targetDate)
-          if (daysLeft === null || daysLeft < 0) continue
-          const rd = Number(item.remindDays)
-          if (!Number.isFinite(rd)) continue
-          // remindDays=0 表示当天，N 表示提前 N 天
-          if (daysLeft !== rd) continue
+    if (TEMPLATES.COUNTDOWN) {
+      try {
+        const {data: countdownItems} = await listAllCountdownItems()
 
-            // 倒计时提醒模板ID（与姨妈模板不同，需在微信后台配置）
-            // 暂时使用 PERIOD 模板发送，后续可替换为专用模板
-            try {
-              await cloud.openapi.subscribeMessage.send({
-                touser: item._openid,
-                template_id: 'L6aIoXgdKCQpd6wuR1VGYLzQLDZq6SsLlqDdffI8s7w',
-                page: 'pages/index/index',
-                data: {
-                  date1: {value: formatDate(targetDate)},
-                  phrase2: {value: daysLeft === 0 ? '就是今天' : `还有${daysLeft}天`},
-                  thing3: {value: `${item.title || '纪念日'} 要来啦`}
-                }
-              })
+        if (countdownItems && countdownItems.length > 0) {
+          console.log(`[send-reminder] 倒计时提醒: ${countdownItems.length} 个候选项`)
+
+          for (const item of countdownItems) {
+            if (!item._openid || item.remindDays === undefined || item.remindDays === null) continue
+
+            const targetDate = parseDateSafe(item.targetDate)
+            if (!targetDate) continue
+
+            const daysLeft = getDaysUntil(targetDate)
+            if (daysLeft === null || daysLeft < 0) continue
+
+            const rd = Number(item.remindDays)
+            if (!Number.isFinite(rd)) continue
+            if (daysLeft !== rd) continue
+
+            // ✅ 去重保护：检查今日是否已发送过
+            const todayStart = new Date()
+            todayStart.setHours(0, 0, 0, 0)
+            if (item.lastRemindedAt && item.lastRemindedAt >= todayStart.getTime()) {
+              console.log(`[${item._openid}] 纪念日「${item.title}」今日已发送，跳过`)
               countdownSent++
-            } catch (e) {
+              continue
+            }
+
+            const result = await sendCountdownReminder(item._openid, item, daysLeft)
+            if (result.success) {
+              // 记录发送时间，防止重复
+              try {
+                await db.collection(COUNTDOWN_COLLECTION).doc(item._id).update({
+                  data: {lastRemindedAt: Date.now()}
+                })
+              } catch (e) {
+                console.warn(`[send-reminder] lastRemindedAt更新失败:`, e.message)
+              }
+              countdownSent++
+            } else if (!result.skipped) {
               countdownFailed++
-              console.error(`[send-reminder] 倒计时提醒发送失败 [${item._openid}]:`, e.message)
             }
           }
         }
-    } catch (e) {
-      console.error('[send-reminder] 倒计时提醒模块错误:', e.message)
+      } catch (e) {
+        console.error('[send-reminder] 倒计时提醒模块错误:', e.message)
+      }
+    } else {
+      countdownSkippedNoTemplate = 1
+      console.log('[send-reminder] COUNTDOWN模板ID未配置，跳过纪念日倒计时提醒')
     }
 
     // 4. 汇总结果
@@ -286,6 +313,7 @@ exports.main = async (_event, _context) => {
       periodFailed: failed,
       countdownSent,
       countdownFailed,
+      countdownSkippedNoTemplate,
       details: results.slice(0, 10)
     }
 

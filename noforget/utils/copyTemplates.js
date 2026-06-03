@@ -677,11 +677,15 @@ const templates = {
 }
 
 // 根据分类ID和是否已过来获取随机文案
+// ✅ P2修复：按 session 缓存，同一页面生命周期内不随机切换
+const _copyCache = {}
+
 function getCopy(categoryId, isPast, days, years = 0) {
+  const cacheKey = `${categoryId}::${isPast}::${Math.floor(days / 7)}`  // 按周粒度缓存
+  if (_copyCache[cacheKey]) return _copyCache[cacheKey]
+
   const categoryTemplates = templates[categoryId] || templates.default
   const copyList = isPast ? categoryTemplates.past : categoryTemplates.future
-
-  // 随机选一条
   const randomIndex = Math.floor(Math.random() * copyList.length)
   let copy = copyList[randomIndex]
 
@@ -704,6 +708,7 @@ function getCopy(categoryId, isPast, days, years = 0) {
     copy = copy.replace(/{nextYears}/g, nextAnniversary)
   }
 
+  _copyCache[cacheKey] = copy  // 按周缓存，避免页面切换时文案随机变化
   return copy
 }
 

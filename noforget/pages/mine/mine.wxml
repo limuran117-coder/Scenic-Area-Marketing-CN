@@ -82,6 +82,14 @@
         <text class="menu-text logout-text">清除头像</text>
       </view>
     </view>
+
+    <!-- ✅ P0新增：清除全部数据 -->
+    <view class="menu-group card-shadow">
+      <view class="menu-item no-border logout-item" bindtap="deleteAllData">
+        <image class="icon-wrap danger" src="/static/icons/system/trash.svg" mode="aspectFit"></image>
+        <text class="menu-text logout-text">清除全部数据</text>
+      </view>
+    </view>
   </view>
 
   <!-- 5. 底部品牌印记 -->

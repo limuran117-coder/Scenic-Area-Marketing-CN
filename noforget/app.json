@@ -30,7 +30,6 @@
     "navigationStyle": "custom",
     "navigationBarTextStyle": "black"
   },
-  "permission": {},
   "style": "v2",
   "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json",

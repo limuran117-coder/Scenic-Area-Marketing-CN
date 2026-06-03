@@ -1,18 +1,13 @@
 // utils/countdown.js - 倒计时/正向计时核心算法 v3
-// 修复：iOS Date NaN 问题，新增 parseDateSafe
+// 修复：iOS Date NaN 问题，统一使用 date-utils 模块
+
+const { parseDateSafe } = require('./date-utils')
 
 /**
- * iOS 安全日期解析：'YYYY-MM-DD' → Date
- * iOS Safari 不认横杠，换成斜杠后构造避免 NaN
+ * 判断是否为闰年（2月29日检查用）
  */
-function parseDateSafe(str) {
-  if (!str) return new Date(NaN)
-  if (str instanceof Date) return new Date(str.getTime())
-  const normalized = str.replace(/\-/g, '/')
-  const d = new Date(normalized)
-  // ★ 修复：不再静默返回当前时间，改为返回 Invalid Date
-  // 调用方通过 isNaN(d.getTime()) 检测异常，而不是被假数据欺骗
-  return isNaN(d.getTime()) ? new Date(NaN) : d
+function isLeapYear(year) {
+  return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
 }
 
 /**
@@ -81,10 +76,19 @@ function getMainCountdown(item, now = new Date()) {
     // ★ 修复：使用 +1 天作为终点，让纪念日当天整日显示为"0天"而非"已过"
     const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
     const recurringTarget = parseDateSafe(targetStr)
-    let anniversary = new Date(now.getFullYear(), recurringTarget.getMonth(), recurringTarget.getDate())
+    const targetMonth = recurringTarget.getMonth()
+    const targetDay = recurringTarget.getDate()
+    // P1-1修复：2月29日在非闰年→用2月28日（JS new Date会自动偏移到3月1日）
+    function getAnniversary(year) {
+      if (targetMonth === 1 && targetDay === 29 && !isLeapYear(year)) {
+        return new Date(year, 1, 28)
+      }
+      return new Date(year, targetMonth, targetDay)
+    }
+    let anniversary = getAnniversary(now.getFullYear())
     if (anniversary < todayStart) {
       // 纪念日本身已过（昨天或更早）→ 推到明年
-      anniversary = new Date(now.getFullYear() + 1, recurringTarget.getMonth(), recurringTarget.getDate())
+      anniversary = getAnniversary(now.getFullYear() + 1)
     }
     // endDate = 纪念日次日00:00，保证纪念日当天整日都不算past
     endDate = new Date(anniversary.getFullYear(), anniversary.getMonth(), anniversary.getDate() + 1)

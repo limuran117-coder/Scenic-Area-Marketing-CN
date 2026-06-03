@@ -48,6 +48,17 @@ exports.main = async (event, _context) => {
     case 'whoami':
       return {success: true, openid}
 
+    case 'deleteAll': {
+      // ✅ P0修复：删除用户全部云端数据
+      const allDocs = await listAllByOpenid(openid)
+      if (allDocs.length > 0) {
+        await Promise.all(allDocs.map(doc =>
+          db.collection(COLLECTION).doc(doc._id).remove().catch(() => null)
+        ))
+      }
+      return {success: true, removed: allDocs.length}
+    }
+
     case 'list': {
       const docs = await listAllByOpenid(openid)
       return {

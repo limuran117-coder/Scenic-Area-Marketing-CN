@@ -4,9 +4,54 @@
 const countdown = require('../../utils/countdown.js')
 const categories = require('../../utils/categories.js')
 
-// ─── AI文案云端生成 ──────────────────────────────────────────
+// ─── AI文案云端生成（✅ P1#10修复：最大3个并发，避免10个同时触发冷启动）────
 const _sloganCache = {}
 const _sloganPending = {}
+let _sloganConcurrent = 0
+const _sloganMaxConcurrent = 3
+const _sloganQueue = []
+
+function processSloganQueue() {
+  while (_sloganConcurrent < _sloganMaxConcurrent && _sloganQueue.length > 0) {
+    const task = _sloganQueue.shift()
+    _sloganConcurrent++
+    executeSloganTask(task).finally(() => {
+      _sloganConcurrent--
+      processSloganQueue()
+    })
+  }
+}
+
+async function executeSloganTask(task) {
+  const {categoryId, itemId, onDone, cacheKey} = task
+  if (_sloganCache[cacheKey]) {
+    onDone(_sloganCache[cacheKey])
+    return
+  }
+  const finish = (slogan) => {
+    const callbacks = _sloganPending[cacheKey] || []
+    delete _sloganPending[cacheKey]
+    _sloganCache[cacheKey] = slogan
+    callbacks.forEach(cb => cb(slogan))
+  }
+  if (!wx.cloud || typeof wx.cloud.callFunction !== 'function') {
+    finish(categories.pickSubtitle(categoryId))
+    return
+  }
+  try {
+    const res = await wx.cloud.callFunction({
+      name: 'get-slogan',
+      data: {categoryId}
+    })
+    if (res.result?.success && res.result?.slogan) {
+      finish(res.result.slogan)
+    } else {
+      finish(categories.pickSubtitle(categoryId))
+    }
+  } catch {
+    finish(categories.pickSubtitle(categoryId))
+  }
+}
 
 function getSloganCacheKey(categoryId, itemId) {
   const today = new Date().toISOString().slice(0, 10)
@@ -15,40 +60,21 @@ function getSloganCacheKey(categoryId, itemId) {
 
 function getSloganFromCloud(categoryId, itemId, onDone) {
   const cacheKey = getSloganCacheKey(categoryId, itemId)
+  // 命中缓存 → 直接回调
   if (_sloganCache[cacheKey]) {
     onDone(_sloganCache[cacheKey])
     return
   }
+  // 已有相同key的请求在pending中 → 加入等待队列
   if (_sloganPending[cacheKey]) {
     _sloganPending[cacheKey].push(onDone)
     return
   }
   _sloganPending[cacheKey] = [onDone]
 
-  const finish = (slogan) => {
-    const callbacks = _sloganPending[cacheKey] || []
-    delete _sloganPending[cacheKey]
-    _sloganCache[cacheKey] = slogan
-    callbacks.forEach(cb => cb(slogan))
-  }
-
-  if (!wx.cloud || typeof wx.cloud.callFunction !== 'function') {
-    finish(categories.pickSubtitle(categoryId))
-    return
-  }
-
-  wx.cloud.callFunction({
-    name: 'get-slogan',
-    data: {categoryId},
-    success: res => {
-      if (res.errMsg?.includes('ok') && res.result?.success && res.result?.slogan) {
-        finish(res.result.slogan)
-      } else {
-        finish(categories.pickSubtitle(categoryId))
-      }
-    },
-    fail: () => finish(categories.pickSubtitle(categoryId))
-  })
+  // 加入并发队列，等待调度
+  _sloganQueue.push({categoryId, itemId, onDone, cacheKey})
+  processSloganQueue()
 }
 
 const themeModule = require('../../utils/theme.js')
@@ -135,16 +161,19 @@ Page({
         page: 1
       })
 
-      // 定期从云端同步（每5分钟一次），避免多设备数据冲突
+      // P1-4修复：定期从云端同步（每5分钟一次），持久化跨页面生命周期
       const now = Date.now()
-      const lastSync = this._lastCloudSync || 0
+      const lastSync = wx.getStorageSync('_lastCloudSync') || 0
       const needSync = (now - lastSync) > 300000
-      if (needSync) this._lastCloudSync = now
+      if (needSync) wx.setStorageSync('_lastCloudSync', now)
       await this.loadItems({forceRefresh: needSync})
 
       this._startTick()
-      this._initDailyBanner()
-      this._initDailyHuangli()
+      // ✅ P2修复：延迟非首屏计算，不阻塞首页渲染
+      setTimeout(() => {
+        this._initDailyBanner()
+        this._initDailyHuangli()
+      }, 100)
       this.refreshAllSlogans()
     } catch(e) {
       console.error('onShow error:', e)
@@ -161,6 +190,11 @@ Page({
     wx.stopPullDownRefresh()
   },
 
+  /**
+   * ✅ P0#4 修复：banner 跳过周期（period）类型的虚拟条目
+   * period 条目在首页展示为姨妈追踪卡片，没有真实 targetDate，
+   * 不应参与 banner 文案生成
+   */
   _initDailyBanner() {
     if (!this._rawItems || this._rawItems.length === 0) {
       this.setData({dailyBanner: null, showDailyBanner: false})
@@ -172,7 +206,8 @@ Page({
       this.setData({showDailyBanner: false})
       return
     }
-    const topItem = this._rawItems[0]
+    // 取第一个非 period 的条目作为 banner
+    const topItem = this._rawItems.find(item => item.categoryId !== 'period') || this._rawItems[0]
     const catId = topItem.categoryId || 'default'
     const cat = categories.getCategoryById(catId)
     const elapsed = countdown.getElapsedText(topItem)
@@ -299,7 +334,8 @@ Page({
             const phaseConfigs = {
               menstruate: {name: '姨妈日', icon: '🌸', slogan: '热敷小腹，给自己一个温暖的拥抱 🤗'},
               follicular: {name: '回升期', icon: '🍃', slogan: '身体正在慢慢恢复，状态越来越好啦 ✨'},
-              fertile: {name: '重点阶段', icon: '⚠️', slogan: '这几天更适合放慢一点，留意身体节奏 ☁️'},
+              // ✅ P2#25 优化：fertile 阶段用中性表述，避免误解
+              fertile: {name: '周期过渡', icon: '☁️', slogan: '身体在悄悄变化，这几天更适合放慢节奏 ☁️'},
               ovulation: {name: '状态高点', icon: '✨', slogan: '今天状态在线，记得把节奏留给自己 🔋'},
               luteal: {name: '暴躁期', icon: '🌧️', slogan: '激素波动可能影响情绪，对自己温柔点 🤍'},
               premenstrual: {name: '下次预警', icon: '⏳', slogan: '姨妈即将来访，记得提前备好小翅膀 🕊️'}

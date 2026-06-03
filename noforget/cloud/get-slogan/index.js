@@ -507,6 +507,7 @@ async function updateHistory(openid, categoryId, slogan) {
 
   await db.collection(HISTORY_COLLECTION).add({
     data: {
+      _openid: openid,
       categoryId,
       history: nextHistory,
       createdAt: db.serverDate(),
@@ -559,7 +560,7 @@ async function callHunyuan(prompt) {
     headers: {
       'Content-Type': 'application/json',
       'X-Auth-Signature': signed.auth,
-      'X-Auth-Nonce': String(Date.now()),
+      'X-Auth-Nonce': signed.nonce,
       'X-Auth-Timestamp': signed.timestamp
     },
     timeout: 10000
@@ -572,6 +573,24 @@ async function callHunyuan(prompt) {
   return String(slogan).trim()
 }
 
+// ✅ 限流保护：每分类/用户每分钟最多3次
+const _rateLimitMap = new Map()
+const RATE_LIMIT_MAX = 3
+const RATE_LIMIT_WINDOW_MS = 60000
+
+function checkRateLimit(openid, categoryId) {
+  const key = `${openid}::${categoryId}`
+  const now = Date.now()
+  const windows = _rateLimitMap.get(key) || []
+  const recent = windows.filter(ts => now - ts < RATE_LIMIT_WINDOW_MS)
+  if (recent.length >= RATE_LIMIT_MAX) {
+    return false
+  }
+  recent.push(now)
+  _rateLimitMap.set(key, recent)
+  return true
+}
+
 exports.main = async (event, _context) => {
   const {categoryId} = event || {}
   const validIds = Object.keys(CATEGORY_GUIDES)
@@ -580,6 +599,12 @@ exports.main = async (event, _context) => {
 
   if (!categoryId || !validIds.includes(categoryId)) {
     return {success: false, error: '无效的分类ID', validIds}
+  }
+
+  // ✅ 限流检查
+  if (openid && !checkRateLimit(openid, categoryId)) {
+    const slogan = pickRandom(LOCAL_POOL[categoryId] || LOCAL_POOL.festival)
+    return {success: true, slogan, source: 'rate-limited', categoryId}
   }
 
   if (!openid) {

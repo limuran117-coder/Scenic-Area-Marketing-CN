@@ -32,15 +32,28 @@ const SYSTEM_PROMPT = `你是「NoForget」小程序的智能客服助手，名�
 - 适当用 emoji 增加亲切感`
 
 /**
- * 调用 MiniMax API（Anthropic Messages API 兼容格式）
+ * 用户输入清洗：移除控制字符和不可见字符，限制长度
  */
-async function callMiniMax(messages) {
+function sanitizeInput(text) {
+  return String(text)
+    .replace(/[\x00-\x1f\u200b-\u200f\u2028-\u202f\ufeff]/g, ' ')  // 移除非打印字符+零宽字符
+    .replace(/\s+/g, ' ')            // 合并空白
+    .trim()
+    .slice(0, 500)                   // 限制最大500字符
+}
+
+/**
+ * 调用 MiniMax API（Anthropic Messages API 兼容格式）
+ * ✅ P0#3修复：使用结构化 system+user messages，避免 prompt injection
+ */
+async function callMiniMax(systemPrompt, userMessage) {
   const response = await require('axios').post(
     MINIMAX_BASE_URL,
     {
       model: MINIMAX_MODEL,
+      system: systemPrompt,
       messages: [
-        {role: 'user', content: messages}
+        {role: 'user', content: userMessage}
       ],
       max_tokens: 1024,
       temperature: 0.7
@@ -69,8 +82,9 @@ exports.main = async (event, _context) => {
   }
 
   try {
-    const fullPrompt = `${SYSTEM_PROMPT}\n\n用户问题：${message}`
-    const result = await callMiniMax(fullPrompt)
+    // ✅ P0#3修复：结构化 system+user，用户输入清洗后独立传参
+    const safeMessage = sanitizeInput(message)
+    const result = await callMiniMax(SYSTEM_PROMPT, safeMessage)
 
     let reply = ''
     if (result.content && Array.isArray(result.content)) {

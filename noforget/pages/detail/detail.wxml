@@ -1,3 +1,5 @@
+<wxs src="./ticker.wxs" module="ticker" />
+
 <view class="detail-page cat-{{item.categoryId}}">
 
   <view class="detail-nav" style="height: {{totalTopHeight}}px; padding-top: {{statusBarHeight}}px; box-sizing: border-box;">
@@ -26,7 +28,7 @@
           </view>
 
           <view class="hero-hms-row" wx:if="{{item.countdownHms}}">
-            <text class="hero-hms">{{item.countdownHms}}</text>
+            <text class="hero-hms">{{ticker.getHms(item._nextTargetEndMs)}}</text>
           </view>
         </view>
 
@@ -50,7 +52,7 @@
             <text class="days-num">{{item.countdownPreciseDays}}</text>
             <text class="days-unit">Days</text>
           </view>
-          <text class="sub-timer" wx:if="{{item.countdownHms}}">{{item.countdownHms}}</text>
+          <text class="sub-timer" wx:if="{{item._nextTargetEndMs}}">{{ticker.getHms(item._nextTargetEndMs)}}</text>
         </view>
         <view class="card-header">
           <view class="event-title">{{item.title}}</view>

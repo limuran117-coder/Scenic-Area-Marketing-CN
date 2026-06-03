@@ -34,21 +34,32 @@ function init() {
     .catch(() => null)
 }
 
-// ─── 核心：云函数调用 ───────────────────────────
-async function callCloud(action, data) {
+// ─── 核心：云函数调用（✅ P0#3修复：自动重试3次）───────
+async function callCloud(action, data, retries = 3) {
   if (!_openid && action !== 'whoami') {
     return {success: false, offline: true}
   }
 
-  try {
-    const res = await wx.cloud.callFunction({
-      name: CLOUD_FUNCTION,
-      data: {action, data}
-    })
-    return res.result || {success: false, error: '无返回'}
-  } catch (err) {
-    return {success: false, error: err.message}
+  let lastErr = null
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      const res = await wx.cloud.callFunction({
+        name: CLOUD_FUNCTION,
+        data: {action, data}
+      })
+      return res.result || {success: false, error: '无返回'}
+    } catch (err) {
+      lastErr = err
+      if (attempt < retries) {
+        // 指数退避 + jitter：~1s, ~2s, ~3s
+        const delay = attempt * 1000 + Math.round(Math.random() * 500)
+        console.warn(`[periodCloud] callCloud(${action}) 第${attempt}次失败，${delay}ms后重试:`, err.message)
+        await new Promise(r => setTimeout(r, delay))
+      }
+    }
   }
+  console.error(`[periodCloud] callCloud(${action}) 重试${retries}次后仍然失败:`, lastErr.message)
+  return {success: false, error: lastErr.message}
 }
 
 // ─── 获取 openid（云函数代理）───────────────────
@@ -96,17 +107,21 @@ async function uploadToCloud(entries, daily, settings) {
     cloudData = await downloadFromCloud()
   } catch (e) { /* 拉取失败继续上传 */ }
 
-  // 2. 合并：条目取并集（去重），日常记录和设置取本地
+  // 2. 合并：条目取并集（去重），保留最新版本
   const localEntries = entries || wx.getStorageSync('periodEntries') || []
   const cloudEntries = cloudData?.entries || []
-  const seen = new Set()
-  const merged = []
+  // ✅ P1修复：按 updatedAt 取最新版本，而非先到先得
+  const mergedMap = new Map()
   for (const e of [...localEntries, ...cloudEntries]) {
-    if (!seen.has(e.startDate)) {
-      seen.add(e.startDate)
-      merged.push(e)
+    const key = e.startDate
+    const existing = mergedMap.get(key)
+    const newTs = e.updatedAt || e.createdAt || 0
+    const oldTs = existing ? (existing.updatedAt || existing.createdAt || 0) : 0
+    if (!existing || newTs > oldTs) {
+      mergedMap.set(key, e)
     }
   }
+  const merged = Array.from(mergedMap.values())
   merged.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0))
 
   const data = {
@@ -116,6 +131,12 @@ async function uploadToCloud(entries, daily, settings) {
     settings: settings || wx.getStorageSync('periodSettings') || {},
     subscribed: wx.getStorageSync('periodSubscribed') || false,
     uploadedAt: new Date().toISOString()
+  }
+
+  // ✅ 容量监控：单文档接近1MB上限时告警
+  const dataSize = JSON.stringify(data).length
+  if (dataSize > 800000) {
+    console.warn(`[periodCloud] ⚠️ 数据接近1MB上限: ${(dataSize / 1024).toFixed(1)}KB for ${_openid}`)
   }
 
   const res = await callCloud('save', data)

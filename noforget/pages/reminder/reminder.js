@@ -4,13 +4,12 @@ const countdownStore = require('../../utils/countdownStore.js')
 const categories = require('../../utils/categories.js')
 const periodCloud = require('../../utils/periodCloud.js')
 const { SUBSCRIBE_TEMPLATES } = require('../../config/constant.js')
+const { parseDateSafe: _parseDateSafe } = require('../../utils/date-utils.js')
 
-// ─── 工具函数 ──────────────────────────────
+// ─── 工具函数（兼容包装，保持返回 null/'—' 的原有行为）──
 function parseDateSafe(value) {
-  if (!value) return null
-  const normalized = String(value).replace(/\-/g, '/')
-  const date = new Date(normalized)
-  return Number.isNaN(date.getTime()) ? null : date
+  const d = _parseDateSafe(value)
+  return isNaN(d.getTime()) ? null : d
 }
 
 function formatDate(date) {
@@ -116,10 +115,12 @@ Page({
   },
 
   // ─── 打开订阅授权 ──────────────────────
+  // ⚠️ 微信限制单次最多3个模板ID，当前刚好3个
   openSubscribe() {
     const tmplIds = [
       SUBSCRIBE_TEMPLATES.PERIOD,
-      SUBSCRIBE_TEMPLATES.DANGER
+      SUBSCRIBE_TEMPLATES.DANGER,
+      SUBSCRIBE_TEMPLATES.COUNTDOWN
     ].filter(Boolean)
 
     if (!tmplIds.length) {

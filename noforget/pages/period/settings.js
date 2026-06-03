@@ -2,6 +2,20 @@
 const period = require('../../utils/period.js')
 const periodCloud = require('../../utils/periodCloud.js')
 
+/**
+ * ✅ P0#2修复：简单哈希函数，用于UI门控（防他人顺手翻看）
+ * 注意：4位PIN仅10,000种可能，不可用于真正安全保护
+ * 不等于密码学安全哈希，请勿替代SOTER/服务端验证
+ * DJB2实现，h & h为恒等式（保留以保持行为一致）
+ */
+function hashPin(str) {
+  let h = 0
+  for (let i = 0; i < str.length; i++) {
+    h = ((h << 5) - h) + str.charCodeAt(i)
+  }
+  return 'p' + Math.abs(h).toString(36)
+}
+
 Page({
   data: {
     statusBarHeight: 20,
@@ -81,6 +95,10 @@ Page({
     periodCloud.scheduleSync(undefined, undefined, s)
   },
 
+  /**
+   * ✅ P0#2修复：PIN码哈希存储 + 排除云端同步
+   * pinCode 改为 pinHash（哈希值），sync时排除密码字段
+   */
   togglePin(e) {
     wx.vibrateShort({type: 'medium'})
     if (e.detail.value) {
@@ -90,10 +108,18 @@ Page({
         placeholderText: '请输入4位数字密码',
         success: (res) => {
           if (res.content && /^\d{4}$/.test(res.content)) {
-            const s = {...this.data.localSettings, pinEnabled: true, pinCode: res.content}
+            const s = {...this.data.localSettings, pinEnabled: true, pinHash: hashPin(res.content)}
+            delete s.pinCode  // 移除旧明文（若有）
+            delete s.pinHashFromCloud  // 确保不同步
             period.saveSettings(s)
             this.setData({localSettings: s})
-            periodCloud.scheduleSync(undefined, undefined, s)
+            // 排除所有密码相关字段，不同步到云端
+            // 注：pinEnabled 也不同步，避免云端恢复后显示"密码已开启"但无法验证
+            const syncSettings = {...s}
+            delete syncSettings.pinHash
+            delete syncSettings.pinCode
+            delete syncSettings.pinEnabled
+            periodCloud.scheduleSync(undefined, undefined, syncSettings)
             wx.showToast({title: '密码已设置', icon: 'success'})
           } else if (res.confirm) {
             wx.showToast({title: '请输入4位数字', icon: 'none'})
@@ -101,9 +127,12 @@ Page({
         }
       })
     } else {
-      const s = {...this.data.localSettings, pinEnabled: false, pinCode: ''}
+      const s = {...this.data.localSettings, pinEnabled: false}
+      delete s.pinHash
+      delete s.pinCode
       period.saveSettings(s)
       this.setData({localSettings: s})
+      // 排除所有密码相关字段
       periodCloud.scheduleSync(undefined, undefined, s)
     }
   },
@@ -115,10 +144,15 @@ Page({
       placeholderText: '请输入新4位密码',
       success: (res) => {
         if (res.content && /^\d{4}$/.test(res.content)) {
-          const s = {...this.data.localSettings, pinCode: res.content}
+          const s = {...this.data.localSettings, pinHash: hashPin(res.content)}
+          delete s.pinCode
           period.saveSettings(s)
           this.setData({localSettings: s})
-          periodCloud.scheduleSync(undefined, undefined, s)
+          // 排除密码相关字段，不同步到云端
+          const syncSettings = {...s}
+          delete syncSettings.pinHash
+          delete syncSettings.pinCode
+          periodCloud.scheduleSync(undefined, undefined, syncSettings)
           wx.showToast({title: '密码已修改', icon: 'success'})
         } else if (res.confirm) {
           wx.showToast({title: '请输入4位数字', icon: 'none'})

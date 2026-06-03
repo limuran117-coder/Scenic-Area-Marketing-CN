@@ -6,12 +6,7 @@ const countdown = require('../../utils/countdown.js')
 const categories = require('../../utils/categories.js')
 const copyTemplates = require('../../utils/copyTemplates.js')
 const countdownStore = require('../../utils/countdownStore.js')
-
-function parseDateSafe(str) {
-  if (!str) return new Date()
-  if (str instanceof Date) return new Date(str.getTime())
-  return new Date(String(str).replace(/-/g, '/'))
-}
+const { parseDateSafe } = require('../../utils/date-utils.js')
 
 // 🌟 情绪文案引擎（与首页共享）
 function getEmotionalStatus(categoryId, isPast, itemId = '0') {
@@ -199,9 +194,11 @@ function drawPosterOutput(ctx, W, H) {
         wx.showToast({title: '画报生成超时，请重试', icon: 'none'})
         reject(new Error('draw_timeout'))
       })
-    }, 10000)
+    }, 15000)
 
     try {
+      // ⚠️ Canvas旧API：draw(false, callback) 在新版iOS基础库中已标记废弃
+      // 后续版本应迁移到 Canvas 2D API: wx.createSelectorQuery().select('#shareCanvas').node()
       ctx.draw(false)
     } catch (err) {
       finish(() => {
@@ -283,7 +280,8 @@ const CATEGORY_EN_LABELS = {
   birthday: 'BIRTHDAY',
   love: 'LOVE',
   wedding: 'WEDDING',
-  death: 'MEMORIAL',
+  // ✅ P2#15: MEMORIAL → IN MEMORIAM（更正式的表达）
+  death: 'IN MEMORIAM',
   festival: 'CUSTOM',
   repayment: 'PAYMENT',
   period: 'PERIOD',
@@ -332,48 +330,30 @@ Page({
 
   onShow() {
     this.loadItem()
-    this._startTick()
+    // ✅ WXS 接管倒计时动态显示，JS 层只需每30秒检查是否跨天
+    this._startDayCheck()
   },
 
-  onHide() { this._stopTick() },
-  onUnload() { this._stopTick() },
+  onHide() { this._stopDayCheck() },
+  onUnload() { this._stopDayCheck() },
 
-  _startTick() {
-    this._stopTick()
-    this._tickTimer = setInterval(() => { this._refreshCountdown() }, 1000)
+  _startDayCheck() {
+    this._stopDayCheck()
+    this._dayCheckTimer = setInterval(() => {
+      const now = new Date()
+      const today = now.toDateString()
+      if (this._lastToday && this._lastToday !== today) {
+        this.loadItem()
+      }
+      this._lastToday = today
+    }, 30000) // 30秒检查一次跨天
   },
 
-  _stopTick() {
-    if (this._tickTimer) { clearInterval(this._tickTimer); this._tickTimer = null }
+  _stopDayCheck() {
+    if (this._dayCheckTimer) { clearInterval(this._dayCheckTimer); this._dayCheckTimer = null }
   },
 
-  _refreshCountdown() {
-    const item = this.data.item
-    if (!item) return
-    try {
-      const main = countdown.getMainCountdown({
-        targetDate: item.targetDate,
-        isRecurring: item.isRecurring,
-        direction: item.direction
-      })
-      if (!main) return
-      const hh = String(main.hours).padStart(2, '0')
-      const mm = String(main.minutes).padStart(2, '0')
-      const ss = String(main.seconds).padStart(2, '0')
-      this.setData({
-        item: {
-          ...item,
-          countdownPrecise: main.totalFormatted,
-          countdownHms: `${hh}:${mm}:${ss}`,
-          countdownPreciseDays: main.days,
-          preciseIsPast: main.isPast,
-          statusText: getEmotionalStatus(item.categoryId, main.isPast, item.id.toString())
-        }
-      })
-    } catch(e) {
-      console.warn('[detail] _refreshCountdown error:', e)
-    }
-  },
+  // _refreshCountdown 已废弃：WXS 接管倒计时动态显示，详情页每秒 setData 已消除
 
   // uploadUserPhoto 已移除（UI已不用此功能）
 
@@ -450,6 +430,31 @@ Page({
       ? null
       : countdown.getNextMilestone(raw.targetDate, main.isPast ? -main.days : main.days)
 
+    // ✅ WXS 倒计时用：计算目标日次日00:00的毫秒时间戳
+    let _nextTargetEndMs = 0
+    if (itemData.direction !== 'countup') {
+      const target = parseDateSafe(raw.targetDate)
+      if (!isNaN(target.getTime())) {
+        if (itemData.isRecurring) {
+          const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+          const targetMonth = target.getMonth()
+          const targetDay = target.getDate()
+          const isLeap = (now.getFullYear() % 4 === 0 && now.getFullYear() % 100 !== 0) || now.getFullYear() % 400 === 0
+          const anniversaryDay = (targetMonth === 1 && targetDay === 29 && !isLeap) ? 28 : targetDay
+          let anniversary = new Date(now.getFullYear(), targetMonth, anniversaryDay)
+          if (anniversary < todayStart) {
+            const nextYear = now.getFullYear() + 1
+            const nextIsLeap = (nextYear % 4 === 0 && nextYear % 100 !== 0) || nextYear % 400 === 0
+            const nextDay = (targetMonth === 1 && targetDay === 29 && !nextIsLeap) ? 28 : targetDay
+            anniversary = new Date(nextYear, targetMonth, nextDay)
+          }
+          _nextTargetEndMs = new Date(anniversary.getFullYear(), anniversary.getMonth(), anniversary.getDate() + 1).getTime()
+        } else {
+          _nextTargetEndMs = new Date(target.getFullYear(), target.getMonth(), target.getDate() + 1).getTime()
+        }
+      }
+    }
+
     this.setData({
       item: {
         ...raw,
@@ -472,7 +477,8 @@ Page({
           : null,
         isRecurring: itemData.isRecurring,
         direction: itemData.direction,
-        startDate: itemData.startDate
+        startDate: itemData.startDate,
+        _nextTargetEndMs  // WXS 倒计时用
       },
       remindEnabled: raw.remindDays >= 0,
       currentTheme,

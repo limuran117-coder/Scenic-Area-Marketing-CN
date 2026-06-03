@@ -189,7 +189,17 @@ Page({
     }
   },
 
+  /**
+   * ✅ P1#8 修复：onShow 添加防抖保护
+   * 每次页面切换都刷新全部数据会导致不必要的云同步和重渲染
+   * 使用最后刷新时间戳，5秒内不重复刷新
+   */
+  _lastRefreshMs: 0,
+
   onShow() {
+    const now = Date.now()
+    if (now - (this._lastRefreshMs || 0) < 5000) return
+    this._lastRefreshMs = now
     this.refreshAll()
   },
 
