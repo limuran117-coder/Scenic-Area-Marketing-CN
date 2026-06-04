@@ -1,121 +1,416 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-06-03",
-
+  "updatedAt": "2026-06-04",
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
-
   "objectTypes": {
     "ScenicSpot": {
       "description": "景区实体。电影小镇及所有竞品/对标景区",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "name": { "type": "string" },
-        "shortName": { "type": "string" },
-        "category": { "type": "enum", "values": ["theme_park", "historical", "nature", "cultural_town"] },
-        "location": { "type": "string" },
-        "tier": { "type": "enum", "values": ["primary", "secondary", "national"] },
-        "annualCapacity": { "type": "number", "unit": "万人" },
-        "isCoreCompetitor": { "type": "boolean" },
-        "createdAt": { "type": "date" },
-        "updatedAt": { "type": "date" }
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "shortName": {
+          "type": "string"
+        },
+        "category": {
+          "type": "enum",
+          "values": [
+            "theme_park",
+            "historical",
+            "nature",
+            "cultural_town"
+          ]
+        },
+        "location": {
+          "type": "string"
+        },
+        "tier": {
+          "type": "enum",
+          "values": [
+            "primary",
+            "secondary",
+            "national"
+          ]
+        },
+        "annualCapacity": {
+          "type": "number",
+          "unit": "万人"
+        },
+        "isCoreCompetitor": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "date"
+        },
+        "updatedAt": {
+          "type": "date"
+        }
       },
-      "linkTypes": ["competes_with", "located_in", "has_campaign", "has_content", "has_metric"],
-      "dataSources": ["douyin_index_v9.py", "xiaohongshu_crawl.py", "competitor_program_tracker.py"]
+      "linkTypes": [
+        "competes_with",
+        "located_in",
+        "has_campaign",
+        "has_content",
+        "has_metric"
+      ],
+      "dataSources": [
+        "douyin_index_v9.py",
+        "xiaohongshu_crawl.py",
+        "competitor_program_tracker.py"
+      ]
     },
-
     "MetricSnapshot": {
       "description": "景区数据快照——搜索指数、综合指数、客流等每日/每周度量",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "scenicSpotId": { "type": "string", "ref": "ScenicSpot" },
-        "date": { "type": "date" },
-        "source": { "type": "enum", "values": ["douyin", "xiaohongshu", "weibo", "baidu", "internal_csv"] },
-        "metricType": { "type": "enum", "values": ["search_index", "composite_index", "visitor_count", "revenue", "content_count", "engagement_rate"] },
-        "value": { "type": "number" },
-        "dailyChange": { "type": "number", "optional": true },
-        "weeklyChange": { "type": "number", "optional": true },
-        "confidence": { "type": "number", "optional": true, "description": "数据置信度 0-1" },
-        "collectedAt": { "type": "datetime" }
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "scenicSpotId": {
+          "type": "string",
+          "ref": "ScenicSpot"
+        },
+        "date": {
+          "type": "date"
+        },
+        "source": {
+          "type": "enum",
+          "values": [
+            "douyin",
+            "xiaohongshu",
+            "weibo",
+            "baidu",
+            "internal_csv"
+          ]
+        },
+        "metricType": {
+          "type": "enum",
+          "values": [
+            "search_index",
+            "composite_index",
+            "visitor_count",
+            "revenue",
+            "content_count",
+            "engagement_rate"
+          ]
+        },
+        "value": {
+          "type": "number"
+        },
+        "dailyChange": {
+          "type": "number",
+          "optional": true
+        },
+        "weeklyChange": {
+          "type": "number",
+          "optional": true
+        },
+        "confidence": {
+          "type": "number",
+          "optional": true,
+          "description": "数据置信度 0-1"
+        },
+        "collectedAt": {
+          "type": "datetime"
+        }
       },
-      "linkTypes": ["belongs_to", "aggregated_from"],
-      "dataSources": ["adapter-douyin.py::/tmp/crawl_data.json", "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json", "adapter-visitors.py::~/Desktop/2026游客量统计.csv", "adapter-baidu.py::/tmp/baidu_index.json (SPIKE/待采集)", "ontology_query.py::预定义查询引擎"]
+      "linkTypes": [
+        "belongs_to",
+        "aggregated_from"
+      ],
+      "dataSources": [
+        "adapter-douyin.py::/tmp/crawl_data.json",
+        "adapter-xiaohongshu.py::/tmp/xiaohongshu_*.json",
+        "adapter-visitors.py::~/Desktop/2026游客量统计.csv",
+        "adapter-baidu.py::/tmp/baidu_index.json (PARTIAL: CDP可行, 覆盖率12.5%)",
+        "ontology_query.py::预定义查询引擎"
+      ],
+      "notes": "Day6百度实测(2026-06-04): 8景区仅清明上河园有数据,覆盖率12.5%; CDP浏览器采集可行;其余关键词未收录/低于阈值"
     },
-
     "ContentAsset": {
       "description": "内容资产——抖音视频、小红书笔记、微博等所有营销内容",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "title": { "type": "string" },
-        "platform": { "type": "enum", "values": ["douyin", "xiaohongshu", "weibo", "bilibili", "other"] },
-        "type": { "type": "enum", "values": ["video", "note", "post", "live", "kol_collab"] },
-        "url": { "type": "string", "optional": true },
-        "authorId": { "type": "string", "optional": true },
-        "authorName": { "type": "string", "optional": true },
-        "publishDate": { "type": "date" },
-        "views": { "type": "number", "optional": true },
-        "likes": { "type": "number", "optional": true },
-        "comments": { "type": "number", "optional": true },
-        "shares": { "type": "number", "optional": true },
-        "sentiment": { "type": "enum", "values": ["positive", "neutral", "negative", "mixed"], "optional": true },
-        "tags": { "type": "array", "items": { "type": "string" }, "optional": true },
-        "isViral": { "type": "boolean", "optional": true },
-        "collectedAt": { "type": "datetime" }
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "platform": {
+          "type": "enum",
+          "values": [
+            "douyin",
+            "xiaohongshu",
+            "weibo",
+            "bilibili",
+            "other"
+          ]
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "video",
+            "note",
+            "post",
+            "live",
+            "kol_collab"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "optional": true
+        },
+        "authorId": {
+          "type": "string",
+          "optional": true
+        },
+        "authorName": {
+          "type": "string",
+          "optional": true
+        },
+        "publishDate": {
+          "type": "date"
+        },
+        "views": {
+          "type": "number",
+          "optional": true
+        },
+        "likes": {
+          "type": "number",
+          "optional": true
+        },
+        "comments": {
+          "type": "number",
+          "optional": true
+        },
+        "shares": {
+          "type": "number",
+          "optional": true
+        },
+        "sentiment": {
+          "type": "enum",
+          "values": [
+            "positive",
+            "neutral",
+            "negative",
+            "mixed"
+          ],
+          "optional": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "isViral": {
+          "type": "boolean",
+          "optional": true
+        },
+        "collectedAt": {
+          "type": "datetime"
+        }
       },
-      "linkTypes": ["mentions", "promotes", "triggers_sentiment", "contributes_to"],
-      "dataSources": ["adapter-xiaohongshu.py (预留: 爬虫升级后启用详细笔记)", "seed_content_assets.py (种子数据: 8条代表性内容)", "competitor_program_tracker.py"]
+      "linkTypes": [
+        "mentions",
+        "promotes",
+        "triggers_sentiment",
+        "contributes_to"
+      ],
+      "dataSources": [
+        "adapter-xiaohongshu.py (预留: 爬虫升级后启用详细笔记)",
+        "seed_content_assets.py (种子数据: 8条代表性内容)",
+        "competitor_program_tracker.py"
+      ]
     },
-
     "Event": {
       "description": "事件/动态——竞品活动、行业趋势、舆情事件、政策变化",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "title": { "type": "string" },
-        "type": { "type": "enum", "values": ["competitor_activity", "industry_trend", "sentiment_incident", "policy_change", "seasonal_peak", "other"] },
-        "severity": { "type": "enum", "values": ["info", "watch", "warning", "critical"] },
-        "description": { "type": "text" },
-        "source": { "type": "string" },
-        "url": { "type": "string", "optional": true },
-        "occurredAt": { "type": "datetime" },
-        "detectedAt": { "type": "datetime" },
-        "expiresAt": { "type": "datetime", "optional": true },
-        "tags": { "type": "array", "items": { "type": "string" }, "optional": true }
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "competitor_activity",
+            "industry_trend",
+            "sentiment_incident",
+            "policy_change",
+            "seasonal_peak",
+            "other"
+          ]
+        },
+        "severity": {
+          "type": "enum",
+          "values": [
+            "info",
+            "watch",
+            "warning",
+            "critical"
+          ]
+        },
+        "description": {
+          "type": "text"
+        },
+        "source": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "optional": true
+        },
+        "occurredAt": {
+          "type": "datetime"
+        },
+        "detectedAt": {
+          "type": "datetime"
+        },
+        "expiresAt": {
+          "type": "datetime",
+          "optional": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true
+        }
       },
-      "linkTypes": ["affects", "mentioned_in"],
-      "dataSources": ["舆情监控", "文旅情报日报", "竞品内容动态"]
+      "linkTypes": [
+        "affects",
+        "mentioned_in"
+      ],
+      "dataSources": [
+        "舆情监控",
+        "文旅情报日报",
+        "竞品内容动态"
+      ]
     },
-
     "MarketingCampaign": {
       "description": "营销活动——促销、达人合作、节日活动等",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "name": { "type": "string" },
-        "scenicSpotId": { "type": "string", "ref": "ScenicSpot" },
-        "type": { "type": "enum", "values": ["seasonal_event", "price_promotion", "kol_collab", "brand_merge", "social_media", "other"] },
-        "budget": { "type": "number", "optional": true, "unit": "元" },
-        "startDate": { "type": "date" },
-        "endDate": { "type": "date", "optional": true },
-        "targetAudience": { "type": "array", "items": { "type": "string" }, "optional": true },
-        "channels": { "type": "array", "items": { "type": "string" }, "optional": true },
-        "expectedImpact": { "type": "string", "optional": true },
-        "actualImpact": { "type": "string", "optional": true },
-        "status": { "type": "enum", "values": ["planned", "active", "completed", "cancelled"] }
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "scenicSpotId": {
+          "type": "string",
+          "ref": "ScenicSpot"
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "seasonal_event",
+            "price_promotion",
+            "kol_collab",
+            "brand_merge",
+            "social_media",
+            "other"
+          ]
+        },
+        "budget": {
+          "type": "number",
+          "optional": true,
+          "unit": "元"
+        },
+        "startDate": {
+          "type": "date"
+        },
+        "endDate": {
+          "type": "date",
+          "optional": true
+        },
+        "targetAudience": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "channels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "expectedImpact": {
+          "type": "string",
+          "optional": true
+        },
+        "actualImpact": {
+          "type": "string",
+          "optional": true
+        },
+        "status": {
+          "type": "enum",
+          "values": [
+            "planned",
+            "active",
+            "completed",
+            "cancelled"
+          ]
+        }
       },
-      "linkTypes": ["belongs_to", "targets", "uses"],
-      "dataSources": ["电影小镇营销日历", "竞品内容动态"]
+      "linkTypes": [
+        "belongs_to",
+        "targets",
+        "uses"
+      ],
+      "dataSources": [
+        "电影小镇营销日历",
+        "竞品内容动态"
+      ]
     },
-
     "DecisionRule": {
       "description": "决策规则——已验证和经验证的运营判断准则",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "ruleId": { "type": "string", "description": "如 R-001" },
-        "name": { "type": "string" },
-        "category": { "type": "enum", "values": ["content_strategy", "pricing", "alert", "competitive_response", "timing"] },
-        "condition": { "type": "text", "description": "触发条件逻辑" },
-        "action": { "type": "text", "description": "触发的动作" },
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "ruleId": {
+          "type": "string",
+          "description": "如 R-001"
+        },
+        "name": {
+          "type": "string"
+        },
+        "category": {
+          "type": "enum",
+          "values": [
+            "content_strategy",
+            "pricing",
+            "alert",
+            "competitive_response",
+            "timing"
+          ]
+        },
+        "condition": {
+          "type": "text",
+          "description": "触发条件逻辑"
+        },
+        "action": {
+          "type": "text",
+          "description": "触发的动作"
+        },
         "authorityTier": {
           "type": "number",
           "optional": true,
@@ -123,160 +418,390 @@
         },
         "conflictRule": {
           "type": "enum",
-          "values": ["higher_tier_wins", "specific_overrides_general", "latest_wins", "user_override", "never_override"],
+          "values": [
+            "higher_tier_wins",
+            "specific_overrides_general",
+            "latest_wins",
+            "user_override",
+            "never_override"
+          ],
           "optional": true,
           "description": "当多个规则冲突时的解决策略"
         },
-        "confidence": { "type": "number", "description": "验证置信度 0-1" },
-        "status": { "type": "enum", "values": ["hypothesis", "verified", "invalidated", "obsolete"] },
-        "source": { "type": "string", "description": "来源：数据驱动/专家经验/案例学习" },
-        "lastTriggeredAt": { "type": "datetime", "optional": true },
-        "triggerCount": { "type": "number", "optional": true }
+        "confidence": {
+          "type": "number",
+          "description": "验证置信度 0-1"
+        },
+        "status": {
+          "type": "enum",
+          "values": [
+            "hypothesis",
+            "verified",
+            "invalidated",
+            "obsolete"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "description": "来源：数据驱动/专家经验/案例学习"
+        },
+        "lastTriggeredAt": {
+          "type": "datetime",
+          "optional": true
+        },
+        "triggerCount": {
+          "type": "number",
+          "optional": true
+        }
       },
-      "linkTypes": ["triggers_action", "based_on_metric", "overridden_by"],
-      "dataSources": ["wiki/行业知识/决策规则库.md"]
+      "linkTypes": [
+        "triggers_action",
+        "based_on_metric",
+        "overridden_by"
+      ],
+      "dataSources": [
+        "wiki/行业知识/决策规则库.md"
+      ]
     },
-
     "OntologyAdapter": {
       "description": "Ontology Adapter——原始数据到 Ontology 对象的转换器",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "name": { "type": "string", "description": "如 adapter-douyin.py" },
-        "sourceFormat": { "type": "string", "description": "输入数据格式描述" },
-        "targetObjectType": { "type": "array", "items": { "type": "string" }, "description": "生成的 Ontology ObjectType" },
-        "confidence": { "type": "number", "description": "该适配器的默认数据置信度 0-1" },
-        "status": { "type": "enum", "values": ["active", "partial", "pending"] },
-        "lastRunAt": { "type": "datetime", "optional": true },
-        "outputPath": { "type": "string", "description": "输出到 data/ 的路径模式" }
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "name": {
+          "type": "string",
+          "description": "如 adapter-douyin.py"
+        },
+        "sourceFormat": {
+          "type": "string",
+          "description": "输入数据格式描述"
+        },
+        "targetObjectType": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "生成的 Ontology ObjectType"
+        },
+        "confidence": {
+          "type": "number",
+          "description": "该适配器的默认数据置信度 0-1"
+        },
+        "status": {
+          "type": "enum",
+          "values": [
+            "active",
+            "partial",
+            "pending"
+          ]
+        },
+        "lastRunAt": {
+          "type": "datetime",
+          "optional": true
+        },
+        "outputPath": {
+          "type": "string",
+          "description": "输出到 data/ 的路径模式"
+        }
       },
-      "linkTypes": ["transforms_to"],
+      "linkTypes": [
+        "transforms_to"
+      ],
       "dataSources": []
     },
-
     "AgentTask": {
       "description": "Agent 定时任务——cron 调度的所有自动化工作流",
       "properties": {
-        "id": { "type": "string", "key": true },
-        "name": { "type": "string", "description": "如 抖音指数日报" },
-        "cronJobId": { "type": "string", "optional": true },
-        "schedule": { "type": "string", "description": "cron 表达式" },
-        "type": { "type": "enum", "values": ["data_collection", "analysis", "report_generation", "knowledge_archiving", "system_maintenance"] },
-        "status": { "type": "enum", "values": ["active", "paused", "failed", "pending"] },
-        "lastRunAt": { "type": "datetime", "optional": true },
-        "lastRunStatus": { "type": "enum", "values": ["ok", "error", "timeout", "skipped"], "optional": true },
-        "lastDurationMs": { "type": "number", "optional": true },
-        "consecutiveErrors": { "type": "number", "optional": true },
-        "outputTo": { "type": "array", "items": { "type": "string" }, "optional": true, "description": "输出目标：wiki/飞书/Storage" }
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "name": {
+          "type": "string",
+          "description": "如 抖音指数日报"
+        },
+        "cronJobId": {
+          "type": "string",
+          "optional": true
+        },
+        "schedule": {
+          "type": "string",
+          "description": "cron 表达式"
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "data_collection",
+            "analysis",
+            "report_generation",
+            "knowledge_archiving",
+            "system_maintenance"
+          ]
+        },
+        "status": {
+          "type": "enum",
+          "values": [
+            "active",
+            "paused",
+            "failed",
+            "pending"
+          ]
+        },
+        "lastRunAt": {
+          "type": "datetime",
+          "optional": true
+        },
+        "lastRunStatus": {
+          "type": "enum",
+          "values": [
+            "ok",
+            "error",
+            "timeout",
+            "skipped"
+          ],
+          "optional": true
+        },
+        "lastDurationMs": {
+          "type": "number",
+          "optional": true
+        },
+        "consecutiveErrors": {
+          "type": "number",
+          "optional": true
+        },
+        "outputTo": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true,
+          "description": "输出目标：wiki/飞书/Storage"
+        }
       },
-      "linkTypes": ["writes_to", "triggered_by"],
-      "dataSources": ["cron list"]
+      "linkTypes": [
+        "writes_to",
+        "triggered_by"
+      ],
+      "dataSources": [
+        "cron list"
+      ]
     }
   },
-
   "linkTypes": {
     "competes_with": {
       "description": "竞品关系（many-to-many）",
-      "sourceTypes": ["ScenicSpot"],
-      "targetTypes": ["ScenicSpot"],
+      "sourceTypes": [
+        "ScenicSpot"
+      ],
+      "targetTypes": [
+        "ScenicSpot"
+      ],
       "properties": {
-        "strength": { "type": "enum", "values": ["direct", "indirect", "regional"] },
-        "overlapAudience": { "type": "number", "optional": true, "description": "客群重叠度 0-1" }
+        "strength": {
+          "type": "enum",
+          "values": [
+            "direct",
+            "indirect",
+            "regional"
+          ]
+        },
+        "overlapAudience": {
+          "type": "number",
+          "optional": true,
+          "description": "客群重叠度 0-1"
+        }
       }
     },
     "belongs_to": {
       "description": "从属关系（many-to-one）",
-      "sourceTypes": ["MetricSnapshot", "MarketingCampaign"],
-      "targetTypes": ["ScenicSpot"],
+      "sourceTypes": [
+        "MetricSnapshot",
+        "MarketingCampaign"
+      ],
+      "targetTypes": [
+        "ScenicSpot"
+      ],
       "properties": {}
     },
     "transforms_to": {
       "description": "Adapter 转换数据到 Ontology Object",
-      "sourceTypes": ["OntologyAdapter"],
-      "targetTypes": ["MetricSnapshot", "ContentAsset"],
+      "sourceTypes": [
+        "OntologyAdapter"
+      ],
+      "targetTypes": [
+        "MetricSnapshot",
+        "ContentAsset"
+      ],
       "properties": {
-        "confidence": { "type": "number", "optional": true, "description": "转换置信度" }
+        "confidence": {
+          "type": "number",
+          "optional": true,
+          "description": "转换置信度"
+        }
       }
     },
     "mentions": {
       "description": "内容提及景区",
-      "sourceTypes": ["ContentAsset"],
-      "targetTypes": ["ScenicSpot"],
+      "sourceTypes": [
+        "ContentAsset"
+      ],
+      "targetTypes": [
+        "ScenicSpot"
+      ],
       "properties": {
-        "relevance": { "type": "number", "optional": true, "description": "相关性 0-1" }
+        "relevance": {
+          "type": "number",
+          "optional": true,
+          "description": "相关性 0-1"
+        }
       }
     },
     "affects": {
       "description": "事件影响景区",
-      "sourceTypes": ["Event"],
-      "targetTypes": ["ScenicSpot"],
+      "sourceTypes": [
+        "Event"
+      ],
+      "targetTypes": [
+        "ScenicSpot"
+      ],
       "properties": {
-        "impactLevel": { "type": "enum", "values": ["high", "medium", "low", "none"] }
+        "impactLevel": {
+          "type": "enum",
+          "values": [
+            "high",
+            "medium",
+            "low",
+            "none"
+          ]
+        }
       }
     },
     "triggers_action": {
       "description": "规则触发动作",
-      "sourceTypes": ["DecisionRule"],
-      "targetTypes": ["AgentTask", "Event"],
+      "sourceTypes": [
+        "DecisionRule"
+      ],
+      "targetTypes": [
+        "AgentTask",
+        "Event"
+      ],
       "properties": {
-        "urgency": { "type": "enum", "values": ["immediate", "today", "this_week", "not_urgent"] }
+        "urgency": {
+          "type": "enum",
+          "values": [
+            "immediate",
+            "today",
+            "this_week",
+            "not_urgent"
+          ]
+        }
       }
     },
     "based_on_metric": {
       "description": "决策规则基于数据度量",
-      "sourceTypes": ["DecisionRule"],
-      "targetTypes": ["MetricSnapshot"],
+      "sourceTypes": [
+        "DecisionRule"
+      ],
+      "targetTypes": [
+        "MetricSnapshot"
+      ],
       "properties": {
-        "threshold": { "type": "number", "optional": true }
+        "threshold": {
+          "type": "number",
+          "optional": true
+        }
       }
     },
     "promotes": {
       "description": "营销活动推广的内容",
-      "sourceTypes": ["MarketingCampaign"],
-      "targetTypes": ["ContentAsset"],
+      "sourceTypes": [
+        "MarketingCampaign"
+      ],
+      "targetTypes": [
+        "ContentAsset"
+      ],
       "properties": {}
     },
     "targets": {
       "description": "活动/内容瞄准的客群",
-      "sourceTypes": ["MarketingCampaign"],
-      "targetTypes": ["TouristSegment"],
+      "sourceTypes": [
+        "MarketingCampaign"
+      ],
+      "targetTypes": [
+        "TouristSegment"
+      ],
       "properties": {}
     },
     "triggered_by": {
       "description": "Agent 任务由何触发",
-      "sourceTypes": ["AgentTask"],
-      "targetTypes": ["Event", "DecisionRule"],
+      "sourceTypes": [
+        "AgentTask"
+      ],
+      "targetTypes": [
+        "Event",
+        "DecisionRule"
+      ],
       "properties": {}
     },
     "aggregated_from": {
       "description": "数据快照由哪些内容资产聚合生成（M:1 正向引用）",
-      "sourceTypes": ["MetricSnapshot"],
-      "targetTypes": ["ContentAsset"],
+      "sourceTypes": [
+        "MetricSnapshot"
+      ],
+      "targetTypes": [
+        "ContentAsset"
+      ],
       "properties": {
-        "contributionRatio": { "type": "number", "optional": true, "description": "该资产对快照值的贡献比例 0-1" }
+        "contributionRatio": {
+          "type": "number",
+          "optional": true,
+          "description": "该资产对快照值的贡献比例 0-1"
+        }
       }
     },
     "contributes_to": {
       "description": "内容资产贡献了哪个数据快照（1:M 反向引用）",
-      "sourceTypes": ["ContentAsset"],
-      "targetTypes": ["MetricSnapshot"],
+      "sourceTypes": [
+        "ContentAsset"
+      ],
+      "targetTypes": [
+        "MetricSnapshot"
+      ],
       "properties": {
-        "contributionType": { "type": "enum", "values": ["engagement", "reach", "conversion"], "optional": true }
+        "contributionType": {
+          "type": "enum",
+          "values": [
+            "engagement",
+            "reach",
+            "conversion"
+          ],
+          "optional": true
+        }
       }
     },
     "writes_to": {
       "description": "Agent 任务输出到知识库",
-      "sourceTypes": ["AgentTask"],
-      "targetTypes": ["KnowledgeBase"],
+      "sourceTypes": [
+        "AgentTask"
+      ],
+      "targetTypes": [
+        "KnowledgeBase"
+      ],
       "properties": {}
     },
     "located_in": {
       "description": "景区位于区域",
-      "sourceTypes": ["ScenicSpot"],
-      "targetTypes": ["Region"],
+      "sourceTypes": [
+        "ScenicSpot"
+      ],
+      "targetTypes": [
+        "Region"
+      ],
       "properties": {}
     }
   },
-
   "functions": {
     "calculateSearchTrend": {
       "name": "搜索指数趋势计算",
@@ -328,58 +853,116 @@
       "schedule": "daily 22:00"
     }
   },
-
   "actions": {
     "SendFeishuCard": {
       "description": "发送飞书卡片到电影小镇群",
       "input": "chatId, cardJson",
-      "governance": { "requiresApproval": false, "auditLog": true, "rateLimit": "per minute" },
-      "callingTasks": ["抖音指数日报", "小红书日报", "文旅情报日报", "竞品内容动态", "竞品关键词深度分析", "竞品爆款拆解", "每日复盘整合", "周度竞争格局报告", "电影小镇营销日历", "周度客流洞察"]
+      "governance": {
+        "requiresApproval": false,
+        "auditLog": true,
+        "rateLimit": "per minute"
+      },
+      "callingTasks": [
+        "抖音指数日报",
+        "小红书日报",
+        "文旅情报日报",
+        "竞品内容动态",
+        "竞品关键词深度分析",
+        "竞品爆款拆解",
+        "每日复盘整合",
+        "周度竞争格局报告",
+        "电影小镇营销日历",
+        "周度客流洞察"
+      ]
     },
     "UpdateWiki": {
       "description": "写入/更新 wiki 知识库",
       "input": "path, content",
-      "governance": { "requiresApproval": false, "auditLog": true, "allowedPaths": ["wiki/"] },
-      "callingTasks": ["营销效果归因", "文旅情报日报(wiki沉淀)", "案例库更新", "Ontology架构研究"]
+      "governance": {
+        "requiresApproval": false,
+        "auditLog": true,
+        "allowedPaths": [
+          "wiki/"
+        ]
+      },
+      "callingTasks": [
+        "营销效果归因",
+        "文旅情报日报(wiki沉淀)",
+        "案例库更新",
+        "Ontology架构研究"
+      ]
     },
     "CreateAlert": {
       "description": "创建预警——发送私信给站长",
       "input": "severity, title, detail, suggestedAction",
-      "governance": { "requiresApproval": false, "auditLog": true, "onlyOwner": true },
-      "callingTasks": ["舆情监控", "CDP健康探针(异常时)"]
+      "governance": {
+        "requiresApproval": false,
+        "auditLog": true,
+        "onlyOwner": true
+      },
+      "callingTasks": [
+        "舆情监控",
+        "CDP健康探针(异常时)"
+      ]
     },
     "UpdateDecisionRule": {
       "description": "更新决策规则状态",
       "input": "ruleId, newStatus, verificationEvidence",
-      "governance": { "requiresApproval": true, "auditLog": true },
-      "callingTasks": ["周度竞争格局报告(学习闭环)", "每日复盘整合(验证记录)"]
+      "governance": {
+        "requiresApproval": true,
+        "auditLog": true
+      },
+      "callingTasks": [
+        "周度竞争格局报告(学习闭环)",
+        "每日复盘整合(验证记录)"
+      ]
     },
     "ScheduleOntologyResearch": {
       "description": "触发 Ontology 架构深度研究",
       "input": "weekNumber, researchFocus",
-      "governance": { "requiresApproval": false, "auditLog": true },
-      "callingTasks": ["Ontology架构研究_每周深化"]
+      "governance": {
+        "requiresApproval": false,
+        "auditLog": true
+      },
+      "callingTasks": [
+        "Ontology架构研究_每周深化"
+      ]
     }
   },
-
   "interfaces": {
     "HasDailyMetric": {
       "description": "任何有每日度量的实体（用于统一查询趋势）",
-      "objectTypes": ["ScenicSpot"],
-      "requiredProperties": ["id", "name"]
+      "objectTypes": [
+        "ScenicSpot"
+      ],
+      "requiredProperties": [
+        "id",
+        "name"
+      ]
     },
     "HasContent": {
       "description": "任何有内容资产的实体",
-      "objectTypes": ["ScenicSpot", "MarketingCampaign"],
-      "requiredProperties": ["id"]
+      "objectTypes": [
+        "ScenicSpot",
+        "MarketingCampaign"
+      ],
+      "requiredProperties": [
+        "id"
+      ]
     },
     "DecisionSupport": {
       "description": "任何产生决策支持的实体",
-      "objectTypes": ["DecisionRule", "Event", "AgentTask"],
-      "requiredProperties": ["id", "name"]
+      "objectTypes": [
+        "DecisionRule",
+        "Event",
+        "AgentTask"
+      ],
+      "requiredProperties": [
+        "id",
+        "name"
+      ]
     }
   },
-
   "rules": [
     {
       "id": "R-001",
@@ -414,7 +997,6 @@
       "provenance": "5/25-5/30 连续观察"
     }
   ],
-
   "authorityHierarchy": {
     "version": "1.0",
     "description": "CodeWhale Constitution Article VII 映射——当多个规则/指令冲突时的优先级解决体系",
@@ -425,7 +1007,11 @@
         "name": "宪法 Constitution",
         "codeWhaleRef": "Articles I-VII: Safety, Truth, User Agency, Duty of Action, Verification, Coordination, Hierarchy",
         "ourMapping": "SOUL.md 人格 + MEMORY.md 铁律 + IDENTITY.md 职责宣言",
-        "content": ["Truth first: 禁止编造数据", "Verification mandatory: 每步需证据", "User sovereignty: 站长指令高于系统预设"],
+        "content": [
+          "Truth first: 禁止编造数据",
+          "Verification mandatory: 每步需证据",
+          "User sovereignty: 站长指令高于系统预设"
+        ],
         "overrideRule": "never_override"
       },
       {
@@ -433,7 +1019,10 @@
         "name": "站长指令 Case Command",
         "codeWhaleRef": "The user's explicit request in this turn",
         "ourMapping": "飞书私信中站长当前发送的消息",
-        "content": ["站长当前指令高于所有预设规则", "如与宪法冲突，解释边界并给出合法替代"],
+        "content": [
+          "站长当前指令高于所有预设规则",
+          "如与宪法冲突，解释边界并给出合法替代"
+        ],
         "overrideRule": "higher_tier_wins"
       },
       {
@@ -441,7 +1030,11 @@
         "name": "规程 Statutes",
         "codeWhaleRef": "Mode permissions, approval policies, output format rules",
         "ourMapping": "SOP/ 目录所有流程文件 + OpenClaw cron 配置",
-        "content": ["数据采集 SOP", "日报输出格式 SOP", "cron 调度配置"],
+        "content": [
+          "数据采集 SOP",
+          "日报输出格式 SOP",
+          "cron 调度配置"
+        ],
         "overrideRule": "higher_tier_wins"
       },
       {
@@ -449,7 +1042,10 @@
         "name": "决策规则 Regulations",
         "codeWhaleRef": "Composition patterns, sub-agent strategy, thinking budget",
         "ourMapping": "决策规则库.md 全部 10 条规则 (R01-R10) + 本 ontology.json rules 数组中的规则",
-        "content": ["R01-R10 运营规则", "规则间冲突见 conflictMatrix"],
+        "content": [
+          "R01-R10 运营规则",
+          "规则间冲突见 conflictMatrix"
+        ],
         "overrideRule": "specific_overrides_general"
       },
       {
@@ -457,7 +1053,10 @@
         "name": "项目指令 Local Law",
         "codeWhaleRef": "AGENTS.md, CLAUDE.md, project-specific instructions",
         "ourMapping": "Wiki 各目录下的 SOP 说明、项目计划文档",
-        "content": ["Wiki/SOP/ 下属子目录文档", "技术配置/ 目录文档"],
+        "content": [
+          "Wiki/SOP/ 下属子目录文档",
+          "技术配置/ 目录文档"
+        ],
         "overrideRule": "higher_tier_wins"
       },
       {
@@ -465,7 +1064,11 @@
         "name": "证据 Evidence",
         "codeWhaleRef": "Tool output, file contents, command results, live repository state",
         "ourMapping": "实时数据：爬虫输出 (crawl_data.json)、客流 CSV、抖音指数、小红书数据",
-        "content": ["/tmp/crawl_data.json 爬虫输出", "~/Desktop/2026游客量统计.csv", "CDP 浏览器实时 HTML 内容"],
+        "content": [
+          "/tmp/crawl_data.json 爬虫输出",
+          "~/Desktop/2026游客量统计.csv",
+          "CDP 浏览器实时 HTML 内容"
+        ],
         "overrideRule": "never_override",
         "note": "证据 > 记忆。如果实时数据和记忆不一致，以证据为准"
       },
@@ -474,7 +1077,11 @@
         "name": "记忆 Memory",
         "codeWhaleRef": "Declarative facts and preferences only. Memory is never a command.",
         "ourMapping": "Wiki 知识库 + MEMORY.md + 洞察精华",
-        "content": ["Wiki/行业知识/ 目录", "MEMORY.md 长期记忆", "决策规则验证记录"],
+        "content": [
+          "Wiki/行业知识/ 目录",
+          "MEMORY.md 长期记忆",
+          "决策规则验证记录"
+        ],
         "overrideRule": "higher_tier_wins",
         "note": "记忆是事实参考，不是指令。'记忆认为A' 永远不能 override 实时证据"
       },
@@ -483,7 +1090,11 @@
         "name": "人格 Personality",
         "codeWhaleRef": "Voice, tone, preamble rhythm, and presentation style",
         "ourMapping": "飞书卡片排版规范、日报格式、判断层禁用词规则",
-        "content": ["日报卡片 schema=2.0 格式", "禁止用语列表", "判断层固定字段"],
+        "content": [
+          "日报卡片 schema=2.0 格式",
+          "禁止用语列表",
+          "判断层固定字段"
+        ],
         "overrideRule": "higher_tier_wins"
       },
       {
@@ -491,7 +1102,10 @@
         "name": "先例 Precedent",
         "codeWhaleRef": "Previous-session handoffs and compaction relays",
         "ourMapping": "前日复盘分析结论、历史归因记录",
-        "content": ["昨日复盘结论", "营销归因日志历史"],
+        "content": [
+          "昨日复盘结论",
+          "营销归因日志历史"
+        ],
         "overrideRule": "latest_wins",
         "note": "先例 subordinated to 实时证据和站长当前指令"
       }

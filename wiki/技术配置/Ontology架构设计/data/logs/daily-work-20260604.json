@@ -1,0 +1,76 @@
+{
+  "date": "2026-06-04",
+  "day": 6,
+  "phase": "Phase 2→3: 百度指数SPIKE验收 + ContentAsset链路评估 + 日报集成验证",
+  "completed": [
+    "✅ adapter-visitors.py 重跑验证: 298条, CSV 6月数据仍然为空（待站长录入新数据）",
+    "✅ 百度指数CDP实测 (index.baidu.com): 登录状态OK, 账号李思洋912",
+    "✅ 百度指数关键词覆盖测试: 清明上河园✅(搜索563/资讯931K), 建业电影小镇❌(无数据), 只有河南❌(未收录), 万岁山武侠城❌(未收录)",
+    "✅ adapter-baidu.py 升级: SPIKE→PARTIAL, 补充CDP采集方案评估+覆盖率分析",
+    "✅ 百度指数采集方案确定: CDP方式A(snapshot提取表格数据)最优, 方式B(evaluate读图表)备用, 方式C(拦截XHR)需逆向",
+    "✅ 小红书ContentAsset链路评估: build_content_asset设计完整, 但爬虫仅输出content_length无笔记详情, 需等待爬虫升级",
+    "✅ ontology_query.py 全部查询方法验证通过: daily/trend/anomaly/correlate/visitors/stats",
+    "✅ ontology_query daily输出格式与日报表格完全对齐（8景区排名+指数+涨跌）",
+    "✅ ontology.json v1.1.2→v1.1.3: 更新baidu dataSource状态为PARTIAL, 添加Day6实测notes",
+    "✅ 8个脚本全部通过 py_compile 编译验证",
+    "✅ 存储统计: 318 metric_snapshots + 8 content_assets + 8 scenic_spots（与Day5相同, 无新数据）"
+  ],
+  "blockers": [
+    "CSV 6月客流数据空白 — 待站长录入后触发 adapter-visitors.py 增量更新",
+    "小红书ContentAsset: 爬虫不支持独立笔记抓取, 当前仅content_length估算",
+    "百度指数覆盖率仅12.5%: 8景区仅清明上河园有数据, 其余需购买\"创建新词\"权限"
+  ],
+  "tomorrow_plan": [
+    "[Day 7] 如CSV有6月新数据, 重新运行 adapter-visitors.py + ontology_query 验证",
+    "[Day 7] 探索百度指数CDP采集实现 (crawl_baidu.py 初版: snapshot提取清明上河园数据)",
+    "[Day 7] 将 ontology_query daily_ranking 输出桥接到飞书日报卡片格式",
+    "[Day 7] Phase 2收尾: 检查所有adapter覆盖率矩阵, 确认Phase 3入口",
+    "[Day 7] 评估是否需要创建 week_report 查询方法 (周度竞争格局)"
+  ],
+  "decisions": [
+    "百度指数转为 PARTIAL 状态: CDP可行但覆盖率低, 作为可选补充数据源而非核心链路",
+    "CDP采集方案选用方式A(snapshot提取表格): 实现最简单, 对百度DOM变更容忍度高",
+    "不建议购买百度\"创建新词\"权限(付费): 投入产出比低, 优先完善现有douyin+CSV链路",
+    "ContentAsset链路暂缓: 等小红书爬虫升级后再打通, 当前种子数据已满足Schema验证需求",
+    "ontology_query日报集成: daily命令输出已与飞书日报格式对齐, 可直接作为数据源被日报cron调用"
+  ],
+  "research_findings": [
+    "百度指数页面结构: 趋势研究Tab含搜索指数概览表+趋势图, 人群画像Tab含地域/年龄/性别分布",
+    "百度指数数据更新: 每天12:00~16:00, 可能有延迟",
+    "关键词收录阈值: 搜索量低于某值则显示\"没有数据\", 中小景区普遍低于此阈值",
+    "百度指数URL编码: 中文关键词直接URL-encode, 可通过构造URL直接跳转",
+    "CDP浏览器无CAPTCHA: 已登录状态下搜索关键词不会触发验证码, 自动化采集比预期简单",
+    "ontology_query daily_ranking 输出表格格式与飞书日报完全一致, 集成成本为零"
+  ],
+  "files_modified": [
+    {
+      "path": "scripts/adapter-baidu.py",
+      "action": "更新 (SPIKE→PARTIAL)",
+      "status": "success",
+      "changes": "补充Day6实测结果表, 更新CDP采集方案评估, 覆盖率分析, 状态从BLOCKED→PARTIAL"
+    },
+    {
+      "path": "wiki/技术配置/Ontology架构设计/ontology.json",
+      "action": "更新",
+      "status": "success",
+      "changes": "v1.1.2→v1.1.3, MetricSnapshot.dataSources baidu→PARTIAL, 新增notes字段记录Day6实测结果"
+    }
+  ],
+  "adapter_registry": {
+    "douyin": {"file": "adapter-douyin.py", "status": "active", "recordsInStore": 16, "confidence": 0.9},
+    "xiaohongshu": {"file": "adapter-xiaohongshu.py", "status": "active", "recordsInStore": 4, "confidence": 0.3, "note": "ContentAsset待爬虫升级"},
+    "visitors": {"file": "adapter-visitors.py", "status": "active", "recordsInStore": 298, "confidence": 1.0, "note": "CSV 6月数据空白"},
+    "baidu": {"file": "adapter-baidu.py", "status": "partial", "recordsInStore": 0, "confidence": 0.6, "coverage": "12.5% (1/8)", "note": "CDP采集方案已验证, 待实现crawl_baidu.py"},
+    "seed": {"file": "seed_content_assets.py", "status": "active", "recordsInStore": 8, "confidence": 0.5},
+    "query_engine": {"file": "ontology_query.py", "status": "active", "methods": ["daily", "trend", "anomaly", "correlate", "visitors", "stats", "test"]}
+  },
+  "store_stats": {
+    "dbPath": "~/.profile/ontology/ontology_store.db",
+    "scenicSpots": 8,
+    "metricSnapshots": 318,
+    "contentAssets": 8,
+    "events": 0,
+    "bySource": {"csv": 298, "douyin": 16, "xiaohongshu": 4, "baidu": 0}
+  },
+  "next_day_note": "🔵 Day 7 (周一): Phase 2收尾 + 如CSV有6月新数据则增量更新 + 百度CDP采集初版"
+}
