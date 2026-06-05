@@ -1,35 +1,31 @@
 #!/opt/homebrew/bin/python3.12
 """
-Ontology Adapter: 小红书数据 → MetricSnapshot + ContentAsset
+Ontology Adapter: 小红书搜索数据 → MetricSnapshot + ContentAsset
 
 功能：
 1. 读取 /tmp/xiaohongshu_*.json（xiaohongshu_crawl.py 输出）
-2. 双向映射到 Ontology：
-   - MetricSnapshot: 内容总量（notes_count, engagement_index）
-   - ContentAsset:  热门笔记详情（当爬虫升级支持时）
+2. 转换为 Ontology 对象（MetricSnapshot + ContentAsset 双向映射）
 3. 写入 wiki/技术配置/Ontology架构设计/data/ 目录
 
-数据格式对照（ontology.json → xiaohongshu_crawl.py）：
-  MetricSnapshot.scenicSpotId ← keyword（映射到 ScenicSpot id）
-  MetricSnapshot.date         ← crawled_at.date
-  MetricSnapshot.source       ← "xiaohongshu"
+双向映射设计（对标 AgentO/Palantir OSDK）：
+  - 正向：MetricSnapshot → 聚合自多个 ContentAsset (aggregated_from)
+  - 反向：ContentAsset → 贡献给某个 MetricSnapshot (contributes_to)
+
+数据格式对照（xiaohongshu_crawl.py → ontology.json）：
+  ContentAsset.id          ← f"xhs::{spot_id}::{date}::note_{n}"
+  ContentAsset.type        ← "xiaohongshu_note"
+  ContentAsset.source      ← "xiaohongshu"
+  ContentAsset.metrics.engagement ← top_likes 数量/估算
+
+  MetricSnapshot.scenicSpotId ← SCENIC_SPOT_MAP[keyword]
   MetricSnapshot.metricType   ← "content_count" | "engagement_rate"
-  MetricSnapshot.value        ← notes_count | avg_likes
-  MetricSnapshot.confidence   ← 0.7（小红书数据置信度低于抖音索引）
-  MetricSnapshot.collectedAt  ← crawled_at
-
-  ContentAsset.id              ← f"xhs::{keyword}::{note_index}::date"
-  ContentAsset.title           ← note title（预留）
-  ContentAsset.platform        ← "xiaohongshu"
-  ContentAsset.mentions        ← ScenicSpot.id（通过 keyword 映射）
-
-设计原则（对标 Palantir OSDK）：
-  - 每个数据源一个专用 adapter，生成类型安全的 Ontology 对象
-  - 置信度记录：不同数据源置信度不同（抖音 0.9 > 小红书 0.7 > 百度 0.6）
-  - 渐进式丰富：当前阶段先支持 MetricSnapshot，后续升级支持 ContentAsset
+  MetricSnapshot.value        ← notes_approx | 估算互动率
 
 运行：
-  python3 adapter-xiaohongshu.py [--input-dir /tmp/] [--keyword 建业电影小镇] [--output data/]
+  python3 scripts/adapter-xiaohongshu.py [--input-dir /tmp] [--output data/]
+
+⚠️ 当前小红书爬虫 data 字段稀疏（仅 notes_approx + top_likes），
+   待爬虫升级后（笔记详情/互动数/发布时间），ContentAsset 将更丰富。
 """
 
 import json
@@ -37,371 +33,244 @@ import os
 import sys
 import datetime
 import argparse
-import glob
+import re
 from pathlib import Path
+from typing import Optional
 
-# ─── Ontology 常量 ──────────────────────────────
+# ─── 共享常量 ──────────────────────────────────
 
-METRIC_TYPES = {
-    "notes_count": "content_count",
-    "avg_likes": "engagement_rate"
-}
+from ontology_constants import (
+    SCENIC_SPOT_MAP,
+    SCENIC_SPOT_REVERSE,
+    CONFIDENCE_BY_SOURCE,
+    resolve_spot_id,
+)
 
-# ─── 共享常量（来自 ontology_constants.py）─────
-from ontology_constants import SCENIC_SPOT_MAP, resolve_spot_id
+# ─── 常量 ──────────────────────────────────────
 
-def parse_notes_count(notes_str):
-    """解析 '约2.5万篇' → 25000"""
-    if not notes_str or notes_str in ("—", "", "0"):
-        return 0
-    
-    import re
-    # 匹配 "约2.5万篇" 或 "1234篇笔记" 或 "1.2万"
-    match = re.search(r'(\d+\.?\d*)\s*(万|千)?', str(notes_str))
-    if not match:
-        return 0
-    
-    num = float(match.group(1))
-    unit = match.group(2)
-    
-    if unit == "万":
-        num *= 10000
-    elif unit == "千":
-        num *= 1000
-    
-    return int(num)
+XHS_CONFIDENCE = CONFIDENCE_BY_SOURCE.get("xiaohongshu", 0.3)
+XHS_INPUT_PATTERN = "xiaohongshu_*.json"
 
+# ─── 数据提取 ──────────────────────────────────
 
-def parse_likes_to_avg(likes_list):
-    """解析点赞列表，计算平均点赞数"""
+def parse_notes_count(notes_str: str) -> Optional[int]:
+    """解析笔记数：'约3.2万篇' → 32000, '1250篇笔记' → 1250"""
+    if not notes_str or notes_str == "—":
+        return None
+    # 万篇
+    m = re.search(r'(\d+\.?\d*)万', notes_str)
+    if m:
+        return int(float(m.group(1)) * 10000)
+    # 普通数字
+    m = re.search(r'(\d+)', notes_str)
+    if m:
+        return int(m.group(1))
+    return None
+
+def parse_likes_count(likes_list: list) -> int:
+    """估算总互动量"""
     if not likes_list:
         return 0
-    
     total = 0
-    count = 0
-    for like_str in likes_list:
-        import re
-        match = re.search(r'(\d+\.?\d*)\s*(万|千)?', str(like_str))
-        if match:
-            num = float(match.group(1))
-            unit = match.group(2)
-            if unit == "万":
-                num *= 10000
-            elif unit == "千":
-                num *= 1000
-            total += num
-            count += 1
-    
-    return int(total / count) if count > 0 else 0
+    for l in likes_list:
+        m = re.search(r'(\d+\.?\d*)', str(l))
+        if not m:
+            continue
+        v = float(m.group(1))
+        if '万' in str(l):
+            v *= 10000
+        total += int(v)
+    return total
 
+# ─── Ontology 对象构建 ─────────────────────────
 
-# ─── Ontology 对象构建 ──────────────────────────
+def build_content_asset(scenic_spot_id: str, date_str: str,
+                        keyword: str, collected_at: str,
+                        notes_count: int, likes_total: int) -> dict:
+    """构建 ContentAsset Ontology 对象"""
+    # 每个景区每天生成一个 ContentAsset 聚合（而非每条笔记一个）
+    asset_id = f"xhs::{scenic_spot_id}::{date_str}::content_aggregate"
+    return {
+        "schema": "ContentAsset",
+        "version": "1.0.0",
+        "id": asset_id,
+        "scenicSpotId": scenic_spot_id,
+        "date": date_str,
+        "type": "xiaohongshu_aggregate",
+        "source": "xiaohongshu",
+        "title": f"{keyword} - 小红书内容聚合 - {date_str}",
+        "url": f"https://www.xiaohongshu.com/search_result?keyword={keyword}",
+        "metrics": {
+            "notes_count": notes_count,
+            "likes_estimated": likes_total,
+        },
+        "collectedAt": collected_at,
+        "confidence": XHS_CONFIDENCE,
+        "createdAt": datetime.datetime.now().isoformat()
+    }
 
-def build_metric_object(scenic_spot_id, date_str, metric_type, value, confidence, collected_at, metadata=None):
-    """
-    构建 MetricSnapshot Ontology 对象
-    
-    🔗 双向映射：metadata 中可携带 content_asset_ids 列表，
-       建立 MetricSnapshot → ContentAsset 正向引用
-    """
-    obj = {
+def build_metric_snapshot(scenic_spot_id: str, date_str: str,
+                          metric_type: str, value, collected_at: str,
+                          content_asset_ids: list) -> dict:
+    """构建 MetricSnapshot（关联到 ContentAsset）"""
+    snap_id = f"{scenic_spot_id}::{date_str}::{metric_type}::xhs"
+    return {
         "schema": "MetricSnapshot",
         "version": "1.0.0",
-        "id": f"{scenic_spot_id}::{date_str}::{metric_type}::xhs",
+        "id": snap_id,
         "scenicSpotId": scenic_spot_id,
         "date": date_str,
         "source": "xiaohongshu",
         "metricType": metric_type,
         "value": value,
-        "confidence": confidence,
+        "dailyChange": 0.0,  # 小红书暂不支持日环比较
+        "confidence": XHS_CONFIDENCE,
         "collectedAt": collected_at,
+        "metadata": {
+            "content_asset_ids": content_asset_ids,
+        },
         "createdAt": datetime.datetime.now().isoformat()
     }
-    if metadata:
-        obj["metadata"] = metadata
-    # 🔗 预留：当 ContentAsset 生成后，aggregatedFromContentAssets 字段
-    # 将被 populate，建立 MetricSnapshot → ContentAsset 正向链接
-    # 格式: ["xhs::movie_town::2026-05-31::note_0", ...]
-    if not metadata or "content_asset_ids" not in (metadata or {}):
-        obj["aggregatedFromContentAssets"] = []
-    return obj
 
+# ─── 核心转换逻辑 ──────────────────────────────
 
-def build_content_asset(scenic_spot_id, keyword, date_str, collected_at, note_index=0, note_data=None, 
-                        derived_from_metric_id=None):
-    """
-    构建 ContentAsset Ontology 对象
+def transform_xiaohongshu_to_ontology(input_dir: str):
+    """读取所有小红书输出文件，转换为 Ontology 对象"""
+    input_path = Path(input_dir)
+    files = sorted(input_path.glob(XHS_INPUT_PATTERN))
     
-    🔗 双向映射设计 (Bidirectional Mapping):
-    ┌─────────────────────────────────────────────────────────┐
-    │  xiaohongshu_crawl.py 输出                               │
-    │  ┌─────────────────┐  ┌──────────────────────────────┐  │
-    │  │ notes_count      │  │ individual notes[]           │  │
-    │  │ (估算/精确)       │  │ [{title, url, author,        │  │
-    │  │                  │  │   likes, comments, tags}]    │  │
-    │  └────────┬────────┘  └──────────────┬───────────────┘  │
-    │           │                          │                   │
-    │           ▼                          ▼                   │
-    │  ┌─────────────────┐  ┌──────────────────────────────┐  │
-    │  │ MetricSnapshot   │  │ ContentAsset[]               │  │
-    │  │ content_count    │◄─┤ contributes_to (反向引用)     │  │
-    │  │ engagement_rate  │  │ mentions → ScenicSpot        │  │
-    │  │ ┌─────────────┐ │  │ ┌──────────────────────────┐ │  │
-    │  │ │ metadata:    │ │  │ │ derivedFromMetricSnapshot│ │  │
-    │  │ │ contentAssets│ │  │ │    = metric_snapshot_id  │ │  │
-    │  │ │     [ids...] │ │  │ └──────────────────────────┘ │  │
-    │  │ └─────────────┘ │  └──────────────────────────────┘  │
-    │  └─────────────────┘                                     │
-    └─────────────────────────────────────────────────────────┘
+    if not files:
+        print("[⚠️] 未找到 /tmp/xiaohongshu_*.json 文件")
+        print("[💡] 先运行 xiaohongshu_crawl.py 生成数据")
+        return [], [], ""
     
-    ⚠️ 当前状态 (2026-05-31):
-    - xiaohongshu_crawl.py 仅输出 notes_approx (估算值) + content_length
-    - 详细笔记列表 (notes[]) 尚未支持，ContentAsset 为预留设计
-    - 爬虫升级后，transform_xiaohongshu_to_ontology() 将同时生成
-      MetricSnapshot 和 ContentAsset，并通过 derivedFromMetricSnapshot
-      建立反向引用
-    """
-    obj = {
-        "schema": "ContentAsset",
-        "version": "1.0.0",
-        "id": f"xhs::{scenic_spot_id}::{date_str}::note_{note_index}",
-        "title": note_data.get("title", f"{keyword}笔记#{note_index}") if note_data else f"{keyword}笔记#{note_index}",
-        "platform": "xiaohongshu",
-        "type": "note",
-        "publishDate": date_str,
-        "collectedAt": collected_at,
-        "createdAt": datetime.datetime.now().isoformat(),
-        # mentions 建立 ContentAsset → ScenicSpot 正向链接
-        "mentions": [scenic_spot_id],
-        # 🔗 双向映射：反向引用到相关的 MetricSnapshot
-        "derivedFromMetricSnapshotId": derived_from_metric_id
-    }
-    
-    if note_data:
-        obj["url"] = note_data.get("url", None)
-        obj["authorName"] = note_data.get("author", None)
-        obj["views"] = note_data.get("views", None)
-        obj["likes"] = note_data.get("likes", None)
-        obj["comments"] = note_data.get("comments", None)
-        obj["shares"] = note_data.get("shares", None)
-        obj["tags"] = note_data.get("tags", [])
-        # 根据互动数据判断是否爆款
-        if note_data.get("likes", 0) > 1000:
-            obj["isViral"] = True
-    
-    return obj
-
-
-def transform_xiaohongshu_to_ontology(xhs_data):
-    """将 xiaohongshu_crawl.py 输出转换为 Ontology 对象"""
-    keyword = xhs_data.get("keyword", "")
-    crawled_at = xhs_data.get("crawled_at", "")
-    success = xhs_data.get("success", False)
-    data = xhs_data.get("data", {})
-    
-    # 提取日期
-    try:
-        date_str = crawled_at[:10] if crawled_at else datetime.date.today().strftime("%Y-%m-%d")
-    except:
-        date_str = datetime.date.today().strftime("%Y-%m-%d")
-    
-    # 景区映射
-    scenic_id = resolve_spot_id(keyword)
-    
-    ontology_objects = []
+    all_content_assets = []
+    all_metric_snapshots = []
     transform_log = []
+    date_str = datetime.date.today().strftime("%Y-%m-%d")
+    success_count = 0
+    fail_count = 0
     
-    if not success:
-        transform_log.append(f"  [⚠️] {keyword}: 采集失败，跳过")
-        error_msg = xhs_data.get("error", "unknown")
-        if "redirect_to_login" in str(error_msg):
-            transform_log.append(f"      原因: 需要重新登录小红书")
-        return ontology_objects, transform_log
-    
-    # ── MetricSnapshot: content_count ──
-    notes_count = parse_notes_count(data.get("notes_approx", "0"))
-    if notes_count > 0:
-        obj = build_metric_object(
+    for fpath in files:
+        # 跳过非爬取输出文件（如 cookies.json）
+        if "cookies" in fpath.name.lower():
+            continue
+        
+        try:
+            with open(fpath, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, IOError) as e:
+            transform_log.append(f"  [❌] 读取失败: {fpath.name} — {e}")
+            fail_count += 1
+            continue
+        
+        # 跳过非字典格式
+        if not isinstance(data, dict):
+            transform_log.append(f"  [⏭️] 跳过非标准格式: {fpath.name} (type={type(data).__name__})")
+            continue
+        
+        keyword = data.get("keyword", "")
+        success = data.get("success", False)
+        collected_at = data.get("crawled_at", "")
+        xhs_data = data.get("data", {})
+        
+        # 解析景区 ID
+        scenic_id = resolve_spot_id(keyword)
+        if not scenic_id:
+            transform_log.append(f"  [⚠️] 未知关键词: {keyword}，跳过")
+            continue
+        
+        if not success:
+            err = data.get("error", "unknown")
+            transform_log.append(f"  [❌] {keyword} 采集失败: {err[:80]}")
+            fail_count += 1
+            continue
+        
+        # 解析数据
+        notes_count = parse_notes_count(xhs_data.get("notes_approx", "—"))
+        likes_total = parse_likes_count(xhs_data.get("top_likes", []))
+        
+        if notes_count is None:
+            transform_log.append(f"  [⚠️] {keyword} 笔记数为空，仅记录 ContentAsset")
+            notes_count = 0
+        
+        # 更新日期（使用采集日期）
+        try:
+            dt = datetime.datetime.fromisoformat(collected_at)
+            date_str = dt.strftime("%Y-%m-%d")
+        except (ValueError, TypeError):
+            pass
+        
+        # 构建 ContentAsset（双向映射：正向引用）
+        content_asset = build_content_asset(
+            scenic_spot_id=scenic_id,
+            date_str=date_str,
+            keyword=keyword,
+            collected_at=collected_at,
+            notes_count=notes_count,
+            likes_total=likes_total,
+        )
+        # 反向引用：ContentAsset 知道自己贡献了哪个快照
+        content_asset["derivedToMetricSnapshot"] = f"{scenic_id}::{date_str}::content_count::xhs"
+        all_content_assets.append(content_asset)
+        
+        asset_ids = [content_asset["id"]]
+        
+        # 构建 MetricSnapshot: content_count
+        ms_content = build_metric_snapshot(
             scenic_spot_id=scenic_id,
             date_str=date_str,
             metric_type="content_count",
             value=notes_count,
-            confidence=0.7,
-            collected_at=crawled_at,
-            metadata={"raw_notes_str": data.get("notes_approx", "")}
+            collected_at=collected_at,
+            content_asset_ids=asset_ids,
         )
-        ontology_objects.append(obj)
-        transform_log.append(f"  [MetricSnapshot] {keyword} content_count = {notes_count}")
-    else:
-        # 小红书爬虫暂无法提取精确笔记数，记录 content_length 作为替代
-        content_length = data.get("content_length", 0)
-        if content_length > 0:
-            obj = build_metric_object(
-                scenic_spot_id=scenic_id,
-                date_str=date_str,
-                metric_type="content_count",
-                value=content_length,
-                confidence=0.3,  # content_length 是估算值，置信度低
-                collected_at=crawled_at,
-                metadata={"estimation_method": "content_length_bytes", "raw_bytes": content_length}
-            )
-            ontology_objects.append(obj)
-            transform_log.append(f"  [MetricSnapshot] {keyword} content_count ≈ {content_length}B (估算, confidence=0.3)")
-        else:
-            transform_log.append(f"  [⚠️] {keyword}: notes_count=0 且 content_length=0，生成占位记录")
-            # 生成一个占位记录，方便后续追踪
-            obj = build_metric_object(
-                scenic_spot_id=scenic_id,
-                date_str=date_str,
-                metric_type="content_count",
-                value=0,
-                confidence=0.1,
-                collected_at=crawled_at,
-                metadata={"status": "no_data"}
-            )
-            ontology_objects.append(obj)
-    
-    # ── MetricSnapshot: engagement_rate (基于 top_likes) ──
-    top_likes = data.get("top_likes", [])
-    if top_likes:
-        avg_likes = parse_likes_to_avg(top_likes)
-        if avg_likes > 0:
-            obj = build_metric_object(
-                scenic_spot_id=scenic_id,
-                date_str=date_str,
-                metric_type="engagement_rate",
-                value=avg_likes,
-                confidence=0.6,  # 仅基于前5条笔记的估算
-                collected_at=crawled_at,
-                metadata={"sample_size": len(top_likes), "raw_top_likes": top_likes}
-            )
-            ontology_objects.append(obj)
-            transform_log.append(f"  [MetricSnapshot] {keyword} engagement_rate = {avg_likes} (avg of top {len(top_likes)})")
-    
-    # ── ContentAsset: 双向映射 -- 热门笔记 ──
-    # 🔗 双向映射实现 (Phase 3 爬虫升级后激活)：
-    # 当 xiaohongshu_crawl.py 输出详细笔记列表后，此处生成 ContentAsset 对象
-    # 每个 ContentAsset 通过 derivedFromMetricSnapshotId 反向引用其 MetricSnapshot
-    # MetricSnapshot 通过 metadata.content_asset_ids 正向引用其 ContentAsset 列表
-    notes = data.get("notes", [])
-    if notes:
-        # 为内容计数 MetricSnapshot 收集 ContentAsset ID
-        content_asset_ids = []
-        for i, note in enumerate(notes):
-            note_metric_id = f"{scenic_id}::{date_str}::content_count::xhs"
-            asset = build_content_asset(
-                scenic_spot_id=scenic_id,
-                keyword=keyword,
-                date_str=date_str,
-                collected_at=crawled_at,
-                note_index=i,
-                note_data=note,
-                derived_from_metric_id=note_metric_id  # 反向引用
-            )
-            ontology_objects.append(asset)
-            content_asset_ids.append(asset["id"])
-            transform_log.append(
-                f"  [ContentAsset] {keyword} 笔记#{i}: "
-                f"{note.get('title','?')} "
-                f"(likes={note.get('likes',0)})"
-            )
+        all_metric_snapshots.append(ms_content)
         
-        # 将 ContentAsset ID 列表注入到对应的 MetricSnapshot metadata 中
-        for obj in ontology_objects:
-            if (obj.get("schema") == "MetricSnapshot" and 
-                obj.get("metricType") == "content_count" and
-                obj.get("scenicSpotId") == scenic_id):
-                obj.setdefault("metadata", {})
-                obj["metadata"]["content_asset_ids"] = content_asset_ids
-                transform_log.append(
-                    f"  [🔗 Bidirectional] {keyword}: "
-                    f"MetricSnapshot ↔ {len(content_asset_ids)} ContentAsset(s)"
-                )
+        # 构建 MetricSnapshot: engagement_rate（估算）
+        if likes_total > 0 and notes_count > 0:
+            engagement = round(likes_total / notes_count, 1)
+        else:
+            engagement = 0
+        ms_engage = build_metric_snapshot(
+            scenic_spot_id=scenic_id,
+            date_str=date_str,
+            metric_type="engagement_rate",
+            value=engagement,
+            collected_at=collected_at,
+            content_asset_ids=asset_ids,
+        )
+        all_metric_snapshots.append(ms_engage)
+        
+        transform_log.append(
+            f"  [✅] {keyword}: content_count={notes_count}, "
+            f"engagement_rate={engagement}, likes_est={likes_total}"
+        )
+        success_count += 1
     
-    return ontology_objects, transform_log
-
-
-def transform_all_files(input_dir):
-    """批量转换目录下所有 xiaohongshu_*.json 文件"""
-    pattern = os.path.join(input_dir, "xiaohongshu_*.json")
-    files = glob.glob(pattern)
+    transform_log.insert(0, f"共 {len(files)} 个文件: {success_count} 成功, {fail_count} 失败")
     
-    # 过滤 cookies 等非数据文件
-    data_files = [f for f in files if "cookies" not in os.path.basename(f)]
-    
-    if not data_files:
-        print(f"[⚠️] 未找到匹配的小红书数据文件: {pattern}")
-        return [], []
-    
-    all_objects = []
-    all_logs = []
-    
-    for file_path in sorted(data_files):
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                xhs_data = json.load(f)
-            
-            # 验证是否为 dict（排除数组格式的 cookies 文件）
-            if not isinstance(xhs_data, dict):
-                all_logs.append(f"  [⏭] 跳过非数据文件: {os.path.basename(file_path)}")
-                continue
-            
-            objects, logs = transform_xiaohongshu_to_ontology(xhs_data)
-            all_objects.extend(objects)
-            all_logs.extend(logs)
-        except Exception as e:
-            all_logs.append(f"  [❌] 读取失败 {os.path.basename(file_path)}: {str(e)[:80]}")
-    
-    return all_objects, all_logs
+    return all_content_assets, all_metric_snapshots, transform_log, date_str
 
 
-# ─── SQLite 双轨写入 ─────────────────────────────
+# ─── 输出 ──────────────────────────────────────
 
-def write_to_sqlite(objects, adapter_name="adapter-xiaohongshu"):
-    """
-    🔗 双轨策略: 将 MetricSnapshot + ContentAsset 对象写入 SQLite
-    返回: (total_count, error_message)
-    """
-    try:
-        from ontology_store import OntologyStore
-        store = OntologyStore()
-        with store:
-            metrics = [o for o in objects if o.get("schema") == "MetricSnapshot"]
-            contents = [o for o in objects if o.get("schema") == "ContentAsset"]
-            m_count = store.ingest_metric_snapshots(metrics, adapter_name)
-            c_count = store.ingest_content_assets(contents, adapter_name)
-        return m_count + c_count, None
-    except Exception as e:
-        return 0, str(e)[:200]
-
-
-# ─── 输出 ────────────────────────────────────────
-
-def write_ontology_output(objects, output_dir, date_str):
+def write_ontology_output(objects, output_dir, date_str, object_type="MetricSnapshot"):
     """写入 ontology 格式数据到文件"""
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     
     date_compact = date_str.replace("-", "")
-    file_path = output_path / f"metric_snapshots_xhs_{date_compact}.json"
-    
-    # 按 objectType 分组
-    metrics = [o for o in objects if o.get("schema") == "MetricSnapshot"]
-    contents = [o for o in objects if o.get("schema") == "ContentAsset"]
+    prefix = "content_assets" if "ContentAsset" in object_type else "metric_snapshots"
+    file_path = output_path / f"{prefix}_xhs_{date_compact}.json"
     
     payload = {
-        "objectType": "MetricSnapshot",
+        "objectType": object_type,
         "date": date_str,
         "generatedAt": datetime.datetime.now().isoformat(),
         "sourceAdapter": "adapter-xiaohongshu.py",
         "ontologyVersion": "1.0.0",
         "objects": objects,
-        "summary": {
-            "metricSnapshots": len(metrics),
-            "contentAssets": len(contents),
-            "scenicSpotsCovered": len(set(o["scenicSpotId"] for o in metrics)),
-            "metricTypes": list(set(o["metricType"] for o in metrics))
-        },
         "count": len(objects)
     }
     
@@ -411,7 +280,7 @@ def write_ontology_output(objects, output_dir, date_str):
     return file_path
 
 
-def write_daily_summary(objects, log_lines, output_dir, date_str):
+def write_daily_summary(all_objects, log_lines, output_dir, date_str):
     """写入工作日志"""
     log_path = Path(output_dir) / "logs"
     log_path.mkdir(parents=True, exist_ok=True)
@@ -419,9 +288,11 @@ def write_daily_summary(objects, log_lines, output_dir, date_str):
     log_entry = {
         "date": date_str,
         "adapter": "adapter-xiaohongshu.py",
-        "transformedCount": len(objects),
-        "sourcePattern": "/tmp/xiaohongshu_*.json",
-        "status": "success" if objects else "no_data",
+        "transformedCount": len(all_objects),
+        "contentAssetCount": sum(1 for o in all_objects if o.get("schema") == "ContentAsset"),
+        "metricSnapshotCount": sum(1 for o in all_objects if o.get("schema") == "MetricSnapshot"),
+        "sourceDir": "/tmp/xiaohongshu_*.json",
+        "status": "success" if all_objects else "no_data",
         "log": log_lines
     }
     
@@ -432,12 +303,26 @@ def write_daily_summary(objects, log_lines, output_dir, date_str):
     return log_file
 
 
+# ─── SQLite 双轨写入 ─────────────────────────────
+
+def write_to_sqlite(content_assets, metric_snapshots, adapter_name="adapter-xiaohongshu"):
+    """双轨策略: 写 ContentAsset + MetricSnapshot 到 SQLite"""
+    try:
+        from ontology_store import OntologyStore
+        store = OntologyStore()
+        with store:
+            ca_count = store.ingest_content_assets(content_assets, adapter_name)
+            ms_count = store.ingest_metric_snapshots(metric_snapshots, adapter_name)
+        return ca_count, ms_count, None
+    except Exception as e:
+        return 0, 0, str(e)[:200]
+
+
 # ─── 主逻辑 ──────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(description="Ontology Adapter: 小红书 → MetricSnapshot + ContentAsset")
+    parser = argparse.ArgumentParser(description="Ontology Adapter: 小红书 → ContentAsset + MetricSnapshot")
     parser.add_argument("--input-dir", default="/tmp", help="xiaohongshu_crawl.py 输出目录")
-    parser.add_argument("--keyword", default=None, help="单关键词模式（指定时仅处理该文件）")
     parser.add_argument("--output", default=None, help="ontology 数据输出目录")
     args = parser.parse_args()
     
@@ -446,66 +331,55 @@ def main():
     output_dir = args.output or str(script_dir / "../wiki/技术配置/Ontology架构设计/data")
     output_dir = os.path.normpath(output_dir)
     
-    today = datetime.date.today().strftime("%Y-%m-%d")
-    
     print(f"\n{'='*60}")
-    print(f"  Ontology Adapter: 小红书 → MetricSnapshot + ContentAsset")
-    if args.keyword:
-        print(f"  关键词: {args.keyword}")
-    print(f"  日期: {today}")
+    print(f"  Ontology Adapter: 小红书 → ContentAsset + MetricSnapshot")
+    print(f"  双向映射模式: aggregated_from ↔ contributes_to")
     print(f"{'='*60}")
     
-    # 读取输入
-    if args.keyword:
-        file_path = os.path.join(args.input_dir, f"xiaohongshu_{args.keyword}.json")
-        if not os.path.exists(file_path):
-            print(f"[❌] 文件不存在: {file_path}")
-            return 1
-        
-        with open(file_path, 'r', encoding='utf-8') as f:
-            xhs_data = json.load(f)
-        
-        objects, log_lines = transform_xiaohongshu_to_ontology(xhs_data)
-        date_str = xhs_data.get("crawled_at", today)[:10]
-    else:
-        objects, log_lines = transform_all_files(args.input_dir)
-        date_str = today
+    # 转换
+    content_assets, metric_snapshots, log_lines, date_str = transform_xiaohongshu_to_ontology(args.input_dir)
     
-    if not objects:
+    all_objects = content_assets + metric_snapshots
+    
+    if not all_objects:
         print(f"[⚠️] 没有有效数据可以转换")
         for line in log_lines:
             print(line)
         return 0
     
     # 输出
-    file_path = write_ontology_output(objects, output_dir, date_str)
-    log_file = write_daily_summary(objects, log_lines, output_dir, date_str)
+    ca_path = write_ontology_output(content_assets, output_dir, date_str, "ContentAsset")
+    ms_path = write_ontology_output(metric_snapshots, output_dir, date_str, "MetricSnapshot")
+    log_file = write_daily_summary(all_objects, log_lines, output_dir, date_str)
     
     print(f"\n[📋] 转换日志:")
     for line in log_lines:
         print(line)
     
-    # 统计
-    metrics = [o for o in objects if o.get("schema") == "MetricSnapshot"]
-    contents = [o for o in objects if o.get("schema") == "ContentAsset"]
-    scenic_count = len(set(o["scenicSpotId"] for o in metrics))
-    
-    print(f"\n[✅] 成功转换 {len(objects)} 个 Ontology 对象")
-    print(f"    MetricSnapshot: {len(metrics)} | ContentAsset: {len(contents)}")
-    print(f"[📁] JSON输出: {file_path}")
+    print(f"\n[✅] 成功转换 {len(content_assets)} 个 ContentAsset + {len(metric_snapshots)} 个 MetricSnapshot")
+    print(f"[📁] ContentAsset: {ca_path}")
+    print(f"[📁] MetricSnapshot: {ms_path}")
     print(f"[📋] 日志: {log_file}")
-    print(f"[📊] 覆盖景区: {scenic_count} 个")
-    if metrics:
-        types = set(o["metricType"] for o in metrics)
-        print(f"[📊] 度量类型: {', '.join(sorted(types))}")
+    
+    # 统计
+    scenic_ids = set(o["scenicSpotId"] for o in all_objects if "scenicSpotId" in o)
+    metric_types = set(o["metricType"] for o in metric_snapshots if "metricType" in o)
+    print(f"[📊] 覆盖景区: {len(scenic_ids)} 个")
+    print(f"[📊] 度量类型: {', '.join(sorted(metric_types))}")
     
     # 🔗 双轨: 同步写入 SQLite
-    sqlite_count, sqlite_err = write_to_sqlite(objects, "adapter-xiaohongshu")
+    ca_sqlite, ms_sqlite, sqlite_err = write_to_sqlite(content_assets, metric_snapshots, "adapter-xiaohongshu")
     if sqlite_err:
         print(f"[⚠️] SQLite 写入失败: {sqlite_err}")
         print(f"[💡] JSON 备份仍然有效，可稍后手动导入")
     else:
-        print(f"[🗄️] SQLite: {sqlite_count} 条已写入 ontology_store.db")
+        print(f"[🗄️] SQLite: {ca_sqlite} ContentAsset + {ms_sqlite} MetricSnapshot 已写入")
+    
+    # 双向映射验证
+    print(f"\n[🔗] 双向映射验证:")
+    for ca in content_assets:
+        derived_to = ca.get("derivedToMetricSnapshot", "MISSING")
+        print(f"  ContentAsset::{ca['id'][:50]} → {derived_to}")
     
     return 0
 

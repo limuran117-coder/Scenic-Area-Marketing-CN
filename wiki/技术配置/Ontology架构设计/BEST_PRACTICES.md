@@ -1,7 +1,7 @@
 # Ontology 架构设计 · 最佳实践参考
 
 > 从 Palantir OSDK、JSON-LD、Knowledge Graph 等领域研究中提炼
-> 最后更新: 2026-05-31
+> 最后更新: 2026-06-05
 
 ---
 
@@ -241,9 +241,73 @@ Ontology 系统应严格分层，每层职责单一：
 
 ---
 
+## 实践 9：适配器 Schema 与存储 Schema 分离（Adapter-Store Decoupling）
+
+**来源：** adapter-xiaohongshu.py 开发实践 (Day 7)
+
+**核心思想：**
+适配器生成的 Ontology Object 字段命名应忠于 ontology.json 定义（如 `source`、`scenicSpotId`），
+而 SQLite 存储层可有自己的列命名约定（如 `platform`、`spot_id`）。
+两者之间的映射由 `ontology_store.py` 的 `ingest_*()` 方法负责。
+
+**当前问题：**
+```python
+# adapter 生成:
+{ "schema": "ContentAsset", "source": "xiaohongshu", "scenicSpotId": "only_henan" }
+
+# SQLite 期望:
+INSERT INTO content_assets (source, spot_id) VALUES (?, ?)
+#                          ^ 期望 platform   ^ 期望 mentions[0]
+```
+
+**解决方案：**
+```python
+# ontology_store.py 中添加字段映射
+FIELD_MAP = {
+    "ContentAsset": {
+        "source": "platform",       # adapter.source → db.platform
+        "scenicSpotId": "spot_id",  # adapter.scenicSpotId → db.spot_id
+    }
+}
+```
+
+**启示：**
+- ✅ adapter 和 store 各自按自己的领域语言命名
+- 🏗️ 下一步应在 `ingest_content_assets()` 中添加字段映射层
+- 🔮 未来可从 ontology.json 自动生成 store schema
+
+---
+
+## 实践 10：Palantir Foundry 的 Object Monitors 模式（事件驱动管道）
+
+**来源：** [food-genie-aip](https://github.com/hrishikeshwarrier4/food-genie-aip) — Palantir Foundry + OSDK 实战项目
+
+**核心思想：**
+Palantir Foundry 的 Object Monitors 机制允许在新数据到达时自动触发 Pipeline。
+这对应我们的 cron job 调度 + adapter 组合：
+
+| Palantir Foundry | 我们的实现 |
+|:---|:---|
+| Object Monitor | cron job (每天 09:00 触发) |
+| Pipeline Builder | adapter-*.py (数据转换管道) |
+| Ontology Objects | MetricSnapshot / ContentAsset |
+| Workshop / OSDK App | 飞书日报卡片 / ontology_query.py |
+
+**food-genie-aip 的启示：**
+- 使用 OSDK React app 作为前端消费层（对应我们的飞书卡片）
+- AIP Logic 做分类和推荐（对应我们的 DecisionRule）
+- Pipeline Builder 做数据摄取（对应我们的 adapter）
+
+**启示：**
+- ✅ 我们的 adapter → store → query → card 管道已对齐 Palantir 模式
+- 🔮 未来可考虑：当 `/tmp/crawl_data.json` 文件更新时自动触发 adapter（类似 Object Monitor）
+- 🔮 AIP Logic 等价物：在 `ontology_query.py` 中实现趋势检测和异常预警
+
+---
+
 ## 总结
 
-这 8 条实践从 Palantir OSDK 文档、AgentO 语义模型、JSON-LD 规范和实际开发中发现提炼而来。核心原则：
+这 10 条实践从 Palantir OSDK 文档、AgentO 语义模型、JSON-LD 规范、food-genie-aip 开源项目和实际开发中发现提炼而来。核心原则：
 1. **轻量优于完整**：JSON Schema 而非 OWL，操作型本体够用就好
 2. **适配器模式**：每个数据源独立 adapter，对标 Palantir OSDK
 3. **渐进式丰富**：本体随数据接入逐步生长

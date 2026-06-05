@@ -1,8 +1,8 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-06-04",
+  "updatedAt": "2026-06-05",
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
   "objectTypes": {
@@ -218,6 +218,14 @@
         },
         "collectedAt": {
           "type": "datetime"
+        },
+        "metrics": {
+          "type": "json",
+          "description": "嵌套度量（notes_count, likes_estimated）"
+        },
+        "derivedToMetricSnapshot": {
+          "type": "string",
+          "description": "反向引用：此 ContentAsset 贡献的 MetricSnapshot ID"
         }
       },
       "linkTypes": [
@@ -229,7 +237,8 @@
       "dataSources": [
         "adapter-xiaohongshu.py (预留: 爬虫升级后启用详细笔记)",
         "seed_content_assets.py (种子数据: 8条代表性内容)",
-        "competitor_program_tracker.py"
+        "competitor_program_tracker.py",
+        "adapter-xiaohongshu.py"
       ]
     },
     "Event": {
@@ -509,7 +518,43 @@
       "linkTypes": [
         "transforms_to"
       ],
-      "dataSources": []
+      "dataSources": [],
+      "instances": [
+        {
+          "id": "adapter-douyin",
+          "name": "抖音指数适配器",
+          "version": "1.0.0",
+          "source": "douyin_index_v9.py",
+          "targetTypes": [
+            "MetricSnapshot"
+          ],
+          "features": [
+            "search_index + composite_index 双指标",
+            "异常标记(anomaly flag)",
+            "SQLite双轨写入"
+          ],
+          "status": "active",
+          "createdAt": "2026-06-02",
+          "updatedAt": "2026-06-05"
+        },
+        {
+          "id": "adapter-xiaohongshu",
+          "name": "小红书数据适配器",
+          "version": "1.0.0",
+          "source": "xiaohongshu_crawl.py",
+          "targetTypes": [
+            "MetricSnapshot",
+            "ContentAsset"
+          ],
+          "features": [
+            "双向映射(aggregated_from/contributes_to)",
+            "content_count + engagement_rate"
+          ],
+          "status": "active",
+          "createdAt": "2026-06-05",
+          "updatedAt": "2026-06-05"
+        }
+      ]
     },
     "AgentTask": {
       "description": "Agent 定时任务——cron 调度的所有自动化工作流",
@@ -1146,6 +1191,32 @@
         "2. 站长有没有直接发过指令（Level 2）？→ 站长指令胜",
         "3. 是否是 Level 4 规则间冲突？→ 查 conflictMatrix"
       ]
+    }
+  },
+  "phaseTracking": {
+    "currentPhase": "Phase 2: 数据管道 adapter 原型",
+    "lastDailyWork": "2026-06-05",
+    "adapters": {
+      "adapter-douyin": {
+        "status": "active",
+        "outputs": [
+          "MetricSnapshot"
+        ]
+      },
+      "adapter-xiaohongshu": {
+        "status": "active",
+        "outputs": [
+          "ContentAsset",
+          "MetricSnapshot"
+        ],
+        "note": "爬虫待升级，ContentAsset 当前为聚合态"
+      },
+      "adapter-visitors": {
+        "status": "planned"
+      },
+      "adapter-baidu": {
+        "status": "planned"
+      }
     }
   }
 }
