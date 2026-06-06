@@ -137,6 +137,16 @@ async def crawl():
             spots = parse_subscription_text(page_text)
             result["competitors"] = spots
 
+            # 🖼️ 多模态截图（v11+）: 保存订阅页截图供日报M3分析
+            screenshot_path = "/tmp/douyin_screenshot.png"
+            try:
+                await target.screenshot(path=screenshot_path, full_page=True)
+                result["screenshot"] = screenshot_path
+                print(f"[🖼️] 截图已存: {screenshot_path}")
+            except Exception as e:
+                print(f"[⚠️] 截图失败: {e}")
+                result["screenshot"] = None
+
             # 输出
             print(f"\n{'='*60}")
             print(f"  抖音指数日报 · {today}")

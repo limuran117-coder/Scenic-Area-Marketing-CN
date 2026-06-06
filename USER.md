@@ -21,7 +21,7 @@
 - 每日复盘整合（22:00）
 
 **核心文件：**
-- 抖音指数脚本：`~/.openclaw/workspace/scripts/douyin_index_v9.py`
+- 抖音指数脚本：`~/.openclaw/workspace/scripts/douyin_index.py`（内部v11）
 - 抖音Cookie：`/tmp/juLiang_cookies.json`（代理127.0.0.1:7897）
 - 抖音数据订阅页：https://creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator
 - 小红书采集脚本：`~/.openclaw/workspace/scripts/xiaohongshu_crawl.py`

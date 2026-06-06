@@ -21,6 +21,6 @@
 - 固定Tab仅作保留页；临时任务统一在同一 context 新建临时标签执行
 
 ## 关键文件位置
-- 抖音指数脚本：`~/.openclaw/workspace/scripts/douyin_index_v9.py`
+- 抖音指数脚本：`~/.openclaw/workspace/scripts/douyin_index.py`（内部v11，原`douyin_index_v9.py`已重命名）
 - 客流Excel：`~/Desktop/2026年电影小镇实际客流.xlsx`
 - 飞书群：oc_f109bcfd1bc7e166fd0ae077f70247cf
