@@ -41,7 +41,7 @@
 [main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L22] Assistant: 直接运行脚本采集今日数据：
 [main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L28] Assistant: 数据核实完成，与平台一致。让我再对比历史记录，查明原因：
 [main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L38] Assistant: **原因查明！** 这不是异动，是**我早上日报数据有误**。 --- ## 真相还原 **昨天（04-20）实际平台数据（来自memory核对）：** | 指标 | 昨日真实值 | 我早报引用的值 | |------|-----------|--------------| | 搜索指数 | **6,477** | ~~7,091~~ ⚠️ | | 综合指数 | **2,816** | ~~2,568~~ ⚠️ | **今天（04-21）平台实际值：** | 指标 | 今日值 | 相对昨日真值 | |------|--------|
-[main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L40] User: System (untrusted): [2026-04-21 09:40:18 GMT+8] Exec failed (mellow-g, signal SIGKILL) System (untrusted): [2026-04-21 09:40:30 GMT+8] Exec completed (plaid-re, code 0) :: /Users/tianjinzhan/Desktop/openclaw_backup_20260418/scripts/douyin_index_v9.py /Users/tianjinzhan/.ope
+[main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L40] User: System (untrusted): [2026-04-21 09:40:18 GMT+8] Exec failed (mellow-g, signal SIGKILL) System (untrusted): [2026-04-21 09:40:30 GMT+8] Exec completed (plaid-re, code 0) :: /Users/tianjinzhan/Desktop/openclaw_backup_20260418/scripts/douyin_index.py /Users/tianjinzhan/.ope
 [main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L41] Assistant: NO_REPLY
 [main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L42] User: [message_id: om_x100b5159257380b4b4a1c5c2d8091d7] ou_f308d672765ecf1be73a75eb5e5f0f48: 我想知道是什么原因？是因为日报时间太早了抖音指数没有更新吗？还是什么？如果是时间太早了，就将任务后移
 [main/sessions/a48b4d13-4ca9-4ac5-b82c-5b924ec07e16.jsonl#L43] Assistant: 好问题，需要彻底排查。让我看一下今天早上的日报到底用的什么数据：

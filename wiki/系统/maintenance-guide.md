@@ -50,7 +50,7 @@ openclaw status
 按顺序触发测试：
 ```bash
 # 1. 测试抖音指数采集
-python scripts/douyin_index_v9.py
+python scripts/douyin_index.py
 
 # 2. 测试飞书卡片发送
 python scripts/send_feishu_card.py <chat_id> test

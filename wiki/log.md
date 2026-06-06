@@ -22,7 +22,7 @@
 - `wiki/raw/` 仍有 `建业电影小镇阶段性数据表.xlsx` × 1个文件未消化
 
 ### 已知won't-fix（已记录无需重复处理）
-- `douyin_index_v9.py` 文件名v9内部v10 → 已在SOP中标明
+- `douyin_index.py` 文件名v9内部v10 → 已在SOP中标明
 
 ### 剩余问题（已修检查脚本自动过滤）
 - **project_drift_check.py** 已修复：archive路径引用不再误报为stale ref
@@ -114,8 +114,8 @@
 
 ## [2026-04-22] 抖音指数日报Bug修复
 - 问题：脚本读取昨日缓存，平台每天只更新一次
-- 修复：douyin_index_v9.py添加数据日期检测，非今日则page.reload()等待8秒
-- 更新的文件：scripts/douyin_index_v9.py
+- 修复：douyin_index.py添加数据日期检测，非今日则page.reload()等待8秒
+- 更新的文件：scripts/douyin_index.py
 - 状态：✅ 完成
 
 ## [2026-04-22] 只有河南暴涨溯源分析
@@ -236,7 +236,7 @@
 - **action**: INGEST
 - **scope**: scripts/ 目录 → wiki/entities/scripts/
 - **索引文件**: wiki/entities/scripts/README.md（1902字节，22个脚本条目）
-- **单页归档**: douyin_index_v9.md / send_feishu_card.md / query_passenger.md
+- **单页归档**: douyin_index.md / send_feishu_card.md / query_passenger.md
 - **原因**: 漂移检查报警46个脚本未归档，建立索引防失控
 - **状态**: ✅ 完成
 ## [2026-04-28] 每日客流数据同步 | W17数据(04/20-04/26)同步至wiki：2026年/数据.md更新(截止04-26,YTD 525,533,完成度34.3%)；建业电影小镇实体文件同步更新
@@ -268,10 +268,10 @@
      - SOP/代码库Wiki漂移检查.md、SOP/Wiki健康检查.md、技术配置/脚本清单.md 均引用它们
      - **修复**：已创建这两个脚本（`scripts/wiki_drift_check.py` + `scripts/project_drift_check.py`）
   
-  2. **`douyin_index_v9.py` 版本不一致**
+  2. **`douyin_index.py` 版本不一致**
      - 文件名v9、内部代码v10（2026-05-16大更新）
      - URL从 `my-subscript?source=creator` 变更为 `arithmetic-index`
-     - **修复**：更新 entities/scripts/douyin_index_v9.md 标注版本差异
+     - **修复**：更新 entities/scripts/douyin_index.md 标注版本差异
   
   3. **年度目标132万残留在3个文件标题**
      - `电影小镇/基础档案.md` 标题含「132万→153万」
@@ -472,7 +472,7 @@
 - F06: 电影小镇/index.md新增历史数据区（10个文件链接）
 - F07: SOP/index.md补充7个缺失SOP文件
 ## [2026-05-27] PRO系统审计修复 | 脚本清理+cron更新
-- R3: 重命名 douyin_index_v9.py→douyin_index.py, competitor_keyword_v8.py→competitor_keyword.py
+- R3: 重命名 douyin_index.py→douyin_index.py, competitor_keyword_v8.py→competitor_keyword.py
 - R3: 清理 .trash/(14个旧文件), xhs_report_payload.json（空文件）
 - M4: 清理 config 历史备份（.bak.1~.bak.4）
 - 更新抖音指数日报 cron prompt 脚本路径（v9→去版本号）

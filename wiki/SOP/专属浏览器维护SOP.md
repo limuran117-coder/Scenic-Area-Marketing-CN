@@ -145,7 +145,7 @@ Cookie过期，需要重新登录该平台。
 ## 浏览器技术栈原则（2026-04-20确立）
 
 **定时自动任务**：一律用 Playwright 脚本，不依赖 browser-use CLI
-- 抖音数据采集 → `douyin_index_v9.py`（Playwright）
+- 抖音数据采集 → `douyin_index.py`（Playwright）
 - 竞品动态追踪 → `competitor_program_tracker.py`（Playwright）
 
 **browser-use 使用规则**：

@@ -39,7 +39,7 @@
 | [[entities/只有红楼梦戏剧幻城]] | 只有河南姐妹篇，红楼梦IP+沉浸式戏剧 | 2026-04-25 |
 | [[entities/只有河南戏剧幻城]] | 只有河南·戏剧幻城核心实体档案 | 2026-04-25 |
 | [[entities/scripts/README]] | 22个运营脚本索引（douyin/xhs/客流/飞书卡片） | 2026-04-26 |
-| [[entities/scripts/douyin_index_v9]] | 抖音指数采集脚本（内部v10） | 2026-05-16 |
+| [[entities/scripts/douyin_index]] | 抖音指数采集脚本（内部v10） | 2026-05-16 |
 | [[entities/scripts/send_feishu_card]] | 飞书卡片发送脚本（已弃用→message tool） | 2026-05-13 |
 | [[entities/scripts/query_passenger]] | 客流查询脚本 | 2026-04-28 |
 

@@ -13,7 +13,7 @@ _Last updated: 2026-04-17_
 ## 🔧 Tool Workflows
 
 ### 抖音数据采集
-1. 刷新Tab1 → 运行 `douyin_index_v9.py` → 两次验证一致性 → 发私信测试 → 发群 → 写入wiki
+1. 刷新Tab1 → 运行 `douyin_index.py` → 两次验证一致性 → 发私信测试 → 发群 → 写入wiki
 
 ### 小红书采集
 - 使用Chrome Tab0，在标签内导航

@@ -33,7 +33,7 @@ def check_missing_docs():
         content = scripts_doc.read_text()
         for line in content.split("\n"):
             if "[[douyin_index" in line or "[[send_feishu" in line:
-                described.add("douyin_index_v9.py")
+                described.add("douyin_index.py")
             elif "[[" in line:
                 # extract script name from [[xxx]]
                 import re

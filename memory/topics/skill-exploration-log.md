@@ -32,7 +32,7 @@
 
 3. **当前实际情况**
    - 主Agent通过cron直接执行8个日常任务
-   - 数据采集：Playwright脚本（douyin_index_v9.py, xiaohongshu_crawl.py）
+   - 数据采集：Playwright脚本（douyin_index.py, xiaohongshu_crawl.py）
    - 质量保证：data-integrity-check（前）+ task-audit（后）
    - 标准化：daily-task-template
    - 维护：system-metabolism（周日）

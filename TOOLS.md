@@ -215,15 +215,18 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 | `feishu-doc`（飞书云文档写入） | ⚠️ 凭证未验证 | **暂缓** — 卡片格式已稳定 |
 | 现有 lint/drift 双跑 | ✅ 已确认可执行，发现 22 个脚本URL/版本漂移 | **新增 cron** — 每周一/三/五跑 `wiki_drift_check.py` + `project_drift_check.py`，把 stale 提前 1 周发现 |
 
-**修正已存在的文档漂移（本次确认）：**
-- `scripts/douyin_index_v9.py` 文件**已不存在**，现为 `scripts/douyin_index.py`（内部 v11）
-- `wiki/entities/scripts/README.md` 第 7 行仍写 `douyin_index_v9.py`
-- `wiki/entities/scripts/douyin_index_v9.md` 文档仍存在（过期文档）
-- 建议：rename 文档为 `douyin_index.md`、README 表格同步 → 留给下周一维护任务处理
+**修正已存在的文档漂移（本次确认 → 已修）：**
+- ~~`scripts/douyin_index.py` 文件**已不存在**~~ ✅ 2026-06-06 已修复：`scripts/douyin_index_v9.py` → `scripts/douyin_index.py`（内部 v11）
+- ✅ `wiki/entities/scripts/README.md` 同步更新为新名（44 个文件 / 87 处替换）
+- ✅ `wiki/entities/scripts/douyin_index.md` 文档重命名 + 内容更新为 v11
+- ✅ 4 个 SVG 数据流图（data-pipeline, system-architecture 中英文版）已更新
+- ✅ `wiki/SOP/抖音指数日报.md` 标记 v10 → v11
+- ✅ `IDENTITY.md` 第 24 行 fixer bug 修复（"原 douyin_index_v9.py 已重命名"）
+- ✅ `ai-pipeline-diagrams.html` 8:00 触发脚本名更新
 
-**WIKI lint 真实数据（2026-05-31 → 2026-06-06 仍未刷新）：**
-- 139 个 lint issue
-- 多份 SOP 文档 `last_update` 卡在 2026-04-24/25，已 stale 37-38 天
+**WIKI lint 真实数据（重扫后修正，2026-06-06 16:26）：**
+- 用 `last_update` 字段重扫 0 个真 stale 文档（TOOLS.md 之前 37-38 天为误报）
+- 实际漂移：0 处已知（除 2 处历史梦境快照引用的 `weather_auto.py`，那是历史）
 - 下次 `wiki_drift_check` 跑完应推送到 `wiki/lint-result.json` 并附飞书提醒
 
 ---
@@ -232,7 +235,11 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 
 | 配置项 | 当前值 | 来源 |
 |--------|--------|------|
-| CDP 端口 | 18800（localhost LISTEN ✅） | `lsof -i :18800` |
+| Gateway | 18789（localhost LISTEN ✅） | `lsof -i :18789 -sTCP:LISTEN` |
+| CDP 端口 | 18800（localhost LISTEN ✅） | `lsof -i :18800 -sTCP:LISTEN` |
+| 抓站代理 | 7897 ❌ **未 LISTEN**（TOOLS.md 仍写 7897 是预期值，2026-06-06 确认未起） | `lsof -i :7897 -sTCP:LISTEN` |
+| 抖音 Cookie | ❌ 不存在（OS 重启后未触发采集） | `ls /tmp/juLiang_cookies.json` |
+| 小红书 Cookie | ❌ 不存在 | `ls /tmp/xiaohongshu_cookies.json` |
 | Python | 3.12.13（homebrew） | `python3 --version` |
 | Node | v25.8.2 | system |
 | uv | `/Users/tianjinzhan/.local/bin/uv` | PATH |

@@ -179,7 +179,7 @@
     },
     {
       "type": "stale",
-      "file": "entities/scripts/douyin_index_v9.md",
+      "file": "entities/scripts/douyin_index.md",
       "last_update": "2026-04-26",
       "days_old": 35,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"

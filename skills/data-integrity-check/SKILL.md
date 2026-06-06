@@ -18,7 +18,7 @@ description: "数据采集前完整性校验：cookie/excel/代理/文件，防5
 | 1 | 抖音Cookie | `python3 -c "import json; f=open('/tmp/juLiang_cookies.json'); d=json.load(f); print('ok' if d else 'empty')"` | 文件存在且非空 |
 | 2 | 小红书Cookie | `python3 -c "import json; f=open('/tmp/xiaohongshu_cookies.json'); d=json.load(f); print('ok' if d else 'empty')"` | 文件存在且非空 |
 | 3 | 代理连通性 | `curl -s -o /dev/null -w '%{http_code}' --max-time 5 --socks5 127.0.0.1:7897 http://httpbin.org/ip` | 返回 200 |
-| 4 | 抖音脚本存在 | `test -f ~/.openclaw/workspace/scripts/douyin_index_v9.py` | 返回 0 |
+| 4 | 抖音脚本存在 | `test -f ~/.openclaw/workspace/scripts/douyin_index.py` | 返回 0 |
 | 5 | 小红书脚本存在 | `test -f ~/.openclaw/workspace/scripts/xiaohongshu_crawl.py` | 返回 0 |
 | 6 | 客流Excel存在 | `test -f ~/Desktop/2026年电影小镇实际客流.xlsx` | 返回 0 |
 | 7 | 历年客流存在 | `test -f ~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx` | 返回 0 |
@@ -61,7 +61,7 @@ import json, os
 checks = {
     '抖音Cookie': os.path.isfile('/tmp/juLiang_cookies.json') and os.path.getsize('/tmp/juLiang_cookies.json') > 10,
     '小红书Cookie': os.path.isfile('/tmp/xiaohongshu_cookies.json') and os.path.getsize('/tmp/xiaohongshu_cookies.json') > 10,
-    '抖音脚本': os.path.isfile(os.path.expanduser('~/.openclaw/workspace/scripts/douyin_index_v9.py')),
+    '抖音脚本': os.path.isfile(os.path.expanduser('~/.openclaw/workspace/scripts/douyin_index.py')),
     '小红书脚本': os.path.isfile(os.path.expanduser('~/.openclaw/workspace/scripts/xiaohongshu_crawl.py')),
     '客流Excel': os.path.isfile(os.path.expanduser('~/Desktop/2026年电影小镇实际客流.xlsx')),
 }

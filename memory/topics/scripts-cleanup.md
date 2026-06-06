@@ -18,7 +18,7 @@
 | 脚本 | 用途 |
 |------|------|
 | douyin_browser_final.py | 抖音浏览器采集 |
-| douyin_index_v9.py | 抖音指数查询 |
+| douyin_index.py | 抖音指数查询 |
 | xiaohongshu_crawl.py | 小红书采集 |
 | query_passenger.py | 客流查询 |
 | validate_data.py | 数据验证 |

@@ -1,8 +1,6 @@
-# douyin_index_v9
+# douyin_index
 
-> ⚠️ 文件名与内部版本不一致：脚本内部声明v10（2026-05-16大更新），文件名仍为v9.py
-
-> 抖音指数数据采集脚本 | v9（最新）
+> 抖音指数数据采集脚本 | v11（最新，2026-05-16 v10 → 2026-06 v11 升级；原 v9 脚本已重命名为现名）
 
 ---
 
@@ -10,7 +8,7 @@
 
 | 项目 | 内容 |
 |------|------|
-| 文件 | `~/.openclaw/workspace/scripts/douyin_index_v9.py` |
+| 文件 | `~/.openclaw/workspace/scripts/douyin_index.py` |
 | 用途 | 采集8大竞品景区的抖音指数数据（搜索指数/综合指数/关联词/人群画像） |
 | 执行频率 | 每日10:30 cron |
 | 输出 | `/tmp/crawl_data.json` |
@@ -51,7 +49,7 @@
 ## 调用方式
 
 ```bash
-python3 ~/.openclaw/workspace/scripts/douyin_index_v9.py
+python3 ~/.openclaw/workspace/scripts/douyin_index.py
 ```
 
 ---

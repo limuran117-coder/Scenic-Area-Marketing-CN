@@ -22,10 +22,10 @@
 
 **核心文件：**
 - 抖音指数脚本：`~/.openclaw/workspace/scripts/douyin_index.py`（内部v11）
-- 抖音Cookie：`/tmp/juLiang_cookies.json`（代理127.0.0.1:7897）
+- 抖音Cookie：`/tmp/juLiang_cookies.json`（代理 127.0.0.1:7897 — ⚠️ 2026-06-06 验证：代理 7897 未在 LISTEN；cookie 文件不存在是 OS 重启后未触发采集导致的，不是 bug）
 - 抖音数据订阅页：https://creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator
 - 小红书采集脚本：`~/.openclaw/workspace/scripts/xiaohongshu_crawl.py`
-- 小红书Cookie：`/tmp/xiaohongshu_cookies.json`（代理127.0.0.1:7897）
+- 小红书Cookie：`/tmp/xiaohongshu_cookies.json`（代理 127.0.0.1:7897 — ⚠️ 同上，代理 7897 未 LISTEN，文件不存在）
 - 小红书灵犀后台：https://idea.xiaohongshu.com/idea/welcome/index（账号：建业电影小镇官方ID:530883）
 - 历年客流数据（2023-2025）：`~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx`（**唯一权威来源，禁止混用其他数据**）
 - 2026年客流数据：`~/Desktop/2026游客量统计.csv`（每日同步）

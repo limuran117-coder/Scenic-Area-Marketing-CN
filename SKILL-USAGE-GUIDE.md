@@ -47,7 +47,7 @@ data-integrity-check → daily-task-template → 执行 → task-audit
 
 | 技能/工具 | 适用场景 | 方式 |
 |-----------|---------|------|
-| **Playwright脚本** | 抖音指数/小红书采集 | `douyin_index_v9.py`, `xiaohongshu_crawl.py` |
+| **Playwright脚本** | 抖音指数/小红书采集 | `douyin_index.py`, `xiaohongshu_crawl.py` |
 | **browser-automation技能** | 浏览器操作规范 | 技能文档指导Playwright使用 |
 | **spike（系统技能）** | 新数据源验证 | `.tmp/openclaw-spikes/` 快速原型 |
 
@@ -81,7 +81,7 @@ data-integrity-check → daily-task-template → 执行 → task-audit
 ```
 CDP端口：18800
 连接方式：target=host（统一）
-自动化：Playwright脚本（douyin_index_v9.py等）
+自动化：Playwright脚本（douyin_index.py等）
 禁止：browser-use CLI操作专属Chrome标签页
 例外：临时性/新平台的复杂探索任务可用browser-use
 ```

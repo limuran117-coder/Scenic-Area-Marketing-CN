@@ -115,7 +115,7 @@ This is **not** a demo or prototype. It has been running continuously for 30+ da
 
 **Schedule:** Daily 10:30 CST
 **Source:** Douyin Creator Platform (抖音创作者平台) - subscription page
-**Script:** `scripts/douyin_index_v9.py`
+**Script:** `scripts/douyin_index.py`
 
 | Feature | Detail |
 |---------|--------|
@@ -801,7 +801,7 @@ The system includes a comprehensive Python scripts library that handles everythi
 
 | Script | Purpose | Type | Key Feature |
 |--------|---------|:----:|-------------|
-| `douyin_index_v9.py` | Douyin Index data collection | 📊 Data | Dual-channel (Playwright + CDP) |
+| `douyin_index.py` | Douyin Index data collection | 📊 Data | Dual-channel (Playwright + CDP) |
 | `competitor_keyword_v8.py` | Competitor keyword deep analysis | 📊 Data | 4-platform aggregation |
 | `cdp_cookie_hub.py` | Cookie extraction from CDP browser | 🔧 Ops | Cross-platform (Douyin/XHS/Weibo) |
 | `cdp_keyword_deep.py` | Deep keyword analysis via CDP | 📊 Data | Auto-rotate between Tab 2/4 |
@@ -913,7 +913,7 @@ The system uses a **multi-layer fallback strategy** to ensure uninterrupted dail
 
 ```
 Layer 1: Primary Script
-  └─ douyin_index_v9.py runs → [success?]
+  └─ douyin_index.py runs → [success?]
        ├─ Yes → parse + use data
        └─ No  → fall to Layer 2
 
@@ -1384,7 +1384,7 @@ The system is under active development. The following capabilities are planned o
 
 **时间:** 每日10:30
 **来源:** 抖音创作者平台·我的订阅页
-**脚本:** `scripts/douyin_index_v9.py`
+**脚本:** `scripts/douyin_index.py`
 
 | 特性 | 详情 |
 |------|------|
@@ -1908,7 +1908,7 @@ payload = {
 
 | 脚本 | 用途 | 类型 | 特点 |
 |------|------|:----:|------|
-| `douyin_index_v9.py` | 抖音指数采集 | 📊 数据 | 双通道(Playwright+CDP) |
+| `douyin_index.py` | 抖音指数采集 | 📊 数据 | 双通道(Playwright+CDP) |
 | `competitor_keyword_v8.py` | 竞品关键词深度分析 | 📊 数据 | 四平台聚合 |
 | `cdp_cookie_hub.py` | CDP浏览器Cookie提取 | 🔧 运维 | 跨平台(抖音/小红书/微博) |
 | `cdp_keyword_deep.py` | CDP深度关键词分析 | 📊 数据 | Tab2/4自动切换 |
@@ -2015,7 +2015,7 @@ if result.code in (99991663, 19001):
 
 ```
 第一层：主脚本
-  └─ douyin_index_v9.py运行 → [成功?]
+  └─ douyin_index.py运行 → [成功?]
        ├─ 是 → 解析+使用
        └─ 否 → 降级至第二层
 

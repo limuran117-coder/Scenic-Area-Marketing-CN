@@ -19,7 +19,7 @@ CDP Cookie 总控中心 — 从已登录的专属浏览器(端口18800)批量同
   /tmp/weibo_cookies.json         → 微博(预留)
 
 被哪些脚本使用:
-  - douyin_index_v9.py          读 /tmp/juLiang_cookies.json (备选)
+  - douyin_index.py          读 /tmp/juLiang_cookies.json (备选)
   - competitor_keyword_v8.py    读 /tmp/juLiang_cookies.json
   - competitor_keyword_index.py 读 /tmp/juLiang_cookies.json
   - xiaohongshu_crawl.py        直接CDP，无需Cookie文件(但做备份)
@@ -181,7 +181,7 @@ def main():
 
     if success and not check_only:
         print("\n💡 建议: 现在可以运行采集脚本了")
-        print("   python3 douyin_index_v9.py")
+        print("   python3 douyin_index.py")
         print("   python3 competitor_keyword_v8.py")
         print("   ...")
 

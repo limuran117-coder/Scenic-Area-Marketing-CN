@@ -8,7 +8,7 @@
 
 | 脚本 | 用途 | 执行频率 |
 |------|------|---------|
-| `douyin_index_v9.py` | 抖音指数数据采集（8大景区排名） | 每日10:30 cron |
+| `douyin_index.py` | 抖音指数数据采集（8大景区排名） | 每日10:30 cron |
 | `xiaohongshu_crawl.py` | 小红书数据采集（备用） | 备用/待解封 |
 | `xhs_competitor_crawl.py` | 小红书竞品数据采集 | 每日10:00 cron |
 | `send_feishu_card.py` | 飞书卡片发送（统一入口） | 所有飞书任务 |
@@ -57,7 +57,7 @@
 
 | 脚本 | 替代 | 状态 |
 |------|------|:----:|
-| `scripts/archive/douyin_browser_final.py` | douyin_index_v9.py | ✅ 已归档 |
+| `scripts/archive/douyin_browser_final.py` | douyin_index.py | ✅ 已归档 |
 | `scripts/archive/competitor_keyword_v2_to_v7.py` | competitor_keyword_v8.py | ✅ 已归档 |
 | `scripts/archive/competitor_keyword_debug2.py` | competitor_keyword_debug.py | ✅ 已归档 |
 | `scripts/archive/send_wenhua_tracking_20260421.py` | send_wenhua_tracking.py | ✅ 已归档 |

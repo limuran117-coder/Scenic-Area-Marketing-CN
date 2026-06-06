@@ -33,11 +33,11 @@
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L12] User: 还有我不知道你的专用浏览器为什么反复不停的新建窗口，在原有的新建tab不行吗
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L14] Assistant: 这是专属浏览器被多个脚本同时调用时产生的竞争问题。让我先看一下当前浏览器状态：
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L16] Assistant: CDP 连接已断开，说明 Chrome 刚被关掉了。问题原因我来排查一下最近运行的脚本：
-[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L22] Assistant: 找到根本原因了。看这两行： ``` douyin_index_v9.py:130 → CDP失败时 → launch_persistent_context() → 全新Chrome窗口 cdp_keyword_deep.py:306 → CDP失败时 → launch_persistent_context() → 全新Chrome窗口 ``` **问题链条：** 1. 多个 cron 并发执行（10:30 抖音 / 12:00 文旅 / 14:00 行业热点 / 15:00 关键词分析…） 2. 同一时刻争抢 CDP 188
+[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L22] Assistant: 找到根本原因了。看这两行： ``` douyin_index.py:130 → CDP失败时 → launch_persistent_context() → 全新Chrome窗口 cdp_keyword_deep.py:306 → CDP失败时 → launch_persistent_context() → 全新Chrome窗口 ``` **问题链条：** 1. 多个 cron 并发执行（10:30 抖音 / 12:00 文旅 / 14:00 行业热点 / 15:00 关键词分析…） 2. 同一时刻争抢 CDP 188
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L24] Assistant: 确认了——**根本没有锁机制**。我来给这两个核心脚本加上排他锁，解决并发打架问题：
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L26] Assistant: 现在看 `cdp_keyword_deep.py` 的 fallback 段：
-[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L34] Assistant: 根因清楚了。`douyin_index_v9.py` 的 CDP fallback 会直接启动新窗口，而没有检查是否已有其他脚本正在使用。 现在给 `douyin_index_v9.py` 加上排他锁，fallback 前先争锁，拿到锁才启动新窗口，释放锁后其他脚本再重试 CDP：
-[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L38] Assistant: 现在修改 `douyin_index_v9.py`，加入锁机制：
+[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L34] Assistant: 根因清楚了。`douyin_index.py` 的 CDP fallback 会直接启动新窗口，而没有检查是否已有其他脚本正在使用。 现在给 `douyin_index.py` 加上排他锁，fallback 前先争锁，拿到锁才启动新窗口，释放锁后其他脚本再重试 CDP：
+[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L38] Assistant: 现在修改 `douyin_index.py`，加入锁机制：
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L40] Assistant: 验证修改后的代码结构：
 [main/sessions/main/bbb0e31d-9d77-412b-b039-47cf016fefb5.jsonl#L27] Assistant: Based on my research today, I've identified several cases with marketing methodology value. Let me archive the most notable ones.
 [main/sessions/main/bbb0e31d-9d77-412b-b039-47cf016fefb5.jsonl#L45] Assistant: ## 案例库更新执行完成 **执行时间**：2026-05-12 20:00 ### 入库案例（3个） | # | 案例标题 | 标签 | |---|---------|------| | 19 | 直播"西天取经" — 经典IP整活+互动直播新赛道 | #景区 #直播 #经典IP #互动玩法 #UGC裂变 #2026 | | 20 | 只有河南戏剧幻城 — 多平台矩阵运营方法论 | #景区 #多平台矩阵 #内容营销 #精神股东 #方法论 | | 21 | "跟着团长打县城" — 红色景区沉浸式体验爆款公式 | #景区 #沉
@@ -57,7 +57,7 @@
 [main/sessions/main/f86421d3-2e7c-44b4-93ba-27706e72ca30.jsonl#L61] Assistant: 报告已成功发送至飞书群。让我记录执行日志。
 [main/sessions/main/f86421d3-2e7c-44b4-93ba-27706e72ca30.jsonl#L63] Assistant: ✅ **文旅活动热点追踪日报已发送** 📋 **本次核心发现：** **竞品亮点（8大景区全覆盖）：** - 🏆 **清明上河园** — 5月14日杨洋×《雨霖铃》空降联动，是近期最强竞品动作 - 🐙 **郑州海昌** — "章鱼Boss征名"全网参与事件，稀缺性+参与感双重破圈，央视报道 - 👘 **只有红楼梦** — "28位宝玉迎客"仪式感爆棚，客流同比+50% - 📊 **只有河南** — 抖音播放增长386%，话题阅读280亿 **舆情警示：** - ⚠️ 文旅部启动5A景区整治行动，重点整治负面舆情多发
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L42] Assistant: 修改成功，做个语法检查：
-[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L44] Assistant: --- **问题根因确认：** 多个 cron 任务并发执行时，同时争抢 CDP 18800，第一个失败的脚本直接走 `launch_persistent_context()` 启动全新 Chrome 窗口，后续脚本跟着失败 → 各自启动新窗口 → 窗口越来越多。 **已修复：** `douyin_index_v9.py` 加了两层保护： 1. **Fallback 前先争锁**（`acquire_browser_lock`）：用 `fcntl.LOCK_EX` 独占锁，只有一个脚本能进入启动新窗口的流程 2. **拿到锁后
+[main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L44] Assistant: --- **问题根因确认：** 多个 cron 任务并发执行时，同时争抢 CDP 18800，第一个失败的脚本直接走 `launch_persistent_context()` 启动全新 Chrome 窗口，后续脚本跟着失败 → 各自启动新窗口 → 窗口越来越多。 **已修复：** `douyin_index.py` 加了两层保护： 1. **Fallback 前先争锁**（`acquire_browser_lock`）：用 `fcntl.LOCK_EX` 独占锁，只有一个脚本能进入启动新窗口的流程 2. **拿到锁后
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L45] User: 另外我想说的是，我既然已经扫码登录了，就用那个浏览器操作呗，不然我需要不停的扫码登录
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L47] Assistant: 说得对。扫码登录的是 CDP 18800 那个浏览器，脚本应该优先连那个，不应该动不动就开新窗口。 锁机制刚才已经加好了，但根本问题还是 CDP 连接不稳定导致走 fallback。让我先确认一下当前 CDP 18800 的实际连通性：
 [main/sessions/main/93010b4b-fe6b-40dc-960b-da8ad5899104.jsonl#L50] Assistant: 好消息：**CDP 18800 当前是联通的**，刚才curl拿到了正确响应。问题不是浏览器关了，是多个脚本同时抢这个端口，互不相让，第一个抢失败的直接放弃 CDP 走 fallback 开新窗口。 锁机制加好后，现在的逻辑是： ``` 脚本A ──→ CDP 18800 工作中 ──→ 正常使用 ✅（无需重新登录） 脚本B ──→ CDP 18800 正被占用 ──→ 等8秒 ──→ 重试 CDP ──→ 复用同一浏览器 ✅ 脚本C ──→ 同上，排队等锁 ``` 只要浏览器不关，**所有脚本都会走 CDP 18800 复

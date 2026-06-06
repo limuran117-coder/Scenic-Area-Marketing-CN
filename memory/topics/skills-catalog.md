@@ -67,7 +67,7 @@
 ```
 主Agent（李涯/佛龛）
 ├── 8个cron日常任务（抖音指数/竞品分析/复盘等）
-├── 数据采集：Playwright脚本（douyin_index_v9.py等）
+├── 数据采集：Playwright脚本（douyin_index.py等）
 ├── 质量保证：data-integrity-check → task-audit
 ├── 标准化：daily-task-template
 ├── 维护：system-metabolism（周日09:00）
