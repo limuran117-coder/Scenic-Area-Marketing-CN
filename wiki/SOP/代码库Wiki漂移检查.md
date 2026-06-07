@@ -39,4 +39,4 @@ python3 ~/.openclaw/workspace/scripts/project_drift_check.py
 
 ---
 
-*最后更新：2026-04-24*
+*最后更新：2026-06-07*
