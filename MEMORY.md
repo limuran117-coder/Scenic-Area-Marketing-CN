@@ -97,10 +97,14 @@ Fallback：[] 空 - 其他模型不再自动启动（2026-06-06站长决定）
 
 **GitHub调研印证方向：** codegraph(34K⭐)预索引知识图思路验证Ontology方向正确；Caveman(65K⭐)提示可追加prompt压缩层；Skills生态大爆发(mattpocock/skills 112K)验证文旅垂直Skill包模式有先发机会
 
-**SOP质量升级（W23启动）** 5/31审核：32个SOP中仅4个全质量(13%)、17个零质量(57%)。已输出wiki/技术配置/SOP质量升级计划.md。优先级：小红书日报→文旅活动热点追踪→案例库更新 3个关键日常SOP先补充质量标准四件套(YAML/RedFlag/Verify/Common)。同时废弃每日任务总览.md(过时40天)、合并竞品深度分析流程.md.
+**SOP质量升级（W23完成审视→W24执行）** 6/7审核：30个SOP中5全质量(17%↑)、15零质量(50%↓)。W22建议1/2连续跳票3个关键日常SOP。W24 P0：小红书日报/文旅活动热点/案例库更新补四件套。W24 P1：废弃竞品深度分析流程/决策简报/每日任务总览 + 修sop-schedule.yaml文件名漂移(`竞品关键词深度分析.md`→流程.md) + 修电影小镇营销日历cron. 报告：wiki/技术配置/SOP质量升级计划.md. 综合分 6.1→6.9（漂移自动化+4是最大改善）
 
 **Token压缩机会（5/31GitHub调研发现）** prompt_minify.py已创建(scritps/prompt_minify.py), 当前对中文prompt压缩率约4%, 后续优化
 
-**待办** 任务健康检查实施 | 老君山/重渡沟/龙门石窟Wiki归档 | 案例库4连败修复 | 小红书日报等3个SOP质量升级 | 每日任务总览.md废弃 | **升级memory架构参考MemPalace三级记忆**
+**待办** 任务健康检查实施 | 老君山/重渡沟/龙门石窟Wiki归档 | 案例库4连败修复 | **W24：小红书/文旅/案例库3SOP升级 + 3文件废弃 + 2文件名漂移修复** | **升级memory架构参考MemPalace三级记忆**
+
+**W23系统改善亮点** 漂移自动化（手动→project_drift_check.py自动22处）| M3模型统一（25 cron + 8 backup）| timeout 300→600s热加载 | 失败告警升级（连错2次私信站长）| skill-anthropic-grade-optimizer 189规则引入对比
+
+**W23待观察** H3晚高峰API异常（6/4 22:00复盘LLM request failed 0 token）| H4任务健康检查未实施 | **R08执行层闭环连续3周0动作（H1待方案C）**
 
 **已结项** 五一排期公告 | 历史bug(换行/announce/cron) | 方特截流 | 图3-LLM架构放弃 | 5/27系统重构(详记存topics/) | GitHub项目验证(6/1) | codegraph MCP集成(6/1) | Ontology本地接入方案(6/1)
