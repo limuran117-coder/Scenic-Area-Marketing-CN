@@ -1,6 +1,13 @@
 # MEMORY.md - Long-Term Memory
 
-role: 景区营销中心总经理 | update_time: 2026-05-28 | core_mission: 客流153万、营收1.2亿
+role: 景区营销中心总经理 | update_time: 2026-06-06 | core_mission: 客流153万、营收1.2亿
+
+# 🚨 6/6系统全面修复（新增）
+- 周六补「周末市场观察」10:00（card 2人立碑防裸奔）
+- 失败告警升级：复盘/拆解/漂移/技能 → 连错2次（漂移1次）→ 私信站长，cooldown 1h
+- Wiki漂移检查+周度技能探索：降级策略，LLM失败时脚本独立跑+归档
+- 重跑今日失败的复盘+技能探索（重置consecutive_errors）
+- 周度技能探索加备份任务（周六10:30替补）
 
 # 模型配置
 默认 minimax/MiniMax-M3（别名 MiniMax）  ⛔ **只有M3运行**，其他模型手动可调用不自动启动

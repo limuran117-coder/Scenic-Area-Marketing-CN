@@ -250,3 +250,25 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 | @steipete/summarize | ✅ 已装 0.14.1 | `npm install -g` |
 
 
+
+## 周度技能探索 #4（2026-06-06 23:18 cron 真实spike）
+
+**扫描范围（步骤 1 完成）：**
+- `scripts/`：56 个脚本
+- `~/.npm-global/lib/node_modules/openclaw/skills/`：58 个系统技能
+- 已装 CLI（PATH）：`gh` `/usr/bin/curl` `jq` `ffmpeg` `summarize`（@steipete/summarize 0.14.1）
+- 未装但可 brew 装：`peekaboo 3.3.0`（steipete/tap）、`remindctl`、`openhue`、`imsg`、`goplaces`（需 `GOOGLE_PLACES_API_KEY`）、`gogcli`（需 OAuth）
+
+**LLM 评估（步骤 2）：挑 2 个最值得试点的工具**
+
+| 工具 | 验证结论 | 行动 |
+|------|----------|------|
+| `peekaboo 3.3.0`（macOS UI 自动化） | ⚠️ 当前用 Playwright + CDP 18800 跑浏览器，能覆盖 90% 站长场景；peekaboo 唯一独特价值是驱动**原生 Mac 应用**（Mail.app / 备忘录 / 系统设置 / 文件对话框），但景区运营场景几乎用不到 | **暂不装** — 边际收益低，brew install 等待 30s 不值得。`/usr/sbin/screencapture` 已原生可用，本周没有 `peekaboo capture` 的真实需求。**触发安装条件**：未来需要把"系统级弹窗"或"非浏览器 app"截图/操作纳入日报自动化时再装 |
+| `imsg`（iMessage/SMS CLI） | ⚠️ 飞书群 `oc_2581c03b79e4893cc3616b253d60f34e` 已是站长主沟通渠道，iMessage 仅在老板个人沟通时用。CLI 价值：cron 把日报**降级推送**到 iMessage 作为飞书群的 backup | **暂不装** — 飞书卡片稳定运行，iMessage 推送是 nice-to-have 不是 must-have。**触发安装条件**：当站长要求"飞书不在线时也确保收到日报"时再装 |
+
+**结论**：本周没有"必须立刻装"的工具。`TOOLS.md` 已记录这两个候选项的触发安装条件，避免后续重复评估。
+
+**已完成漂移/质量基线（沿用 #3 评估）：**
+- `wiki_drift_check.py` + `project_drift_check.py`：每周一/三/五 cron 已配
+- `self_check.py`：每次 isolated 任务完成后自动评分
+- WIKI lint 0 处真 stale
