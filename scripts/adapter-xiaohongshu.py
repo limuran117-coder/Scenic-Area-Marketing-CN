@@ -99,7 +99,7 @@ def build_content_asset(scenic_spot_id: str, date_str: str,
         "type": "xiaohongshu_aggregate",
         "source": "xiaohongshu",
         "title": f"{keyword} - 小红书内容聚合 - {date_str}",
-        "url": f"https://www.xiaohongshu.com/search_result?keyword={keyword}",
+        "url": f"https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword={keyword}",
         "metrics": {
             "notes_count": notes_count,
             "likes_estimated": likes_total,

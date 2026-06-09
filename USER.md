@@ -47,7 +47,7 @@
 | Tab2 | 空白页（可新建临时） | about:blank |
 | Tab3 | 百度搜索 | https://www.baidu.com/ |
 | Tab4 | 抖音指数核心页（搜索框+我的订阅） | https://creator.douyin.com/creator-micro/creator-count/my-subscript |
-| Tab5 | 小红书探索页 | https://www.xiaohongshu.com/explore |
+| Tab5 | 小红书探索页（搜索入口） | https://www.xiaohongshu.com/explore?channel_type=web_user_page |
 | Tab6 | 微博热搜 | https://weibo.com/ ✅已登录 |
 
 **已知历史包袱**（无需立即处理）：

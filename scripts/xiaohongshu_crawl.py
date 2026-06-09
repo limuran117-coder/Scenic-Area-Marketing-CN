@@ -79,11 +79,47 @@ async def search_keyword(cdp_url: str, keyword: str, timeout: int = 30000) -> di
 
             page = target_tab
 
-            # 导航到小红书搜索结果页
-            search_url = f"https://www.xiaohongshu.com/search_result?keyword={keyword}&source=web_explore_feed"
-            print(f"  → 打开: {search_url}", flush=True)
-            
-            response = await page.goto(search_url, timeout=timeout, wait_until="domcontentloaded")
+            # 1. 先 navigate 到 explore 页面（带 channel_type 参数，2026-06-09 站长指定）
+            explore_url = "https://www.xiaohongshu.com/explore?channel_type=web_user_page"
+            print(f"  → 打开 explore 页: {explore_url}", flush=True)
+            await page.goto(explore_url, timeout=timeout, wait_until="domcontentloaded")
+            await asyncio.sleep(2)
+
+            # 2. 点搜索框输入关键词（不直走 search_result URL，反爬更严）
+            search_box = None
+            selectors = [
+                'input[placeholder*="搜索"]',
+                'input[placeholder*="关键词"]',
+                '.search-input input',
+                'input[type="text"]'
+            ]
+            for sel in selectors:
+                try:
+                    el = page.locator(sel).first
+                    if await el.is_visible(timeout=2000):
+                        search_box = el
+                        print(f"  → 找到搜索框: {sel}", flush=True)
+                        break
+                except:
+                    continue
+            if not search_box:
+                result["error"] = "search_box_not_found"
+                await browser.close()
+                return result
+            await search_box.click()
+            await search_box.fill(keyword)
+            await asyncio.sleep(1)
+            await page.keyboard.press("Enter")
+            print(f"  → 已输入关键词: {keyword}", flush=True)
+
+            # 3. 等待搜索结果加载
+            response = None
+            try:
+                # 等 URL 跳转（页面会跳到 search_result 路径）
+                await page.wait_for_url("**/search_result**", timeout=timeout)
+                print(f"  → 已跳转到搜索结果页", flush=True)
+            except Exception as e:
+                print(f"  → 等待跳转超时（继续采集当前页）: {e}", flush=True)
             
             if response and response.status in [302, 301]:
                 print(f"  → 重定向到登录页，跳过", flush=True)
