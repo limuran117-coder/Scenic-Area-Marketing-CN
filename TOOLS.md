@@ -53,16 +53,12 @@ curl "wttr.in/郑州?format=j1"   # JSON格式
 
 ---
 
-## 浏览器技术栈原则（2026-04-20确立，2026-04-23更新）
+## 浏览器技术栈原则（2026-04-20确立，2026-04-23更新，2026-06-08清理）
 
-**专属浏览器**：CDP端口 **18800**，所有任务统一用 `target=host`
-- 标签0：小红书灵犀 https://idea.xiaohongshu.com/idea/trend/trendAnalyze
-- 标签1：百度
-- 标签2：抖音订阅页 https://creator.douyin.com/creator-micro/creator-count/my-subscript
-- 标签3：抖音iframe
-- 标签4：抖音关键词页 https://creator.douyin.com/creator-micro/creator-count/arithmetic-index
-- 标签5：抖音iframe
-- 标签6：小红书探索页 https://www.xiaohongshu.com/explore
+**专属浏览器**：CDP端口 **18800**，所有任务统一用 `connect_over_cdp(CDP_URL)` 动态 navigate
+- **权威 Tab 软规范**：`workspace/USER.md` 表格（2026-06-08 清理为单一权威）
+- **本节旧的"标签0-6"列表已废弃**（与 USER.md 不一致，2026-06-08 标记废弃）
+- 所有生产脚本用 `connect_over_cdp(CDP_URL)` 不依赖固定 tab 编号，**即使 Tab 乱了采集仍正常**
 
 **定时自动任务**：一律用 Playwright 脚本，不依赖 browser-use CLI
 - 抖音数据采集 → `douyin_index.py`（Playwright，脚本名是文件版，内部v11）
@@ -72,10 +68,9 @@ curl "wttr.in/郑州?format=j1"   # JSON格式
 - **全面禁止**：包括专属 Chrome 标签页的任何操作，一概拒绝
 - **唯一例外**：临时性/没遇到过/复杂的探索任务（新平台/一次性调研），且 Playwright 脚本无法快速覆盖时，才能用
 用户指定PRO模型名: MiniMax-M1（MiniMax Pro）
-用法:
-- 默认: minimax/MiniMax-M3（闪速版）
-- 特定任务: 用户说用PRO/MiniMax Pro时 → model="minimax/MiniMax-M1"
-- Fallback: M3 → M1 → M2.1 → deepseek-v4-pro（DeepSeek余额不足⚠️）
+- 6/8 之后 M3-only 模式：默认 model = `minimax/MiniMax-M3`（M3 闪速版）
+- 特定任务：用户说用 PRO/MiniMax Pro 时 → model=`minimax/MiniMax-M1`（需要先把 M1 加回 openclaw.json providers）
+- ⚠️ **fallback 链已清空**（6/6 站长决策）：失败要让站长知道，不静默降级
 
 ---
 
@@ -237,9 +232,14 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 |--------|--------|------|
 | Gateway | 18789（localhost LISTEN ✅） | `lsof -i :18789 -sTCP:LISTEN` |
 | CDP 端口 | 18800（localhost LISTEN ✅） | `lsof -i :18800 -sTCP:LISTEN` |
-| 抓站代理 | 7897 ❌ **未 LISTEN**（TOOLS.md 仍写 7897 是预期值，2026-06-06 确认未起） | `lsof -i :7897 -sTCP:LISTEN` |
-| 抖音 Cookie | ❌ 不存在（OS 重启后未触发采集） | `ls /tmp/juLiang_cookies.json` |
-| 小红书 Cookie | ❌ 不存在 | `ls /tmp/xiaohongshu_cookies.json` |
+| 抓站代理 | 7897 ✅ **LISTEN**（2026-06-08 09:21 实测修正）| `python3 ~/.hermes/hermes-agent/openclaw-watch/bin/chain_health.py` |
+| 抖音 Cookie | ✅ 存在（1.2h 前回写，2026-06-08 09:21 实测） | 同上 |
+| 小红书 Cookie | ✅ 存在（1.2h 前回写） | 同上 |
+| OpenClaw cron 存储 | `~/.openclaw/state/openclaw.sqlite`（不是 jobs.json） | `lsof -i :18789 -sTCP:LISTEN -t \| xargs -I {} lsof -p {} \| grep openclaw.sqlite` |
+| jobs.json 状态 | 不存在磁盘上，OpenClaw 启动时从 SQLite 重建 | `ls ~/.openclaw/cron/jobs.json` |
+| jobs.json.migrated | 6/2 06:51 归档版本（35 任务，已不反映现役 28 任务） | `ls -la ~/.openclaw/cron/` |
+| **14:00 cron 冲突** | ~~`竞品内容动态` 0 14 * * 1-5 与 `竞品关键词深度分析` 同分钟~~ ✅ **2026-06-08 已修**：竞品内容动态 改为 `30 14 * * 1-5`（用 `openclaw cron edit --cron "30 14 * * 1-5" <id>`） | `openclaw cron list` |
+| **周日 9:00 cron 冲突** | ~~`系统代谢` 0 9 * * 0 与 `周日系统升级+GitHub推送` 同分钟~~ ✅ **2026-06-08 已修**：系统代谢 改为 `30 9 * * 0`（让升级任务先跑） | `openclaw cron list` |
 | Python | 3.12.13（homebrew） | `python3 --version` |
 | Node | v25.8.2 | system |
 | uv | `/Users/tianjinzhan/.local/bin/uv` | PATH |

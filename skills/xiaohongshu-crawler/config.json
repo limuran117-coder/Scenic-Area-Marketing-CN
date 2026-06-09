@@ -2,19 +2,109 @@
   "cookie": {
     "enabled": true,
     "items": [
-      {"name": "a1", "value": "19d70e77590hhbte173v8w55x491ifjcafk19mwne30000215290", "domain": ".xiaohongshu.com"},
-      {"name": "webId", "value": "d2a16f524b49b7cefd18766d0b383287", "domain": ".xiaohongshu.com"},
-      {"name": "web_session", "value": "040069b0ce567912f63c40f2e93b4b7dd2c5e0", "domain": ".xiaohongshu.com"},
-      {"name": "xsecappid", "value": "xhs-pc-web", "domain": ".xiaohongshu.com"},
-      {"name": "gid", "value": "yjfW8ifWii0yyjfW8dWW2i6Ej8xxD9dyWqhYTIdE22C4jyq8y3i", "domain": ".xiaohongshu.com"},
-      {"name": "abRequestId", "value": "d2a16f524b49b7cefd18766d0b383287", "domain": ".xiaohongshu.com"},
-      {"name": "ets", "value": "1775717151334", "domain": ".xiaohongshu.com"},
-      {"name": "webBuild", "value": "6.5.1", "domain": ".xiaohongshu.com"},
-      {"name": "acw_tc", "value": "0a4a453a17760729155177779e72d4cab3961ea09e2b8af3e6", "domain": "edith.xiaohongshu.com"},
-      {"name": "websectiga", "value": "3fff3a6f9f07284b62c0f2ebf91a3b10193175c06e4f71492b", "domain": ".xiaohongshu.com"}
+      {
+        "name": "a1",
+        "value": "19e297c49b9yhmsejiach7zr8wpfkzdzd2ru6warf30000377340",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "webId",
+        "value": "10ddcfa03ecb347e2ecc948e647ebb54",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "abRequestId",
+        "value": "10ddcfa03ecb347e2ecc948e647ebb54",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "gid",
+        "value": "yjdJjWSKyDfDyjdJjWS4jJE0Djvx6MdV30SxFFiWuFYEU7q8iTufuK888qWWq488WydDY88J",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "web_session",
+        "value": "040069b0ce567912f63c1ace33384b49f7156d",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "id_token",
+        "value": "VjEAAKISVwHksSrORGEsY3ZfkHSEqxjh5ORZuigJnt4nB6L1ATogHt1NW3NRRVdzSPerRLDaHzCCkbuAccx+zl5PxMy6DVl8oVXFF2iTc5iYVuOk1ube1/8actd9ccrQYuxBFtUp",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "x-rednote-datactry",
+        "value": "CN",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "x-rednote-holderctry",
+        "value": "CN",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "x-user-id-idea.xiaohongshu.com",
+        "value": "5fbb4f740000000001000410",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "customerClientId",
+        "value": "302105180195513",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "ets",
+        "value": "1780553235991",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "webBuild",
+        "value": "6.15.2",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "unread",
+        "value": "{%22ub%22:%226a2491890000000010001c00%22%2C%22ue%22:%226a19bd2c0000000035032769%22%2C%22uc%22:24}",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "xsecappid",
+        "value": "ads-idea",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "loadts",
+        "value": "1780796014992",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "customer-sso-sid",
+        "value": "68c517648829664732168193l8ft6kw88xrhqtab",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "idea.outer.sso.token",
+        "value": "AT-68c517648829664732168199ndg5jbtiw63pqbrd",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "access-token-idea.xiaohongshu.com",
+        "value": "customer.idea.AT-68c517648829664732168199ndg5jbtiw63pqbrd",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "idea.outer.loginType.path",
+        "value": "AT-68c517648829664732168199ndg5jbtiw63pqbrd",
+        "domain": ".xiaohongshu.com"
+      },
+      {
+        "name": "websectiga",
+        "value": "9730ffafd96f2d09dc024760e253af6ab1feb0002827740b95a255ddf6847fc8",
+        "domain": ".xiaohongshu.com"
+      }
     ]
   },
   "playwright": {
-    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/148.0.0.0 Safari/537.36"
   }
 }
