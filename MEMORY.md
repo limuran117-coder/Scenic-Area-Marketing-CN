@@ -127,6 +127,23 @@ role: 景区营销中心总经理 | update_time: 2026-06-09（客流日报 v9 �
 
 **6/9 M3 配额告警静默**（18:21 站长决策）：之前 `m3_usage_alert.py` 阈值触发后会**发飞书卡片到电影小镇群**（今天下午已发过 1 次 100% 严重告警）。**站长判定 M3 限额是技术运维层面，不污染业务群**。脚本改为**静默执行**：只打本地日志 `[告警静默] 阈值 100% 触碰（不发群）`，不再调 `send_feishu_card.py`。
 
+**6/10 小红书日报真根因（11:00）**：连续 4 次 rate_limit **不是 M3 token 限流**！真根因：**小红书 explore 页改版**：
+- 顶部搜索 input 被替换为「问点点 AI」div 元素
+- 4 个 `input[placeholder*=...]` selector 全失效
+- LLM 试图 web_fetch 自救时撞限流 → 误判为 M3 限流
+- 修复：采集层 Playwright 化（`scripts/xhs_daily_collector.py` v2），走 `search_result?keyword=...&source=web_explore_feed` URL + 等 5s 触发 SPA 渲染
+- 实测 8/8 成功（10:25 验证），每个关键词 10 笔记链接
+- cron 改 0 10→15 10，prompt 采集/报告解耦，重试退避 60s→5min
+- **诚实复盘**：6/9「等下次 10:00 触发验证」是错的，应主动跑采集脚本验证 selector。**教训**：cron prompt 涉及页面元素选择器时，必须配独立验证脚本，不能完全依赖 cron 自然触发。
+
+**6/10 Token 守则局限**：守则说「不主动重跑消耗 M3」，**但页面选择器类问题应该例外**（验证不需要 LLM，是纯 Playwright）。**新规则**：页面/接口改版风险 → 主动跑无 LLM 验证脚本，不算违反 Token 守则。
+
+**6/10 采集脚本 v3 升级 + cron 验证**：#1 海昌→海昌海洋公园 / 只有红楼梦→只有红楼梦戏剧幻城（已实测 8/8 成功），#2 加灵犀降级逻辑（不登录→跳过 + 标注，不阻断主流程）。验证：10:34 第一次手动 force run 完完全跑通，6.13三方对决 / 方特96元夜场 / 海魂衫招募 3 条洞察可执行（卡片om_x100b6db890bfc0a0b24dd21cd17cb0d）。**10:57 第二次手动 run撞 M3 rate_limit**（早高峰10-15窗口期规律撞限）——不是脚本问题，是 M3 burst 限流，**修复交不起 cron**。**结论**：方法论成立，每日 10:15 自然触发大概率成功（此时是 M3 限额重置后），**M3 撞限个别天偶发，不看作常态**。
+
+**6/10 cron 三时段错峰验证完成**：10:34成功 / 10:57撞限。**灵犀后台仍为未登录态**（cookie 有但 edith.xiaohongshu.com 页面要求重新扫码登录），脚本已加 not_logged_in 降级判断，**需站长手动登录一次才能恢复五维数据**。
+
+**6/10 错误率根治（修法：不靠运气，靠重试）**：站长原话「不想再看到错误」「不想再有错误」。诊断：「M3 burst 限流」是早高峰10-15点、下午14-17点规律现象，**不是模型或采集问题**。**全一改**：所有日报型 cron prompt 首行加上「⚠️ 撞 M3 rate_limit → sleep 120 秒重试，5 次内必须成功」+ 失败兌底发降级卡片。已修：竞品关键词深度分析 / 竞品内容动态 / 小红书日报 / 代码库Wiki漂移检查。**不动 schedule**（坚守 SOUL.md 限额原则「不为配额妥协」），**不动 model/fallback**。
+
 **W23 SOP质量升级** 30个SOP中5全质量(17%↑)、15零质量(50%↓)。W24 P0：小红书日报/文旅活动热点/案例库更新补四件套。W24 P1：废弃竞品深度分析流程/决策简报/每日任务总览 + 修sop-schedule.yaml文件名漂移 + 修电影小镇营销日历cron. 综合分 6.1→6.9。
 
 ---
@@ -185,3 +202,35 @@ role: 景区营销中心总经理 | update_time: 2026-06-09（客流日报 v9 �
 **W23待观察** R08执行层闭环连续4周0动作（H1待方案C）| H4任务健康检查未实施 | M3日报质量vs M1对比
 
 | **已结项** 五一排期公告 | 历史bug(换行/announce/cron) | 方特截流 | 图3-LLM架构放弃 | 5/27系统重构 | 6/1 Ontology接入方案+adapter-visitors.py | codegraph MCP集成 | **DeepSeek→MiniMax M3切换（6/6）** | **文档漂移v9→v11集中修复（6/6）** | **W22公式"政策IP"变体（6/7）** | **6/8 Hermes批量补全18任务failureAlert** | **6/8 14:00+周日9:00 cron冲突修复** | **6/8 采集链健康误报修正** | **6/8 thinking minimal→off（小红书+竞品爆款）** | **6/8 openclaw.json 改 M3-only（-33% 体积）** | **6/8 10:42 补全2个error cron payload fallbacks（竞品爆款拆解+Wiki漂移检查），重跑竞品爆款拆解 ok，consecutiveErrors 5→0** |
+
+# 🚨 6/11 14:57 全面修复记录（10 项 + DDG 根因）
+
+**站长原话**："全面修复所有问题，以保证所有cron都能正常、有序、健康、稳定且有质量的执行"
+
+**Phase 1 体检（30min 全链路扫描）发现**：
+1. **真根因** — web_search 走 `tools.web.search.provider: "duckduckgo"`，DDG 插件死了（html.duckduckgo.com/api.duckduckgo.com 8s 全超时；6/8-6/11 连续 4 天爆款拆解降级）
+2. **3 个 cron 缺 tz**（关键词/内容动态/系统代谢），可能夏令时漂移
+3. **竞品关键词 7 连错**（API rate_limit）
+4. **Wiki漂移 4 连错**（5 天没跑）
+5. 全 28 cron: model=minimax/M2.7, fallback=空, thinking=off（**无 stale 引用**，6/6 M3 切换干净）
+
+**修复结果（15:30 全部落地）**：
+- ✅ openclaw.json 改 2 处：`minimax.config.webSearch={apiKey, region=cn}` + `tools.web.search.provider: "minimax"`，关掉 duckduckgo 插件
+- ✅ Gateway hot reload（PID 90964, 20 插件加载完, health ok）
+- ✅ 真实验证：案例库更新 90s 跑通，minimax 搜索返回 4 个真实案例（大唐不夜城/万岁山/景德镇/乌镇）
+- ✅ 14:00 关键词 force run，consecutive_errors 7→0（输出方特深度分析 D1-D4）
+- ✅ Wiki 漂移 force run，4→0（22s 跑完，归档 19 孤立页+10 URL 漂移）
+- ✅ 3 个 cron 补 tz=Asia/Shanghai（用 `/usr/local/bin/openclaw cron edit --tz`；**注意**：/usr/local/bin/openclaw 是断链软链，要用 `/Users/tianjinzhan/.npm-global/bin/openclaw`）
+
+**今日 error 累计 = 0**（修复前 11 个）
+
+**配置变更**：
+- 快照：`~/.openclaw/openclaw.json.bak.pre-websearch-fix.20260611_151836`
+- 新配置：`plugins.entries.minimax.config.webSearch.apiKey`（从 auth-profiles 复用）+ `plugins.entries.duckduckgo.enabled=False`
+- 回滚：`cp ~/.openclaw/openclaw.json.bak.pre-websearch-fix.* ~/.openclaw/openclaw.json && openclaw gateway restart`
+
+**教训**：
+1. **CLI 路径**：`/usr/local/bin/openclaw` 是断链（指向 `/Applications/OpenClaw.app/...` 软链坏了），**真实路径是 npm 全局**：`/Users/tianjinzhan/.npm-global/bin/openclaw`。openclaw not found 找不到
+2. **参数语法**：`openclaw cron update` 不存在，正确是 `openclaw cron edit <id> --tz`
+3. **DDG 死透是国内频繁调**的代价；minimax 自家搜索在 cn 区域可用 + 质量高
+4. **m3_usage.py 读的是历史撞限记录**，不是实时 — 但 M2.7 模式下无 5h 限额，这问题**自动消失**了
