@@ -45,6 +45,52 @@
         "rain_days": 0
       },
       "ytd": 16198
+    },
+    {
+      "week": "W23_20260601",
+      "stats": {
+        "week_total_pax": 8313,
+        "week_total_revenue": 763057,
+        "avg_daily_pax": 1187,
+        "wow_change_pct": -8.3,
+        "sk_ratio": 78.2,
+        "sk_total": 6503,
+        "qd_total": 1810,
+        "gate_in": 9129,
+        "sjt_avg_occ": 0,
+        "sjt_sessions": 0
+      },
+      "weather_impact": {
+        "normal_avg": 1188,
+        "rain_avg": 0,
+        "impact_pct": 100.0,
+        "normal_days": 7,
+        "rain_days": 0
+      },
+      "ytd": 24511
+    },
+    {
+      "week": "W23_20260601",
+      "stats": {
+        "week_total_pax": 8313,
+        "week_total_revenue": 763057,
+        "avg_daily_pax": 1187,
+        "wow_change_pct": -8.3,
+        "sk_ratio": 78.2,
+        "sk_total": 6503,
+        "qd_total": 1810,
+        "gate_in": 9129,
+        "sjt_avg_occ": 0,
+        "sjt_sessions": 0
+      },
+      "weather_impact": {
+        "normal_avg": 1188,
+        "rain_avg": 0,
+        "impact_pct": 100.0,
+        "normal_days": 7,
+        "rain_days": 0
+      },
+      "ytd": 32824
     }
   ],
   "insights": [
@@ -87,9 +133,49 @@
       "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
       "action": "核实 2026-06-04 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
       "archive_path": "concepts/异常日分析/2026-06-04.md"
+    },
+    {
+      "week": "W23_20260601",
+      "level": "P1",
+      "title": "🔻骤降 2026-06-02 客流偏离均值 -41.7%",
+      "data_fact": "2026-06-02 客流 692 人，偏离周均值 -41.7%，天气：正常天，可能原因：疑似闭园/恶劣天气",
+      "business_meaning": "需关注：2026-06-02 出现显著偏离",
+      "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
+      "action": "核实 2026-06-02 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
+      "archive_path": "concepts/异常日分析/2026-06-02.md"
+    },
+    {
+      "week": "W23_20260601",
+      "level": "P1",
+      "title": "🔻骤降 2026-06-04 客流偏离均值 -42.7%",
+      "data_fact": "2026-06-04 客流 680 人，偏离周均值 -42.7%，天气：正常天，可能原因：疑似闭园/恶劣天气",
+      "business_meaning": "需关注：2026-06-04 出现显著偏离",
+      "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
+      "action": "核实 2026-06-04 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
+      "archive_path": "concepts/异常日分析/2026-06-04.md"
+    },
+    {
+      "week": "W23_20260601",
+      "level": "P1",
+      "title": "🔻骤降 2026-06-02 客流偏离均值 -41.7%",
+      "data_fact": "2026-06-02 客流 692 人，偏离周均值 -41.7%，天气：正常天，可能原因：疑似闭园/恶劣天气",
+      "business_meaning": "需关注：2026-06-02 出现显著偏离",
+      "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
+      "action": "核实 2026-06-02 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
+      "archive_path": "concepts/异常日分析/2026-06-02.md"
+    },
+    {
+      "week": "W23_20260601",
+      "level": "P1",
+      "title": "🔻骤降 2026-06-04 客流偏离均值 -42.7%",
+      "data_fact": "2026-06-04 客流 680 人，偏离周均值 -42.7%，天气：正常天，可能原因：疑似闭园/恶劣天气",
+      "business_meaning": "需关注：2026-06-04 出现显著偏离",
+      "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
+      "action": "核实 2026-06-04 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
+      "archive_path": "concepts/异常日分析/2026-06-04.md"
     }
   ],
   "alerts": [],
   "historical_6月初": {},
-  "ytd": 16198
+  "ytd": 32824
 }

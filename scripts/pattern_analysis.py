@@ -367,6 +367,139 @@ def generate_insights(week_stats, weather_impact, anomalies, week_id, week_dates
     return insights
 
 
+def build_feishu_card(week_data: dict, week_stats: dict,
+                       weather_impact: dict, insights: list,
+                       week_label: str, week_id: str) -> dict:
+    """生成飞书交互卡片 JSON（schema 2.0）"""
+    from datetime import datetime
+
+    wow = week_stats["wow_change_pct"]
+    wow_emoji = "📈" if wow >= 0 else "📉"
+    wow_color = "blue" if wow >= 0 else "orange"
+
+    sjt_occ = week_stats.get("sjt_avg_occ", 0) or 0
+    sjt_emoji = "🟢" if sjt_occ >= 60 else ("🟡" if sjt_occ >= 40 else "🔴")
+
+    sk_ratio = week_stats.get("sk_ratio", 0) or 0
+    sk_emoji = "🟢" if sk_ratio >= 70 else ("🟡" if sk_ratio >= 50 else "🔴")
+
+    revenue_w = week_stats.get("week_total_revenue", 0) or 0
+
+    # 洞察摘要
+    p0s = [i for i in insights if i.get("level") == "P0"]
+    p1s = [i for i in insights if i.get("level") == "P1"]
+    p2s = [i for i in insights if i.get("level") == "P2"]
+
+    p0_block = ""
+    if p0s:
+        p0_block = "## 🔴 P0 预警（需立即处理）\n"
+        for p in p0s:
+            p0_block += f"- **{p['title']}**：{p['action']}\n"
+
+    insight_lines = []
+    for i in (p0s + p1s + p2s):
+        flag = "🔴" if i["level"] == "P0" else ("🟡" if i["level"] == "P1" else "🟢")
+        insight_lines.append(f"{flag}[{i['level']}] **{i['title']}**：{i['action']}")
+
+    insight_block = "\n".join(insight_lines) if insight_lines else "_本周无显著异常_"
+
+    # 天气数据
+    wi = weather_impact
+    weather_block = (
+        f"雨天日均 **{wi['rain_avg']:,}人**（{wi['rain_days']}天）"
+        f" vs 正常天 **{wi['normal_avg']:,}人**（{wi['normal_days']}天）"
+        f" → 雨天影响 **{wi['impact_pct']}%**"
+        if wi.get("rain_days", 0) > 0
+        else f"本周无雨天数据（{wi['normal_days']}个正常天，日均 **{wi['normal_avg']:,}人**）"
+    )
+
+    # 每日明细表
+    day_lines = ["| 日期 | 星期 | 客流 | 散客 | 渠道 | 天气 |",
+                 "|------|------|------|------|------|------|"]
+    for d, v in sorted(week_data.items()):
+        total = int(v.get("门票人数合计", 0) or 0)
+        sk = int(v.get("散客合计", 0) or 0)
+        qd = int(v.get("渠道合计", 0) or 0)
+        weather = str(v.get("天气备注", "正常天") or "正常天")[:6]
+        dow = v.get("dow", d[5:])
+        day_lines.append(f"| {d[5:]} | {dow} | {total:,} | {sk:,} | {qd:,} | {weather} |")
+
+    day_table = "\n".join(day_lines)
+
+    header_tag = "red" if p0s else ("yellow" if p1s else "blue")
+
+    # note 元素的正确格式：content 字段直接放 plain_text
+    card = {
+        "schema": "2.0",
+        "header": {
+            "title": {"tag": "plain_text", "content": f"📊 {week_id} 客流模式分析 | {week_label}"},
+            "template": header_tag,
+        },
+        "body": {
+            "elements": [
+                {
+                    "tag": "markdown",
+                    "content": (
+                        "## 📈 核心指标\n"
+                        f"| 指标 | 数值 | 状态 |\n"
+                        f"|------|------|------|\n"
+                        f"| 周合计客流 | **{week_stats['week_total_pax']:,}人** | {wow_emoji} 环比 {wow:+.1f}% |\n"
+                        f"| 日均客流 | **{week_stats['avg_daily_pax']:,}人** | — |\n"
+                        f"| 散客占比 | **{sk_ratio:.1f}%** | {sk_emoji} {'健康' if sk_ratio >= 70 else '偏低'} |\n"
+                        f"| 渠道客流 | **{week_stats.get('qd_total',0):,}人** | — |\n"
+                        f"| 闸机入园 | **{week_stats.get('gate_in',0):,}人次** | — |\n"
+                        f"| 门票收入 | **¥{revenue_w:,}** | — |\n"
+                        f"| 德化街上座率 | **{sjt_occ:.1f}%** | {sjt_emoji} {'优秀' if sjt_occ>=80 else ('良好' if sjt_occ>=50 else '偏低')} |\n"
+                    )
+                },
+                {
+                    "tag": "markdown",
+                    "content": (
+                        f"## 🌤️ 天气-客流关系\n{weather_block}\n\n"
+                        f"## 📅 每日明细\n{day_table}"
+                    )
+                },
+                {
+                    "tag": "markdown",
+                    "content": (
+                        f"## 🔍 本周洞察（共 {len(insights)} 条，P0:{len(p0s)}/P1:{len(p1s)}/P2:{len(p2s)}）\n{insight_block}\n\n"
+                        f"{p0_block}"
+                    )
+                },
+                {
+                    "tag": "markdown",
+                    "content": f"💡 数据来源：Desktop/2026游客量统计.csv | 生成：{datetime.now().strftime('%Y-%m-%d %H:%M')} | Hermes 景区模式分析引擎"
+                }
+            ]
+        }
+    }
+    return card
+
+
+def send_feishu_card(card: dict, feishu_chat_id: str = "oc_2581c03b79e4893cc3616b253d60f34e") -> bool:
+    """发送飞书卡片"""
+    import subprocess, json as _json
+    card_path = "/tmp/pattern_analysis_card.json"
+    with open(card_path, "w", encoding="utf-8") as f:
+        _json.dump(card, f, ensure_ascii=False)
+    result = subprocess.run(
+        ["python3", "/Users/tianjinzhan/.openclaw/workspace/scripts/send_feishu_card.py",
+         feishu_chat_id, _json.dumps(card, ensure_ascii=False)],
+        capture_output=True, text=True, timeout=30
+    )
+    if result.returncode == 0:
+        print(f"  ✅ 飞书卡片已发送")
+        return True
+    else:
+        print(f"  ⚠️ 飞书卡片发送失败: {result.stderr[:200]}")
+        return False
+
+
+def detect_p0_alerts(insights):
+    """返回所有 P0 洞察（需立即处理的）"""
+    return [i for i in insights if i.get("level") == "P0"]
+
+
 def load_knowledge_base():
     """加载历史知识库"""
     if KB_FILE.exists():
@@ -381,11 +514,6 @@ def save_knowledge_base(kb):
         json.dump(kb, f, ensure_ascii=False, indent=2)
 
 
-def detect_p0_alerts(insights):
-    """返回所有 P0 洞察（需立即处理的）"""
-    return [i for i in insights if i.get("level") == "P0"]
-
-
 # ── 主逻辑 ─────────────────────────────────────────────────────────────────
 def main():
     import argparse
@@ -393,6 +521,10 @@ def main():
     parser.add_argument("--weeks", type=int, default=1, help="分析最近N周")
     parser.add_argument("--date", type=str, default=None, help="指定周日（YYYY-MM-DD）")
     parser.add_argument("--output-json", type=str, default=None, help="输出JSON路径")
+    parser.add_argument("--feishu", action="store_true", help="生成并发送飞书卡片")
+    parser.add_argument("--feishu-chat-id", type=str,
+                        default="oc_2581c03b79e4893cc3616b253d60f34e",
+                        help="飞书群ID")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
 
@@ -483,6 +615,32 @@ def main():
         cumulative_ytd += r["stats"]["week_total_pax"]
     kb["ytd"] = cumulative_ytd
     save_knowledge_base(kb)
+
+    # ── 飞书卡片（--feishu）─────────────────────────────────────────────────
+    if args.feishu and all_results:
+        print(f"\n📤 正在发送飞书卡片...")
+        # 单周发卡片（多周只发最新的一周）
+        latest_key = sorted(all_results.keys())[-1]
+        latest = all_results[latest_key]
+        # 重建 week_data 用于卡片
+        w_label = latest["week_label"]
+        w_id = latest["week_id"]
+        # 重新从 CSV 提取本周数据给卡片
+        anchor2 = datetime.strptime(args.date or datetime.now().strftime("%Y-%m-%d"), "%Y-%m-%d")
+        _, sun2 = get_week_dates(anchor2)
+        w_m_prev = sun2 - timedelta(days=6) - timedelta(weeks=len(all_results)-1)
+        w_s_prev = sun2 - timedelta(weeks=len(all_results)-1)
+        wd = extract_week_data(rows, dates, w_m_prev, w_s_prev)
+
+        card = build_feishu_card(
+            week_data=wd,
+            week_stats=latest["stats"],
+            weather_impact=latest["weather_impact"],
+            insights=latest["insights"],
+            week_label=w_label,
+            week_id=w_id,
+        )
+        send_feishu_card(card, feishu_chat_id=args.feishu_chat_id)
 
     # 输出
     if args.output_json:
