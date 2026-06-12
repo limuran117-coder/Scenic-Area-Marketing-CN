@@ -1,259 +1,84 @@
 # MEMORY.md - Long-Term Memory
-
-role: 景区营销中心总经理 | update_time: 2026-06-09（客流日报 v9 落地）| core_mission: 客流153万、营收1.2亿
-
-# 🚨 6/9 客流日报 v9 关键数据
-
-**YTD（1/1 ~ 6/7，156天）：** 客流 681,882 · 收入 ¥5,384万 · 客单 ¥79 · 同比 2025 **+0.93%**（+6,298）· 达成率 **44.57%** · 日均 4,371
-
-**5/26-5/30 反弹周期**：连续 +40~75% 同比 2025（最高 5/28 +75.9%），5/30 周六 2,345 创近期单日新高
-
-**⚠️ 6月开局崩盘**：日均 1,187 vs 5月 4,395 → **环比 -73%** vs 2025 同期 28,687 → **同比 -71%**。6/1（六一）1,072 vs 2025 16,929 **-93.7%** —— **完全错过六一节点**，是 2026 年最大单日漏点（少 15,857 人）
-
-**5/25、5/31 异常暴跌**：分别 -93%、-85%。5/31 是 2025 端午（客流 10,575）+ 2025/6/1 16,929，2026 当日仅 1,568 = 错过端午 + 六一双节点叠加效应
-
-**周末反弹信号 6/6-6/7**：双日 1,989/1,996 略强于 5月周末 1,500-2,000 上限，6/6 同比 +84% vs 2025/6/6（2025 仅 1,081 偏低）
-
-**渠道高度线上化**：线上 89.4% / 窗口 6.3% / 市场 4.3%。但渠道合计 620,608 ≠ 客流 681,882（差 6.1万未归类：团票/免票/卡券）
-
-**线性外推年化 159.5万**（+6.5万），**当前进度略快于时间**（42.7% vs 44.57%）。但 6月开局 -73% 是大预警
-
-**端午倒计时 12 天**（6/19-6/21），**这是决定 H1 的核心窗口**。建议：
-- 立即启动端午预热（对标只有河南麦田音乐节模式）
-- 票根互认政策 6/15 前落地（W22 公式变体）
-- 激活 6/8-6/18 亲子/夜游/学生细分活动
-
-**数据时效性**：CSV 6/9 08:27 落地，但数据截止 6/7（6/8-6/9 = 0，今日数据未到）。票务 10:00 前应完成回传
-
-**客流日报已推飞书**：om_x100b6d41b3ccf0acc2dd1e5cac106d5（电影小镇群 oc_2581...）
-**Desktop 同步**：~/Desktop/2026游客量统计.csv 已更新为 v9（2026-06-08 数据，32,554B）
-
-**结论**：H1 处于"略超进度但 6月开局崩盘"的危险平衡。端午是生死局。
+role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | update: 2026-06-12
 
 ---
-
-
-# 🚨 M3-only 模式 6/8 补完 cron 层（10:42）
-
-**openclaw.json M3-only** = 顶层 + 26 backup cron 引用全部清空，但**部分 cron 的 payload.fallbacks 仍存 stale `deepseek/deepseek-v4-pro` / `minimax/MiniMax-M1` 引用**。6/8 10:42 扫到 2 个受影响：
-
-| Cron | 失败根因 | 修复 |
-|------|---------|------|
-| 竞品爆款拆解 | M3 `rate_limit` 6/3起连续5次 | patch `payload.fallbacks=[]` → 10:44 手动重跑 ok（173s, model MiniMax-M3, 发 om_x100b6d569f6c7c90c27e6b39f00967b 电影小镇群） |
-| 代码库Wiki漂移检查 | M3 rate_limit + 旧 fallback 拉长 fail | patch `payload.fallbacks=[]` → 等 6/13 14:00 自动跑 |
-
-**验证后规则**：M3 现在是稳定 provider（小红书日报 6/8 10:22 ok / 竞品爆款拆解 6/8 10:44 ok）。**M3 rate_limit 不是常态，是早高峰重灾期的偶发**。新 cron 配置一律不写 fallbacks 字段，留空走默认。
-
-**重跑脚本**：`openclaw cron run --id <jobId> --runMode force`，但状态显示有 30s+ 延迟，要等 cron engine 异步写回。
-
-# 🚨 模型全面切换（6/6大修复·持续生效）
-- DeepSeek余额不足 = 5/25以来0-token失败的根因 → 6/6切换minimax/MiniMax-M3
-- **fallbacks 全部清空**（站长决策）：失败要让站长知道，不要静默降级
-- M3多模态已实测：文本/图像(公网URL)/视频/Tool use/流式 全部OK
-- M3限制：图像URL必须公网（CDP内网截图先上图床）、Thinking几乎必触发(多花1-2K tokens)
-- 6/4三任务失败根因混杂：timeout是真问题+DeepSeek余额是另一根因，不是同源
 
 # ⭐ 铁律（违反必纠）
 
-**客流日报格式** 密码912530 | 5章: YTD→月度→近7日→德化街→建议 | ≤5表/卡
-**飞书卡片** schema=2.0 走 `scripts/send_feishu_card.py`，禁止message工具文本发送 | 表格外换行用`\n\n`，表格内行间用`\n`，表头列名可直接用`⚠️`
-**双通道数据采集** 抖音脚本+CDP交替验证，任一失败走另一通道
-**CDP连接必须用Playwright** Python urllib/websockets连CDP 18800会socket超时
-**数据必须读实际值** 禁止经验主义 | 搜索用「建业电影小镇」禁止「建业华谊兄弟」| 不限7核心竞品
-**晚高峰14-21点** 关键词提前11:00、内容动态提前14:00、timeout 600s（6/4 300→600）
-**Obsidian同步** 轻量化：有建设性的才同步 | **周度客流** 周二09:30（周一拿不到数据）
-**漂移双跑** 每周一/三/五 cron 跑 `project_drift_check.py` + `wiki_drift_check.py`（6/6发现22处漂移→修复）
-**LLM失败不静默** 失败显式飞书告警，不依赖自动fallback（6/6验证）
-**M3图像公网** CDP内网截图先传图床，否则多模态分析拿不到图
-
-# 🔍 关键洞察
-
-**内容真空窗口（持续30+天）** 搜索改善但内容供给不足→综合指数背离。搜索环比>综合环比→窗口打开→加速内容生产。端午后(6/2)验证：搜索-26.79%↓综合-22.85%↓（同步下降非背离）。
-
-**双节点浪费模式（已验证固化·连续3次）** 520有效(铁花IP抗衰减)→端午竞品先动电影小镇零预热→窗口关闭无动作。**H1**：判断→执行强制闭环（看板+Deadline）— 未实施，但持续在证伪。
-
-**抖音/CDP双通道已全链路验证** v9脚本偶发失效→CDP直接提取成功。CDP探针已从urllib重写为Playwright✅。
-
-**爆款公式库14条+52案例** W23新增：万岁山商业模型(80元/3天/日200场)/演艺大剧转轻量化/票根经济。**政策IP变体**（公式2）= 票根互认新子类，**6月内必须启动**（窗口期）。**H6**：执行落地可行性。
-
-**客流CSV仅周二同步** 站长每周二提供最新CSV（周一无数据），数据在「门票人数合计」行。Ontology adapter-visitors.py 同理只周二执行（6/1首次成功：298条visitors+revenue，1/1~5/31）。
-
-**竞争格局演化（6/2-6/7）** 只有河南麦田落日音乐会(许巍/郑钧) 6/5-6/6 售罄 → 高威胁。端午后竞品(方特/海昌/银基/清园)集体进入夜游/亲子/避暑模式。**海昌「雨天重玩」政策** → D2评估电影小镇可复制性。**清园×雨霖铃(优酷)IP联动** 持续有效。
-
-**万岁山密度稀释教训（6/7 W23验证）** 单日过载→NPC互动 2.3→1.1次/人。73%游客因"王婆说媒"而来→单一爆款押注=单点风险。**H7**：电影小镇演艺密度翻倍需先验证不伤单客体验。**打铁花+刺杀行动+一路有戏+穿越德化街 都要持续曝光**。
-
-**6/4失败根因拆分** 小红书日报超时+竞品内容动态超时+22:00复盘LLM request failed = 3个不同根因：①timeout不足(已修300→600) ②prompt本身(待验证) ③DeepSeek余额(已切M3)。**教训**：失败根因不要混为一谈，每次失败单独诊断。
-
-**抖音指数T+2+周末无数据** 周一/二采集的是前周五数据，周三才能拿到本周完整数据
-
-**5/27系统深度重构** Skills 47→20(删27冗余)，huashu-design释放225MB。Wiki全量审计276文件修复77断裂链接。决策规则库验证6/10。Cron重构：舆情监控16:00、月度复盘每月1日、周日分散、案例库每周三06:00。图3-LLM知识层放弃(41天未动)。
-
-**2026-06-08 Hermes 接手** 18 个 cron 任务的 failureAlert 补全：after=2 / cooldownMs=1h / mode=announce；3 个 error 任务（小红书日报/竞品爆款拆解/代码库Wiki漂移检查）+ 8 个完全没配 + 9 个残缺 → 全部补完。备份在 `~/.hermes/hermes-agent/openclaw-watch/state/backups/failure_alert/20260608T093401/`。回滚命令：`python3 ~/.hermes/hermes-agent/openclaw-watch/bin/failure_alert_restore.py --session 20260608T093401`。**采集链实为健康**（之前 lsof 报 7897 未 LISTEN 是 lsof 状态抖动误报，已修）。**2 个 cron 调度冲突已修**（14:00 竞品内容动态→30 14 / 周日 9:00 系统代谢→30 9）。**6/9 灵犀保活 cron 移除**（`8535705a` `*/45 * * * *`）：站长判定高频保活烧 token 且抢资源，今后改为手动脉冲或偶发触发。
-
-**6/9 SOP 路径漂移修复**（11:30 飞书告警触发）：4 个 cron prompt 写的是 `SOP/xxx.md`，5/27 wiki 重构后实际路径是 `wiki/SOP/xxx.md`，导致 agent 读 SOP 失败。修复：小红书日报 / 竞品关键词深度分析 / 竞品内容动态 / 周度客流洞察。**教训**：wiki 重构时必须同步扫描 cron prompt 的所有路径引用（不只是文件漂移）—— 已加进 `wiki_drift_check.py` 维护项。
-
-**6/9 M3 5h token 限额 100% 触顶**（10-15 窗口 329.8万/329.8万）：竞品关键词深度分析 + 竞品内容动态 14:00 连续失败。**根因**：今日早高峰异常任务密度（SOP 4个修复重跑 + 灵犀保活 13 次残留 + 客流日报 v9 大输出 + 5个 daily cron）撞 M3 5h 配额 329.8万。**修复**：
-1. 新增 `scripts/m3_usage_alert.py`（阈值+飞书告警）
-2. 新增 cron `82cc5343 M3用量巡检`（每 30 分钟 / thinking off / 90s 超时 / 阈值 ≥70% 告警）
-3. M3 5h 限额 15:00 重置，2 个竞品任务下个窗口自然恢复
-**未修**：小红书日报 11:35 Write failed（不是路径问题，等下次 10:00 触发验证）
-
-**6/9 错峰 + 巡检减频**（15:18 站长决策，响应早高峰撞限）：**A+B 两改**
-- A 错峰 5 分钟：竞品关键词 14:00→**12:30**、竞品内容动态 14:30→**13:30**（从「13-15 挤 4 个」→「12:30-15 散 6 段」）
-- B 巡检减频：M3用量巡检 `*/30 * * * *`→`0 * * * *`（48 次/天→24 次/天，调用砍半）
-- 预期效果：早高峰 5h 窗口内任务尾量从集中变为均匀分布，2 个竞品任务不再同时撞限
-- 验证：明早（6/10）10-15 窗口看实际跑况，0 错/0-1 错均算成功
-
-**6/9 限额原则更新**（17:29 站长决策）：**任务第一**。
-- 错峰 A + 减频 B 已在 17:31 **全部撤销**，回 14:00 / 14:30 / `*/30` 原状
-- **不要为配额妥协任务质量**（不砍采集深度、不减日报元素、不跳验证）
-- **不要为配额错峰**（不让任务为避高峰挪到深夜）
-- 撞限任务没成功 = **等限额接触后补发**，站长自己处理预算
-- 写入 SOUL.md「限额原则」章节，作为长期原则
-
-**6/9 Token 守则设立**（15:43 站长确认）：写入 SOUL.md「Token 守则」章节。**减少不必要的重复手动，必要工作继续**。具体：
-- 修失败 cron 不重跑，等自然触发
-- 改 cron prompt 用 `cron edit` 不 read+edit
-- 故障排查不连跑
-- 预期 M3 5h 撞限从 ~40% 降至 <10%
-- **真根因**：今天 cron 消耗 43.9 万 = 5h 配额 14%，撞限 86% 来自手动/对话/调试/重试循环
-
-**6/9 小红书探索页正式入口**（16:12 站长指定）：`https://www.xiaohongshu.com/explore?channel_type=web_user_page`，**有顶部对话框输入后搜索**。USER.md Tab5 已更新为带 channel_type 参数的版本。**作用**：以后小红书日报 / 关键词巡检从这里点搜索框输入，**不要用其他探索页 URL**。同步修改脚本：
-- `xiaohongshu_crawl.py`：从直接 `goto search_result?keyword=` 改为「先 navigate explore → 点搜索框 → fill 关键词 → Enter → 等跳转」。搜索框 selector fallback 4 个：`input[placeholder*="搜索"]` / `input[placeholder*="关键词"]` / `.search-input input` / `input[type="text"]`。找不到搜索框返回 `search_box_not_found` 不抛异常。
-- `adapter-xiaohongshu.py`：ontology store 的 url 字段同步更新为 explore 路径（一致性，非实际访问）。
-**未验证**：按 Token 守则不主动重跑，等明天 6/10 10:00 小红书日报自然触发看效果。
-
-**6/9 舆情监控自愈案例**（17:04 站长接到 failureAlert 告警）：16:10 timeout 600s（撞 M3 quota）→ 16:16 自动重试 ok 380s。**告警延迟 1 小时发出是 failureAlert cooldownMs=3600000 造成（不是告警延迟发送，是告警间隔限制）**。结论：单次 timeout **不需人工介入**，cront 引擎会重试。**写入 MEMORY 避免下次误报**。
-
-**6/9 M3 配额告警静默**（18:21 站长决策）：之前 `m3_usage_alert.py` 阈值触发后会**发飞书卡片到电影小镇群**（今天下午已发过 1 次 100% 严重告警）。**站长判定 M3 限额是技术运维层面，不污染业务群**。脚本改为**静默执行**：只打本地日志 `[告警静默] 阈值 100% 触碰（不发群）`，不再调 `send_feishu_card.py`。
-
-**6/10 小红书日报真根因（11:00）**：连续 4 次 rate_limit **不是 M3 token 限流**！真根因：**小红书 explore 页改版**：
-- 顶部搜索 input 被替换为「问点点 AI」div 元素
-- 4 个 `input[placeholder*=...]` selector 全失效
-- LLM 试图 web_fetch 自救时撞限流 → 误判为 M3 限流
-- 修复：采集层 Playwright 化（`scripts/xhs_daily_collector.py` v2），走 `search_result?keyword=...&source=web_explore_feed` URL + 等 5s 触发 SPA 渲染
-- 实测 8/8 成功（10:25 验证），每个关键词 10 笔记链接
-- cron 改 0 10→15 10，prompt 采集/报告解耦，重试退避 60s→5min
-- **诚实复盘**：6/9「等下次 10:00 触发验证」是错的，应主动跑采集脚本验证 selector。**教训**：cron prompt 涉及页面元素选择器时，必须配独立验证脚本，不能完全依赖 cron 自然触发。
-
-**6/10 Token 守则局限**：守则说「不主动重跑消耗 M3」，**但页面选择器类问题应该例外**（验证不需要 LLM，是纯 Playwright）。**新规则**：页面/接口改版风险 → 主动跑无 LLM 验证脚本，不算违反 Token 守则。
-
-**6/10 采集脚本 v3 升级 + cron 验证**：#1 海昌→海昌海洋公园 / 只有红楼梦→只有红楼梦戏剧幻城（已实测 8/8 成功），#2 加灵犀降级逻辑（不登录→跳过 + 标注，不阻断主流程）。验证：10:34 第一次手动 force run 完完全跑通，6.13三方对决 / 方特96元夜场 / 海魂衫招募 3 条洞察可执行（卡片om_x100b6db890bfc0a0b24dd21cd17cb0d）。**10:57 第二次手动 run撞 M3 rate_limit**（早高峰10-15窗口期规律撞限）——不是脚本问题，是 M3 burst 限流，**修复交不起 cron**。**结论**：方法论成立，每日 10:15 自然触发大概率成功（此时是 M3 限额重置后），**M3 撞限个别天偶发，不看作常态**。
-
-**6/10 cron 三时段错峰验证完成**：10:34成功 / 10:57撞限。**灵犀后台仍为未登录态**（cookie 有但 edith.xiaohongshu.com 页面要求重新扫码登录），脚本已加 not_logged_in 降级判断，**需站长手动登录一次才能恢复五维数据**。
-
-**6/10 错误率根治（修法：不靠运气，靠重试）**：站长原话「不想再看到错误」「不想再有错误」。诊断：「M3 burst 限流」是早高峰10-15点、下午14-17点规律现象，**不是模型或采集问题**。**全一改**：所有日报型 cron prompt 首行加上「⚠️ 撞 M3 rate_limit → sleep 120 秒重试，5 次内必须成功」+ 失败兌底发降级卡片。已修：竞品关键词深度分析 / 竞品内容动态 / 小红书日报 / 代码库Wiki漂移检查。**不动 schedule**（坚守 SOUL.md 限额原则「不为配额妥协」），**不动 model/fallback**。
-
-**W23 SOP质量升级** 30个SOP中5全质量(17%↑)、15零质量(50%↓)。W24 P0：小红书日报/文旅活动热点/案例库更新补四件套。W24 P1：废弃竞品深度分析流程/决策简报/每日任务总览 + 修sop-schedule.yaml文件名漂移 + 修电影小镇营销日历cron. 综合分 6.1→6.9。
+**客流日报** 密码912530 | 5章: YTD→月度→近7日→德化街→建议 | ≤5表/卡
+**飞书卡片** schema=2.0走 `scripts/send_feishu_card.py` | 表格外 `\n\n`，表内 `\n`，表头可用`⚠️`
+**双通道采集** 抖音脚本+CDP交替验证，任一失败走另一通道
+**CDP必须用Playwright** urllib/websockets连18800会超时
+**数据必须读实际值** | 搜索「建业电影小镇」禁「建业华谊兄弟」| 不限7竞品
+**LLM失败不静默** 显式告警，不依赖自动fallback
+**洞察驱动** 所有分析任务必须先给结论再给数据，禁止只报数字
 
 ---
 
-# 待验证假设
+# 🚨 当前系统状态（2026-06-12）
 
-| # | 假设 | 提出日 | 状态 |
-|---|------|--------|------|
-| H1 | 建立判断→执行强制闭环可解决双节点浪费 | 5/25 | ⏳未实施·持续证伪中 |
-| H2 | W22新公式可指导电影小镇活动设计 | 5/23 | ⏳W23验证部分成立 |
-| H3 | 晚高峰API异常为规律性非偶发 | 5/25 | ✅已证伪（根因=余额不足）|
-| H4 | 任务健康检查确保关键路径 | 5/26 | ⏳未实施 |
-| H5 | 文旅情报合并固化为永久方案 | 5/26 | ✅已验证（合并第7天）|
-| H6 | 票根互认政策窗口期执行可行性 | 6/7 | 🆕 6月内必须决策 |
-| H7 | 演艺密度翻倍不伤单客体验 | 6/7 | 🆕 万岁山反面教训警示 |
-| H8 | 漂移双跑cron把22处漂移归零 | 6/6 | 🆕 6/9首次自动跑 |
+**模型**：minimax/MiniMax-M2.7（6/12从M3切换回来，无5h限额）
+**auth配置**：openclaw.json有authProfile=minimax:default + 软链接agents→根目录auth-profiles.json ✅
+**web_search**：minimax国内搜索 ✅
+**代理**：7897 ✅ LISTEN | **CDP**：18800 ✅ LISTEN
+**cookie保鲜**：抖音20:28 / 小红书10:45 ✅
+
+**今日修复（6/12）**：
+- catalog.json apiKey从env变量名→真实key ✅
+- 全部32个cron洞察层prompt升级 ✅
+- auth软链接缺失 ✅
 
 ---
 
-# [reference] 权威数据
+# 🔍 关键洞察（持续有效）
+
+**双节点浪费（已固化）** 520有效→端午竞品先动电影小镇零预热→窗口关闭无动作。H1执行闭环未实施。
+
+**内容真空窗口** 搜索涨+综合指数涨→内容供给追不上需求，端午后同步下降（不是背离是真实萎缩）
+
+**票根互认** H6窗口期，6月内必须决策，W22公式变体
+
+**6月开局崩盘** 日均1,187 vs 5月4,395（-73%），端午是H1唯一翻身机会
+
+**端午后竞品格局**：只有河南麦田音乐会(6/5-6/6)高威胁 | 万岁山王婆说媒单一爆款押注风险显现
+
+---
+
+# 📊 关键数据指针
 
 | 来源 | 路径 |
 |------|------|
 | 历年客流 | ~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx |
-| 2026每日 | ~/Desktop/2026游客量统计.csv（每周二更新，最新至6/2）|
-| 抖音Cookie | /tmp/juLiang_cookies.json（⚠️ 6/6 7897代理未LISTEN时不存在）|
-| 小红书Cookie | /tmp/xiaohongshu_cookies.json（同上）|
-| 飞书群 | 电影小镇 oc_2581... / 推送 oc_f109... |
+| 2026每日 | ~/Desktop/2026游客量统计.csv（每周二更新，最新至6/9）|
+| 抖音Cookie | /tmp/juLiang_cookies.json |
+| 小红书Cookie | /tmp/xiaohongshu_cookies.json |
+| 飞书群 | 电影小镇 oc_2581c03b79e4893cc3616b253d60f34e |
 | SOP | wiki/SOP/ |
-| 定时任务 | memory/topics/daily-tasks.md |
-| M3 API | baseUrl=https://api.minimax.chat/v1, auth-profiles.json |
+| 核心脚本 | ~/.openclaw/workspace/scripts/ |
 
 ---
 
 # [project] 项目状态
 
-**活跃** 抖音双通道采集✅（M3驱动）| 竞品关键词轮换 | 爆款公式库周日更新 | 漂移双跑cron（待跑）| M3多模态日报v2
+**当前重点**：端午（6/19-21）备战 + 洞察驱动日报全量升级
+**Ontology**：Week 6目标（最小可行Ontology Layer），当前暂停推进（优先级下调）
+**W24 SOP升级**：P0完成（小红书/文旅/案例库洞察层已升级），P1进行中
+**爆款公式库**：14条公式+52案例，W24新增票根经济/万岁山商业模型
+**漂移双跑**：每周一/三/五 cron执行
+**GitHub调研**：Agent Zero Annotate Mode — 网页元素自主发现，UI改版自适应。browser-use(97K)趋稳印证基础自动化赛道见顶，下一代方向是"自主发现并操作"而非"执行预设指令"。
+- 项目名：agent0ai/agent-zero
+- 它解决了什么：Annotate Mode把网页变成可编程操作面，Agent点哪操作哪，无需预设DOM选择器
+- 我们怎么用：竞品抖音/小红书后台UI改版时自动恢复采集，无需人工修复脚本
+- 不跟进的代价：平台每次UI改版，我们的Playwright脚本需人工介入，竞品系统更快恢复
 
-**Ontology架构改造** 🔥 2026-06-01全面Deep Dive | 5大研究方向排期中
-- Day 3完成: ontology_store.py (699行, 13表), SQLite 148KB (20指标+8景区)
-- adapter-visitors.py 6/1首次成功：298条visitors+revenue入Store
-- 5大方向：①Palantir OSDK深度拆解 ②时序知识图谱(Graphiti) ③跨源关联分析 ④Query Layer LLM Bridge ⑤行业本体研究
+---
 
-**GitHub调研印证方向：** codegraph(34K⭐)知识图/MCP集成 + Caveman(65K⭐)prompt压缩 + Skills生态(mattpocock/skills 112K)文旅垂直Skill包机会
+# ✅ 已结项（存档参考）
+DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cron冲突修复 | SOP路径漂移修复 | auth配置修复 | 洞察驱动prompt升级(6/12) | catalog.json key注入(6/12)
 
-**W24 SOP升级执行中** P0：小红书日报SOP/文旅活动热点SOP/案例库更新SOP | P1：3废弃+2文件漂移修复 | 综合分 6.1→6.9
+---
 
-**M3能力边界（6/6实测）** ✅ 文本/图像(公网URL)/视频/Tool use/流式/SSE thinking | ⚠️ 图像必须公网 | ⚠️ Thinking几乎必触发多花1-2K tokens
-
-**W23亮点** 漂移自动化+4 | M3模型统一（25 cron + 8 backup）| timeout 300→600s热加载 | 失败告警升级（连错2次私信站长）| skill-anthropic-grade-optimizer 189规则 | 文档漂移v9→v11集中修复6处
-
-**W24待办** 漂移双跑cron（6/9首跑）| 老君山/重渡沟/龙门石窟Wiki归档 | 票根互认商务谈判（6月内）| NO FORGET救活决策 | W24爆款新案例机制验证(6/14) | ~~timeout_fix patch待review~~ ✅ **已 apply 6/8 09:57** | ~~M1 fallback是否恢复~~ ✅ **6/8 10:08 改 M3-only：删 deepseek provider + M1/M2.1 + 5 个别名，openclaw.json 减 33%** |
-
-**M3-only 模式（6/8 10:08 起）** 仅 M3 可用：1 个 provider (minimax) × 1 个 model (MiniMax-M3) × 1 个别名。fallback 链空。M3 rate_limit = 任务挂（小红书日报 6/8 10:03 第 1 次跑 235s 仍 fail，原因 rate_limit，非 timeout）。**回滚**：`python3 ~/.hermes/hermes-agent/openclaw-watch/bin/m3_only.py --restore`
-
-**W23待观察** R08执行层闭环连续4周0动作（H1待方案C）| H4任务健康检查未实施 | M3日报质量vs M1对比
-
-| **已结项** 五一排期公告 | 历史bug(换行/announce/cron) | 方特截流 | 图3-LLM架构放弃 | 5/27系统重构 | 6/1 Ontology接入方案+adapter-visitors.py | codegraph MCP集成 | **DeepSeek→MiniMax M3切换（6/6）** | **文档漂移v9→v11集中修复（6/6）** | **W22公式"政策IP"变体（6/7）** | **6/8 Hermes批量补全18任务failureAlert** | **6/8 14:00+周日9:00 cron冲突修复** | **6/8 采集链健康误报修正** | **6/8 thinking minimal→off（小红书+竞品爆款）** | **6/8 openclaw.json 改 M3-only（-33% 体积）** | **6/8 10:42 补全2个error cron payload fallbacks（竞品爆款拆解+Wiki漂移检查），重跑竞品爆款拆解 ok，consecutiveErrors 5→0** |
-
-# 🚨 6/11 14:57 全面修复记录（10 项 + DDG 根因）
-
-**站长原话**："全面修复所有问题，以保证所有cron都能正常、有序、健康、稳定且有质量的执行"
-
-**Phase 1 体检（30min 全链路扫描）发现**：
-1. **真根因** — web_search 走 `tools.web.search.provider: "duckduckgo"`，DDG 插件死了（html.duckduckgo.com/api.duckduckgo.com 8s 全超时；6/8-6/11 连续 4 天爆款拆解降级）
-2. **3 个 cron 缺 tz**（关键词/内容动态/系统代谢），可能夏令时漂移
-3. **竞品关键词 7 连错**（API rate_limit）
-4. **Wiki漂移 4 连错**（5 天没跑）
-5. 全 28 cron: model=minimax/M2.7, fallback=空, thinking=off（**无 stale 引用**，6/6 M3 切换干净）
-
-**修复结果（15:30 全部落地）**：
-- ✅ openclaw.json 改 2 处：`minimax.config.webSearch={apiKey, region=cn}` + `tools.web.search.provider: "minimax"`，关掉 duckduckgo 插件
-- ✅ Gateway hot reload（PID 90964, 20 插件加载完, health ok）
-- ✅ 真实验证：案例库更新 90s 跑通，minimax 搜索返回 4 个真实案例（大唐不夜城/万岁山/景德镇/乌镇）
-- ✅ 14:00 关键词 force run，consecutive_errors 7→0（输出方特深度分析 D1-D4）
-- ✅ Wiki 漂移 force run，4→0（22s 跑完，归档 19 孤立页+10 URL 漂移）
-- ✅ 3 个 cron 补 tz=Asia/Shanghai（用 `/usr/local/bin/openclaw cron edit --tz`；**注意**：/usr/local/bin/openclaw 是断链软链，要用 `/Users/tianjinzhan/.npm-global/bin/openclaw`）
-
-**今日 error 累计 = 0**（修复前 11 个）
-
-**配置变更**：
-- 快照：`~/.openclaw/openclaw.json.bak.pre-websearch-fix.20260611_151836`
-- 新配置：`plugins.entries.minimax.config.webSearch.apiKey`（从 auth-profiles 复用）+ `plugins.entries.duckduckgo.enabled=False`
-- 回滚：`cp ~/.openclaw/openclaw.json.bak.pre-websearch-fix.* ~/.openclaw/openclaw.json && openclaw gateway restart`
-
-**教训**：
-1. **CLI 路径**：`/usr/local/bin/openclaw` 是断链（指向 `/Applications/OpenClaw.app/...` 软链坏了），**真实路径是 npm 全局**：`/Users/tianjinzhan/.npm-global/bin/openclaw`。openclaw not found 找不到
-2. **参数语法**：`openclaw cron update` 不存在，正确是 `openclaw cron edit <id> --tz`
-3. **DDG 死透是国内频繁调**的代价；minimax 自家搜索在 cn 区域可用 + 质量高
-4. **m3_usage.py 读的是历史撞限记录**，不是实时 — 但 M2.7 模式下无 5h 限额，这问题**自动消失**了
-
-# 📊 GitHub高星标AI Agent调研（W24·6/12）
-
-**Superpowers(123K⭐)超越mattpocock/skills(112K⭐)** — Skills赛道双雄变一超一强
-- Superpowers核心理念：**Process over Prompt**（流程>提示词）
-- 工程纪律护栏：TDD（先写测试）、YAGNI（不要过度设计）、DRY（不要重复）
-- Claude官方插件市场认证后二次爆发，超越mattpocock成为Skills新王
-
-**MemPalace(54.7K⭐)记忆新王地位巩固** — 日增855⭐，超越Mem0
-- 三级记忆体系（工作记忆/情节记忆/语义记忆）+ MCP原生集成
-- 本系统TOOLS.md已记录MemPalace工具
-
-**知识图谱赛道见顶** — codegraph+Understand-Anything增长放缓至~0
-- 调整优先级：景区知识图缩小范围（政策/竞品索引），不追求大而全
-
-**browser-use趋稳** — 从周增8K降至2-4K，接近自然天花板
-- 本系统Playwright+CDP方案已足够，无需切换
-
-**行动项**：
-- 🆕 P0：SKILL.md引入Superpowers"流程纪律"（日报SOP加验证节点、脚本TDD原则）
-- P1：Caveman prompt压缩策略仍未落地，降级为待执行
-- P2：景区知识图缩小范围（政策/竞品索引），不追求大而全
-
+# 📝 历史归档
+详细客流数据 → memory/topics/visitors-20260609.md
+系统演化记录 → memory/topics/system-evolution-20260612.md
+每日日志 → memory/YYYY-MM-DD.md（按日期）

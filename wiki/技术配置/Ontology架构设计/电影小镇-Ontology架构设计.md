@@ -229,6 +229,8 @@ data sources → Ingestion Pipeline → Ontology Layer → AI Agents
 3. **Links 对应 wiki 引用** — 跨页面链接显式声明
 4. **Actions 对应 cron 任务** — 每个 cron 的 payload 改写为 Action 格式
 5. **Functions 对应 utils/*.js** — 核心算法统一注册
+6. **Storage: SQLite** — 核心存储用 SQLite（见 基础设施评估.md D-005）
+7. **Git Snapshots: JSON** — adapter 双写 JSON 文件进 Git 历史（见 D-006）
 
 ---
 

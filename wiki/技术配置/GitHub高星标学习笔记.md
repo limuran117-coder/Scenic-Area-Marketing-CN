@@ -201,3 +201,54 @@
 - wiki/SOP/ → 当前SOP体系，可升级为Superpowers风格"流程纪律"
 - wiki/技术配置/ → 相关技术参考
 - 上期记录：2026-05-31版本（本文档前身）
+---
+
+## W25（2026-06-13 周六）新增发现
+
+### 发现：Agent Zero — Annotate Mode 将网页变为可编程操作面
+
+**仓库：** agent0ai/agent-zero | **语言：** Python/TypeScript | **Stars：** ~20K（社区驱动）
+
+**一句话核心：** Agent Zero 把每个网页变成 Agent 的"交互式指令面板"——点击任意元素，执行 Change/Inspect/Lift/Comment 四种操作，无需预设 select/XPath。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+传统浏览器自动化依赖预设 DOM 选择器，UI 改版即失效；Annotate Mode 让 Agent 自主发现页面元素并操作，实现"所见即所用"的通用交互。
+
+**2. 我们的系统能怎么用？**
+- **竞品抖音后台交互：** 当抖音创作者页面 UI 变化导致 douyin_index.py 脚本失效时，Annotate Mode 让 Agent 自主找到新元素，无需改代码即可恢复采集
+- **小红书后台自动化：** 同理，灵犀后台 UI 改版时自适应
+- **竞品页面灵感采集：** "Lift"功能可直接捕获竞品页面的视觉/交互设计，为营销素材提供参考
+
+**3. 不跟进的代价是什么？**
+平台 UI 每次改版，我们的 Playwright 脚本需要人工介入修复；具有 Annotate Mode 能力的竞品系统将比我们更快恢复自动化——数据采集时效性全面落后。
+
+#### 技术架构亮点
+
+| 特性 | Agent Zero | 本系统现状 |
+|------|-----------|-----------|
+| 浏览器交互 | Annotate Mode（通用元素发现） | Playwright 预设选择器 |
+| 桌面环境 | 容器内嵌 XFCE 桌面 | CDP 分离架构 |
+| 扩展机制 | Plugin Hub（100+插件） | Skills 目录 |
+| 协作协议 | MCP + A2A 双协议 | MCP 已集成 |
+
+#### 与上期项目的关联
+
+- 上期 **browser-use**（97K）趋稳 → 增速放缓，印证"基础浏览器自动化"赛道见顶
+- Agent Zero 的 Annotate Mode 是 browser-use 的进化方向：**从"执行预设操作"到"自主发现并操作"**
+- LightAgent（wanxingai）的 LightFlow 引入 DAG + 重试机制 → 值得作为工作流编排参考
+
+#### 行动建议
+
+| 优先级 | 行动 | 说明 |
+|:------:|------|------|
+| P2 | 关注 Agent Zero Annotate Mode 的开源实现 | 若社区有独立库，分叉引入本系统 |
+| P2 | LightAgent LightFlow DAG 模式参考 | 竞品内容采集链可引入 DAG + 步骤输出传递 |
+| P3 | Agent Zero Plugin Hub 生态跟踪 | 100+插件中可能有文旅垂直 Skill |
+
+#### 对比上期笔记的变化
+
+- 新增 Agent Zero / LightAgent / rjmurillo/ai-agents 三个项目记录
+- 确认 **browser-use 增速放缓**（周增8K→2-4K）趋势持续
+- **Skills 生态** 进入双雄并立（Superpowers 123K + mattpocock 112K）成熟期
