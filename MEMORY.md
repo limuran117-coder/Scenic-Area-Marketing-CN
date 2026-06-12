@@ -234,3 +234,26 @@ role: 景区营销中心总经理 | update_time: 2026-06-09（客流日报 v9 �
 2. **参数语法**：`openclaw cron update` 不存在，正确是 `openclaw cron edit <id> --tz`
 3. **DDG 死透是国内频繁调**的代价；minimax 自家搜索在 cn 区域可用 + 质量高
 4. **m3_usage.py 读的是历史撞限记录**，不是实时 — 但 M2.7 模式下无 5h 限额，这问题**自动消失**了
+
+# 📊 GitHub高星标AI Agent调研（W24·6/12）
+
+**Superpowers(123K⭐)超越mattpocock/skills(112K⭐)** — Skills赛道双雄变一超一强
+- Superpowers核心理念：**Process over Prompt**（流程>提示词）
+- 工程纪律护栏：TDD（先写测试）、YAGNI（不要过度设计）、DRY（不要重复）
+- Claude官方插件市场认证后二次爆发，超越mattpocock成为Skills新王
+
+**MemPalace(54.7K⭐)记忆新王地位巩固** — 日增855⭐，超越Mem0
+- 三级记忆体系（工作记忆/情节记忆/语义记忆）+ MCP原生集成
+- 本系统TOOLS.md已记录MemPalace工具
+
+**知识图谱赛道见顶** — codegraph+Understand-Anything增长放缓至~0
+- 调整优先级：景区知识图缩小范围（政策/竞品索引），不追求大而全
+
+**browser-use趋稳** — 从周增8K降至2-4K，接近自然天花板
+- 本系统Playwright+CDP方案已足够，无需切换
+
+**行动项**：
+- 🆕 P0：SKILL.md引入Superpowers"流程纪律"（日报SOP加验证节点、脚本TDD原则）
+- P1：Caveman prompt压缩策略仍未落地，降级为待执行
+- P2：景区知识图缩小范围（政策/竞品索引），不追求大而全
+

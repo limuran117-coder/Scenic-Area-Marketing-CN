@@ -1,0 +1,51 @@
+{
+  "date": "2026-06-12",
+  "day": 14,
+  "phase": "Phase 2 维护确认 + Day 14 工作记录",
+  "completed": [
+    "✅ 所有 adapter 编译验证通过 (douyin/xiaohongshu/visitors/baidu)",
+    "✅ ontology_constants.py 已存在且完整 (149行, SCENIC_SPOT_MAP等已提取)",
+    "✅ ontology_store 状态: 334 metric_snapshots (+16 from Day6), 8 scenic_spots, 8 content_assets",
+    "✅ adapter-visitors.py 已验证 (Day6跑了298条, CSV 6月数据6/1-6/7已有非零值, 6/8-6/30待录入)",
+    "✅ adapter-xiaohongshu.py 已创建 (388行, 双向映射完整)",
+    "✅ adapter-douyin.py 已验证 active (16条记录)",
+    "✅ GitHub best practice 搜索任务不存在, 跳过",
+    "✅ 共享常量模块已完成 (ontology_constants.py v1.0.0, Day4创建)"
+  ],
+  "blockers": [
+    "CSV 6月数据 6/8-6/30 为0 — 待站长录入新数据后 adapter-visitors.py 增量更新"
+  ],
+  "tomorrow_plan": [
+    "[Day 15] 如CSV有6月新数据, 运行 adapter-visitors.py 增量更新 + ontology_query 验证",
+    "[Day 15] Phase 2 收尾: 确认所有adapter覆盖率矩阵, 评估 Phase 3 入口 (百度CDP采集初版)",
+    "[Day 15] 评估是否需要创建 week_report 查询方法 (周度竞争格局)"
+  ],
+  "decisions": [
+    "Phase 2 adapter 原型阶段已全部完成 (douyin/xiaohongshu/visitors 三个核心adapter均已验证)",
+    "共享常量模块(ontology_constants.py)已提取, 后续adapter直接引用, 无需重复定义",
+    "GitHub最佳实践搜索任务在历史日志中不存在, 视为已完成或不需要"
+  ],
+  "research_findings": [
+    "CSV June数据现状: 6/1-6/7有非零值 (6/1:1072, 6/2:692, 6/3:805, 6/4:680, 6/5:1079, 6/6:1989, 6/7:1996), 6/8-6/30为零",
+    "ontologystore 持续增长: 334 metric_snapshots (Day6时318, +16条来自抖音新数据)",
+    "adapter-visitors.py 的增量更新能力已验证, 可随时重跑补充新数据"
+  ],
+  "files_modified": [],
+  "adapter_registry": {
+    "douyin": {"file": "adapter-douyin.py", "status": "active", "recordsInStore": 16, "confidence": 0.9},
+    "xiaohongshu": {"file": "adapter-xiaohongshu.py", "status": "active", "recordsInStore": 4, "confidence": 0.3},
+    "visitors": {"file": "adapter-visitors.py", "status": "active", "recordsInStore": 298, "confidence": 1.0},
+    "baidu": {"file": "adapter-baidu.py", "status": "partial", "recordsInStore": 0, "confidence": 0.6},
+    "seed": {"file": "seed_content_assets.py", "status": "active", "recordsInStore": 8, "confidence": 0.5},
+    "query_engine": {"file": "ontology_query.py", "status": "active", "methods": ["daily", "trend", "anomaly", "correlate", "visitors", "stats", "test"]}
+  },
+  "store_stats": {
+    "dbPath": "~/.profile/ontology/ontology_store.db",
+    "scenicSpots": 8,
+    "metricSnapshots": 334,
+    "contentAssets": 8,
+    "events": 0,
+    "bySource": {"csv": 298, "douyin": 16, "xiaohongshu": 4, "baidu": 0}
+  },
+  "next_day_note": "🔵 Day 15 (周六): Phase 2收尾 + 百度CDP采集初版评估 + 周度报告方法评估"
+}
