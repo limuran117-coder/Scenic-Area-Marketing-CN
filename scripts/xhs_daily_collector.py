@@ -34,7 +34,7 @@ KEYWORDS = [
 
 OUTPUT_FILE = "/tmp/xhs_daily_data.json"
 
-LINGXI_URL = "https://edith.xiaohongshu.com/idea/welcome/index"
+LINGXI_URL = "https://idea.xiaohongshu.com/idea/welcome/index"
 LINGXI_KEYWORDS = ["建业电影小镇"]  # 灵犀仅查本品牌
 LINGXI_FALLBACK_INDICATORS = ["登录", "扫码", "二维码", "立即登录"]  # 未登录态的特征词
 
@@ -134,7 +134,8 @@ async def try_crawl_lingxi(cdp_url: str, timeout_ms: int = 20000) -> dict:
             for ctx in browser.contexts:
                 for pg in ctx.pages:
                     try:
-                        if "xiaohongshu.com" in (pg.url or ""):
+                        # 精确匹配 idea.xiaohongshu.com 灵犀后台（不要匹配 www.xiaohongshu.com 其他页面）
+                        if "idea.xiaohongshu.com" in (pg.url or ""):
                             target_tab = pg
                             break
                     except Exception:
@@ -153,7 +154,7 @@ async def try_crawl_lingxi(cdp_url: str, timeout_ms: int = 20000) -> dict:
             not_logged = any(ind in text for ind in LINGXI_FALLBACK_INDICATORS) or len(text) < 200
             if not_logged:
                 result["error"] = "not_logged_in"
-                result["note"] = "灵犀后台需重新登录。访问 https://edith.xiaohongshu.com 扫码登录一次即可恢复。"
+                result["note"] = "灵犀后台需重新登录。访问 https://idea.xiaohongshu.com 扫码登录一次即可恢复。"
                 await browser.close()
                 return result
             # 已登录：提取五维指标（探针阶段拿不准字段名，先存原始文本等LLM解读）

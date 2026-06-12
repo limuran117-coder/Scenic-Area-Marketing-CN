@@ -59,26 +59,36 @@ def parse_csv():
 
 
 def sync_memory_log(weather, tickets, chuanyue):
-    """追加昨日客流到当日的memory文件"""
-    d = datetime.now() - timedelta(days=1)
-    if d in tickets:
-        log_path = f'{MEMORY_DIR}/{d.strftime("%Y-%m-%d")}.md'
-        wt = weather.get(d, '')
-        # 追加
-        content = f"""
+    """追加最新客流到当日的memory文件（找到最近可用日，写入今天而非那天）"""
+    d = datetime.now() - timedelta(days=1)  # 昨日
+    today_d = datetime.now()  # 今天 = memory 文件日期
+    # 找不到昨日，找最近可用客流日
+    if d not in tickets and tickets:
+        fallback_d = max(tickets.keys())
+        if fallback_d < datetime.now() - timedelta(days=2):
+            print(f'  ⚠️ CSV数据太旧（截止{fallback_d.strftime("%Y-%m-%d")}），不写memory')
+            return
+        d = fallback_d
+    if d not in tickets:
+        print(f'  ⚠️ 无客流数据，跳过memory同步')
+        return
+    # 写今天的memory文件（不是fallback那天）
+    log_path = f'{MEMORY_DIR}/{today_d.strftime("%Y-%m-%d")}.md'
+    wt = weather.get(d, '')
+    content = f"""
 ## 当日客流（自动同步 {today}）
-- 日期: {d.strftime('%Y-%m-%d')} {WD_CN[d.weekday()]}
+- 数据日期: {d.strftime('%Y-%m-%d')} {WD_CN[d.weekday()]}（最近可用）
 - 合计客流: {tickets[d]:,}
 - 天气: {wt}
 - 穿越德化街: {chuanyue.get(d, ('N/A','N/A','N/A'))[0]}场 / 观演{chuanyue.get(d, ('N/A','N/A','N/A'))[2]:,}人次
 
 """
-        try:
-            with open(log_path, 'a', encoding='utf-8') as f:
-                f.write(content)
-            print(f'✅ 已追加memory: {os.path.basename(log_path)}')
-        except:
-            pass
+    try:
+        with open(log_path, 'a', encoding='utf-8') as f:
+            f.write(content)
+        print(f'✅ 已追加memory: {os.path.basename(log_path)} (数据={d.strftime("%Y-%m-%d")})')
+    except Exception as e:
+        print(f'  ⚠️ memory 写入失败: {e}')
 
 
 def sync_workspace_wiki(weather, tickets, chuanyue):
@@ -88,6 +98,10 @@ def sync_workspace_wiki(weather, tickets, chuanyue):
     data_path = f'{OBSIDIAN_DIR}/电影小镇/历史数据/2026年/数据.md'
     
     try:
+        if not os.path.exists(data_path):
+            os.makedirs(os.path.dirname(data_path), exist_ok=True)
+            print(f'  ℹ️ 数据.md 不存在，跳过 workspace wiki 更新')
+            return
         with open(data_path, 'r', encoding='utf-8') as f:
             content = f.read()
         content = re.sub(r'最后更新：\d{4}-\d{2}-\d{2}', f'最后更新：{today}', content)
@@ -95,7 +109,8 @@ def sync_workspace_wiki(weather, tickets, chuanyue):
         with open(data_path, 'w', encoding='utf-8') as f:
             f.write(content)
         print(f'✅ 已更新workspace wiki: 数据.md (截止{last_date})')
-    except: pass
+    except Exception as e:
+        print(f'  ⚠️ workspace wiki 更新失败: {e}')
 
 
 def sync_obsidian_vault():
@@ -108,13 +123,14 @@ def sync_obsidian_vault():
     mappings = [
         (f'{OBSIDIAN_DIR}/电影小镇/历史数据/2026年/数据.md',
          f'{OBSIDIAN_VAULT}/电影小镇/历史数据/2026年/数据.md'),
-        # 穿越德化街文件会自动更新（直接修改了Obsidian vault的文件）
     ]
     for src, dst in mappings:
         if os.path.exists(src):
             os.makedirs(os.path.dirname(dst), exist_ok=True)
             shutil.copy2(src, dst)
             print(f'✅ 已同步到Obsidian Vault: {os.path.basename(dst)}')
+        else:
+            print(f'  ⚠️ 源文件不存在: {src}')
 
 
 def main():
