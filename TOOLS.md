@@ -272,3 +272,19 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 - `wiki_drift_check.py` + `project_drift_check.py`：每周一/三/五 cron 已配
 - `self_check.py`：每次 isolated 任务完成后自动评分
 - WIKI lint 0 处真 stale
+
+## 周度技能探索 #5（2026-06-13 10:00 cron 扫描）
+**扫描范围：** 54个scripts + 58个系统skills + brew CLI
+**CLI就绪：** gh✅ curl✅ jq✅ ffmpeg✅
+**brew可装：** himalaya, wacli, sag（需ELEVENLABS_API_KEY）
+
+| 工具 | 说明 | 上线前提 |
+|------|------|----------|
+| **himalaya** | Email CLI（IMAP/SMTP），列表/读/搜索/发邮件 | `brew install himalaya`；需配SMTP账号 |
+| **wacli** | WhatsApp CLI（第三方消息/历史同步） | `brew install steipete/tap/wacli`；国内景区场景有限，海外游客/合作可能用到 |
+| **sag** | ElevenLabs TTS（语音故事） | 需 `ELEVENLABS_API_KEY`；站长未配则无法使用 |
+
+**触发安装条件：**
+- himalaya：站长要求"邮件监控进心跳"或"日报异常时发邮件通知"
+- wacli：未来需要主动联系海外游客/国际合作伙伴时
+- sag：站长说"配音"/"语音"/"storytime"时
