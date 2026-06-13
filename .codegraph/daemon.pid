@@ -1,6 +1,6 @@
 {
-  "pid": 596,
-  "version": "0.9.9",
+  "pid": 17797,
+  "version": "1.0.0",
   "socketPath": "/Users/tianjinzhan/.openclaw/workspace/.codegraph/daemon.sock",
-  "startedAt": 1781281253098
+  "startedAt": 1781313653008
 }
