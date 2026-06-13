@@ -37,3 +37,4 @@ MEMORY.md.bak*
 
 # Obsidian local config
 .obsidian/
+.codegraph/daemon.pid
