@@ -1,161 +1,72 @@
 {
-  "timestamp": "2026-06-07T12:06:40.968426",
-  "issues_count": 24,
+  "timestamp": "2026-06-14T09:03:14.390906",
+  "status": "has_issues",
   "issues": [
     {
-      "type": "orphan",
-      "file": "concepts/景区营销漏斗.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+      "type": "lint_summary",
+      "total_issues": 24,
+      "orphan_count": 19,
+      "contradiction_count": 5
     },
     {
-      "type": "orphan",
-      "file": "concepts/ROI分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/演艺景区.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/情绪营销.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/内容爆款规律.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/平台算法规则.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/内容发布节奏.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/景区类型.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/景区抖音运营.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/景区小红书运营.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/季节性客流规律.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/客流营收历年分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/2026-04-25Wiki重组.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/穿越德化街数据分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/周度技能探索_2026-05-01.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/周度技能探索_2026-05-30.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/抖音指数追踪日报.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/竞品深度档案.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/建业电影小镇阶段性数据表.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "overview.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "系统/overview.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "sources/客流营收历年分析.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "电影小镇/基础档案.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "entities/建业电影小镇.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+      "type": "scripts_not_documented",
+      "count": 54,
+      "scripts": [
+        "adapter-baidu.py",
+        "adapter-douyin.py",
+        "adapter-visitors.py",
+        "adapter-xiaohongshu.py",
+        "add_yaml_frontmatter.py",
+        "autonomous_skill_create.py",
+        "build_dashboard.py",
+        "build_xhs_card.py",
+        "case_library_scan.py",
+        "cdp_collect.py",
+        "cdp_collector.py",
+        "cdp_cookie_hub.py",
+        "cdp_douyin.py",
+        "cdp_keyword_deep.py",
+        "cdp_restore_tabs.py",
+        "competitor_keyword.py",
+        "competitor_keyword_debug.py",
+        "competitor_keyword_index.py",
+        "competitor_program_tracker.py",
+        "confirm_action.py",
+        "content_intel.py",
+        "dashboard.py",
+        "douyin_index.py",
+        "industry_news_browser.py",
+        "industry_news_rss.py",
+        "lingxi_keepalive.py",
+        "llmwiki_ingest.py",
+        "llmwiki_lint.py",
+        "llmwiki_query.py",
+        "m3_usage_alert.py",
+        "nudge_knowledge.py",
+        "ontology_constants.py",
+        "ontology_query.py",
+        "ontology_store.py",
+        "pattern_analysis.py",
+        "periodic_nudge.py",
+        "project_drift_check.py",
+        "prompt_minify.py",
+        "query_passenger.py",
+        "seed_content_assets.py",
+        "self_check.py",
+        "send_case_lib_update.py",
+        "send_daily_tourism_report.py",
+        "send_feishu_card.py",
+        "send_industry_news.py",
+        "send_marketing_case_qyshy.py",
+        "send_w16_report.py",
+        "send_wenhua_tracking.py",
+        "sync_obsidian_daily.py",
+        "validate_data.py",
+        "wiki_drift_check.py",
+        "xhs_competitor_crawl.py",
+        "xhs_daily_collector.py",
+        "xiaohongshu_crawl.py"
+      ]
     }
   ]
 }
