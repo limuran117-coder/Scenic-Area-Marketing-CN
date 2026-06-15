@@ -1,0 +1,46 @@
+{
+  "date": "2026-06-15",
+  "day": 16,
+  "phase": "Phase 2 收尾 · Day 16 工作记录",
+  "completed": [
+    "✅ ERR_ABORTED blocker 根因定位: 脚本用 networkidle 导致订阅页加载超时，改用 domcontentloaded + 复用现有 creator Tab",
+    "✅ douyin_index.py 修复验证: 8/8 景区数据有效（2026-06-15 最新采集）",
+    "✅ 电影小镇 2026-06-15: search=3615(+18.64%), composite=1318(+7.07%)，显著回暖",
+    "✅ 万岁山(+30.78%)/只有红楼梦(+29.23%) 有异动标记"
+  ],
+  "blockers": [
+    "🔴 小红书 CDP 采集链未验证（xiaohongshu adapter confidence 仅 0.3）",
+    "🔴 百度 adapter 尚未接入（adapter-baidu.py 设计文档已完成，待采集脚本）",
+    "🔴 CSV 6/8-6/30 数据零值问题仍未解决（待站长录入）"
+  ],
+  "tomorrow_plan": [
+    "[Day 17] 验证小红书 CDP 采集链是否可正常采集",
+    "[Day 17] 评估 Phase 3 入口：百度指数初版接入",
+    "[Day 17] 运行 adapter-visitors.py 补充 6/1-6/7 CSV 数据"
+  ],
+  "decisions": [
+    "D-006 补充: adapter 双写模式已验证（douyin adapter 正常），JSON 快照层健康",
+    "修复策略: 复用现有 creator Tab 而非新建，避免 ERR_ABORTED",
+    "wait_until 策略: domcontentloaded > networkidle（抖音创作者中心 JS 会话管理导致后者超时）"
+  ],
+  "files_modified": [
+    "scripts/douyin_index.py: 修复 navigation 逻辑（wait_until + Tab 复用）"
+  ],
+  "adapter_registry": {
+    "douyin": {"file": "adapter-douyin.py", "status": "active", "recordsInStore": 32, "confidence": 0.9},
+    "xiaohongshu": {"file": "adapter-xiaohongshu.py", "status": "partial", "recordsInStore": 4, "confidence": 0.3},
+    "visitors": {"file": "adapter-visitors.py", "status": "active", "recordsInStore": 298, "confidence": 1.0},
+    "baidu": {"file": "adapter-baidu.py", "status": "partial", "recordsInStore": 0, "confidence": 0.6},
+    "seed": {"file": "seed_content_assets.py", "status": "active", "recordsInStore": 8, "confidence": 0.5},
+    "query_engine": {"file": "ontology_query.py", "status": "active", "methods": ["daily", "trend", "anomaly", "correlate", "visitors", "stats", "test"]}
+  },
+  "store_stats": {
+    "dbPath": "~/.profile/ontology/ontology_store.db",
+    "scenicSpots": 8,
+    "metricSnapshots": 334,
+    "contentAssets": 8,
+    "events": 0,
+    "bySource": {"csv": 298, "douyin": 32, "xiaohongshu": 4, "baidu": 0}
+  },
+  "next_day_note": "🔵 Day 17 (周二): 小红书 CDP 验证 + 百度 adapter Phase 3 评估"
+}

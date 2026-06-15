@@ -61,12 +61,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "技术配置/Ontology架构设计/每日工作流.md",
+                "file": "技术配置/Ontology架构设计/BEST_PRACTICES.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "每日工作流"
+              "title": "BEST_PRACTICES"
             }
           }
         ]
@@ -293,10 +293,12 @@
   },
   "active": "00d16cba3229cf03",
   "lastOpenFiles": [
+    "行业知识/小红书灵犀数据可用性状态表.md",
+    "技术配置/Ontology架构设计/data/logs/daily-work-20260615.json",
+    "技术配置/Ontology架构设计/每日工作流.md",
     "竞品分析/竞品动态追踪/2026-W24-周度竞争格局.md",
     "行业知识/系统健康分.md",
     "行业知识/结论索引.md",
-    "技术配置/Ontology架构设计/每日工作流.md",
     "技术配置/Ontology架构设计/data/logs/daily-work-20260613.json",
     "技术配置/Ontology架构设计/基础设施评估.md",
     "技术配置/Ontology架构设计/电影小镇-Ontology架构设计.md",
@@ -324,11 +326,9 @@
     "技术配置/Ontology架构设计/data/content_assets_xhs_20260604.json",
     "技术配置/Ontology架构设计/data/logs/adapter-douyin-20260604.json",
     "技术配置/Ontology架构设计/data/metric_snapshots_20260604.json",
-    "技术配置/Ontology架构设计/data/logs/daily-work-20260604.json",
     "电影小镇/历史数据/W16期-20260427.md",
     "电影小镇/历史数据/2023年/数据.md",
     "全国景区案例库/沉浸式演艺行业大剧转轻量化趋势-2026W23.md",
-    "全国景区案例库/万岁山商业模型低价引流高密演艺深度拆解-2026W23.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",

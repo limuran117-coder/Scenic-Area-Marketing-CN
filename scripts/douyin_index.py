@@ -104,25 +104,55 @@ async def crawl():
             browser = await p.chromium.connect_over_cdp(CDP_URL)
             print("[CDP] 连接成功")
 
-            # 获取页面
-            pages = browser.contexts[0].pages if browser.contexts else []
-            if not pages:
-                raise Exception("无可用页面")
-
-            # 找已有订阅页或新建
+            # 获取页面（优先复用已有 creator Tab，避免重复建 Tab）
             target = None
-            for page in pages:
-                if "my-subscript" in page.url:
-                    target = page
-                    print(f"[✓] 找到订阅页: {page.url[:70]}")
+            for ctx in browser.contexts:
+                for page in ctx.pages:
+                    try:
+                        u = page.url
+                        if u and "my-subscript" in u:
+                            target = page
+                            print(f"[✓] 复用已有 my-subscript Tab: {u[:70]}")
+                            break
+                    except Exception:
+                        continue
+                if target:
                     break
 
             if not target:
-                target = pages[0]
-                print("[!] 未找到订阅页，使用当前页")
-                
+                # 找不到 my-subscript，退而找任意 creator Tab
+                for ctx in browser.contexts:
+                    for page in ctx.pages:
+                        try:
+                            u = page.url
+                            if u and "creator.douyin.com" in u:
+                                target = page
+                                print(f"[✓] 复用已有 creator Tab: {u[:70]}")
+                                break
+                        except Exception:
+                            continue
+                    if target:
+                        break
+
+            if not target:
+                for ctx in browser.contexts:
+                    for page in ctx.pages:
+                        try:
+                            u = page.url
+                            if u and not u.startswith("chrome://"):
+                                target = page
+                                print(f"[!] 未找到 creator 页，使用: {u[:60]}")
+                                break
+                        except Exception:
+                            continue
+                        if target:
+                            break
+
+            if not target:
+                raise Exception("无可用页面")
+
             await target.bring_to_front()
-            await target.goto(CRAWL_URL, wait_until="networkidle", timeout=30000)
+            await target.goto(CRAWL_URL, wait_until="domcontentloaded", timeout=30000)
             print("[✓] 订阅页加载完成")
 
             # 等待数据渲染

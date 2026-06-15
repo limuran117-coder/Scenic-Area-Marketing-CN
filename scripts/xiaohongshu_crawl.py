@@ -55,32 +55,51 @@ async def search_keyword(cdp_url: str, keyword: str, timeout: int = 30000) -> di
         async with async_playwright() as p:
             # 连接已有CDP浏览器（不是launch新浏览器！）
             browser = await p.chromium.connect_over_cdp(cdp_url)
-            
-            # 列出所有tab，找一个可用的
-            target_tab = None
-            for ctx in browser.contexts:
-                for i, pg in enumerate(ctx.pages):
-                    try:
-                        url = pg.url
-                        if url and not url.startswith("chrome://"):
-                            target_tab = pg
-                            print(f"  → 使用Tab{i}: {url[:60]}", flush=True)
-                            break
-                    except:
-                        continue
-                if target_tab:
-                    break
 
+            # 收集所有 Tab
+            all_pages = []
+            for ctx in browser.contexts:
+                for pg in ctx.pages:
+                    try:
+                        u = pg.url
+                        if u and not u.startswith("chrome://"):
+                            all_pages.append(pg)
+                    except Exception:
+                        continue
+
+            # 策略1：找已有 xhs_explore Tab
+            target_tab = None
+            for pg in all_pages:
+                try:
+                    if "xiaohongshu.com/explore" in (pg.url or ""):
+                        target_tab = pg
+                        print(f"  → 复用 explore Tab: {pg.url[:60]}", flush=True)
+                        break
+                except Exception:
+                    continue
+
+            # 策略2：找空白备用 Tab
             if not target_tab:
-                # 没有可用Tab，创建新的
+                for pg in all_pages:
+                    try:
+                        if "about:blank" in (pg.url or ""):
+                            target_tab = pg
+                            print(f"  → 复用空白 Tab", flush=True)
+                            break
+                    except Exception:
+                        continue
+
+            # 策略3：新建 Tab
+            if not target_tab:
                 for ctx in browser.contexts:
                     target_tab = await ctx.new_page()
+                    print(f"  → 新建 Tab", flush=True)
                     break
 
             page = target_tab
 
             # 1. 先 navigate 到 explore 页面（带 channel_type 参数，2026-06-09 站长指定）
-            explore_url = "https://www.xiaohongshu.com/explore?channel_type=web_user_page"
+            explore_url = "https://www.xiaohongshu.com/explore"
             print(f"  → 打开 explore 页: {explore_url}", flush=True)
             await page.goto(explore_url, timeout=timeout, wait_until="domcontentloaded")
             await asyncio.sleep(2)

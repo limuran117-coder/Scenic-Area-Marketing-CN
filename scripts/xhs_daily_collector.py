@@ -44,29 +44,55 @@ def url_encode(s: str) -> str:
     return urllib.parse.quote(s)
 
 
+def _find_page(pages, url_pattern: str) -> tuple:
+    """在已有 pages 中找匹配 url_pattern 的 Tab，返回 (Page, is_existing)"""
+    for pg in pages:
+        try:
+            u = pg.url
+            if u and url_pattern in u:
+                return pg, True
+        except Exception:
+            continue
+    return None, False
+
+
 async def crawl_one(p, keyword: str, cdp_url: str, timeout_ms: int = 20000) -> dict:
-    """单关键词采集 - 走 search_result URL + 等 SPA 渲染"""
+    """单关键词采集 - 复用已有 search_result Tab 或新建"""
     result = {"keyword": keyword, "success": False, "error": None, "data": {
         "note_links": [], "note_titles": [], "raw_excerpt": ""
     }}
     try:
         browser = await p.chromium.connect_over_cdp(cdp_url, timeout=5000)
-        target_tab = None
+
+        # 收集所有 Tab
+        all_pages = []
         for ctx in browser.contexts:
-            for i, pg in enumerate(ctx.pages):
+            for pg in ctx.pages:
                 try:
-                    url = pg.url
-                    if url and not url.startswith("chrome://"):
-                        target_tab = pg
-                        break
+                    u = pg.url
+                    if u and not u.startswith("chrome://"):
+                        all_pages.append(pg)
                 except Exception:
                     continue
+
+        # 策略1：找已有 search_result Tab
+        target_tab, is_existing = _find_page(all_pages, "search_result")
+        if target_tab:
+            print(f"  → 复用 search_result Tab: {target_tab.url[:60]}")
+
+        # 策略2：找空白备用 Tab
+        if not target_tab:
+            target_tab, _ = _find_page(all_pages, "about:blank")
             if target_tab:
-                break
+                print(f"  → 复用空白 Tab")
+
+        # 策略3：新建 Tab
         if not target_tab:
             for ctx in browser.contexts:
                 target_tab = await ctx.new_page()
+                print(f"  → 新建 Tab")
                 break
+
         page = target_tab
 
         search_url = f"https://www.xiaohongshu.com/search_result?keyword={url_encode(keyword)}&source=web_explore_feed"
@@ -130,22 +156,36 @@ async def try_crawl_lingxi(cdp_url: str, timeout_ms: int = 20000) -> dict:
     try:
         async with async_playwright() as p:
             browser = await p.chromium.connect_over_cdp(cdp_url, timeout=5000)
-            target_tab = None
+
+            # 收集所有 Tab
+            all_pages = []
             for ctx in browser.contexts:
                 for pg in ctx.pages:
                     try:
-                        # 精确匹配 idea.xiaohongshu.com 灵犀后台（不要匹配 www.xiaohongshu.com 其他页面）
-                        if "idea.xiaohongshu.com" in (pg.url or ""):
-                            target_tab = pg
-                            break
+                        u = pg.url
+                        if u and not u.startswith("chrome://"):
+                            all_pages.append(pg)
                     except Exception:
                         continue
+
+            # 策略1：找已有 idea.xiaohongshu.com Tab
+            target_tab, is_existing = _find_page(all_pages, "idea.xiaohongshu.com")
+            if target_tab:
+                print(f"\n  → 复用灵犀 Tab: {target_tab.url[:60]}")
+
+            # 策略2：找空白备用 Tab
+            if not target_tab:
+                target_tab, _ = _find_page(all_pages, "about:blank")
                 if target_tab:
-                    break
+                    print(f"\n  → 复用空白 Tab 做灵犀采集")
+
+            # 策略3：新建 Tab
             if not target_tab:
                 for ctx in browser.contexts:
                     target_tab = await ctx.new_page()
+                    print(f"\n  → 新建 Tab 做灵犀采集")
                     break
+
             page = target_tab
             await page.goto(LINGXI_URL, wait_until="domcontentloaded", timeout=timeout_ms)
             await asyncio.sleep(6)
