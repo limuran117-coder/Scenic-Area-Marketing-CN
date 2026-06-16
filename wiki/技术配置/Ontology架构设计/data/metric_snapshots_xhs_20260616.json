@@ -1,0 +1,314 @@
+{
+  "objectType": "MetricSnapshot",
+  "date": "2026-06-16",
+  "generatedAt": "2026-06-16T09:07:55.372484",
+  "sourceAdapter": "adapter-xiaohongshu.py",
+  "ontologyVersion": "1.0.0",
+  "objects": [
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "movie_town::2026-06-16::content_count::xhs",
+      "scenicSpotId": "movie_town",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 44,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::movie_town::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372191"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "movie_town::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "movie_town",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::movie_town::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372193"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "only_henan::2026-06-16::content_count::xhs",
+      "scenicSpotId": "only_henan",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 53,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::only_henan::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372201"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "only_henan::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "only_henan",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::only_henan::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372202"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "yinji::2026-06-16::content_count::xhs",
+      "scenicSpotId": "yinji",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 47,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::yinji::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372207"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "yinji::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "yinji",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::yinji::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372208"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "wansui_mountain::2026-06-16::content_count::xhs",
+      "scenicSpotId": "wansui_mountain",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 50,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::wansui_mountain::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372214"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "wansui_mountain::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "wansui_mountain",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::wansui_mountain::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372215"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "qingming_riverside::2026-06-16::content_count::xhs",
+      "scenicSpotId": "qingming_riverside",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 35,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::qingming_riverside::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372220"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "qingming_riverside::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "qingming_riverside",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::qingming_riverside::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372220"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "fangte::2026-06-16::content_count::xhs",
+      "scenicSpotId": "fangte",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 46,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::fangte::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372225"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "fangte::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "fangte",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::fangte::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372226"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "海昌海洋公园::2026-06-16::content_count::xhs",
+      "scenicSpotId": "海昌海洋公园",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 49,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::海昌海洋公园::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372230"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "海昌海洋公园::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "海昌海洋公园",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::海昌海洋公园::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372231"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "only_dream::2026-06-16::content_count::xhs",
+      "scenicSpotId": "only_dream",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "content_count",
+      "value": 55,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::only_dream::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372235"
+    },
+    {
+      "schema": "MetricSnapshot",
+      "version": "1.0.0",
+      "id": "only_dream::2026-06-16::engagement_rate::xhs",
+      "scenicSpotId": "only_dream",
+      "date": "2026-06-16",
+      "source": "xiaohongshu",
+      "metricType": "engagement_rate",
+      "value": 0,
+      "dailyChange": 0.0,
+      "confidence": 0.3,
+      "collectedAt": "",
+      "metadata": {
+        "content_asset_ids": [
+          "xhs::only_dream::2026-06-16::content_aggregate"
+        ]
+      },
+      "createdAt": "2026-06-16T09:07:55.372236"
+    }
+  ],
+  "count": 16
+}
