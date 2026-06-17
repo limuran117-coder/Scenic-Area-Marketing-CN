@@ -416,7 +416,7 @@ class OntologyStore:
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
             """, (
                 obj.get("id"),
-                obj.get("platform"),
+                obj.get("platform") or obj.get("source"),  # 兼容 adapter 的 source 字段（D-018）
                 obj.get("externalId"),
                 spot_id,
                 obj.get("title"),

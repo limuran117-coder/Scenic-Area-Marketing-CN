@@ -1,0 +1,48 @@
+{
+  "date": "2026-06-17",
+  "day": 18,
+  "phase": "Phase 2 收尾 · Day 18 工作记录",
+  "completed": [
+    "✅ 修复 ontology_store.ingest_content_assets: obj.get('platform') or obj.get('source') 兼容 (D-018)",
+    "✅ SCENIC_SPOT_MAP 添加 3 个别名: '海昌海洋公园'/'只有红楼梦' + '银基动物王国' 重复项 (D-018)",
+    "✅ 验证 8/8 景区全映射: movie_town/only_henan/yinji/wansui_mountain/qingming_riverside/fangte/haichang/only_dream",
+    "✅ 重新跑 adapter-xiaohongshu.py: 8 ContentAsset + 16 MetricSnapshot 全部入库, xiaohongshu source 5→13"
+  ],
+  "blockers": [
+    "🔴 新发现: ContentAsset.mentions 字段为空 → ingest 时 spot_id 全为 None（8/8 都中招）",
+    "   根因: adapter-xiaohongshu.build_content_asset() 没填 mentions 数组，ingest_content_assets 用 mentions[0] 取 spot_id",
+    "🔴 百度 adapter 仍缺采集脚本（crawl_baidu.py 未实现，Phase 3 入口）",
+    "🔴 CSV 6/8-6/30 数据零值仍未解决（待站长录入）"
+  ],
+  "tomorrow_plan": [
+    "[Day 19] 修复 adapter-xiaohongshu.build_content_asset() 填 mentions=[scenicSpotId]（最简单修法）",
+    "[Day 19] 或在 ingest_content_assets 兼容 obj.get('scenicSpotId') 作为 spot_id 回退（更通用）",
+    "[Day 19] 评估百度指数 CDP 采集脚本最小可行方案"
+  ],
+  "decisions": [
+    "D-018: ingest_content_assets 字段兼容 — obj.get('platform') or obj.get('source') 接受两种 schema",
+    "D-018: SCENIC_SPOT_MAP 别名扩到 13 个景区名 (D-018) — 覆盖小搜/抖音常用简称",
+    "D-018: 不修改 adapter 输出 schema 强制加 'platform' 字段 — 选择让 store 端兼容，更灵活"
+  ],
+  "files_modified": [
+    "scripts/ontology_constants.py: SCENIC_SPOT_MAP 添加 3 个别名 (D-018)",
+    "scripts/ontology_store.py: ingest_content_assets source 字段兼容 (D-018)"
+  ],
+  "adapter_registry": {
+    "douyin": {"file": "adapter-douyin.py", "status": "active", "recordsInStore": 32, "confidence": 0.9},
+    "xiaohongshu": {"file": "adapter-xiaohongshu.py", "status": "active_batch", "recordsInStore": 13, "confidence": 0.5},
+    "visitors": {"file": "adapter-visitors.py", "status": "active", "recordsInStore": 298, "confidence": 1.0},
+    "baidu": {"file": "adapter-baidu.py", "status": "partial", "recordsInStore": 0, "confidence": 0.6},
+    "seed": {"file": "seed_content_assets.py", "status": "active", "recordsInStore": 8, "confidence": 0.5},
+    "query_engine": {"file": "ontology_query.py", "status": "active", "methods": ["daily", "trend", "anomaly", "correlate", "visitors", "stats", "test"]}
+  },
+  "store_stats": {
+    "dbPath": "~/.profile/ontology/ontology_store.db",
+    "scenicSpots": 8,
+    "metricSnapshots": 350,
+    "contentAssets": 13,
+    "events": 0,
+    "bySource": {"csv": 298, "douyin": 32, "xiaohongshu": 13, "baidu": 0}
+  },
+  "next_day_note": "🔵 Day 19 (周四): ContentAsset.spot_id 修复 (mentions/scenicSpotId) + 百度 CDP 评估"
+}

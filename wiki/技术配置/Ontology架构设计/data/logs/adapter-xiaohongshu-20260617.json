@@ -1,0 +1,20 @@
+{
+  "date": "2026-06-17",
+  "adapter": "adapter-xiaohongshu.py",
+  "transformedCount": 24,
+  "contentAssetCount": 8,
+  "metricSnapshotCount": 16,
+  "sourceDir": "/tmp/xhs_daily_data.json",
+  "status": "success",
+  "log": [
+    "批量格式 xhs_daily_data.json: 8 成功, 0 失败",
+    "  [✅] 建业电影小镇: content_count=26, engagement_rate=0, likes_est=0",
+    "  [✅] 只有河南: content_count=53, engagement_rate=0, likes_est=0",
+    "  [✅] 银基动物王国: content_count=43, engagement_rate=0, likes_est=0",
+    "  [✅] 万岁山武侠城: content_count=51, engagement_rate=0, likes_est=0",
+    "  [✅] 清明上河园: content_count=44, engagement_rate=0, likes_est=0",
+    "  [✅] 方特欢乐世界: content_count=44, engagement_rate=0, likes_est=0",
+    "  [✅] 海昌海洋公园: content_count=45, engagement_rate=0, likes_est=0",
+    "  [✅] 只有红楼梦戏剧幻城: content_count=57, engagement_rate=0, likes_est=0"
+  ]
+}

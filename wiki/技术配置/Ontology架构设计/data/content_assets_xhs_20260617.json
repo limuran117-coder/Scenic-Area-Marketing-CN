@@ -1,0 +1,162 @@
+{
+  "objectType": "ContentAsset",
+  "date": "2026-06-17",
+  "generatedAt": "2026-06-17T09:04:17.691184",
+  "sourceAdapter": "adapter-xiaohongshu.py",
+  "ontologyVersion": "1.0.0",
+  "objects": [
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::movie_town::2026-06-17::content_aggregate",
+      "scenicSpotId": "movie_town",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "建业电影小镇 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=建业电影小镇",
+      "metrics": {
+        "notes_count": 26,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691097",
+      "derivedToMetricSnapshot": "movie_town::2026-06-17::content_count::xhs"
+    },
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::only_henan::2026-06-17::content_aggregate",
+      "scenicSpotId": "only_henan",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "只有河南 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=只有河南",
+      "metrics": {
+        "notes_count": 53,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691114",
+      "derivedToMetricSnapshot": "only_henan::2026-06-17::content_count::xhs"
+    },
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::yinji::2026-06-17::content_aggregate",
+      "scenicSpotId": "yinji",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "银基动物王国 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=银基动物王国",
+      "metrics": {
+        "notes_count": 43,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691122",
+      "derivedToMetricSnapshot": "yinji::2026-06-17::content_count::xhs"
+    },
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::wansui_mountain::2026-06-17::content_aggregate",
+      "scenicSpotId": "wansui_mountain",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "万岁山武侠城 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=万岁山武侠城",
+      "metrics": {
+        "notes_count": 51,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691128",
+      "derivedToMetricSnapshot": "wansui_mountain::2026-06-17::content_count::xhs"
+    },
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::qingming_riverside::2026-06-17::content_aggregate",
+      "scenicSpotId": "qingming_riverside",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "清明上河园 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=清明上河园",
+      "metrics": {
+        "notes_count": 44,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691134",
+      "derivedToMetricSnapshot": "qingming_riverside::2026-06-17::content_count::xhs"
+    },
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::fangte::2026-06-17::content_aggregate",
+      "scenicSpotId": "fangte",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "方特欢乐世界 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=方特欢乐世界",
+      "metrics": {
+        "notes_count": 44,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691139",
+      "derivedToMetricSnapshot": "fangte::2026-06-17::content_count::xhs"
+    },
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::haichang::2026-06-17::content_aggregate",
+      "scenicSpotId": "haichang",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "海昌海洋公园 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=海昌海洋公园",
+      "metrics": {
+        "notes_count": 45,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691145",
+      "derivedToMetricSnapshot": "haichang::2026-06-17::content_count::xhs"
+    },
+    {
+      "schema": "ContentAsset",
+      "version": "1.0.0",
+      "id": "xhs::only_dream::2026-06-17::content_aggregate",
+      "scenicSpotId": "only_dream",
+      "date": "2026-06-17",
+      "type": "xiaohongshu_aggregate",
+      "source": "xiaohongshu",
+      "title": "只有红楼梦戏剧幻城 - 小红书内容聚合 - 2026-06-17",
+      "url": "https://www.xiaohongshu.com/explore?channel_type=web_user_page&keyword=只有红楼梦戏剧幻城",
+      "metrics": {
+        "notes_count": 57,
+        "likes_estimated": 0
+      },
+      "collectedAt": "",
+      "confidence": 0.3,
+      "createdAt": "2026-06-17T09:04:17.691150",
+      "derivedToMetricSnapshot": "only_dream::2026-06-17::content_count::xhs"
+    }
+  ],
+  "count": 8
+}
