@@ -403,9 +403,9 @@ class OntologyStore:
         for obj in objects:
             if obj.get("schema") != "ContentAsset":
                 continue
-            # 从 mentions 数组取第一个作为 spot_id
+            # spot_id 解析: 优先 mentions[0] → 回退 scenicSpotId 顶层字段 (D-019)
             mentions = obj.get("mentions", [])
-            spot_id = mentions[0] if mentions else None
+            spot_id = mentions[0] if mentions else obj.get("scenicSpotId")
 
             self.conn.execute("""
                 INSERT OR REPLACE INTO content_assets

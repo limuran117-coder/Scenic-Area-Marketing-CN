@@ -1,0 +1,37 @@
+{
+  "date": "2026-06-18",
+  "day": 19,
+  "phase": "Phase 2 收尾 · Day 19 工作记录",
+  "completed": [
+    "✅ 修复 ontology_store.ingest_content_assets spot_id 解析 (D-019): mentions[0] → 回退 scenicSpotId 顶层字段",
+    "✅ 重新跑 adapter-xiaohongshu.py: 新 8 条 ContentAsset 全部带 spot_id (2026-06-18 数据)",
+    "✅ 修复 8 条历史 None (2026-06-17 写入时无 mentions): 一次性 UPDATE 全部回填 scenicSpotId",
+    "✅ 验证: xhs ContentAsset 21 条 spot_id 全部分配 (8 个景区全覆盖, 0 个 None 残留)"
+  ],
+  "blockers": [
+    "🔴 百度 adapter 仍缺采集脚本 (crawl_baidu.py 未实现) — Phase 3 入口",
+    "🔴 CSV 6/8-6/30 数据零值仍未解决 (待站长录入)",
+    "🟡 xhs engagement_rate/likes_est 全 0 (adapter 计算逻辑偏弱, 不影响 spot_id 修复但数据价值低)"
+  ],
+  "tomorrow_plan": [
+    "[Day 20] 评估百度指数 CDP 采集脚本最小可行方案 (crawl_baidu.py 启动)",
+    "[Day 20] 或: 优化 xhs engagement_rate 计算 (从原始数据带 sum 而非 0)",
+    "[Day 20] 检查 visitors adapter 6/8-6/30 数据补录问题"
+  ],
+  "decisions": [
+    "D-019: ContentAsset.spot_id 双源解析 — 优先 mentions[0] → 回退 scenicSpotId 顶层字段。选择 store 端兼容, 不改 adapter schema (D-018 风格延续)",
+    "D-019: 历史 8 条 None 一次性回填 (写时 scenicSpotId 已在 raw_data, 可逆修复)"
+  ],
+  "files_modified": [
+    "scripts/ontology_store.py: ingest_content_assets spot_id 双源解析 (D-019)"
+  ],
+  "store_stats_after_fix": {
+    "scenicSpots": 8,
+    "metricSnapshots": 366,
+    "contentAssets": 24,
+    "xhs_contentAssets": 21,
+    "xhs_with_spot_id": 21,
+    "xhs_null_spot_id": 0
+  },
+  "next_day_note": "🔵 Day 20 (周五): 启动 crawl_baidu.py 评估 或 xhs engagement_rate 优化"
+}
