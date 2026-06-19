@@ -197,7 +197,10 @@ def _process_one_result(result: dict) -> tuple:
     )
 
     # MetricSnapshot: engagement_rate
-    engagement = round(likes_total / notes_count, 1) if likes_total > 0 and notes_count > 0 else 0
+    # D-021: 当 likes_total=0 时，engagement_rate 缺失而非真实为 0
+    # 标记 data_missing=true 让 query 层能区分"真零"与"数据缺失"
+    has_likes_data = likes_total > 0 and notes_count > 0
+    engagement = round(likes_total / notes_count, 1) if has_likes_data else 0.0
     ms_engage = build_metric_snapshot(
         scenic_spot_id=scenic_id,
         date_str=date_str,
@@ -206,6 +209,9 @@ def _process_one_result(result: dict) -> tuple:
         collected_at=collected_at,
         content_asset_ids=asset_ids,
     )
+    if not has_likes_data:
+        ms_engage["metadata"]["data_missing"] = True
+        ms_engage["metadata"]["data_missing_reason"] = "xhs batch format lacks top_likes aggregate"
 
     log_line = f"  [✅] {keyword}: content_count={notes_count}, engagement_rate={engagement}, likes_est={likes_total}"
     return content_asset, [ms_content, ms_engage], log_line

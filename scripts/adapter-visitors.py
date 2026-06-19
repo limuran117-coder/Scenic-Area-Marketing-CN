@@ -110,7 +110,7 @@ def _build_metric(metric_type: str, date_str: str, value: float) -> dict:
         "value": value,
         "dailyChange": None,
         "weeklyChange": None,
-        "confidence": 1.0,
+        "confidence": get_confidence("csv"),
         "metadata": {
             "adapter": "adapter-visitors.py",
             "source_file": "2026游客量统计.csv",

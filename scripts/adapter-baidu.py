@@ -89,7 +89,8 @@ from ontology_constants import (
 # ─── 常量 ────────────────────────────────────────
 
 SOURCE = "baidu"
-CONFIDENCE = 0.6  # 百度指数置信度中等（受反爬+采样影响）
+# D-020: confidence 统一从 ontology_constants.get_confidence('baidu') 取，不再硬编码 0.6
+CONFIDENCE = get_confidence("baidu")
 
 # 竞品在百度指数的关键词映射（可能与抖音不同）
 BAIDU_KEYWORD_MAP = {

@@ -29,7 +29,9 @@ from pathlib import Path
 
 # ─── 共享常量（来自 ontology_constants.py）─────
 
-from ontology_constants import SCENIC_SPOT_MAP, resolve_spot_id
+from ontology_constants import SCENIC_SPOT_MAP, resolve_spot_id, get_confidence
+
+# D-020: confidence 统一从 ontology_constants.get_confidence('douyin') 取，不再硬编码 0.9
 
 METRIC_TYPES = {
     "search": "search_index",
@@ -50,7 +52,7 @@ def build_metric_object(scenic_spot_id, date_str, metric_type, value, daily_chan
         "metricType": metric_type,
         "value": value,
         "dailyChange": daily_change,
-        "confidence": 0.9,
+        "confidence": get_confidence("douyin"),
         "collectedAt": collected_at,
         "createdAt": datetime.datetime.now().isoformat()
     }
