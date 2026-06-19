@@ -138,3 +138,14 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cro
 - D-008: FIELD_MAP 字段映射（camelCase ontology → snake_case db）
 - D-009: 嵌套字段 metrics.notes_count / date→publish_date 在 _map_fields 特殊处理
 - D-010: "先全量回填，后续增量" 策略（不动生产 cron）
+
+---
+
+# W26 (2026-06-20) GitHub高星标学习 — 关键发现
+
+**项目：** rohitg00/agentmemory (~18K stars, 2026-05-27 首版)
+**它解决了什么：** AI Agent 跨会话/跨工具的共享长期记忆层（BM25+向量混合检索+LLM自动压缩），token 消耗较 Agent 内置记忆降 92%
+**我们怎么用：** 解决 MEMORY.md 100行/25KB 限制 + 多 Agent（主对话/抖音日报/竞品分析）记忆碎片化问题。短期 spike 验证单 Agent 接入能否降 M3 5h 撞限频率
+**不跟进的代价：** MEMORY.md 持续线性膨胀，6 个月后必然撞限丢失关键规则；多 Agent 冷启动 token 成本居高不下；竞品若用同类工具，跨任务知识复用效率比我们高 1-2 个量级
+
+**注：** 当前 v0.9.17，3 周迭代 7 次，等 v1.0 稳定再 production。TypeScript 实现需 Node v22+ (✅已有)

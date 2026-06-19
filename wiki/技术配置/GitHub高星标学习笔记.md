@@ -252,3 +252,61 @@
 - 新增 Agent Zero / LightAgent / rjmurillo/ai-agents 三个项目记录
 - 确认 **browser-use 增速放缓**（周增8K→2-4K）趋势持续
 - **Skills 生态** 进入双雄并立（Superpowers 123K + mattpocock 112K）成熟期
+
+---
+
+## W26（2026-06-20 周六 00:00）新增发现
+
+### 发现：rohitg00/agentmemory — 跨会话记忆共享层，token 消耗降 92%
+
+**仓库：** https://github.com/rohitg00/agentmemory | **语言：** TypeScript | **Stars：** ~18K（2026-05-27 首版，3 周内爆发）| **License：** MIT
+
+**一句话核心：** 给 AI 编码 Agent 加一套可自动记录/压缩/检索/复用的长期记忆系统，让 Claude Code / Codex CLI / Hermes / pi 等多 Agent 在不同会话中共享同一份项目经验。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+传统 Agent 内置记忆是单会话临时 buffer，关掉就没了；多个 Agent 工具之间记忆互不相通。agentmemory 提供**跨 Agent、跨会话、跨工具**的共享记忆层（BM25 + 向量混合检索 + 自动 LLM 压缩），从"每个 Agent 各自记笔记"进化到"一个记忆池多 Agent 复用"。
+
+**2. 我们的系统能怎么用？**
+- **直接解决 MEMORY.md 100行/25KB 限制：** 当前每次新会话要 read MEMORY.md，文件超过阈值会强制截断，丢失历史规则。agentmemory 的分块存储 + 按需检索可以让我们保留完整记忆但只加载相关片段
+- **多脚本共享语境：** 抖音日报 Agent / 竞品分析 Agent / 复盘 Agent 当前各自读自己的 memory/* 文件。统一记忆层后，竞品日报可以直接复用日报 Agent 写过的"竞品历史动作"
+- **CJK 已支持（PR #362）：** 内置中文分词器，符合我们中文景区运营场景
+- **OpenAI/DeepSeek/Ollama 多 provider（Issue #371）：** 不绑定特定 LLM，可复用现有 MiniMax-M3 链路
+
+**3. 不跟进的代价是什么？**
+- MEMORY.md 继续以文本文件线性膨胀，6 个月后必然撞限丢失关键规则
+- 多 Agent（主对话 / 抖音日报 / 竞品分析）记忆碎片化，每次都要"先读 SOUL/USER/MEMORY"做冷启动，冷启动 token 成本居高不下
+- 竞品如果在 Agent 协作中用了 agentmemory，跨任务知识复用效率会比我们高 1-2 个量级
+
+#### 技术架构亮点
+
+| 特性 | agentmemory | 本系统现状 |
+|------|------------|-----------|
+| 存储后端 | SQLite + BM25 + Embedding | 纯文本文件 (MEMORY.md / memory/YYYY-MM-DD.md) |
+| 记忆隔离 | 跨 Agent 共享池 | 每个 Agent 各自 read 自己的目录 |
+| 检索 | BM25 + 向量混合 | 全量 read 后人肉匹配 |
+| 压缩 | LLM 自动 summarize | 站长手动 MEMORY.md 维护 |
+| 冷启动成本 | 按 query 检索相关片段 | 每次 read 完整 MEMORY.md |
+| Token 节省 | 92% vs 内置记忆 | 基线 |
+| 多 Agent 协议 | Claude Code / Codex / Hermes / pi / OpenHuman / Cursor | OpenClaw 单 Agent |
+
+#### 集成路径
+
+| 阶段 | 行动 | 评估指标 |
+|------|------|---------|
+| 短期 (1周) | spike 验证：单 Agent 接入 agentmemory CLI，看是否真的降 92% token | M3 5h 限额撞限频率 |
+| 中期 (1月) | 抖音日报 Agent 接入，复用日报 Agent 写过的"竞品历史动作" | 冷启动 token 减少 50%+ |
+| 长期 (1季) | 全部脚本走 agentmemory 共享池 | MEMORY.md 限制问题彻底解决 |
+
+#### 风险点
+
+- TypeScript 实现，需 Node.js 运行环境（已有 v22.22.3 ✅）
+- 当前最新 v0.9.17（2026-05-16），3 周内迭代 7 个小版本 → **项目活跃但 API 还在变化**，等 v1.0 稳定再 production 集成
+- 需要 LLM API key（OpenAI/DeepSeek/Ollama）做压缩 → MiniMax-M3 是否可作 provider 待 spike 验证
+
+#### 对比上期（W25）笔记的变化
+
+- 上期关注 **Agent Zero Annotate Mode**（浏览器自动化自主发现）→ 本期关注 **agentmemory**（记忆层共享）→ 焦点从"动作执行"转向"知识沉淀"
+- 同期 **MemPalace** 也进入视野（54K stars，6/8 日增 855 ⭐）→ 与 agentmemory 互补（一个偏跨 Agent，一个偏 Claude Code 深度集成）
+- Skills 双雄（Superpowers 123K + mattpocock 112K）格局未变 → 稳定赛道，本期无新增
