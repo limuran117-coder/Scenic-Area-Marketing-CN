@@ -1,7 +1,8 @@
 # 电影小镇 Ontology 架构设计研究
 
 > 对标 Palantir Foundry/AIP Ontology Architecture
-> 研究启动：2026-05-29 | 状态：持续迭代
+> 研究启动：2026-05-29 | 最近更新: 2026-06-19 (Week 6 原型完成)
+> 状态：Phase 1 原型已跑通；Phase 2 实施中
 
 ---
 

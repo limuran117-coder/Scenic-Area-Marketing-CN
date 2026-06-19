@@ -121,3 +121,20 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cro
 - 写入前3步验证：搜索→交叉→标注来源
 - 任务5步法：数据源→事实→脚本→检查→验证
 - 临时脚本<30行可用heredoc；>=30行/复用脚本必须write文件
+
+---
+
+**🏗️ Ontology Layer 原型完成（2026-06-19 Week 6 重大里程碑）**
+- [project] **Week 6 最小可行 Ontology Layer 已跑通** — SQLite 163 objects / 7 表
+- [project] `scripts/ontology/` 子包上线：store/query/backfill/seed 4 模块
+- [project] 14 个历史 JSON 全部回填，0 失败（+122 新增/~11 更新）
+- [project] 8 个预定义查询方法 + 健康检查已就位
+- [project] 完整记录见 `wiki/技术配置/Ontology架构设计/Week6_原型实现.md`
+- [feedback] **adapter 双写时机：Week 7 改造 4 个 adapter，最小破坏**
+- [reference] `ontology_query.py douyin` 可直接替代手写飞书日报 SQL
+
+**Week 6 关键设计决策：**
+- D-007: scripts/ontology/ 子包布局（关注点内聚）
+- D-008: FIELD_MAP 字段映射（camelCase ontology → snake_case db）
+- D-009: 嵌套字段 metrics.notes_count / date→publish_date 在 _map_fields 特殊处理
+- D-010: "先全量回填，后续增量" 策略（不动生产 cron）
