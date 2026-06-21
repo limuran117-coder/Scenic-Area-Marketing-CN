@@ -87,3 +87,14 @@
 
 **月度准确率**：非月初，跳过统计（下次：2026-07-05）
 **淘汰检查**：非季度初（下次：2026-10-04），跳过
+
+## [2026-06-21] 周日维护 | lint-result.json 刷新（2026-06-14 → 2026-06-21）
+
+**模式：** 健康检查 + 漂移确认（无新增修复）
+
+- 工作树：clean（0 changes）
+- wiki_drift_check.py：39 lint issues（33 orphan + 5 contradiction + 1 stale） + 60 undocumented scripts — 与 6/14 基线一致，无新增漂移
+- 已知漂移均已记录在 2026-06-14 上一次 lint 中（TOOLS.md / wiki/log.md / system-metabolism-log）
+- 本次仅刷新 lint-result.json 时间戳到 2026-06-21
+
+**周度技能探索状态（沿用 W24 #5）：** 无新装需求，himalaya/wacli/sag 触发安装条件已在 TOOLS.md 记录。

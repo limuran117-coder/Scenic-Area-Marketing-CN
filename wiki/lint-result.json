@@ -1,238 +1,78 @@
 {
-  "timestamp": "2026-06-14T12:03:36.123740",
-  "issues_count": 39,
+  "timestamp": "2026-06-21T09:06:37.842149",
+  "status": "has_issues",
   "issues": [
     {
-      "type": "stale",
-      "file": "竞品分析/竞品深度档案/万岁山武侠城深度分析.md",
-      "last_update": "2026-05-12",
-      "days_old": 33,
-      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+      "type": "lint_summary",
+      "total_issues": 39,
+      "orphan_count": 33,
+      "contradiction_count": 5
     },
     {
-      "type": "orphan",
-      "file": "全国景区案例库/招法组合1-票根+分龄分层全域营销-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/招法组合4-爆款公式3组合-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/景德镇陶溪川72小时陶艺马拉松-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/不建议照搬-2026W24-IP过度依赖与噱头衰减清单.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/招法组合3-二消阶梯+情绪命名溢价-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/乌镇戏剧节艺术旅游双核驱动-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/万岁山主客共创节目体系王婆说媒李白对诗-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/大唐不夜城长安十二时辰沉浸式事件-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/招法组合2-任务卡+UGC追投低成本爆破-2026W24.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/景区营销漏斗.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/ROI分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/演艺景区.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/情绪营销.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/内容爆款规律.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/平台算法规则.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/内容发布节奏.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/景区类型.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/景区抖音运营.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/景区小红书运营.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "concepts/季节性客流规律.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/客流营收历年分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/2026-04-25Wiki重组.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/穿越德化街数据分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/周度技能探索_2026-05-01.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/周度技能探索_2026-05-30.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/抖音指数追踪日报.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/竞品深度档案.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "sources/建业电影小镇阶段性数据表.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "行业知识/结论索引.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "行业知识/系统健康分.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "竞品分析/竞品动态追踪/2026-W24-周度竞争格局.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "技术配置/Ontology架构设计/基础设施评估.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "电影小镇/历史数据/W23期-20260609.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "overview.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "系统/overview.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "sources/客流营收历年分析.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "电影小镇/基础档案.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "entities/建业电影小镇.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+      "type": "scripts_not_documented",
+      "count": 60,
+      "scripts": [
+        "adapter-baidu.py",
+        "adapter-douyin.py",
+        "adapter-visitors.py",
+        "adapter-xiaohongshu.py",
+        "add_yaml_frontmatter.py",
+        "autonomous_skill_create.py",
+        "build_dashboard.py",
+        "build_xhs_card.py",
+        "case_library_scan.py",
+        "cdp_collect.py",
+        "cdp_collector.py",
+        "cdp_cookie_hub.py",
+        "cdp_douyin.py",
+        "cdp_keyword_deep.py",
+        "cdp_restore_tabs.py",
+        "cdp_tab_manager.py",
+        "competitor_keyword.py",
+        "competitor_keyword_debug.py",
+        "competitor_keyword_index.py",
+        "competitor_program_tracker.py",
+        "confirm_action.py",
+        "content_intel.py",
+        "crawl_baidu.py",
+        "dashboard.py",
+        "douyin_index.py",
+        "douyin_keyword_detail.py",
+        "industry_news_browser.py",
+        "industry_news_rss.py",
+        "lingxi_keepalive.py",
+        "llmwiki_ingest.py",
+        "llmwiki_lint.py",
+        "llmwiki_query.py",
+        "m3_usage_alert.py",
+        "nudge_knowledge.py",
+        "ontology_constants.py",
+        "ontology_query.py",
+        "ontology_store.py",
+        "pattern_analysis.py",
+        "periodic_nudge.py",
+        "project_drift_check.py",
+        "prompt_minify.py",
+        "query_passenger.py",
+        "seed_content_assets.py",
+        "self_check.py",
+        "send_case_lib_update.py",
+        "send_daily_intel_20260615.py",
+        "send_daily_intel_20260618.py",
+        "send_daily_tourism_report.py",
+        "send_feishu_card.py",
+        "send_industry_news.py",
+        "send_intel_20260618.py",
+        "send_marketing_case_qyshy.py",
+        "send_w16_report.py",
+        "send_wenhua_tracking.py",
+        "sync_obsidian_daily.py",
+        "validate_data.py",
+        "wiki_drift_check.py",
+        "xhs_competitor_crawl.py",
+        "xhs_daily_collector.py",
+        "xiaohongshu_crawl.py"
+      ]
     }
   ]
 }
