@@ -1,78 +1,73 @@
 {
-  "timestamp": "2026-06-21T09:06:37.842149",
-  "status": "has_issues",
+  "timestamp": "2026-06-21T12:05:55.002909",
+  "issues_count": 6,
   "issues": [
     {
-      "type": "lint_summary",
-      "total_issues": 39,
-      "orphan_count": 33,
-      "contradiction_count": 5
+      "type": "stale",
+      "file": "竞品分析/竞品深度档案/万岁山武侠城深度分析.md",
+      "last_update": "2026-05-12",
+      "days_old": 40,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
-      "type": "scripts_not_documented",
-      "count": 60,
-      "scripts": [
-        "adapter-baidu.py",
-        "adapter-douyin.py",
-        "adapter-visitors.py",
-        "adapter-xiaohongshu.py",
-        "add_yaml_frontmatter.py",
-        "autonomous_skill_create.py",
-        "build_dashboard.py",
-        "build_xhs_card.py",
-        "case_library_scan.py",
-        "cdp_collect.py",
-        "cdp_collector.py",
-        "cdp_cookie_hub.py",
-        "cdp_douyin.py",
-        "cdp_keyword_deep.py",
-        "cdp_restore_tabs.py",
-        "cdp_tab_manager.py",
-        "competitor_keyword.py",
-        "competitor_keyword_debug.py",
-        "competitor_keyword_index.py",
-        "competitor_program_tracker.py",
-        "confirm_action.py",
-        "content_intel.py",
-        "crawl_baidu.py",
-        "dashboard.py",
-        "douyin_index.py",
-        "douyin_keyword_detail.py",
-        "industry_news_browser.py",
-        "industry_news_rss.py",
-        "lingxi_keepalive.py",
-        "llmwiki_ingest.py",
-        "llmwiki_lint.py",
-        "llmwiki_query.py",
-        "m3_usage_alert.py",
-        "nudge_knowledge.py",
-        "ontology_constants.py",
-        "ontology_query.py",
-        "ontology_store.py",
-        "pattern_analysis.py",
-        "periodic_nudge.py",
-        "project_drift_check.py",
-        "prompt_minify.py",
-        "query_passenger.py",
-        "seed_content_assets.py",
-        "self_check.py",
-        "send_case_lib_update.py",
-        "send_daily_intel_20260615.py",
-        "send_daily_intel_20260618.py",
-        "send_daily_tourism_report.py",
-        "send_feishu_card.py",
-        "send_industry_news.py",
-        "send_intel_20260618.py",
-        "send_marketing_case_qyshy.py",
-        "send_w16_report.py",
-        "send_wenhua_tracking.py",
-        "sync_obsidian_daily.py",
-        "validate_data.py",
-        "wiki_drift_check.py",
-        "xhs_competitor_crawl.py",
-        "xhs_daily_collector.py",
-        "xiaohongshu_crawl.py"
-      ]
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "overview.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "系统/overview.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "sources/客流营收历年分析.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "电影小镇/基础档案.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "entities/建业电影小镇.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
     }
   ]
 }
