@@ -18,18 +18,27 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 
 ---
 
-# 🚨 当前系统状态（2026-06-12）
+# 🚨 当前系统状态（2026-06-21 · W25审视）
 
 **模型**：minimax/MiniMax-M2.7（6/12从M3切换回来，无5h限额）
 **auth配置**：openclaw.json有authProfile=minimax:default + 软链接agents→根目录auth-profiles.json ✅
 **web_search**：minimax国内搜索 ✅
 **代理**：7897 ✅ LISTEN | **CDP**：18800 ✅ LISTEN
-**cookie保鲜**：抖音20:28 / 小红书10:45 ✅
+**cookie保鲜**：⚠️ 灵犀后台not_logged_in×3日(6/17-19) + 抖音my-subscript采空×3日(6/17-19) | 需站长人工扫码
 
 **今日修复（6/12）**：
 - catalog.json apiKey从env变量名→真实key ✅
 - 全部32个cron洞察层prompt升级 ✅
 - auth软链接缺失 ✅
+
+**W25关键发现（6/21系统进化审视）**：
+- [project] **SOP三件套 0/31 全齐首次发现** — When/RedFlag/Verify 覆盖率 6%/0%/10%；YAML 28/31（90%）优秀但三件套严重缺
+- [project] **SOP升级连续3周跳票（W23→W24→W25）** — 站长需A/B/C三选一：A集中突击/B拆分3天/C降级H2不做
+- [project] **基础设施断链双发** — 灵犀not_logged_in×3日 + 抖音my-subscript采空×3日；需站长人工恢复
+- [project] **6/8 cron时间冲突已修**（竞品内容动态14:00→14:30；周日系统代谢9:00→9:30）
+- [project] **业务执行层脱节第8天** — 6/15预警的毕业生免票+海魂衫+80年代夜游2.0+品牌主标识 全部未落地
+- [project] **R08执行闭环连续5周跳票** — 端午窗口失守已确认
+- [project] **W26新建议**：`scripts/cookie_health_check.py` + cron `0 9 * * 1-5` 早于日报2小时发现Cookie/账号失效
 
 ---
 
