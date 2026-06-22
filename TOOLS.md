@@ -291,30 +291,58 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 
 ---
 
-## 系统技能（Skill）配置现状（2026-06-22 W26 巡检）
+## 系统技能（Skill）配置现状（2026-06-22 W26 巡检，10:13 清理后）
 
-> **背景**：`openclaw skills list` 显示 99 个 skill 状态，避免未来误判"全 disabled"为"不能用"。
+> **背景**：`openclaw skills list` 显示 skill 状态，10:13 清理后 99 → 72 个有效 entries。
 
-### 📊 99 个 Skill 状态矩阵
+### 📊 Skill 状态矩阵（清理后）
 
 | 状态 × 来源 | bundled | extra | workspace | 合计 |
 |---|---|---|---|---|
-| ✅ **ready** | 16 | 7 | 34 | **57** |
-| ❌ disabled | 41 | 0 | 0 | 41 |
-| ⚠️ warning | 1 | 0 | 0 | 1 |
-| **合计** | 57 | 7 | 34 | **99** |
+| ✅ **ready** | 20 | 7 | 34 | **61** |
+| ❌ disabled | 11 | 0 | 0 | 11 |
+| **合计** | 31 | 7 | 34 | **72** |
 
-### ⚠️ 关键：openclaw.json 的 43 个 entries 全部 disabled ≠ "不能用"
+### 🧹 2026-06-22 10:13 清理动作
+
+**openclaw.json skills.entries**：43 → 13 个（删 30 个永不可用）
+
+| 删的类别 | 数量 | 典型 |
+|---|---|---|
+| 团队协作-飞书替代 | 4 | discord/slack/notion/trello |
+| 个人娱乐-macOS | 8 | songsee/gifgrep/blucli/eightctl/camsnap/ordercli/bear-notes/apple-notes/spotify-player |
+| 海外平台 | 4 | openhue/wacli/imsg/himalaya/voice-call |
+| 平台管理工具 | 2 | mcporter/clawhub |
+| 重复功能 | 4 | xurl/blogwatcher/peekaboo/obsidian |
+| 凭证/缺 API | 5 | 1password/oracle/openai-whisper(-api)/goplaces |
+| 重复编码 | 1 | coding-agent（已有 acp-router） |
+| **删总计** | **30** | |
+
+**保留 13 个**（标 disabled 但有触发条件）：
+- ✅ tmux / nano-pdf：CLI 已装（10:00 安装完成）
+- 🟡 model-usage / summarize：需 API key（summarize 缺 OPENAI_API_KEY）
+- 🟢 其它 9 个：保留待触发
+
+### 🆕 2026-06-22 10:00 装包
+
+| CLI | 装法 | 状态 | 用途 |
+|---|---|---|---|
+| `tmux` 3.6b | `brew install tmux`（已预装）| ✅ 就绪 | 后台长 cron + 交互式 CLI |
+| `nano-pdf` | `uv tool install nano-pdf` | ✅ 就绪 | 文旅 PDF 政策处理 |
+
+### ⚠️ 关键：openclaw.json 的 entries 是手动覆盖层 ≠ "不能用的清单"
 
 openclaw.json 的 `skills.entries` 是**手动覆盖层**，不影响自动发现。Agent 通过 `loadSkillsFromDirInternal` 自动扫描 3 个目录加载 skill：
 
-1. `~/.npm-global/lib/node_modules/openclaw/skills/` （系统 57 个）
+1. `~/.npm-global/lib/node_modules/openclaw/skills/` （系统）
 2. `~/.openclaw/workspace/skills/` （workspace 34 个）
 3. `~/.openclaw/agents/main/skills/` （用户自定义）
 
-**所以 57 个 ready skill 都在用，workspace 34 个 skill 也在用。**
+**所以 61 个 ready skill 都在用，workspace 34 个 skill 也在用。**
 
-### ✅ 57 个 ready skill 按业务分组
+清理后：openclaw.json 13 个 entries 全部 disabled（保留待触发），加上 31 个有效 bundled（20 ready + 11 disabled），总共 72 个有效 skill 状态。
+
+### ✅ 61 个 ready skill 按业务分组
 
 **🌐 浏览器/采集（5）**
 - `agentgo-browser` / `browser` / `browser-automation` / `scrapling` / `diagram-maker`
@@ -331,27 +359,28 @@ openclaw.json 的 `skills.entries` 是**手动覆盖层**，不影响自动发�
 **🛠️ 调试/工具（6+）**
 - `gh-issues` / `github` / `healthcheck` / `meme-maker` / `node-inspect-debugger` / `python-debugpy` / `canvas` / `gog` / `karpathy-*` / `task-audit` / `mempalace` / `ontology`
 
-### ❌ 41 个 disabled skill 根因
+### ❌ 11 个 disabled skill 根因（清理后）
 
 | 根因 | 数量 | 典型 |
 |---|---|---|
-| **缺 CLI** | 25+ | `tmux`/`nano-pdf`/`peekaboo`/`1password`/`clawhub`/`coding-agent` |
-| **缺 API key** | 5+ | `summarize`(OpenAI) / `oracle`(需 OpenAI) / `claude_api_builder` |
-| **需 macOS 集成** | 5+ | `apple-notes`/`apple-reminders`/`bear-notes`/`imsg`/`spotify` |
-| **需外部服务** | 5+ | `slack`/`discord`/`notion`/`trello`/`obsidian` |
-| **其他** | 5+ | `model-usage`(无 codexbar) / `himalaya`(需 SMTP) |
+| **缺 API key** | 4 | `summarize`/`sag`（ElevenLabs）/`gemini` |
+| **缺 CLI**（保留待装） | 5 | `model-usage`/`tmux`✅/`nano-pdf`✅/`session-logs` |
+| **需 macOS 集成** | 1 | `apple-reminders` |
+| **特殊工具** | 1 | `things-mac`/`sonoscli`（个人 app） |
 
-### 🛠️ 触发安装条件（按 ROI 排序）
+> **30 个永不可用 skill 已从 openclaw.json 删除**（10:13 清理动作）
 
-| 优先级 | Skill | 触发条件 | 装法 |
-|---|---|---|---|
-| 🟡 中 | `tmux` | 需要后台跑长 cron（如持续爬取） | `brew install tmux` |
-| 🟡 中 | `nano-pdf` | 收到 PDF 格式的文旅政策/数据 | `uv tool install nano-pdf` |
-| 🟡 中 | `model-usage` | token 消耗开始显著增长 | `brew install --cask steipete/tap/codexbar` |
-| 🟢 低 | `peekaboo` | 需要操作 Mac 原生 app（非浏览器） | `brew install --cask steipete/tap/peekaboo` |
-| 🟢 低 | `wacli` | 需要联系海外游客/国际合作 | `brew install steipete/tap/wacli` |
-| 🟢 低 | `himalaya` | 站长说"邮件监控" | `brew install himalaya` |
-| 🔴 高 | `summarize` | 站长提供 OpenAI/OpenRouter key | 配置 OPENAI_API_KEY 后自动启用 |
+### 🛠️ 触发安装条件（按 ROI 排序，10:13 更新）
+
+| 优先级 | Skill | 触发条件 | 装法 | 状态 |
+|---|---|---|---|---|
+| ✅ 完成 | `tmux` | 需要后台跑长 cron | `brew install tmux` | **10:00 已装** |
+| ✅ 完成 | `nano-pdf` | 收到 PDF 格式的文旅政策/数据 | `uv tool install nano-pdf` | **10:00 已装** |
+| 🟡 中 | `model-usage` | token 消耗开始显著增长 | `brew install --cask steipete/tap/codexbar` | 待触发 |
+| 🟡 中 | `session-logs` | 需要跨 session 搜索历史 | `brew install ripgrep` | 待触发 |
+| 🟢 低 | `sag` | 站长说"配音"/"语音" | `brew install sag` + ELEVENLABS_API_KEY | 待触发 |
+| 🟢 低 | `gemini` | 需要 Google Gemini 模型调用 | 配置 API key | 待触发 |
+| 🔴 高 | `summarize` | 站长提供 OpenAI/OpenRouter key | 配置 OPENAI_API_KEY | 待触发 |
 
 ### 🔍 验证命令
 
