@@ -158,6 +158,15 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cro
 
 ---
 
+**🚨 2026-06-22 15:15 heartbeat 规则强化（避免 token 浪费）**
+- 之前错误：10 次 heartbeat 每次都回 "系统健康" → 浪费 ~9 次 LLM token
+- **新规则**：收到 `[OpenClaw heartbeat poll]` 标记的消息 → **只回 `NO_REPLY`（单行）**，不解释
+- 收到人问的真问题 → 正常回答
+- SOUL.md 规则同步强化
+- **预期效果**：每天省 ~10-15 次 LLM 调用 × 30-60s × token 成本
+
+---
+
 **🏗️ Ontology Layer 原型完成（2026-06-19 Week 6 重大里程碑）**
 - [project] **Week 6 最小可行 Ontology Layer 已跑通** — SQLite 163 objects / 7 表
 - [project] `scripts/ontology/` 子包上线：store/query/backfill/seed 4 模块

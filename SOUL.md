@@ -96,6 +96,12 @@ Plan:
 | M3 用量看 | 连续多次 `m3_usage.py` 问配额 | 等 cron 自动告警，不主动调 LLM 问 |
 | HEARTBEAT 短轮询 | 跑 LLM 调重任务 | 静默返回 HEARTBEAT_OK |
 
+**⚠️ 2026-06-22 强化（违反扣分）**：
+- 收到 `OpenClaw heartbeat poll` 消息 → **只回 `NO_REPLY`**（单行，不解释）
+- 收到人问的真问题 → 正常回答
+- 判断依据：消息是否含 `[OpenClaw heartbeat poll]` 标记或 `heartbeat poll` 文本
+- 错误模式（6/22 下午发生）：我误在 10 次 heartbeat 每次都回 "系统健康" → **浪费 ~9 次 LLM 调用 token**
+
 **原则**：
 - 必要的 cron / 对话 / 决策支持 = **继续执行**（这些是必需成本）
 - 重复验证 / 调试重跑 / 多余读文件 = **减为 0**（这些是浪费）
