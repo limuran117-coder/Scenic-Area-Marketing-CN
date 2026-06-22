@@ -1,40 +1,43 @@
-# OpenClaw runtime directories
-.openclaw/
-.clawhub/
-.learnings/
-
-# macOS
+# OS
 .DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
 
-# Temporary files
-*.tmp
-*.temp
-*.log
-
-# Compiled outputs
-*.pyc
-__pycache__/
-
-# IDE
-.vscode/
+# Editor
 .idea/
+.vscode/
+*.iml
 
-# Ontology SQLite database (local only)
-.profile/ontology/
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 
-# Memory/dreaming (local only)
-memory/dreaming/
-memory/.dreams/
+# Node
+node_modules/
+npm-debug.log*
+.npm/
 
-# Backup files
-*.bak
-*.bak.*
-MEMORY.md.bak*
+# 临时文件
+.tmp/
+*.tmp
 
-# Large data files (keep small configs)
-# *.xlsx
-# *.csv
+# 大型二进制（不进 git，单独备份）
+.profile/cache/
+.profile/ontology/*.db
+.codegraph/*.db
+chrome-profile-18800/
 
-# Obsidian local config
-.obsidian/
-.codegraph/daemon.pid
+# 备份目录
+/tmp/backup_*/
+
+# 危险操作标记
+.DANGER
+*.disabled

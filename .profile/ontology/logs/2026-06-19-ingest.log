@@ -1,0 +1,56 @@
+[2026-06-19T20:09:46.785572] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table content_assets has no column named version
+[2026-06-19T20:09:46.786635] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table content_assets has no column named version
+[2026-06-19T20:09:46.787708] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table content_assets has no column named version
+[2026-06-19T20:09:46.789516] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table content_assets has no column named version
+[2026-06-19T20:09:46.790468] adapter-douyin.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.791329] adapter-douyin.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.792290] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.793288] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.794284] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.795193] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.796068] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.796873] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.797772] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:09:46.798566] adapter-xiaohongshu.py status=failed added=0 updated=0 err=table metric_snapshots has no column named schema
+[2026-06-19T20:10:04.219293] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.220384] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.221487] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.222685] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.223591] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.224501] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.225429] adapter-xiaohongshu.py status=success added=1 updated=0 err=
+[2026-06-19T20:10:04.226508] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.227707] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.228786] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.229674] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.230556] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.231422] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:04.232242] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-06-19T20:10:22.358294] adapter-xiaohongshu.py status=success added=4 updated=0 err=
+[2026-06-19T20:10:22.360209] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:22.362008] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:22.364214] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:22.367759] adapter-douyin.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:22.369671] adapter-douyin.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:22.370881] adapter-xiaohongshu.py status=success added=1 updated=0 err=
+[2026-06-19T20:10:22.372507] adapter-xiaohongshu.py status=success added=5 updated=1 err=
+[2026-06-19T20:10:22.373899] adapter-xiaohongshu.py status=success added=0 updated=6 err=
+[2026-06-19T20:10:22.375370] adapter-xiaohongshu.py status=success added=0 updated=4 err=
+[2026-06-19T20:10:22.377761] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:22.379224] adapter-xiaohongshu.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:22.380742] adapter-xiaohongshu.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:22.383787] adapter-xiaohongshu.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:43.133015] adapter-xiaohongshu.py status=success added=4 updated=0 err=
+[2026-06-19T20:10:43.134997] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:43.136370] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:43.137468] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:43.138556] adapter-douyin.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:43.139852] adapter-douyin.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:43.141078] adapter-xiaohongshu.py status=success added=1 updated=0 err=
+[2026-06-19T20:10:43.142332] adapter-xiaohongshu.py status=success added=5 updated=1 err=
+[2026-06-19T20:10:43.143359] adapter-xiaohongshu.py status=success added=0 updated=6 err=
+[2026-06-19T20:10:43.144288] adapter-xiaohongshu.py status=success added=0 updated=4 err=
+[2026-06-19T20:10:43.145352] adapter-xiaohongshu.py status=success added=8 updated=0 err=
+[2026-06-19T20:10:43.146651] adapter-xiaohongshu.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:43.147961] adapter-xiaohongshu.py status=success added=16 updated=0 err=
+[2026-06-19T20:10:43.149169] adapter-xiaohongshu.py status=success added=16 updated=0 err=

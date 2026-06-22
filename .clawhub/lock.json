@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "skills": {
+    "wechat-mini-program-builder": {
+      "version": "1.0.0",
+      "installedAt": 1779675604371
+    },
+    "wmp-to-uniapp": {
+      "version": "1.0.0",
+      "installedAt": 1779675607067
+    },
+    "mini-program-dev": {
+      "version": "1.0.0",
+      "installedAt": 1779675614323
+    },
+    "frontend-design-3": {
+      "version": "0.1.0",
+      "installedAt": 1779675619215
+    },
+    "karpathy-coding-guidelines": {
+      "version": "1.0.0",
+      "installedAt": 1779675622619
+    },
+    "wechat-miniprogram-skill": {
+      "version": "1.0.0",
+      "installedAt": 1779675633535
+    },
+    "miniprogram-development": {
+      "version": "1.21.0",
+      "installedAt": 1779675636616
+    },
+    "browser-automation": {
+      "version": "1.0.1",
+      "installedAt": 1779675640157
+    },
+    "react-best-practices": {
+      "version": "1.0.0",
+      "installedAt": 1779675688016
+    },
+    "typescript-skills": {
+      "version": "1.0.6",
+      "installedAt": 1779675696160
+    },
+    "debug-pro": {
+      "version": "1.0.0",
+      "installedAt": 1779675699195
+    },
+    "social-media-publish": {
+      "version": "1.0.0",
+      "installedAt": 1781493161175,
+      "registry": "https://clawhub.ai"
+    },
+    "ai-data-analysis": {
+      "version": "1.0.0",
+      "installedAt": 1781493176323,
+      "registry": "https://clawhub.ai"
+    },
+    "scrapling-web-scraper": {
+      "version": "1.0.0",
+      "installedAt": 1781493177843,
+      "registry": "https://clawhub.ai"
+    },
+    "social-media-caption-generator": {
+      "version": "1.0.0",
+      "installedAt": 1781493179441,
+      "registry": "https://clawhub.ai"
+    },
+    "director-data-analysis": {
+      "version": "1.0.0",
+      "installedAt": 1781493198716,
+      "registry": "https://clawhub.ai"
+    },
+    "data-analysis-for-feishu": {
+      "version": "1.0.0",
+      "installedAt": 1781493202605,
+      "registry": "https://clawhub.ai"
+    },
+    "content-strategy-analyzer": {
+      "version": "1.0.0",
+      "installedAt": 1781493972243,
+      "registry": "https://clawhub.ai"
+    },
+    "content-strategy": {
+      "version": "0.1.0",
+      "installedAt": 1781493972382,
+      "registry": "https://clawhub.ai"
+    },
+    "graphiti": {
+      "version": "1.0.1",
+      "installedAt": 1781494521169,
+      "registry": "https://clawhub.ai"
+    },
+    "ontology": {
+      "version": "1.0.4",
+      "installedAt": 1781494527684,
+      "registry": "https://clawhub.ai"
+    },
+    "prompt-engineer-toolkit": {
+      "version": "1.0.0",
+      "installedAt": 1781494592384,
+      "registry": "https://clawhub.ai"
+    }
+  }
+}
