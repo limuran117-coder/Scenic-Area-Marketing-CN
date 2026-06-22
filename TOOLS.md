@@ -288,3 +288,85 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 - himalaya：站长要求"邮件监控进心跳"或"日报异常时发邮件通知"
 - wacli：未来需要主动联系海外游客/国际合作伙伴时
 - sag：站长说"配音"/"语音"/"storytime"时
+
+---
+
+## 系统技能（Skill）配置现状（2026-06-22 W26 巡检）
+
+> **背景**：`openclaw skills list` 显示 99 个 skill 状态，避免未来误判"全 disabled"为"不能用"。
+
+### 📊 99 个 Skill 状态矩阵
+
+| 状态 × 来源 | bundled | extra | workspace | 合计 |
+|---|---|---|---|---|
+| ✅ **ready** | 16 | 7 | 34 | **57** |
+| ❌ disabled | 41 | 0 | 0 | 41 |
+| ⚠️ warning | 1 | 0 | 0 | 1 |
+| **合计** | 57 | 7 | 34 | **99** |
+
+### ⚠️ 关键：openclaw.json 的 43 个 entries 全部 disabled ≠ "不能用"
+
+openclaw.json 的 `skills.entries` 是**手动覆盖层**，不影响自动发现。Agent 通过 `loadSkillsFromDirInternal` 自动扫描 3 个目录加载 skill：
+
+1. `~/.npm-global/lib/node_modules/openclaw/skills/` （系统 57 个）
+2. `~/.openclaw/workspace/skills/` （workspace 34 个）
+3. `~/.openclaw/agents/main/skills/` （用户自定义）
+
+**所以 57 个 ready skill 都在用，workspace 34 个 skill 也在用。**
+
+### ✅ 57 个 ready skill 按业务分组
+
+**🌐 浏览器/采集（5）**
+- `agentgo-browser` / `browser` / `browser-automation` / `scrapling` / `diagram-maker`
+
+**📱 飞书链路（5）**
+- `feishu-doc` / `feishu-drive` / `feishu-perm` / `feishu-wiki` / `data-analysis-for-feishu`
+
+**🧠 数据/分析/AI（11）**
+- `acp-router` / `api-tester` / `claude_api_builder` / `claude-api-cost-optimizer` / `data-analysis` / `data-integrity-check` / `graphiti` / `mempalace` / `ontology`
+
+**💼 业务专用（8）**
+- `Competitor Analyst` / `content-strategy` / `content-strategy-analyzer` / `daily-task-template` / `frontend-design` / `huashu-design` / `Social Media Caption Generator` / `social-media-publish`
+
+**🛠️ 调试/工具（6+）**
+- `gh-issues` / `github` / `healthcheck` / `meme-maker` / `node-inspect-debugger` / `python-debugpy` / `canvas` / `gog` / `karpathy-*` / `task-audit` / `mempalace` / `ontology`
+
+### ❌ 41 个 disabled skill 根因
+
+| 根因 | 数量 | 典型 |
+|---|---|---|
+| **缺 CLI** | 25+ | `tmux`/`nano-pdf`/`peekaboo`/`1password`/`clawhub`/`coding-agent` |
+| **缺 API key** | 5+ | `summarize`(OpenAI) / `oracle`(需 OpenAI) / `claude_api_builder` |
+| **需 macOS 集成** | 5+ | `apple-notes`/`apple-reminders`/`bear-notes`/`imsg`/`spotify` |
+| **需外部服务** | 5+ | `slack`/`discord`/`notion`/`trello`/`obsidian` |
+| **其他** | 5+ | `model-usage`(无 codexbar) / `himalaya`(需 SMTP) |
+
+### 🛠️ 触发安装条件（按 ROI 排序）
+
+| 优先级 | Skill | 触发条件 | 装法 |
+|---|---|---|---|
+| 🟡 中 | `tmux` | 需要后台跑长 cron（如持续爬取） | `brew install tmux` |
+| 🟡 中 | `nano-pdf` | 收到 PDF 格式的文旅政策/数据 | `uv tool install nano-pdf` |
+| 🟡 中 | `model-usage` | token 消耗开始显著增长 | `brew install --cask steipete/tap/codexbar` |
+| 🟢 低 | `peekaboo` | 需要操作 Mac 原生 app（非浏览器） | `brew install --cask steipete/tap/peekaboo` |
+| 🟢 低 | `wacli` | 需要联系海外游客/国际合作 | `brew install steipete/tap/wacli` |
+| 🟢 低 | `himalaya` | 站长说"邮件监控" | `brew install himalaya` |
+| 🔴 高 | `summarize` | 站长提供 OpenAI/OpenRouter key | 配置 OPENAI_API_KEY 后自动启用 |
+
+### 🔍 验证命令
+
+```bash
+# 完整 skill 列表
+export PATH="$HOME/.npm-global/bin:$PATH"
+openclaw skills list
+
+# 单个 skill 详情
+openclaw skills info <skill_name>
+
+# 检查哪些 ready / 缺什么
+openclaw skills check
+```
+
+### ⚠️ 已知 warning
+
+`feishu` plugin 在 `installed_plugin_index` 有 shared SQLite state conflict metadata，不影响使用（plugin 本身 enabled + 在用），但 `openclaw doctor` 会报 warning。**目前不修，等下次 plugin 升级时自动解决。**
