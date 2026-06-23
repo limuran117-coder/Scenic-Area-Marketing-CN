@@ -61,7 +61,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 | 来源 | 路径 |
 |------|------|
 | 历年客流 | ~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx |
-| 2026每日 | ~/Desktop/2026游客量统计.csv（每周二更新，最新至6/9）|
+| 2026每日 | ~~~/Desktop/2026游客量统计.csv（已弃用，截至6/9）~~ → **SSOT: ~/Downloads/2026游客量统计 (N).csv + ~/Downloads/电影小镇-2026年数量统计.dbt(N).xlsx**（每周二更新，最新至6/21）|
 | 抖音Cookie | /tmp/juLiang_cookies.json |
 | 小红书Cookie | /tmp/xiaohongshu_cookies.json |
 | 飞书群 | 电影小镇 oc_2581c03b79e4893cc3616b253d60f34e |
