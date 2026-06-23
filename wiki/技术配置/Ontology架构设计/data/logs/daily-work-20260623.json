@@ -1,0 +1,34 @@
+{
+  "date": "2026-06-23",
+  "day": 23,
+  "phase": "Phase 3 · Day 23 工作记录",
+  "gap_note": "⏭️ 跳过 Day 22 (6/21, 周日) + Day 24 周一 (6/22), 连续 2 天无记录 (周末无 cron 触发 + 6/22 周一忙处理其他任务)",
+  "completed": [
+    "✅ crawl_baidu.py 实跑 1 次 (Day 23 验证): CDP 18800 可达, URL pattern /v2/main/index.html#/trend/清明上河园 可导航",
+    "✅ _probe_baidu_dom.py 创建 (探针脚本, 改名 _probe_baidu_dom_20260623.py 避免覆盖): dump DOM 结构后发现页面 body_text=0, 无 SVG/Canvas"
+  ],
+  "blockers": [
+    "🔴 百度指数登录态丢失: 实跑显示 title='页面不存在_百度搜索', hash 跳转后 body_text=0. 与 Day 6 文档(已登录李思洋912) 不一致 — CDP Chrome 当前 session 失效或 Cookie 被清. 需先解决登录才能继续 DOM 解析",
+    "🟡 12.5% 覆盖率问题持续: 1/8 景区有数据, 即使登录成功仍需评估 ROI",
+    "🟢 CSV 6/8-6/30 数据零值仍未解决 (已连续 14 天)"
+  ],
+  "tomorrow_plan": [
+    "[Day 24] 先解决登录态: 让站长在 CDP Chrome (Tab 18800) 重新登录百度指数, 或修复 cookie 文件",
+    "[Day 24] 登录成功后重跑 _probe_baidu_dom.py, 验证是否能拿到 '搜索指数/信息指数' 标签和数值元素",
+    "[Day 24] 决策点: DOM 解析方式 (方式A 表格 / 方式B SVG / 方式C XHR) — 取决于页面 DOM 结构"
+  ],
+  "decisions": [
+    "D-023: 探针脚本保留并加日期后缀 (_probe_baidu_dom_20260623.py) 而非删除 — 历史探针有诊断价值, 不污染 scripts/ 目录",
+    "D-023: 不在 blocker 未解时硬推 DOM 解析 — Day 6 文档明确 '页面有: 趋势研究, 需求图谱, 人群画像', 但今天的探针显示 body_text=0, 强行 DOM 解析会得到假阴性, 浪费 1 小时"
+  ],
+  "files_created": [
+    "scripts/_probe_baidu_dom_20260623.py (NEW, 探针, 改名保留)"
+  ],
+  "store_stats": {
+    "scenicSpots": 8,
+    "metricSnapshots": 366,
+    "contentAssets": 24,
+    "bySource": {"douyin": 32, "xiaohongshu": 21, "csv": 298, "baidu": 0}
+  },
+  "next_day_note": "🔵 Day 24 (周三): 先解决百度指数登录态 → 重跑探针 → 决定 DOM 解析方式"
+}
