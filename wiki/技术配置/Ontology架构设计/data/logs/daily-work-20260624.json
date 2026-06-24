@@ -1,0 +1,36 @@
+{
+  "date": "2026-06-24",
+  "day": 24,
+  "phase": "Phase 3 · Day 24 工作记录",
+  "today_focus": "解决 Day 23 遗留的百度指数登录态 blocker + 重跑 DOM 探针",
+  "completed": [
+    "✅ crawl_baidu.py 实跑: title='百度指数' (✅ 较 Day 23 的'页面不存在_百度搜索' 改善, 登录态部分恢复)",
+    "✅ 重命名探针 _probe_baidu_dom_20260624.py (沿用 Day 23 决策 D-023: 探针保留+日期后缀)",
+    "✅ 探针运行: 发现关键差异 — crawl_baidu.py 直 goto 完整 URL (含 #hash) → title='百度指数'; 探针先 goto 根 URL 再 hash 跳转 → title='页面不存在_百度搜索' (与 Day 23 一致)"
+  ],
+  "blockers": [
+    "🔴 DOM body_text=0 持续: 即便 title 显示 '百度指数', body_text 仍为 0, SVG/Canvas/path_d 全部 0 — 图表通过 canvas 渲染但文本未注入, 方式A(表格) 不可行, 方式B(SVG) 不可行, 需走方式C(XHR 拦截) 或 D (CDP 注入读取 canvas 像素)",
+    "🟡 探针 vs 爬虫的 URL 模式差异未根因分析: 今天没时间对比两者的 CDP 行为差异, 是根 URL SPA 路由问题还是 referer/cookie 顺序问题",
+    "🟢 12.5% 覆盖率问题持续, 但今不讨论 (低优先级, 持续记录)"
+  ],
+  "key_finding": "登录态可能已恢复 (crawl_baidu.py title OK), 但页面 body_text=0 表明百度指数 SPA 把图表画在 canvas 内, 文字数字未写入 DOM 文本节点. 这意味着传统的 page.innerText() 提取方式彻底失败, 必须: 1) 拦截 XHR 获取原始 API 数据 (方式C) 或 2) canvas 像素 OCR (方式D). 前者更优, 但需逆向百度指数内部 API.",
+  "tomorrow_plan": [
+    "[Day 25 周四] 决策点: 继续 baidu adapter 还是冻结它? 1 小时 DOM 解析不成功, 12.5% 覆盖率, 已消耗 3 天 (Day 22/23/24). 建议冻结, 改做其它 adapter (visitors CSV 6/8-6/30 零值问题)",
+    "[Day 25] 如继续 baidu: 写方式C spike — 用 page.on('request', ...) 拦截 XHR, 找到 /api/xxxx/search/index 路径",
+    "[Day 25] 替代: 直接做 ontology-adapter-visitors.py 增量 CSV 修复 (0/0 数值问题已连续 15 天)"
+  ],
+  "decisions": [
+    "D-024: baidu 探针命名沿用 _probe_baidu_dom_YYYYMMDD.py 模式 (Day 23 决策 D-023 继承), 不污染 scripts/ 目录",
+    "D-024: 探针运行验证 — 登录态恢复是假象, 实际页面无文本节点; 结论: 方式A (innerText) 永久失败, 方式B (SVG) 需确认, 方式C (XHR) 是唯一可行路径"
+  ],
+  "files_created": [
+    "scripts/_probe_baidu_dom_20260624.py (NEW, 探针, 日期后缀)"
+  ],
+  "store_stats": {
+    "scenicSpots": 8,
+    "metricSnapshots": 366,
+    "contentAssets": 24,
+    "bySource": {"douyin": 32, "xiaohongshu": 21, "csv": 298, "baidu": 0}
+  },
+  "next_day_note": "🔵 Day 25 (周四): 决策点 — 冻结 baidu adapter 转向 visitors CSV 零值修复, 或继续 baidu 方式C XHR 拦截 spike"
+}
