@@ -221,7 +221,7 @@ python3 -m debugpy --listen 127.0.0.1:5678 --wait-for-client path/to/script.py
 
 **WIKI lint 真实数据（重扫后修正，2026-06-06 16:26）：**
 - 用 `last_update` 字段重扫 0 个真 stale 文档（TOOLS.md 之前 37-38 天为误报）
-- 实际漂移：0 处已知（除 2 处历史梦境快照引用的 `weather_auto.py`，那是历史）
+- 实际漂移：0 处已知
 - 下次 `wiki_drift_check` 跑完应推送到 `wiki/lint-result.json` 并附飞书提醒
 
 ---
