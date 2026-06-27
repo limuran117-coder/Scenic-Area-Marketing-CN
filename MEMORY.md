@@ -40,6 +40,13 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 - [project] **R08执行闭环连续5周跳票** — 端午窗口失守已确认
 - [project] **W26新建议**：`scripts/cookie_health_check.py` + cron `0 9 * * 1-5` 早于日报2小时发现Cookie/账号失效
 
+**🆕 6/24 重要修复**（3 个 cron 错同时落地）：
+- [project] **Cron 时间表重排**（6/24 09:00-09:25 完成）：业务日报全部挪白天，间隔硬规则 ≥2h，复盘挪 23:30/23:35，Cookie 挪凌晨 00:30（周二-周六），删除已 disabled 的 Memory Dreaming
+- [project] **复盘 cron 回退单步**（方案 A #2 拆分版有契约不一致 bug）：22:00 生成「业务数据」不是飞书卡片，22:05 投递必 400；6/24 已回退为「单步生成+投递」+ disable 投递 cron（736e87e1）
+- [feedback] **prompt 修容错**：「which cron && cron --version」macOS 无 cron 必失败，prompt 加容错说明
+- [feedback] **大文件 edit 改 write**：ontology.json 35.5KB，edit 工具超时；prompt 改为 read→parse→write 流程
+- [reference] `/tmp/daily_recap_<YYYY-MM-DD>.json` 旧产物（6/22-6/24 拆分版）结构是业务数据，新版本必须含 `header.title.content` + `body.elements[]`
+
 ---
 
 # 🔍 关键洞察（持续有效）
@@ -61,6 +68,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 | 来源 | 路径 |
 |------|------|
 | 历年客流 | ~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx |
+| 内部运营数据（SSOT） | `wiki/sources/建业电影小镇阶段性数据表.md`（年度/Q1/德化街模拟/2026KPI/排期模型，2026-06-27更新）|
 | 2026每日 | ~~~/Desktop/2026游客量统计.csv（已弃用，截至6/9）~~ → **SSOT: ~/Downloads/2026游客量统计 (N).csv + ~/Downloads/电影小镇-2026年数量统计.dbt(N).xlsx**（每周二更新，最新至6/21）|
 | 抖音Cookie | /tmp/juLiang_cookies.json |
 | 小红书Cookie | /tmp/xiaohongshu_cookies.json |
@@ -83,6 +91,13 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 - 它解决了什么：Annotate Mode把网页变成可编程操作面，Agent点哪操作哪，无需预设DOM选择器
 - 我们怎么用：竞品抖音/小红书后台UI改版时自动恢复采集，无需人工修复脚本
 - 不跟进的代价：平台每次UI改版，我们的Playwright脚本需人工介入，竞品系统更快恢复
+
+**GitHub调研 W28（2026-06-27）**：
+- 项目名：**ChromeDevTools/chrome-devtools-mcp**（44.1K stars，日增 400，Google Chrome DevTools 团队官方）
+- 它解决了什么：**第一个为 AI Coding Agent 设计的浏览器控制协议**——通过 MCP server 把 Chrome DevTools 能力（screenshot/console/network/trace）以工具形式暴露给 LLM agent，填补"AI 想要操控浏览器但不想写代码"的空白
+- 我们怎么用：❌ 不能直接接管抖音/小红书采集（只支持 Google Chrome）；✅ 借鉴 3 点：(1) MCP 协议封装思路 → 把本系统的"采集→处理→投递"链抽象为 MCP 工具；(2) Puppeteer 自动等待策略 → 减少 30% time.sleep；(3) CLI + MCP 双入口 → 脚本同时包装为 MCP 工具供其他 agent 调用
+- 不跟进的代价：**MCP 已是 AI Agent 工具调用事实标准**（Anthropic 4 月推 → 6 月 Google 接入 → 8 月预计 Cursor/Copilot 跟进）。本系统 56 个脚本全是 CLI/Python 调用，无 MCP 入口，1-2 年后其他 agent 想调用"采集抖音指数/读飞书群"时找不到接口，架构层可能要重写。**但短期抖音/小红书采集脚本仍能稳定跑，MCP 化是 H2 重构话题，W28 无紧迫性**
+- 行动：W28-W29 spike "采集脚本出错时自动截屏诊断" 流程 | H2 评估脚本 MCP 化试点
 
 **⚠️ W24关键发现（2026-06-14）**：
 1. SOP升级连续2周跳票（小红书日报/文旅/案例库3个SOP四件套未补）→ 建议改策略：由各cron自己顺便执行
@@ -184,6 +199,23 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cro
 
 ---
 
+**🏗️ Ontology Week 1 (2026-06-24 新周期) · Object Types + Link Types 完整定义**
+- [project] **ontology.json v1.2.0 升级** — Object Types 8→12, Link Types 14→33, Interfaces 3→7
+- [project] **Phase 1 未完事项全部补完** — TouristSegment/Region/KnowledgeBase/Creator 4 个 OT 定义完成
+- [feedback] **D-011 ID Naming Convention** — `<scope>:<type>:<value>` 三段式 + aliases 机制；**根因解决 Week 6 发现的 only_henan/only_dream 双 ID 问题**
+- [feedback] **D-012 Cardinality Matrix** — 33 个 Link 全声明基数（M:N/N:1/1:N/N:M）；解决双向引用歧义
+- [feedback] **D-013 KnowledgeBase 反向引用** — wiki markdown `[[objectId]]` 语法待 scanner 解析
+- [feedback] **D-014 Inverse Link 显式声明** — aggregated_from ↔ contributes_to 必须双向一致
+- [feedback] **D-015 Validation Rules 框架** — V-001~V-006 6 条规则，Week 2 实施 validate.py
+- [project] **AgentO 覆盖率 12/14 (86%)** — 仅 Resource（多 Agent 协作时）未建模
+- [project] **ScenicSpot 扩充 Tourism 属性** — +aliases/province/city/peakSeasonMonths/typicalVisitDuration/ticketPriceRange/targetAgeGroups
+- [project] **MetricSnapshot 扩充异常检测属性** — +baselineValue/dailyVolatility/isAnomaly/tags
+- [project] **Week 1 文档**：`Week1_ObjectTypes_LinkTypes.md`（21.7KB，14 节）+ `ontology.json` v1.2.0（35.5KB）+ 实现路线图更新
+
+**Week 7 重点：** adapter 改造（D-008/D-011/D-015 集成）+ db migration 002（aliases/baselineValue 列扩展）+ only_henan/only_dream 双 ID 合并
+
+---
+
 # W26 (2026-06-20) GitHub高星标学习 — 关键发现
 
 **项目：** rohitg00/agentmemory (~18K stars, 2026-05-27 首版)
@@ -192,3 +224,18 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cro
 **不跟进的代价：** MEMORY.md 持续线性膨胀，6 个月后必然撞限丢失关键规则；多 Agent 冷启动 token 成本居高不下；竞品若用同类工具，跨任务知识复用效率比我们高 1-2 个量级
 
 **注：** 当前 v0.9.17，3 周迭代 7 次，等 v1.0 稳定再 production。TypeScript 实现需 Node v22+ (✅已有)
+
+---
+
+# W27 (2026-06-24) GitHub高星标学习 — 关键发现（自纠错版）
+
+**项目：** affaan-m/everything-claude-code（ECC）| Stars: 220,792（gh API 直查 6/24 08:03 UTC）
+**它解决了什么：** Skills 生态"操作系统层"标准化 —— 跨 Claude Code/Codex/Cursor/OpenCode/Gemini/Zed/Copilot 7 大 harness 的可移植 Skills+Agents+Hooks+Memory+Verification 全栈工具链，把单点配置经验沉淀为可复用基线
+**我们怎么用：** 借鉴 4 大核心组件到本系统 SKILL.md 体系（仅 7 个 vs ECC 268 个）：
+1. **Memory Persistence Hooks** → 解决每次冷启动全量 read MEMORY.md 的痛点（降低 M3 5h 限额撞限频率）
+2. **Verification Loops**（checkpoint vs continuous + pass@k grader）→ 给日报加"自检→告警→重跑"环节
+3. **Continuous Learning** → 从历史日报自动提取爆款规律，替代站长手写公式
+4. **跨平台 plugin 结构**（.claude-plugin/.cursor-plugin/.gemini-plugin/...）→ 未来切换 Agent 工具零迁移成本
+**不跟进的代价：** SKILL.md 继续维持 7 个手写 Skill，跟不上 Skills 生态指数级扩张；竞品若用 ECC Continuous Learning 提取爆款规律效率比我们高 10-100 倍；日报缺失验证环，格式漂移只能等站长人肉发现
+
+**注：** W26 上期笔记判断错误（"Skills 双雄并立"漏掉 ECC 22万星；"知识图谱赛道见顶"被 Understand-Anything 67K 反证），W27 已自纠错。**同期 anthropics/knowledge-work-plugins 21,864（Anthropic 官方）也需关注**——其 Skill 三层结构（plugin.json + mcp.json + commands/ + skills/）可能成为行业事实标准。
