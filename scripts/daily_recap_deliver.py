@@ -44,10 +44,18 @@ def find_latest_recap(target_date: str = None) -> Path:
 
 
 def send_card(card_path: Path) -> dict:
-    """调 send_feishu_card.py 投递"""
+    """调 send_feishu_card.py 投递
+
+    send_feishu_card.py 期望 argv[2] 是 JSON 字符串本身（不是路径），
+    所以这里先读文件再把内容传出去。
+    """
+    try:
+        card_json = card_path.read_text(encoding="utf-8")
+    except Exception as e:
+        return {"ok": False, "returncode": -1, "error": f"read card file failed: {e}"}
     try:
         result = subprocess.run(
-            ["python3", SEND_SCRIPT, CHAT_ID, str(card_path)],
+            ["python3", SEND_SCRIPT, CHAT_ID, card_json],
             capture_output=True, text=True, timeout=30,
         )
         return {

@@ -64,7 +64,7 @@ CONFIDENCE_BY_SOURCE: dict[str, float] = {
     "internal_csv": 1.0,     # 内部 CSV — 权威数据
     "csv": 1.0,              # 同上别名
     "manual": 0.95,          # 人工录入
-    "baidu": 0.6,            # 百度指数 — 公开数据
+    "baidu": 0.6,            # 百度指数 — 公开数据 [FROZEN 2026-06-27 D-027: adapter 归档到 scripts/archive/, 5 天 spike 失败后冻结]
     "weibo": 0.5,            # 微博热搜 — 公开数据
 }
 
@@ -87,7 +87,7 @@ SOURCE_TYPES: dict[str, str] = {
     "douyin": "抖音",
     "xiaohongshu": "小红书",
     "weibo": "微博",
-    "baidu": "百度",
+    "baidu": "百度",  # [FROZEN 2026-06-27 D-027]
     "internal_csv": "内部系统",
 }
 

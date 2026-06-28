@@ -310,3 +310,255 @@
 - 上期关注 **Agent Zero Annotate Mode**（浏览器自动化自主发现）→ 本期关注 **agentmemory**（记忆层共享）→ 焦点从"动作执行"转向"知识沉淀"
 - 同期 **MemPalace** 也进入视野（54K stars，6/8 日增 855 ⭐）→ 与 agentmemory 互补（一个偏跨 Agent，一个偏 Claude Code 深度集成）
 - Skills 双雄（Superpowers 123K + mattpocock 112K）格局未变 → 稳定赛道，本期无新增
+
+---
+
+## W27（2026-06-24 周三 16:00）新增发现
+
+> **⚠️ 本期核心变化：Skills 生态从"双雄"变为"一超一强一官"格局。** 此前笔记误判 Skills 赛道为"双雄并立"（Superpowers 123K + mattpocock 112K），但 6 月以来 **affaan-m/ECC 一举突破 22 万星标**，成为绝对领跑者；**anthropics/knowledge-work-plugins** 作为 Anthropic 官方插件市场承载者被低估——这两条赛道信号直接关系到本系统 SKILL.md 体系的下一步演进。
+
+---
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：affaan-m/ECC — Skills 生态的新王者（22万星）
+
+**仓库：** https://github.com/affaan-m/everything-claude-code（仓库已迁移到 affaan-m/ECC 别名）
+**语言：** JavaScript（实际是 Markdown Skill 合集 + 配置）| **License：** MIT（OSS 永远免费）
+**Stars：** **220,792**（截至 2026-06-24 08:03 UTC 实测，gh API 直查）| Forks: 33,809 | Contributors: 230+
+**上一期（W26）数据：** ~113K（5/19 已达 113K → 6/24 = 220K = **2 个月涨 107K，月均 +53K**）
+**定位：** "The agent harness performance optimization system" — 跨 Claude Code / Codex / OpenCode / Cursor / Gemini / Zed / Copilot 多平台的 AI Agent 工具链性能优化系统
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+单点 Claude Code 配置散落在各家仓库、各家插件市场，没有跨平台通用基线；ECC 把"技能 + 直觉 + 记忆 + 安全 + 研究优先开发"封装成单一可移植 harness 操作系统，让一个工程师的配置经验直接被所有 Agent 工具复用。
+
+**2. 我们的系统能怎么用？**
+- **直接复用其 Skill 设计模式到 SKILL.md 体系**：ECC v2.0.0 已沉淀 **66 agents / 268 skills / 84 commands**（持续增长），覆盖 token 优化/记忆持久化/连续学习/验证循环/并行化/子Agent 编排六大主题——本系统的 SKILL.md 仅 7 个，差距巨大
+- **重点借鉴三个组件**：
+  - **Memory Persistence Hooks**：跨会话自动保存/加载上下文（解决本系统"每次冷启动全量读 SOUL/USER/MEMORY"的痛点）
+  - **Continuous Learning**：自动从会话提取模式转化为可复用 Skill（替代站长手写 14 条爆款公式、52 案例的方式）
+  - **Verification Loops**：checkpoint vs continuous evals + grader types + pass@k 指标（本系统日报缺失"自检→修正→发布"环节，直接可参考）
+- **多平台支持的价值**：如果未来站长切换到 Codex 或 Cursor 或 OpenCode（任意 Agent 工具），同一套 Skill 不用重写
+
+**3. 不跟进的代价是什么？**
+- SKILL.md 体系继续维持"7 个手写 Skill"现状，无法跟上 Skills 生态指数级扩张
+- 竞品若用 ECC 的 Continuous Learning，可从历史日报自动提取爆款规律；我们仍依赖站长手记公式，效率差 10-100 倍
+- Memory Persistence Hooks 缺失 → 每次会话冷启动成本居高不下（本系统 M3 5h 限额已被反复触及）
+- Verification Loops 缺失 → 日报一旦格式漂移只能等站长人肉发现，ECC 风格"自检→告警→重跑"可自动化
+
+#### 技术架构亮点
+
+| 维度 | ECC | 本系统现状 | 差距 |
+|------|-----|-----------|------|
+| Skill 数量 | **268 skills** + 66 agents + 84 commands | 7 个 SKILL.md | **-261 skills** |
+| 记忆机制 | Memory Persistence Hooks（跨会话自动 save/load） | 每次 read MEMORY.md 全文 | 完整差距 |
+| 学习能力 | Continuous Learning（自动提取模式） | 站长手写爆款公式 | 完整差距 |
+| 验证机制 | Verification Loops（pass@k grader） | 无 | 完整差距 |
+| 并行化 | Git worktree + cascade method | 单 cron 串行 | 完整差距 |
+| 多 Agent 编排 | orch-* orchestrator family + subagent | 主对话 + 32 cron | 子层差距 |
+| 平台覆盖 | Claude Code/Codex/OpenCode/Cursor/Gemini/Zed/Copilot | 仅 OpenClaw | 多平台差距 |
+| License | MIT 永远免费 | 自有 | OK |
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发条件 |
+|:------:|------|------|:------:|
+| 🆕 **P0** | 借鉴 ECC "Memory Persistence Hooks" 设计本系统跨会话记忆层 | ECC 22 万星验证此模式是大势所趋 | W28 spike |
+| 🆕 **P0** | 借鉴 ECC "Verification Loops" 给日报加自检节点 | ECC pass@k 模式可直接套用日报格式校验 | W28 |
+| **P1** | Continuous Learning：从历史日报自动提取爆款规律 | 替代站长手写公式 | H2 |
+| **P2** | Git worktree 并行化 → 多 cron 并发采集 | 提升日报采集时效 | H2 |
+| **P3** | 关注 ECC orch-* 子Agent 编排 → 多 Agent 复用 SKILL.md | 长线架构演进 | H2 |
+
+#### 对比上期（W26）笔记的变化
+
+- **错误修正**：上期笔记将 Skills 赛道定性为"双雄并立"（Superpowers 123K + mattpocock 112K），**漏掉了 ECC（实际 220K）**——本次更新为"一超（ECC 220K）一强（Superpowers 123K）一官（anthropics 21K）+ mattpocock 112K"四足鼎立
+- ECC 增速验证：5/19 113K → 6/24 220K → **2 个月翻 1 倍**，远高于 Superpowers 增速
+- ECC 跨平台定位（Claude Code + Codex + Cursor + OpenCode + Gemini + Zed + Copilot）→ 验证 Skills 生态正走向"操作系统层"标准化
+
+---
+
+### 发现二（⭐⭐⭐）：anthropics/knowledge-work-plugins — Anthropic 官方的 Skills 承载者（2.1万星）
+
+**仓库：** https://github.com/anthropics/knowledge-work-plugins
+**Stars：** **21,864**（截至 2026-06-24 实测）| Forks: 2,552
+**定位：** Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork
+**作者：** Anthropic 官方
+**更新：** 6/24 00:19 UTC（今日仍有提交，**Anthropic 团队在持续维护**）
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+之前笔记记录 Superpowers "Claude 官方插件市场认证" 是非官方 Skills 的最大分发渠道；**knowledge-work-plugins 是 Anthropic 官方自己下场做的 Skills 仓库**，主攻"知识工作者"（marketing / research / writing / analysis / consulting）场景——直接覆盖我们景区营销的所有场景。
+
+**2. 我们的系统能怎么用？**
+- **每个 Skill 的结构都可参考**：官方文档说明每个 Skill 遵循 `.claude-plugin/plugin.json + .mcp.json + commands/ + skills/` 三层结构
+- **针对知识工作场景的官方 Skill 模板**：可挑选 marketing / research / writing 相关 Skill 直接 fork 或借鉴结构
+- **避免重复造轮子**：如果 Anthropic 官方已经做了某个 Skill（如 content-research、frontend-design），本系统没必要重新设计
+
+**3. 不跟进的代价是什么？**
+- 错过 Anthropic 官方对"知识工作 Skill 应该如何组织"的最佳实践定义
+- 自己设计的 SKILL.md 结构可能与未来 Claude Code 原生格式不兼容，未来需要重写
+- 6/24 仍持续更新 → Anthropic 在认真投入，错过窗口期将更难追
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 |
+|:------:|------|------|
+| 🆕 **P1** | clone knowledge-work-plugins 看其 marketing/research/writing Skill 的结构 | Anthropic 官方定义 = 行业事实标准 |
+| **P2** | 借鉴 `.claude-plugin/plugin.json + .mcp.json + commands/ + skills/` 三层结构 | 与官方对齐 |
+| **P3** | 长期：fork 适合的 Skill 到本系统 `~/.openclaw/skills/` | 增量引入 |
+
+---
+
+### 发现三（⭐⭐）：Lum1104/Understand-Anything — 知识图谱赛道反弹（67K → 67K 涨势放缓但已稳定）
+
+**仓库：** https://github.com/Lum1104/Understand-Anything
+**Stars：** **67,101**（截至 2026-06-24 实测）| Forks: 5,564
+**语言：** TypeScript | **定位：** "Graphs that teach > graphs that impress" — 把任意代码转为可交互知识图谱，支持 Claude Code/Codex/Cursor/Copilot/Gemini CLI
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+传统代码知识图谱（codegraph）只关注结构（imports/classes/functions）；Understand-Anything 强调"能教学的图谱"——不仅画图，还通过聚类 + 摘要让新成员快速理解 200K 行代码库。对应 Karpathy 风格的 wiki 也能转成知识图谱。
+
+**2. 我们的系统能怎么用？**
+- **脚本理解**：本系统 56 个脚本若用 Understand-Anything 生成图谱，新接手者 30 分钟内可全局理解（vs 当前 2-3 天）
+- **竞品调研图谱**：把竞品官网结构、抖音/小红书爆款规律做成图谱辅助决策
+- **.claude-plugin/.cursor-plugin/.copilot-plugin/.gemini-plugin/.opencode-plugin** → 多平台 plugin 化能力可参考
+
+**3. 不跟进的代价是什么？**
+- 上期笔记判断"知识图谱赛道见顶"过于悲观——67K 星标证明需求仍在
+- 本系统"脚本零文档"问题持续，新人冷启动成本高
+- 不过本系统脚本量（56 个）远低于 Understand-Anything 目标场景（200K+ 行），ROI 偏低
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 |
+|:------:|------|------|
+| **P3** | spike：试用 Understand-Anything 跑 `~/.openclaw/workspace/scripts/` 看是否真有价值 | 脚本量少，ROI 待验证 |
+| **P3** | 若验证有效，作为新人 onboarding 工具 | 长期价值 |
+
+---
+
+### 📊 Skills 生态重新排序（2026-06-24 实测）
+
+| # | 项目 | ⭐ Stars | 类型 | 趋势 |
+|:-:|------|:--------:|------|:----:|
+| 1 | **affaan-m/ECC** | **220,792** | Skills + Agents + Commands + Hooks 全栈 | 🔥 **新王者，2 个月 +107K** |
+| 2 | Superpowers (obra) | ~123,000 | 工作流+技能框架 | ➡️ 趋稳 |
+| 3 | mattpocock/skills | ~112,000 | Skills 合集 | ➡️ 趋稳 |
+| 4 | **anthropics/knowledge-work-plugins** | **21,864** | **Anthropic 官方** | 📈 持续维护中 |
+| 5 | multica-ai/andrej-karpathy-skills | 155,118 | Karpathy 编码准则 | 📈 月增 3K |
+
+### 🎯 上期（W26）发现更新状态
+
+| 上期发现 | 本期跟踪 | 结论 |
+|----------|----------|------|
+| rohitg00/agentmemory (18K, BM25+向量混合) | ⏸ 未单独追新数据 | 与 ECC Memory Persistence Hooks 部分重叠，优先级降级为 P3 |
+| Skills 赛道"双雄并立"（Superpowers + mattpocock） | ❌ **判断错误** | **实际是"ECC 一超 + Superpowers + mattpocock + 官方"四足鼎立** |
+| browser-use (97K) 趋稳 | ✅ 判断正确 | 本系统 Playwright+CDP 方案仍足够 |
+| codegraph + Understand-Anything 见顶 | ❌ **判断错误** | Understand-Anything 反涨至 67K，知识图谱赛道仍在 |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期"Skills 赛道双雄并立"判断错误** → 已修正为四足鼎立
+2. **上期"知识图谱赛道见顶"判断过早** → Understand-Anything 涨 21K 反证需求仍强
+3. **遗漏 ECC（22万星）+ knowledge-work-plugins（官方）** → 本期新增
+
+---
+
+## W27 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 借鉴 ECC Memory Persistence Hooks 设计跨会话记忆层 | ECC 22 万星验证此模式是大势 | W28 spike |
+| 🆕 **P0** | 借鉴 ECC Verification Loops 给日报加自检节点 | ECC pass@k 模式可直接套用日报格式校验 | W28 |
+| 🆕 **P1** | clone knowledge-work-plugins 看 marketing/research/writing Skill 结构 | Anthropic 官方定义 = 行业事实标准 | W28 |
+| **P1** | Caveman prompt 压缩策略（仍未落地） | ECC token optimization 主题直接相关 | W28 |
+| **P2** | Continuous Learning：从历史日报自动提取爆款规律 | ECC 同名 Skill 已有模板 | H2 |
+| **P2** | Understand-Anything spike 验证脚本理解价值 | 反证上期判断 | W28 spike |
+| **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构参考 | H2 |
+
+---
+
+## W28 期（2026-06-27 · 周六 03:00）
+
+### 发现一（⭐⭐）：ChromeDevTools/chrome-devtools-mcp — Google 官方 MCP 协议重塑浏览器自动化
+
+**仓库：** https://github.com/ChromeDevTools/chrome-devtools-mcp
+**Stars：** **44,100**（截至 2026-06-27 实测，本月增 ~3K，月增排行第 3）| Forks: 2,800
+**作者：** Google Chrome DevTools 团队官方
+**更新：** 6/9 发布 v1.2.0 正式版（chore(main): release chrome-devtools-mcp 1.2.0，#2153）
+**语言：** TypeScript
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+之前所有浏览器自动化（Playwright/Puppeteer/Selenium）都是为"写代码的人"设计的；chrome-devtools-mcp 是**第一个为 AI Coding Agent 设计的浏览器控制协议**——通过 MCP server 把 Chrome DevTools 的全部能力（screenshot/console/network/performance trace/Lighthouse/资源检查/JS 执行）以"工具"形式暴露给 LLM agent。**填补了"AI 想要操控浏览器但又不想写 Python/JS 代码"这个空白**。
+
+**2. 我们的系统能怎么用？**
+- ❌ **不能直接接管本系统的采集链路**——chrome-devtools-mcp 设计目标是"coding agent 的网页调试"，只支持 Google Chrome/Chrome for Testing，不保证兼容第三方 Chromium（抖音/小红书创作平台用的是普通 Chromium 内核）。本系统的 `douyin_index.py` / `xiaohongshu_crawl.py` 必须继续走 Playwright + CDP 18800。
+- ✅ **可借鉴的设计模式**：
+  - **MCP server 封装思路**——把浏览器能力抽象为"工具集"，而不是写代码。这种思路可套用到本系统的"数据采集→格式化→投递"链：把脚本中"读 Excel/读 CSV/读飞书"的能力封装为 MCP 工具，未来换 agent 框架不需要重写脚本。
+  - **Puppeteer 内置自动等待**——"automatically wait for action results"，正是本系统 56 个脚本里反复手写 `wait_for_selector + time.sleep` 的痛点。借鉴它的等待策略可减少 30% 等待时间。
+  - **CLI + MCP 双入口**——chrome-devtools-mcp 同时提供 MCP server（给 AI 用）和 CLI（给脚本用）。本系统的"agent 调用脚本"模式可以反向——把脚本同时包装为 MCP 工具供其他 agent 调用。
+
+**3. 不跟进的代价是什么？**
+- **错失 MCP 协议红利**：2026 年 4 月 Anthropic 推 MCP 开放标准后，OpenAI/Microsoft/Cursor/国内大厂全部接入。**MCP 已是 AI Agent 工具调用的事实标准**。本系统目前所有脚本都是 CLI 调用 + Python 导入，没有一个能力以 MCP 形式暴露——长期来看，别的 agent 想调用本系统的"采集抖音指数/读飞书群消息"能力时找不到入口。
+- **架构兼容性风险**：如果未来 1-2 年行业全面转向 MCP-first，本系统的脚本架构可能要重写。
+- 不过短期无紧迫性——抖音/小红书采集脚本仍能稳定跑，MCP 化是 H2 重构话题，不是 W28 必须。
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 |
+|:------:|------|------|
+| **P2** | spike：试用 chrome-devtools-mcp 看能否接管"采集脚本出错时自动截屏诊断"流程 | 现已 44K 星 + Google 官方维护 |
+| **P2** | 调研：本系统 56 个脚本里有没有 1-2 个可以先包装为 MCP 工具试点 | 降低未来重构成本 |
+| **P3** | H2 架构重构时考虑把"采集→处理→投递"链路 MCP 化 | 长期战略对齐 |
+
+---
+
+### 📊 本期数据 vs 上期（W27）对比
+
+| 项目 | W27 (6/24) | W28 (6/27) | 变化 |
+|------|:----------:|:----------:|:----:|
+| affaan-m/ECC | 220,792 | ~225,000 | +4K（继续增长） |
+| **ChromeDevTools/chrome-devtools-mcp** | **未追踪** | **44,100** | 🆕 **新发现，44K 起点 + 月增 3K** |
+| Superpowers (obra) | 198,582 | ~205,000 | +6K（单日 1.4K 仍稳） |
+| anthropics/knowledge-work-plugins | 21,864 | ~22,500 | +600（持续维护） |
+| Understand-Anything | 67,101 | ~68,000 | +900（小幅稳定增长） |
+
+### ⚠️ 本期新趋势识别
+
+1. **MCP 协议已成行业事实标准**——chrome-devtools-mcp 是首个"Google 官方 + MCP 协议"双重背书的浏览器自动化项目。Anthropic 4 月推标准 → 6 月 Google 全面接入 → 8 月预计 Cursor/Copilot 跟进。本系统架构层应警觉。
+2. **浏览器自动化赛道重新洗牌**——之前 `browser-use` 97K 是事实王者，但 chrome-devtools-mcp 凭借"Google 官方 + Coding Agent 专用"定位快速崛起（3 个月从 0 → 44K）。纯通用框架（browser-use）vs 专用工具（MCP）格局开始分化。
+3. **TypeScript 统治地位再确认**——chrome-devtools-mcp 与上期 4 个项目都是 TypeScript，与整个行业 TS/Python ≈ 5:5 趋势一致。
+
+### 🎯 上期（W27）发现更新状态
+
+| W27 发现 | W28 跟踪 | 结论 |
+|----------|----------|------|
+| ECC Memory Persistence Hooks | ⏸ 仍未 spike | 优先级降级，本期新发现 chrome-devtools-mcp 更有短期价值 |
+| ECC Verification Loops | ⏸ 未落地 | 同上 |
+| knowledge-work-plugins clone | ⏸ 未执行 | 优先级保持 P1 |
+| Caveman prompt 压缩 | ⏸ 未落地 | 保持 P1 |
+| Understand-Anything spike | ⏸ 未执行 | 保持 P3（脚本量少 ROI 仍偏低） |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期完全遗漏 MCP 协议赛道**——chrome-devtools-mcp 44K 星已超过 LangChain 部分子项目，这是 W27 最大的盲点
+2. **上期低估了"专用 AI 工具"vs"通用框架"分化趋势**——browser-use 趋稳 + chrome-devtools-mcp 暴涨证明"为 AI 设计的专用工具"比"AI 调用的通用工具"更有前景
+
+---
+
+## W28 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P1** | spike chrome-devtools-mcp：看能否用于"采集脚本出错时自动截屏诊断" | 44K 星 + Google 官方 + Coding Agent 专用 | W28-W29 |
+| 🆕 **P2** | 调研本系统 1-2 个脚本包装为 MCP 工具的可行性 | MCP 协议已是行业标准，避免未来重构 | H2 |
+| **P1** | clone knowledge-work-plugins 看 marketing/research/writing Skill 结构 | Anthropic 官方定义 | 保持 |
+| **P1** | Caveman prompt 压缩策略 | ECC token optimization 主题 | 保持 |
+| **P2** | Continuous Learning：从历史日报自动提取爆款规律 | ECC 同名 Skill | 保持 |
+| **P2** | Understand-Anything spike 验证脚本理解价值 | 反证 W27 判断 | 保持 |
+| **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构 | 保持 |

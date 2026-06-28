@@ -1,0 +1,36 @@
+{
+  "date": "2026-06-24",
+  "day": 24,
+  "time": "22:32",
+  "phase": "Phase 3 · Day 24 晚间补充（10:30 cron 重复触发，遵循『最小化、聚焦核心』原则）",
+  "trigger": "ontology_daily_work cron 22:30 触发（早上 9:04 已写 daily-work-20260624.json）",
+  "today_summary_9am": "crawl_baidu.py 实跑 title='百度指数' OK, 但 body_text=0 / SVG=0 / Canvas=0 → 方式A(innerText) + 方式B(SVG) 永久失败",
+  "evening_decision": [
+    "D-025: 冻结 baidu adapter DOM 解析路径 (方式A/B 已证伪), 转向方式C (XHR 拦截) 之前先做 30 分钟 spike",
+    "D-025: 如果方式C spike 失败（找不到可读 API 或返回加密），立即冻结 baidu 项目, 释放 Day 25 投入到 ontology-adapter-visitors.py 增量 CSV 零值修复（已连续 15 天 blocker, 6/8-6/30 数据为 0/0）",
+    "D-025: ontology_constants.py 迁移验证 ✅ — 4 个 adapter (baidu/douyin/visitors/xiaohongshu) 均 `from ontology_constants import`, 重复定义风险消除"
+  ],
+  "blockers_unchanged": [
+    "🔴 baidu DOM body_text=0 持续 (方式A/B 永久失败)",
+    "🟡 12.5% 覆盖率 (1/8 景区有数据) — ROI 评估持续",
+    "🟢 visitors CSV 6/8-6/30 数据零值仍未解决 (已连续 15 天, 低优先级但持续)"
+  ],
+  "tomorrow_plan": [
+    "[Day 25 周四 09:30] 第一件事: 30 分钟 XHR 拦截 spike (scripts/_probe_baidu_xhr_20260625.py) — page.on('request', ...) 抓 /api/.../search/index 路径, 看是否能拿到 search_index / info_index JSON",
+    "[Day 25] 30 分钟内如 spike 失败 → 立即冻结 baidu adapter, 转向 visitors CSV 修复",
+    "[Day 25] 不论 baidu 结果, ontology_constants.py 已完成迁移, 暂无需进一步工作"
+  ],
+  "files_status": {
+    "scripts/crawl_baidu.py": "exists (6/20 创建, 骨架 + 验证链路, DOM 解析未实装)",
+    "scripts/_probe_baidu_dom_20260624.py": "exists (早间探针, 验证 body_text=0)",
+    "scripts/_probe_baidu_xhr_20260625.py": "TODO 明日创建 (XHR 拦截 spike)",
+    "scripts/ontology_constants.py": "exists ✅ 4 个 adapter 均已 import"
+  },
+  "store_stats": {
+    "scenicSpots": 8,
+    "metricSnapshots": 366,
+    "contentAssets": 24,
+    "bySource": {"douyin": 32, "xiaohongshu": 21, "csv": 298, "baidu": 0}
+  },
+  "next_day_note": "🔵 Day 25 (周四): XHR 拦截 spike 30 分钟 → 失败则冻结 baidu 转 visitors CSV 修复"
+}

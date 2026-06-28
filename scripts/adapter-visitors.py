@@ -29,9 +29,31 @@ from ontology_constants import MONTH_MAP, safe_float as _safe_float, get_confide
 
 # ─── 常量 ────────────────────────────────────────
 
-CSV_PATH = Path.home() / "Desktop" / "2026游客量统计.csv"
+CSV_PATH = Path.home() / "Desktop" / "2026游客量统计.csv"  # legacy fallback (pre-6/23 SSOT)
+DOWNLOADS_GLOB = "2026游客量统计 (*.csv"  # SSOT since 2026-06-23 (per USER.md)
+DOWNLOADS_DIR = Path.home() / "Downloads"
 SPOT_ID = "movie_town"
 SOURCE = "csv"
+
+
+def _resolve_latest_csv() -> Path:
+    """SSOT resolver (2026-06-23+): pick newest ~/Downloads/2026游客量统计 (N).csv by mtime.
+    Falls back to legacy Desktop path if Downloads has no SSOT match.
+    Returns the latest CSV path; raises FileNotFoundError if neither exists.
+    """
+    candidates = sorted(
+        DOWNLOADS_DIR.glob(DOWNLOADS_GLOB),
+        key=lambda p: p.stat().st_mtime,
+        reverse=True,
+    )
+    if candidates:
+        return candidates[0]
+    if CSV_PATH.exists():
+        return CSV_PATH
+    raise FileNotFoundError(
+        f"No visitors CSV found in {DOWNLOADS_DIR} (glob={DOWNLOADS_GLOB}) "
+        f"or legacy {CSV_PATH}. Check weekly Tuesday update."
+    )
 
 # ─── CSV 解析 ────────────────────────────────────
 
@@ -134,10 +156,12 @@ def write_to_store(objects: list[dict]) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="客流CSV → Ontology Store")
-    parser.add_argument("--csv", default=str(CSV_PATH), help="CSV 文件路径")
+    parser.add_argument("--csv", default=None, help="CSV 文件路径 (默认: 自动解析 SSOT ~/Downloads/ 最新一份)")
     args = parser.parse_args()
 
-    objects = read_visitor_csv(args.csv)
+    csv_path = args.csv or str(_resolve_latest_csv())
+    print(f"[INFO] CSV 源: {csv_path}")
+    objects = read_visitor_csv(csv_path)
     if not objects:
         print("[FAIL] 无有效数据")
         sys.exit(1)

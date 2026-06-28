@@ -1,10 +1,264 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-06-05",
+  "updatedAt": "2026-06-24",
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
+  "weekCycle": {
+    "currentWeek": "Week 1 (新周期)",
+    "currentFocus": "Object Types 完整定义 + Link Types 设计",
+    "completedPhases": [
+      "Phase 1 schema 雏形",
+      "Phase 2 prototype SQLite",
+      "Week 6 原型跑通"
+    ],
+    "nextMilestone": "Week 2: Actions & Functions 标准化方案"
+  },
+  "idNamingConvention": {
+    "description": "统一 ID 命名规范（解决 Week 6 发现的 only_henan/only_dream 同景区不同 ID 问题）",
+    "generalRule": "<scope>:<type>:<value>",
+    "rules": {
+      "ScenicSpot": "ss:<lowercase_name>。同一景区只能有 1 个 ID，alias 用 aliases 字段",
+      "MetricSnapshot": "ms:<source>:<spot_id>:<date>:<metric_type>",
+      "ContentAsset": "ca:<source>:<external_id>",
+      "Event": "ev:<type>:<date>:<seq>",
+      "MarketingCampaign": "mc:<name_slug>",
+      "DecisionRule": "dr:<rule_id>",
+      "TouristSegment": "ts:<name_slug>",
+      "Region": "rg:<level>:<name_slug>",
+      "KnowledgeBase": "kb:<path_slug>",
+      "Creator": "cr:<platform>:<author_id>",
+      "OntologyAdapter": "adapter-<name>",
+      "AgentTask": "at:<cron_job_id>"
+    },
+    "deprecationPolicy": "旧 ID 通过 aliases 字段保留，新 ID 作主键。查询层做 alias→primary_id 透明映射"
+  },
+  "cardinalityMatrix": {
+    "description": "显式声明 Link Types 的基数。解决 Week 6 双向引用歧义",
+    "definitions": {
+      "competes_with": {
+        "source": "ScenicSpot",
+        "target": "ScenicSpot",
+        "cardinality": "M:N",
+        "directional": false
+      },
+      "belongs_to": {
+        "source": "MetricSnapshot|MarketingCampaign|ContentAsset",
+        "target": "ScenicSpot",
+        "cardinality": "N:1",
+        "directional": true
+      },
+      "transforms_to": {
+        "source": "OntologyAdapter",
+        "target": "MetricSnapshot|ContentAsset",
+        "cardinality": "1:N",
+        "directional": true
+      },
+      "mentions": {
+        "source": "ContentAsset",
+        "target": "ScenicSpot",
+        "cardinality": "N:M",
+        "directional": false
+      },
+      "affects": {
+        "source": "Event",
+        "target": "ScenicSpot",
+        "cardinality": "M:N",
+        "directional": true
+      },
+      "triggers_action": {
+        "source": "DecisionRule",
+        "target": "AgentTask|Event",
+        "cardinality": "1:N",
+        "directional": true
+      },
+      "based_on_metric": {
+        "source": "DecisionRule",
+        "target": "MetricSnapshot",
+        "cardinality": "N:M",
+        "directional": false
+      },
+      "promotes": {
+        "source": "MarketingCampaign",
+        "target": "ContentAsset",
+        "cardinality": "1:N",
+        "directional": true
+      },
+      "targets": {
+        "source": "MarketingCampaign|ContentAsset",
+        "target": "TouristSegment",
+        "cardinality": "N:M",
+        "directional": false
+      },
+      "triggered_by": {
+        "source": "AgentTask",
+        "target": "Event|DecisionRule",
+        "cardinality": "N:M",
+        "directional": false
+      },
+      "aggregated_from": {
+        "source": "MetricSnapshot",
+        "target": "ContentAsset",
+        "cardinality": "M:N",
+        "directional": true,
+        "inverseLink": "contributes_to"
+      },
+      "contributes_to": {
+        "source": "ContentAsset",
+        "target": "MetricSnapshot",
+        "cardinality": "N:M",
+        "directional": true,
+        "inverseLink": "aggregated_from"
+      },
+      "writes_to": {
+        "source": "AgentTask",
+        "target": "KnowledgeBase",
+        "cardinality": "1:N",
+        "directional": true
+      },
+      "located_in": {
+        "source": "ScenicSpot|Region",
+        "target": "Region",
+        "cardinality": "N:1",
+        "directional": true
+      },
+      "monitors": {
+        "source": "OntologyAdapter",
+        "target": "ScenicSpot|MetricSnapshot",
+        "cardinality": "1:N",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "produces": {
+        "source": "Function",
+        "target": "MetricSnapshot|ContentAsset|Event",
+        "cardinality": "1:N",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "evidence_for": {
+        "source": "MetricSnapshot|Event",
+        "target": "DecisionRule",
+        "cardinality": "N:M",
+        "directional": false,
+        "addedWeek": "1"
+      },
+      "addresses": {
+        "source": "DecisionRule",
+        "target": "Event",
+        "cardinality": "N:M",
+        "directional": false,
+        "addedWeek": "1"
+      },
+      "references": {
+        "source": "KnowledgeBase",
+        "target": "ScenicSpot|MetricSnapshot|Event|DecisionRule",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "created_by": {
+        "source": "ContentAsset",
+        "target": "Creator",
+        "cardinality": "N:1",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "located_in_region": {
+        "source": "TouristSegment",
+        "target": "Region",
+        "cardinality": "N:M",
+        "directional": false,
+        "addedWeek": "1"
+      },
+      "targeted_by": {
+        "source": "MarketingCampaign|ContentAsset",
+        "target": "TouristSegment",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1",
+        "inverseLink": "targets"
+      },
+      "has_campaign": {
+        "source": "ScenicSpot",
+        "target": "MarketingCampaign",
+        "cardinality": "1:N",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "has_content": {
+        "source": "ScenicSpot",
+        "target": "ContentAsset",
+        "cardinality": "1:N",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "has_metric": {
+        "source": "ScenicSpot",
+        "target": "MetricSnapshot",
+        "cardinality": "1:N",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "triggers_sentiment": {
+        "source": "ContentAsset",
+        "target": "Event",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "mentioned_in": {
+        "source": "Event",
+        "target": "ContentAsset|KnowledgeBase",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "uses": {
+        "source": "MarketingCampaign",
+        "target": "ContentAsset",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "overridden_by": {
+        "source": "DecisionRule",
+        "target": "DecisionRule",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "evidence_for_inverse": {
+        "source": "DecisionRule",
+        "target": "MetricSnapshot|Event",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "contains": {
+        "source": "Region",
+        "target": "Region",
+        "cardinality": "1:N",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "written_by": {
+        "source": "KnowledgeBase",
+        "target": "AgentTask|Creator",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      },
+      "created_by_inverse": {
+        "source": "Creator",
+        "target": "ContentAsset",
+        "cardinality": "N:M",
+        "directional": true,
+        "addedWeek": "1"
+      }
+    }
+  },
   "objectTypes": {
     "ScenicSpot": {
       "description": "景区实体。电影小镇及所有竞品/对标景区",
@@ -45,6 +299,51 @@
         },
         "isCoreCompetitor": {
           "type": "boolean"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true,
+          "description": "景区别名/曾用名。解决 Week 6 发现的 only_henan/only_dream 同景区不同 ID 问题"
+        },
+        "province": {
+          "type": "string",
+          "optional": true,
+          "description": "所属省份（如 河南）。Week 1 补：与 Region located_in 冗余但便于查询"
+        },
+        "city": {
+          "type": "string",
+          "optional": true,
+          "description": "所属城市"
+        },
+        "peakSeasonMonths": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "optional": true,
+          "description": "旺季月份 [1-12]。Tourism Ontology 参考属性"
+        },
+        "typicalVisitDuration": {
+          "type": "number",
+          "optional": true,
+          "unit": "小时",
+          "description": "典型游览时长"
+        },
+        "ticketPriceRange": {
+          "type": "string",
+          "optional": true,
+          "description": "票价区间，如 '80-150'"
+        },
+        "targetAgeGroups": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true,
+          "description": "目标年龄段 ['儿童', '青年', '中年', '老年']"
         },
         "createdAt": {
           "type": "date"
@@ -119,11 +418,35 @@
         },
         "collectedAt": {
           "type": "datetime"
+        },
+        "baselineValue": {
+          "type": "number",
+          "optional": true,
+          "description": "14天滚动均值。Week 1 补：异常检测 (anomaly = abs(value - baselineValue)/baselineValue > 0.3)"
+        },
+        "dailyVolatility": {
+          "type": "number",
+          "optional": true,
+          "description": "7天滚动标准差/均值。Week 1 补：波动率指标"
+        },
+        "isAnomaly": {
+          "type": "boolean",
+          "optional": true,
+          "description": "是否被标记为异常。Week 1 补：与 dailyVolatility 联动"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true,
+          "description": "Week 1 补：如 ['端午窗口', '5月峰值', '连续3天异常']"
         }
       },
       "linkTypes": [
         "belongs_to",
-        "aggregated_from"
+        "aggregated_from",
+        "evidence_for"
       ],
       "dataSources": [
         "adapter-douyin.py::/tmp/crawl_data.json",
@@ -466,7 +789,9 @@
       "linkTypes": [
         "triggers_action",
         "based_on_metric",
-        "overridden_by"
+        "overridden_by",
+        "evidence_for_inverse",
+        "addresses"
       ],
       "dataSources": [
         "wiki/行业知识/决策规则库.md"
@@ -632,6 +957,329 @@
       "dataSources": [
         "cron list"
       ]
+    },
+    "TouristSegment": {
+      "description": "游客群体细分——亲子/Z世代/大学生/省外/B端等",
+      "addedWeek": "1 (Week 1 补 Phase 1 未完事项)",
+      "properties": {
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "text",
+          "optional": true
+        },
+        "ageRange": {
+          "type": "string",
+          "optional": true,
+          "description": "如 18-25 / 30-45"
+        },
+        "genderSplit": {
+          "type": "object",
+          "optional": true,
+          "description": "{\"male\": 0.4, \"female\": 0.6}"
+        },
+        "primaryRegionIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "ref": "Region"
+          },
+          "optional": true
+        },
+        "characteristics": {
+          "type": "object",
+          "optional": true,
+          "description": "行为特征 {preferredCategories: [], avgSpending: 0, groupSize: 0}"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "createdAt": {
+          "type": "datetime"
+        }
+      },
+      "linkTypes": [
+        "targeted_by",
+        "located_in_region"
+      ],
+      "instances": [
+        {
+          "id": "ts:亲子家庭",
+          "name": "亲子家庭"
+        },
+        {
+          "id": "ts:Z世代",
+          "name": "Z世代年轻客群"
+        },
+        {
+          "id": "ts:大学生",
+          "name": "大学生群体"
+        },
+        {
+          "id": "ts:省外游客",
+          "name": "省外远程游客"
+        },
+        {
+          "id": "ts:B端团建",
+          "name": "B端企业团建"
+        }
+      ],
+      "dataSources": [
+        "seed_basic.py (Week 6 seed: 5 条)",
+        "抖音指数人群画像（待接入）",
+        "小红书笔记用户画像（待接入）"
+      ]
+    },
+    "Region": {
+      "description": "地理区域——省/市/区三级层级，支持嵌套",
+      "addedWeek": "1 (Week 1 补 Phase 1 未完事项)",
+      "properties": {
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "level": {
+          "type": "enum",
+          "values": [
+            "country",
+            "province",
+            "city",
+            "district"
+          ]
+        },
+        "parentRegionId": {
+          "type": "string",
+          "ref": "Region",
+          "optional": true,
+          "description": "上级 Region ID，district→city→province→country"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true,
+          "description": "别名/曾用名（如中牟/中牟县）"
+        },
+        "centerCoords": {
+          "type": "object",
+          "optional": true,
+          "description": "{lat: 0, lng: 0} 中心经纬度"
+        },
+        "createdAt": {
+          "type": "datetime"
+        }
+      },
+      "linkTypes": [
+        "contains",
+        "located_in"
+      ],
+      "instances": [
+        {
+          "id": "rg:province:河南",
+          "name": "河南省",
+          "level": "province"
+        },
+        {
+          "id": "rg:province:北京",
+          "name": "北京市",
+          "level": "province"
+        },
+        {
+          "id": "rg:city:郑州",
+          "name": "郑州市",
+          "level": "city",
+          "parentRegionId": "rg:province:河南"
+        },
+        {
+          "id": "rg:city:开封",
+          "name": "开封市",
+          "level": "city",
+          "parentRegionId": "rg:province:河南"
+        },
+        {
+          "id": "rg:city:洛阳",
+          "name": "洛阳市",
+          "level": "city",
+          "parentRegionId": "rg:province:河南"
+        },
+        {
+          "id": "rg:district:中牟",
+          "name": "中牟县",
+          "level": "district",
+          "parentRegionId": "rg:city:郑州",
+          "aliases": [
+            "中牟"
+          ]
+        }
+      ],
+      "dataSources": [
+        "seed_basic.py (Week 6 seed: 9 条)"
+      ]
+    },
+    "KnowledgeBase": {
+      "description": "知识库索引——wiki 目录树 + 文档节点，支持文档→Ontology Object 反向引用",
+      "addedWeek": "1",
+      "properties": {
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "path": {
+          "type": "string",
+          "description": "wiki/ 下的相对路径，如 '行业知识/节假日基准.md'"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "enum",
+          "values": [
+            "directory",
+            "markdown",
+            "csv",
+            "json",
+            "image",
+            "other"
+          ]
+        },
+        "category": {
+          "type": "enum",
+          "values": [
+            "sop",
+            "industry_knowledge",
+            "tech_config",
+            "decisions",
+            "case_study",
+            "evidence",
+            "other"
+          ],
+          "optional": true
+        },
+        "summary": {
+          "type": "text",
+          "optional": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "lastIndexedAt": {
+          "type": "datetime"
+        },
+        "wordCount": {
+          "type": "number",
+          "optional": true
+        },
+        "checksum": {
+          "type": "string",
+          "optional": true,
+          "description": "文件内容 SHA256，用于变更检测"
+        }
+      },
+      "linkTypes": [
+        "references",
+        "written_by"
+      ],
+      "dataSources": [
+        "wiki/ 目录扫描 (待实现 scanner)",
+        "scripts/drift_check.py (周度扫描)"
+      ],
+      "notes": "Week 1 初始设计。Phase 1 之后补 KB scanner：walk wiki/ 目录生成 KnowledgeBase 节点，自动解析 markdown frontmatter 中的 ontology 引用"
+    },
+    "Creator": {
+      "description": "内容创作者——KOL/KOC + UGC 用户，覆盖抖音/小红书/微博",
+      "addedWeek": "1",
+      "properties": {
+        "id": {
+          "type": "string",
+          "key": true
+        },
+        "platform": {
+          "type": "enum",
+          "values": [
+            "douyin",
+            "xiaohongshu",
+            "weibo",
+            "bilibili",
+            "other"
+          ]
+        },
+        "externalId": {
+          "type": "string",
+          "description": "平台原始 ID"
+        },
+        "name": {
+          "type": "string"
+        },
+        "avatarUrl": {
+          "type": "string",
+          "optional": true
+        },
+        "followerCount": {
+          "type": "number",
+          "optional": true
+        },
+        "verified": {
+          "type": "boolean",
+          "optional": true
+        },
+        "category": {
+          "type": "enum",
+          "values": [
+            "kol",
+            "koc",
+            "ugc",
+            "official",
+            "media",
+            "other"
+          ],
+          "optional": true
+        },
+        "regionId": {
+          "type": "string",
+          "ref": "Region",
+          "optional": true
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "optional": true
+        },
+        "firstSeenAt": {
+          "type": "datetime"
+        },
+        "lastActiveAt": {
+          "type": "datetime",
+          "optional": true
+        }
+      },
+      "linkTypes": [
+        "created_by_inverse"
+      ],
+      "dataSources": [
+        "adapter-xiaohongshu.py (爬虫升级后启用)",
+        "adapter-douyin.py (抖音 KOL)",
+        "competitor_program_tracker.py (竞品达人合作)"
+      ],
+      "notes": "Week 1 设计，待爬虫支持单条笔记详情后启用。Week 7+ 接入。"
     }
   },
   "linkTypes": {
@@ -845,6 +1493,345 @@
         "Region"
       ],
       "properties": {}
+    },
+    "monitors": {
+      "description": "Adapter 监控景区/指标（Adapter 调度关系）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "OntologyAdapter"
+      ],
+      "targetTypes": [
+        "ScenicSpot",
+        "MetricSnapshot"
+      ],
+      "properties": {
+        "pollingInterval": {
+          "type": "string",
+          "optional": true,
+          "description": "如 'daily 09:00'"
+        },
+        "lastSuccessfulRun": {
+          "type": "datetime",
+          "optional": true
+        }
+      }
+    },
+    "produces": {
+      "description": "Function 产出 Ontology Object（计算/分析→业务对象）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "Function (logical, not stored)"
+      ],
+      "targetTypes": [
+        "MetricSnapshot",
+        "ContentAsset",
+        "Event"
+      ],
+      "properties": {
+        "executionMode": {
+          "type": "enum",
+          "values": [
+            "scheduled",
+            "on_demand",
+            "realtime"
+          ],
+          "optional": true
+        },
+        "outputFormat": {
+          "type": "string",
+          "optional": true,
+          "description": "json / markdown / card"
+        }
+      },
+      "notes": "Function 本身不存为 Object Type（无独立 schema），但通过 produces 关系把输出挂到 Ontology"
+    },
+    "evidence_for": {
+      "description": "数据/事件作为决策规则的证据（规则验证来源）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "MetricSnapshot",
+        "Event"
+      ],
+      "targetTypes": [
+        "DecisionRule"
+      ],
+      "properties": {
+        "evidenceStrength": {
+          "type": "number",
+          "optional": true,
+          "description": "证据强度 0-1"
+        },
+        "verifiedAt": {
+          "type": "datetime",
+          "optional": true
+        },
+        "verifiedBy": {
+          "type": "string",
+          "optional": true,
+          "description": "站长验证 / 自动验证 / 第三方验证"
+        }
+      },
+      "notes": "双向等价 based_on_metric 的语义扩展：DecisionRule 基于哪些 MetricSnapshot + Event 得出"
+    },
+    "addresses": {
+      "description": "决策规则旨在解决的问题/事件（规则→问题映射）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "DecisionRule"
+      ],
+      "targetTypes": [
+        "Event"
+      ],
+      "properties": {
+        "resolutionStatus": {
+          "type": "enum",
+          "values": [
+            "open",
+            "partial",
+            "resolved",
+            "wont_fix"
+          ],
+          "optional": true
+        }
+      },
+      "notes": "决策闭环关键 link：从问题（Event）→ 规则（DecisionRule）→ 动作（AgentTask/Action）的 3 跳链路"
+    },
+    "references": {
+      "description": "知识库文档引用业务对象（wiki ↔ Ontology 反向链接）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "KnowledgeBase"
+      ],
+      "targetTypes": [
+        "ScenicSpot",
+        "MetricSnapshot",
+        "Event",
+        "DecisionRule",
+        "MarketingCampaign",
+        "AgentTask"
+      ],
+      "properties": {
+        "referenceType": {
+          "type": "enum",
+          "values": [
+            "primary_source",
+            "related",
+            "example",
+            "critique"
+          ],
+          "optional": true
+        },
+        "contextSnippet": {
+          "type": "text",
+          "optional": true,
+          "description": "文档中引用该对象的原文片段"
+        }
+      },
+      "notes": "Wiki → Ontology 链接自动提取：parser 解析 markdown 中的 [[objectId]] 语法"
+    },
+    "created_by": {
+      "description": "内容资产由创作者生产",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "ContentAsset"
+      ],
+      "targetTypes": [
+        "Creator"
+      ],
+      "properties": {
+        "publishDate": {
+          "type": "date",
+          "optional": true
+        },
+        "monetized": {
+          "type": "boolean",
+          "optional": true
+        }
+      }
+    },
+    "located_in_region": {
+      "description": "客群细分主要位于区域",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "TouristSegment"
+      ],
+      "targetTypes": [
+        "Region"
+      ],
+      "properties": {
+        "sharePercent": {
+          "type": "number",
+          "optional": true,
+          "description": "该客群在该区域的占比 0-1"
+        }
+      }
+    },
+    "targeted_by": {
+      "description": "客群是营销/内容的投放目标（targets 的反向）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "MarketingCampaign",
+        "ContentAsset"
+      ],
+      "targetTypes": [
+        "TouristSegment"
+      ],
+      "properties": {
+        "primary": {
+          "type": "boolean",
+          "optional": true,
+          "description": "是否为主要目标客群"
+        }
+      }
+    },
+    "has_campaign": {
+      "description": "景区拥有营销活动（belongs_to 的反向）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "ScenicSpot"
+      ],
+      "targetTypes": [
+        "MarketingCampaign"
+      ],
+      "properties": {},
+      "cardinality": "1:N"
+    },
+    "has_content": {
+      "description": "景区拥有内容资产（belongs_to 的反向）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "ScenicSpot"
+      ],
+      "targetTypes": [
+        "ContentAsset"
+      ],
+      "properties": {},
+      "cardinality": "1:N"
+    },
+    "has_metric": {
+      "description": "景区拥有数据快照（belongs_to 的反向）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "ScenicSpot"
+      ],
+      "targetTypes": [
+        "MetricSnapshot"
+      ],
+      "properties": {},
+      "cardinality": "1:N"
+    },
+    "triggers_sentiment": {
+      "description": "内容资产触发舆情事件",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "ContentAsset"
+      ],
+      "targetTypes": [
+        "Event"
+      ],
+      "properties": {
+        "sentimentScore": {
+          "type": "number",
+          "optional": true
+        }
+      }
+    },
+    "mentioned_in": {
+      "description": "事件被内容/报告提及",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "Event"
+      ],
+      "targetTypes": [
+        "ContentAsset",
+        "KnowledgeBase"
+      ],
+      "properties": {}
+    },
+    "uses": {
+      "description": "营销活动使用内容资产",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "MarketingCampaign"
+      ],
+      "targetTypes": [
+        "ContentAsset"
+      ],
+      "properties": {},
+      "cardinality": "N:M"
+    },
+    "overridden_by": {
+      "description": "决策规则被其他规则覆盖",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "DecisionRule"
+      ],
+      "targetTypes": [
+        "DecisionRule"
+      ],
+      "properties": {
+        "overrideReason": {
+          "type": "string",
+          "optional": true
+        }
+      }
+    },
+    "evidence_for_inverse": {
+      "description": "evidence_for 的反向引用（DecisionRule → 证据）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "DecisionRule"
+      ],
+      "targetTypes": [
+        "MetricSnapshot",
+        "Event"
+      ],
+      "properties": {}
+    },
+    "contains": {
+      "description": "上级 Region 包含下级 Region（嵌套）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "Region"
+      ],
+      "targetTypes": [
+        "Region"
+      ],
+      "properties": {},
+      "cardinality": "1:N"
+    },
+    "written_by": {
+      "description": "知识库文档由 Agent/创作者编写",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "KnowledgeBase"
+      ],
+      "targetTypes": [
+        "AgentTask",
+        "Creator"
+      ],
+      "properties": {
+        "writeRole": {
+          "type": "enum",
+          "values": [
+            "author",
+            "editor",
+            "reviewer"
+          ],
+          "optional": true
+        }
+      }
+    },
+    "created_by_inverse": {
+      "description": "创作者创作了哪些内容（created_by 的反向）",
+      "addedWeek": "1",
+      "sourceTypes": [
+        "Creator"
+      ],
+      "targetTypes": [
+        "ContentAsset"
+      ],
+      "properties": {}
     }
   },
   "functions": {
@@ -1005,6 +1992,68 @@
       "requiredProperties": [
         "id",
         "name"
+      ]
+    },
+    "HasRegionalContext": {
+      "description": "任何有地理归属的对象（统一区域查询）",
+      "addedWeek": "1",
+      "objectTypes": [
+        "ScenicSpot",
+        "Event",
+        "TouristSegment",
+        "Creator"
+      ],
+      "requiredProperties": [
+        "id"
+      ],
+      "optionalProperties": [
+        "regionId",
+        "locatedInRegion"
+      ]
+    },
+    "TimeSeries": {
+      "description": "任何带时间戳的可序列化数据（统一趋势查询）",
+      "addedWeek": "1",
+      "objectTypes": [
+        "MetricSnapshot",
+        "Event",
+        "ContentAsset",
+        "AgentTask"
+      ],
+      "requiredProperties": [
+        "id",
+        "collectedAt|occurredAt|publishDate|lastRunAt"
+      ],
+      "notes": "实现层通过 requiredProperties 任意一个字段满足即可，查询层做 UNION 抽象"
+    },
+    "HasAuditTrail": {
+      "description": "任何需要审计的对象（变更/写入/决策可追溯）",
+      "addedWeek": "1",
+      "objectTypes": [
+        "DecisionRule",
+        "AgentTask",
+        "OntologyAdapter",
+        "KnowledgeBase"
+      ],
+      "requiredProperties": [
+        "id",
+        "updatedAt|lastIndexedAt|lastRunAt"
+      ],
+      "notes": "对接 SQLite ingest_log / action_log / query_log 三表"
+    },
+    "HasPricing": {
+      "description": "任何含价格/票务属性的对象",
+      "addedWeek": "1",
+      "objectTypes": [
+        "ScenicSpot",
+        "MarketingCampaign"
+      ],
+      "requiredProperties": [
+        "id"
+      ],
+      "optionalProperties": [
+        "ticketPriceRange",
+        "budget"
       ]
     }
   },
@@ -1194,8 +2243,8 @@
     }
   },
   "phaseTracking": {
-    "currentPhase": "Phase 2: 数据管道 adapter 原型",
-    "lastDailyWork": "2026-06-05",
+    "currentPhase": "Phase 2: 数据管道 adapter 原型 (Week 7 启动)",
+    "lastDailyWork": "2026-06-24 (Week 1 新周期)",
     "adapters": {
       "adapter-douyin": {
         "status": "active",
@@ -1217,6 +2266,76 @@
       "adapter-baidu": {
         "status": "planned"
       }
+    },
+    "objectTypesAddedByWeek": {
+      "Week 1 (2026-06-24)": [
+        "TouristSegment",
+        "Region",
+        "KnowledgeBase",
+        "Creator"
+      ]
+    },
+    "linkTypesAddedByWeek": {
+      "Week 1 (2026-06-24)": [
+        "monitors",
+        "produces",
+        "evidence_for",
+        "addresses",
+        "references",
+        "created_by",
+        "located_in_region",
+        "targeted_by"
+      ]
+    },
+    "interfacesAddedByWeek": {
+      "Week 1 (2026-06-24)": [
+        "HasRegionalContext",
+        "TimeSeries",
+        "HasAuditTrail",
+        "HasPricing"
+      ]
+    },
+    "structuralSectionsAddedByWeek": {
+      "Week 1 (2026-06-24)": [
+        "idNamingConvention",
+        "cardinalityMatrix",
+        "weekCycle"
+      ]
     }
+  },
+  "validation": {
+    "description": "Schema 验证规则。Week 1 新增",
+    "rules": [
+      {
+        "rule": "V-001",
+        "name": "ID 必须遵循 idNamingConvention",
+        "implementation": "scripts/ontology/validate.py (待写)"
+      },
+      {
+        "rule": "V-002",
+        "name": "Link Type 实例化时检查 cardinality",
+        "implementation": "ontology_store.py::validate_link_cardinality() (待写)"
+      },
+      {
+        "rule": "V-003",
+        "name": "Inverse link 双向一致 (aggregated_from ↔ contributes_to)",
+        "implementation": "ontology_store.py::validate_inverse_links() (待写)"
+      },
+      {
+        "rule": "V-004",
+        "name": "ScenicSpot 的 located_in 必须指向 Region 对象",
+        "implementation": "ontology_store.py::validate_region_link() (待写)"
+      },
+      {
+        "rule": "V-005",
+        "name": "confidence 字段值必须在 [0, 1] 区间",
+        "implementation": "ontology_store.py::validate_confidence_range() (待写)"
+      },
+      {
+        "rule": "V-006",
+        "name": "DecisionRule.status == 'verified' 必须有 triggerCount > 0",
+        "implementation": "ontology_store.py::validate_verified_rule() (待写)"
+      }
+    ]
   }
 }
