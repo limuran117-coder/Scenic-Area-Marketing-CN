@@ -1,0 +1,50 @@
+{
+  "schema": "2.0",
+  "header": {
+    "title": {
+      "tag": "plain_text",
+      "content": "🛠️ 周日系统维护 W27 | 2026-06-28（合并版首跑）"
+    },
+    "template": "blue"
+  },
+  "body": {
+    "elements": [
+      {
+        "tag": "markdown",
+        "content": "**📦 本周变更沉淀**\n\n• **2 个 commit 已 push** (合并版首跑成功)\n  - `32f0595` 知识沉淀（+1891/-654 行）+ Baidu 死脚本归档 5 文件\n  - `12cd882` cron 业务日志自动追加（政策动态 + 趋势热点）\n\n• **Cron 状态变化**：5 个 → 2 个（合并方案 A #4 首跑）\n  - 09:00 周日系统升级+GitHub推送 ✅ 合并入当前\n  - 09:30 系统代谢 ✅ 合并入当前\n\n• **本周有效 commits（6/22-6/28）**：9 个非 vault backup（Skill 清理/Skill 现状报告/方案 A #1-#5 完成等）"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "**🔍 系统健康洞察**\n\n🎯 **当前最需要修复**：**Baidu 爬虫系列死脚本漂浮**——`scripts/_probe_baidu_*.py` (3) + `crawl_baidu.py` + `adapter-baidu.py` 共 5 个文件 5 天前已停止维护但仍在根目录，导致 `scripts/` 搜索时噪音干扰后续重构判断。**影响**：站长审视 `adapter-visitors.py` 修复时易误以为同系列还在用。本次已自动归档至 `scripts/archive/`。\n\n🚀 **下周最需要做的 1 件事**：**合并版（方案 A #4）下周日（7/5）二跑验证完整性**——确认 9:00 单次 cron 是否完整覆盖原 09:00 + 09:30 两个时点的功能：① git commit/push 是否正常 ② feishu 卡片 4 字段（📦/🔍/⚠️/🚀）是否齐全 ③ system-metabolism-log.md 是否追加。如缺一项，需补充到当前 cron payload。\n\n💡 **对站长工作的影响**：✅ **无直接影响，可忽略**——本次所有自动化产出均已落库（git 已 push + log 已写 + 卡片已发）；站长本周末的「查看维护结果」可缩短为：飞书卡片扫一眼 (1 min) + 跳读 system-metabolism-log.md (2 min) = 3 min 闭环。"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "**📊 8 项健康指标**\n\n| # | 指标 | 当前 | 阈值 | 状态 |\n|---|------|------|------|------|\n| 1 | Cron 失败次数 | 0 | ≥3 | ✅ |\n| 2 | 文件行数 >300 | 4（均为知识文件） | >300 | ✅ |\n| 3 | 文件体积 >500K | 0 | >500K | ✅ |\n| 4 | 任务指令长度 | 合并版 1100 字 | >800 | ⚠️ 监控 |\n| 5 | 本次 Token 消耗 | ~50k | >100k | ✅ |\n| 6 | Cron 状态变化 | 5→2（合并成功） | - | ✅ |\n| 7 | 死指令 | 0 | 发现即处理 | ✅ |\n| 8 | 废弃任务 | 0（disabled 已清理） | - | ✅ |\n\n**📈 趋势**：wiki 24M / memory 3.9M（与上周持平），drift 漂移备份 172K 已清理"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "**⚠️ 需站长确认**\n\n1. ⚠️ **tmp_screenshots/douyin_20260618/** (4.5M / 49 个 PNG) — 抖音竞品关键词调研中间产物，已 git tracked 但仅为截图缓存（非核心数据）。**是否同意删除并加 `.gitignore`？**\n   - 选项 A：删除 + 加 `tmp_screenshots/` 到 .gitignore（推荐，省 4.5M 仓库空间）\n   - 选项 B：保留（若想保留历史研究快照）\n\n2. 🟡 **合并版 cron 指令长度 1100 字** — 略超 800 字阈值。是否需要在 7/5 二跑后拆为 2 个 cron（git 推送 + 代谢分析）？\n\n3. 🟢 **wiki/2026-05-12 万岁山深度档案** — 已 40 天未更新（如需继续追踪，可考虑 7 月重访；否则移入 archive）"
+      },
+      {
+        "tag": "hr"
+      },
+      {
+        "tag": "markdown",
+        "content": "**🚀 明日（周一 6/29）行动**\n\n📌 **9:30 之前确认 `tmp_screenshots/douyin_20260618/` 处理方式**（删除 + 加 .gitignore / 保留）——回复 ⚠️ 选项即可，下次周日维护自动执行。"
+      },
+      {
+        "tag": "markdown",
+        "content": "🛠️ *周日系统维护 W27 | 2026-06-28 09:00 | 已 push to main | commit 32f0595 + 12cd882*"
+      }
+    ]
+  }
+}
