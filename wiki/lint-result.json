@@ -1,13 +1,96 @@
 {
-  "timestamp": "2026-06-21T12:05:55.002909",
-  "issues_count": 6,
+  "timestamp": "2026-06-28T11:03:59.258820",
+  "issues_count": 21,
   "issues": [
+    {
+      "type": "stale",
+      "file": "全国景区案例库/更新台账.md",
+      "last_update": "2026-05-26",
+      "days_old": 33,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "竞品分析/关键词池状态.md",
+      "last_update": "2026-05-27",
+      "days_old": 32,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "技术配置/脚本清单.md",
+      "last_update": "2026-05-24",
+      "days_old": 35,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
     {
       "type": "stale",
       "file": "竞品分析/竞品深度档案/万岁山武侠城深度分析.md",
       "last_update": "2026-05-12",
-      "days_old": 40,
+      "days_old": 47,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "entities/scripts/README.md",
+      "last_update": "2026-05-24",
+      "days_old": 35,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/浙江雁楠飞仙海天游-温台6景区门票互惠-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/贵州×阅文「一人之下」IP联动-2个月长效打卡-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/国色天乡夜场海边蹦迪模式-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/银基动物王国缤纷焰火季6-22暑期夜场启动-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/贵州文旅×阅文《一人之下》省级IP联动2个月长效打卡-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/贵州《四渡》电影票根影旅联动-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "SOP/Cookie恢复与人工介入SOP.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "SOP/周日cron合并方案-W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "SOP/方案A-W26系统可靠性升级.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/Week1_ObjectTypes_LinkTypes.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "行业知识/结论索引/已验证结论_竞品关键词深度分析.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "contradiction",
