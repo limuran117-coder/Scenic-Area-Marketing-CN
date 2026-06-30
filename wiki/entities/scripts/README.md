@@ -1,6 +1,6 @@
 # Scripts 索引
 
-> 所有脚本索引 | 最后更新：2026-05-24（漂移检查后同步）
+> 所有脚本索引 | 最后更新：2026-06-30（漂移检查后同步）
 
 ---
 
@@ -81,4 +81,23 @@
 
 ---
 
-*本索引最后更新：2026-05-24*
+*本索引最后更新：2026-06-30*
+
+---
+
+## 🆕 2026-06-30 状态汇总
+
+| 脚本 | 状态 | 备注 |
+|------|------|------|
+| `douyin_index.py` | ✅ 健康 | v11，6/30 8 景区 100% 有效 |
+| `query_passenger.py` | ✅ 健康 | SSOT 已迁移到 `~/Downloads/` |
+| `send_feishu_card.py` | ✅ 健康 | 6/30 5 张卡 100% 发送成功 |
+| `competitor_program_tracker.py` | ✅ v2 修复 | web_search 主路径，5 竞品 9 条真实数据 |
+| `xiaohongshu_crawl.py` | ⚠️ 待恢复 | 灵犀 not_logged_in，需站长人工扫码 |
+| `xhs_competitor_crawl.py` | ⚠️ 待验证 | 6/30 未实际跑 |
+
+### 6/30 系统修复
+
+- ✅ `competitor_program_tracker.py` v1→v2（web_search 主路径）
+- ⚠️ 抖音用户端 selector 待优化
+- ⚠️ 小红书灵犀登录待站长人工扫码

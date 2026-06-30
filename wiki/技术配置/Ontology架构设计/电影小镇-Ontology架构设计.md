@@ -266,3 +266,33 @@ data sources → Ingestion Pipeline → Ontology Layer → AI Agents
 2. 确定 Phase 1 启动的具体 Object Type（建议从 ScenicSpot + MetricSnapshot 开始）
 3. 设计 ontology.json Schema
 4. 启动定时研究任务，每周深化
+
+---
+
+## 🆕 2026-06-30 H1 收官节点
+
+### **H1 收官数据写入 Ontology 计划**
+
+| Object Type | 数据 | 状态 |
+|------------|------|------|
+| ScenicSpot | 建业电影小镇 | ✅ 已有 |
+| MetricSnapshot | H1=716,409 / 6月日均=1,428 / 端午=11,513 | 🔶 待写入 |
+| Region | 河南（46.16% TGI=634）| 🔶 待写入 |
+| ContentAsset | 5/15 启幕「回到小时候」/ 6/13 暑期季 | 🔶 待写入 |
+| Action | P0 三项（毕业生免票/夜游 2.0/抖音日更）| 🔶 待写入 |
+| Decision | 应急 MVP 7/2 18:00 触发 | 🔶 待写入 |
+
+### **Week 3 实施路径**
+
+- Day 1（7/1）：validate.py V-001~V-010 全量
+- Day 2（7/2）：calculateBaselineValue + detectAnomaly 写入
+- Day 3（7/3）：scripts/actions/ 目录创建
+- Day 4（7/4）：P0-2 夜游 2.0 启动 → Action 治理
+- Day 5（7/5）：P0-1 毕业生免票数据回填
+
+### 关联文档
+
+- 实现路线图：`wiki/技术配置/Ontology架构设计/实现路线图.md`
+- ontology.json v1.3.0
+- Week 2 Actions & Functions：`wiki/技术配置/Ontology架构设计/Week2_Actions_Functions.md`
+- H1 一页纸：`memory/2026-06-30-h1-recap.md`

@@ -586,3 +586,22 @@ ontology.json 当前是 **纯 JSON Schema**，不引入 OWL/RDF（基础设施�
 
 _本文档由 Ontology架构研究_每周深化 cron 生成（Week 1 Object Types + Link Types 设计）_
 _下次更新：Week 2 Actions & Functions 标准化_
+
+---
+
+## 🆕 2026-06-30 H1 收官补充
+
+### **H1 数据写入 Object Types 计划**
+
+| Object Type | 关键字段 | H1 数据 |
+|------------|---------|---------|
+| MetricSnapshot | baselineValue | 抖音搜索 3,029 / 综合 1,081 |
+| MetricSnapshot | isAnomaly | 端午初六 782（暴跌 88%）|
+| MetricSnapshot | dailyVolatility | 6 月日均 1,428（环比 -64.2%）|
+| ScenicSpot | 关键属性 | 同比 6.7% 止跌 / 6 月崩盘 / YTD 46.8% |
+| Region | 占比 TGI | 河南 46.16% TGI=634 |
+
+### **D-011 ID Naming Convention 验证**
+
+- 8 景区 ID 唯一：建业电影小镇 / 万岁山武侠城 / 清明上河园 / 只有河南戏剧幻城 / 郑州方特欢乐世界 / 郑州海昌海洋公园 / 郑州银基动物王国 / 只有红楼梦戏剧幻城
+- ✅ 6/30 采集验证：8/8 唯一
