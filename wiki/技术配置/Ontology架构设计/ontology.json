@@ -1,19 +1,20 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-06-24",
+  "updatedAt": "2026-06-29",
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
   "weekCycle": {
-    "currentWeek": "Week 1 (新周期)",
-    "currentFocus": "Object Types 完整定义 + Link Types 设计",
+    "currentWeek": "Week 2 (新周期)",
+    "currentFocus": "Actions & Functions 标准化方案",
     "completedPhases": [
       "Phase 1 schema 雏形",
       "Phase 2 prototype SQLite",
-      "Week 6 原型跑通"
+      "Week 6 原型跑通",
+      "Week 1 Object Types + Link Types 完整定义"
     ],
-    "nextMilestone": "Week 2: Actions & Functions 标准化方案"
+    "nextMilestone": "Week 3: 数据接入管道设计（采集→映射→存储）"
   },
   "idNamingConvention": {
     "description": "统一 ID 命名规范（解决 Week 6 发现的 only_henan/only_dream 同景区不同 ID 问题）",
@@ -1837,63 +1838,241 @@
   "functions": {
     "calculateSearchTrend": {
       "name": "搜索指数趋势计算",
-      "input": "ScenicSpot.id, dateRange",
-      "output": "trend_line: [{date, searchIndex, compositeIndex}]",
+      "type": "Pure",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "TrendLine[]",
+      "input": {
+        "scenicSpotId": "ss:<id>",
+        "dateRange": "{start, end}"
+      },
+      "output": "trend_line: [{date, searchIndex, compositeIndex, dailyVolatility}]",
       "source": "douyin_index.py",
-      "schedule": "daily 11:00"
+      "schedule": "daily 11:00",
+      "produces": [
+        "MetricSnapshot"
+      ],
+      "usedBy": [
+        "daily_ranking_query",
+        "weekly_competitor_report",
+        "AIP_tool_search_trend"
+      ]
     },
     "assessContentVacuum": {
       "name": "内容缺口判定",
-      "input": "searchIndex, compositeIndex",
-      "output": "vacuumLevel: 'open'|'closing'|'none', recommendation",
+      "type": "Pure",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "VacuumAssessment",
+      "input": {
+        "searchIndex": "number",
+        "compositeIndex": "number",
+        "competitorAvg": "number"
+      },
+      "output": "vacuumLevel: \"open\"|\"closing\"|\"none\", recommendation",
       "source": "MEMORY.md/#内容真空窗口",
-      "schedule": "daily after metric collection"
+      "schedule": "daily after metric collection",
+      "produces": [],
+      "usedBy": [
+        "content_strategy_advisor",
+        "AIP_tool_vacuum_assessment"
+      ]
     },
     "predictVisitorFlow": {
       "name": "客流预测",
-      "input": "historicalVisitorData, weather, holidayCalendar, recentSearchTrend",
-      "output": "predictedVisitorCount, confidence",
+      "type": "Pure",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "Prediction",
+      "input": {
+        "historicalVisitorData": "MetricSnapshot[visitor_count] (3年)",
+        "weather": "wttr.in/中牟 forecast",
+        "holidayCalendar": "节假日基准.md",
+        "recentSearchTrend": "MetricSnapshot[search_index] (最近7天)"
+      },
+      "output": "predictedVisitorCount, confidence, range_low, range_high",
       "source": "period.js (算法模式)",
-      "schedule": "weekly (周二)"
+      "schedule": "weekly (周二)",
+      "produces": [],
+      "usedBy": [
+        "weekly_visitor_insight",
+        "marketing_recommendation"
+      ]
     },
     "sentimentAnalysis": {
       "name": "舆情情感分析",
+      "type": "Pure",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "SentimentReport",
       "input": "ContentAsset[platform, text, engagement]",
       "output": "sentimentScore, topNegativeKeywords, alertLevel",
       "source": "舆情监控任务",
-      "schedule": "daily 16:00"
+      "schedule": "daily 16:00",
+      "produces": [],
+      "usedBy": [
+        "CreateAlert (negative sentiment)",
+        "daily_insight_generator"
+      ]
     },
     "attributionScore": {
       "name": "营销归因评分",
-      "input": "campaignTimeline, visitorData, metricChanges",
-      "output": "attribution: {campaignId, score, confidence}",
+      "type": "SideEffect",
+      "sideEffects": true,
+      "idempotent": true,
+      "returnType": "AttributionResult",
+      "input": {
+        "campaignId": "mc:<id>",
+        "campaignTimeline": "{start, end}",
+        "visitorData": "MetricSnapshot[visitor_count] (campaign期间)",
+        "metricChanges": "metric diffs vs baseline"
+      },
+      "output": "attribution: {campaignId, score, confidence, evidence}",
       "source": "营销效果归因任务",
-      "schedule": "daily 07:00"
+      "schedule": "daily 07:00",
+      "produces": [
+        "DecisionRule.attributionScore",
+        "MarketingCampaign.attributionScore"
+      ],
+      "usedBy": [
+        "weekly_strategy_report"
+      ],
+      "rollback": "清空 DecisionRule.attributionScore 字段"
     },
     "competitiveAlert": {
       "name": "竞品异动预警",
-      "input": "ScenicSpot[], recentEvents",
-      "output": "alerts[{competitor, event, impact, urgency}]",
+      "type": "Pure",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "AlertList",
+      "input": {
+        "scenicSpots": "ScenicSpot[] (含 competes_with 链路)",
+        "recentEvents": "Event[occurredAt > now-7d]"
+      },
+      "output": "alerts[{competitor, event, impact, urgency, recommendedAction}]",
       "source": "竞品内容动态/竞品关键词深度分析",
-      "schedule": "daily 14:00"
+      "schedule": "daily 14:00",
+      "produces": [],
+      "usedBy": [
+        "CreateAlert (high urgency)",
+        "daily_strategy_brief"
+      ]
     },
     "generateDailyInsight": {
       "name": "每日洞察生成",
+      "type": "Aggregator",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "InsightCards",
       "input": "all today's MetricSnapshots + Events + ContentAssets",
       "output": "insightCards[{type, headline, data, recommendation, confidence}]",
       "source": "每日复盘整合任务",
-      "schedule": "daily 22:00"
+      "schedule": "daily 22:00",
+      "produces": [],
+      "usedBy": [
+        "SendFeishuCard (22:00 daily review)",
+        "UpdateWiki (案例沉淀)"
+      ]
+    },
+    "calculateBaselineValue": {
+      "name": "基线值计算（14天滚动均值）",
+      "type": "FunctionBacked",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "number",
+      "input": {
+        "scenicSpotId": "ss:<id>",
+        "metricType": "search_index|composite_index|visitor_count",
+        "lookbackDays": "14 (默认)"
+      },
+      "output": "baselineValue: float (14天滚动均值)",
+      "source": "Week 2 新增。Week 1 schema 预留 baselineValue 字段",
+      "schedule": "on-write (MetricSnapshot 写入时即时计算)",
+      "produces": [],
+      "usedBy": [
+        "detectAnomaly",
+        "trend_analysis",
+        "AIP_tool_baseline"
+      ],
+      "usedAsColumn": "MetricSnapshot.baselineValue"
+    },
+    "detectAnomaly": {
+      "name": "异常检测（基于基线）",
+      "type": "FunctionBacked",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "AnomalyDetection",
+      "input": {
+        "metricSnapshot": "MetricSnapshot",
+        "threshold": "0.3 (默认, 即偏离基线30%为异常)"
+      },
+      "output": "isAnomaly: boolean, deviation: float, severity: \"low\"|\"medium\"|\"high\"",
+      "source": "Week 2 新增。Week 1 schema 预留 isAnomaly 字段",
+      "schedule": "on-write (MetricSnapshot 写入时即时计算)",
+      "produces": [],
+      "usedBy": [
+        "CreateAlert (high severity)",
+        "daily_insight_anomaly_section"
+      ],
+      "usedAsColumn": "MetricSnapshot.isAnomaly, MetricSnapshot.dailyVolatility",
+      "dependsOn": [
+        "calculateBaselineValue"
+      ]
+    },
+    "aggregateWeeklyMetrics": {
+      "name": "周度指标聚合",
+      "type": "Aggregator",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "WeeklyMetrics",
+      "input": {
+        "scenicSpotId": "ss:<id>",
+        "week": "ISO week (e.g. 2026-W26)",
+        "metrics": "list of MetricSnapshot within week"
+      },
+      "output": "weeklyMetrics: {scenicSpotId, week, searchIndex_avg, compositeIndex_avg, visitorTotal, top3Content, anomalies}",
+      "source": "Week 2 新增。周度竞争格局报告基础",
+      "schedule": "weekly (周日 09:00)",
+      "produces": [],
+      "usedBy": [
+        "weekly_competitive_landscape_report",
+        "monthly_strategy_review"
+      ]
+    },
+    "enrichContentAsset": {
+      "name": "内容资产语义富化",
+      "type": "Pure",
+      "sideEffects": false,
+      "idempotent": true,
+      "returnType": "EnrichedAsset",
+      "input": {
+        "contentAsset": "ContentAsset",
+        "context": "Optional ScenicSpot links, Creator info, related MetricSnapshots"
+      },
+      "output": "enriched: {sentimentScore, mentionedSpots, topKeywords, relatedMetrics, confidence}",
+      "source": "Week 2 新增。LLM 辅助 + Entity Linking",
+      "schedule": "on-write (ContentAsset 写入时即时)",
+      "produces": [],
+      "usedBy": [
+        "daily_insight_generator",
+        "AIP_tool_content_query"
+      ]
     }
   },
   "actions": {
     "SendFeishuCard": {
       "description": "发送飞书卡片到电影小镇群",
-      "input": "chatId, cardJson",
+      "category": "lowStakes",
+      "functionBacked": true,
+      "functionImpl": "scripts/actions/send_feishu_card.py",
+      "input": "chatId, cardJson, optional: threadId",
       "governance": {
         "requiresApproval": false,
         "auditLog": true,
-        "rateLimit": "per minute"
+        "rateLimit": "per minute (默认 30/min)",
+        "rollback": "false (发送后无法撤回，但 action_log 保留可重发修正版)"
       },
+      "produces": [],
       "callingTasks": [
         "抖音指数日报",
         "小红书日报",
@@ -1908,57 +2087,146 @@
       ]
     },
     "UpdateWiki": {
-      "description": "写入/更新 wiki 知识库",
-      "input": "path, content",
+      "description": "写入/更新 wiki 知识库（Git 追踪）",
+      "category": "lowStakes",
+      "functionBacked": true,
+      "functionImpl": "scripts/actions/update_wiki.py",
+      "input": "path (must under wiki/), content, commitMessage",
       "governance": {
         "requiresApproval": false,
         "auditLog": true,
         "allowedPaths": [
           "wiki/"
-        ]
+        ],
+        "rollback": "true (Git revert)"
       },
+      "produces": [
+        "KnowledgeBase"
+      ],
       "callingTasks": [
         "营销效果归因",
         "文旅情报日报(wiki沉淀)",
         "案例库更新",
-        "Ontology架构研究"
+        "Ontology架构研究_每周深化"
       ]
     },
     "CreateAlert": {
-      "description": "创建预警——发送私信给站长",
-      "input": "severity, title, detail, suggestedAction",
+      "description": "创建预警——发送飞书私信给站长",
+      "category": "mediumStakes",
+      "functionBacked": false,
+      "functionImpl": "scripts/actions/create_alert.py",
+      "input": "severity, title, detail, suggestedAction, evidence (links)",
       "governance": {
         "requiresApproval": false,
         "auditLog": true,
-        "onlyOwner": true
+        "onlyOwner": true,
+        "rateLimit": "5/hour (避免骚扰)",
+        "rollback": "true (可发\"已处理\"通知覆盖)"
       },
+      "produces": [
+        "Event (sentiment_incident | anomaly_alert)"
+      ],
       "callingTasks": [
         "舆情监控",
-        "CDP健康探针(异常时)"
+        "CDP健康探针",
+        "detectAnomaly (high severity)",
+        "competitiveAlert (high urgency)"
+      ],
+      "dependsOn": [
+        "detectAnomaly",
+        "competitiveAlert"
       ]
     },
     "UpdateDecisionRule": {
-      "description": "更新决策规则状态",
-      "input": "ruleId, newStatus, verificationEvidence",
+      "description": "更新决策规则状态（draft → verified / deprecated）",
+      "category": "highStakes",
+      "functionBacked": false,
+      "functionImpl": "scripts/actions/update_decision_rule.py",
+      "input": "ruleId, newStatus, verificationEvidence (links to evidence_for)",
       "governance": {
         "requiresApproval": true,
-        "auditLog": true
+        "auditLog": true,
+        "preCondition": "V-007: verified 必须 triggerCount > 0；deprecated 必须有 overridden_by 链",
+        "rollback": "true (state machine 可回滚)",
+        "approvalChannel": "feishu (李涯直接审批)"
       },
+      "produces": [
+        "DecisionRule.status"
+      ],
       "callingTasks": [
         "周度竞争格局报告(学习闭环)",
         "每日复盘整合(验证记录)"
       ]
     },
     "ScheduleOntologyResearch": {
-      "description": "触发 Ontology 架构深度研究",
-      "input": "weekNumber, researchFocus",
+      "description": "触发 Ontology 架构深度研究（每周轮换主题）",
+      "category": "lowStakes",
+      "functionBacked": true,
+      "functionImpl": "scripts/actions/schedule_research.py",
+      "input": "weekNumber, researchFocus (ObjectTypes|Actions|Data|Agent|Infrastructure|Prototype)",
       "governance": {
         "requiresApproval": false,
-        "auditLog": true
+        "auditLog": true,
+        "allowedPaths": [
+          "wiki/技术配置/Ontology架构设计/"
+        ],
+        "rollback": "true (回滚到上一周版本)"
       },
+      "produces": [
+        "KnowledgeBase (WeekN_*.md)"
+      ],
       "callingTasks": [
         "Ontology架构研究_每周深化"
       ]
+    },
+    "AdjustStrategy": {
+      "description": "调整营销策略——向李涯推送建议（不直接执行）",
+      "category": "mediumStakes",
+      "functionBacked": true,
+      "functionImpl": "scripts/actions/adjust_strategy.py",
+      "input": "targetScenicSpotId, adjustmentType (price|channel|timing|content), evidence (links), confidence",
+      "governance": {
+        "requiresApproval": false,
+        "auditLog": true,
+        "rateLimit": "3/day (避免过载)",
+        "rollback": "N/A (建议不写入 Ontology)",
+        "confidenceThreshold": "0.7 (低于此不发)"
+      },
+      "produces": [
+        "MarketingCampaign (suggestion) | ContentAsset (suggestion)"
+      ],
+      "callingTasks": [
+        "每日复盘整合",
+        "竞品内容动态",
+        "competitiveAlert"
+      ],
+      "dependsOn": [
+        "assessContentVacuum",
+        "competitiveAlert",
+        "enrichContentAsset"
+      ]
+    },
+    "OverrideRule": {
+      "description": "人工覆盖决策规则（紧急情况暂停某条规则）",
+      "category": "highStakes",
+      "functionBacked": false,
+      "functionImpl": "scripts/actions/override_rule.py",
+      "input": "ruleId, reason, overrideUntil, approver",
+      "governance": {
+        "requiresApproval": true,
+        "auditLog": true,
+        "preCondition": "V-009: 必须有 reason + approver + overrideUntil (ISO timestamp)",
+        "rollback": "true (overrideUntil 到期自动恢复)",
+        "approvalChannel": "feishu (李涯直接审批)",
+        "createsLink": "overridden_by (Week 1 schema)"
+      },
+      "produces": [
+        "DecisionRule.overridden_by (link)"
+      ],
+      "callingTasks": [
+        "应急处理（手动触发）"
+      ],
+      "note": "Week 1 schema 已预留 overridden_by link type, 本 Action 首次启用"
     }
   },
   "interfaces": {
@@ -2243,8 +2511,8 @@
     }
   },
   "phaseTracking": {
-    "currentPhase": "Phase 2: 数据管道 adapter 原型 (Week 7 启动)",
-    "lastDailyWork": "2026-06-24 (Week 1 新周期)",
+    "currentPhase": "Phase 2: 数据管道 adapter 原型 (Week 7 启动) + Actions/Functions 标准化完成 (Week 2)",
+    "lastDailyWork": "2026-06-29 (Week 2 新周期)",
     "adapters": {
       "adapter-douyin": {
         "status": "active",
@@ -2300,11 +2568,62 @@
         "idNamingConvention",
         "cardinalityMatrix",
         "weekCycle"
+      ],
+      "Week 2 (2026-06-29)": [
+        "functionTaxonomy",
+        "actionGovernance",
+        "designDecisions"
+      ]
+    },
+    "functionsAddedByWeek": {
+      "Week 2 (2026-06-29)": [
+        "calculateBaselineValue",
+        "detectAnomaly",
+        "aggregateWeeklyMetrics",
+        "enrichContentAsset"
+      ]
+    },
+    "actionsAddedByWeek": {
+      "Week 2 (2026-06-29)": [
+        "AdjustStrategy",
+        "OverrideRule"
+      ]
+    },
+    "designDecisionsAddedByWeek": {
+      "Week 1 (2026-06-24)": [
+        "D-011",
+        "D-012",
+        "D-013",
+        "D-014",
+        "D-015"
+      ],
+      "Week 2 (2026-06-29)": [
+        "D-016",
+        "D-017",
+        "D-018",
+        "D-019",
+        "D-020"
+      ]
+    },
+    "validationRulesAddedByWeek": {
+      "Week 1 (2026-06-24)": [
+        "V-001",
+        "V-002",
+        "V-003",
+        "V-004",
+        "V-005",
+        "V-006"
+      ],
+      "Week 2 (2026-06-29)": [
+        "V-007",
+        "V-008",
+        "V-009",
+        "V-010"
       ]
     }
   },
   "validation": {
-    "description": "Schema 验证规则。Week 1 新增",
+    "description": "Schema + Action 治理验证规则。Week 1 引入 V-001~V-006 (Schema)；Week 2 引入 V-007~V-010 (Action Business Rules)",
     "rules": [
       {
         "rule": "V-001",
@@ -2335,7 +2654,183 @@
         "rule": "V-006",
         "name": "DecisionRule.status == 'verified' 必须有 triggerCount > 0",
         "implementation": "ontology_store.py::validate_verified_rule() (待写)"
+      },
+      {
+        "rule": "V-007",
+        "name": "DecisionRule.status 变更为 verified 必须 triggerCount > 0",
+        "implementation": "scripts/ontology/validate.py::validate_verified_rule (Week 2 实施)",
+        "trigger": "Action:UpdateDecisionRule"
+      },
+      {
+        "rule": "V-008",
+        "name": "Action 写入前检查 cardinality 冲突（不破坏已有反向链）",
+        "implementation": "scripts/ontology/validate.py::validate_action_cardinality",
+        "trigger": "所有 Action 提交时"
+      },
+      {
+        "rule": "V-009",
+        "name": "highStakes Action 必须有 requiresApproval=true + 人工批准记录",
+        "implementation": "scripts/ontology/validate.py::validate_highstakes_approval",
+        "trigger": "Action:UpdateDecisionRule / Action:OverrideRule"
+      },
+      {
+        "rule": "V-010",
+        "name": "Action 输出必须可被 produces link 回溯到 Ontology Object",
+        "implementation": "scripts/ontology/validate.py::validate_action_produces",
+        "trigger": "所有 Action 提交时"
       }
     ]
+  },
+  "functionTaxonomy": {
+    "description": "Function 分类体系。区分 Pure（纯计算）/ Side-effect（写操作）/ Function-backed column（派生列）/ Aggregator（聚合）。参考 Palantir Functions 概念 (2025-11)，Function-backed Action 模式是现代 Palantir 推荐做法",
+    "types": {
+      "Pure": {
+        "name": "纯计算函数",
+        "description": "无副作用：相同输入永远产生相同输出，不修改 Ontology。",
+        "examples": [
+          "calculateSearchTrend",
+          "sentimentAnalysis",
+          "assessContentVacuum"
+        ],
+        "useCases": [
+          "日报卡片渲染前的派生数据计算",
+          "AIP/LLM Tool 的 read-only 函数",
+          "LLM Query Translator 内部调用"
+        ],
+        "governance": "Low（仅审计调用次数，无须 rollback）",
+        "idempotent": "必然幂等（无副作用）"
+      },
+      "SideEffect": {
+        "name": "写副作用函数",
+        "description": "修改 Ontology 状态。需声明 idempotent / non-idempotent。",
+        "examples": [
+          "attributionScore (写入 DecisionRule.attributionScore)"
+        ],
+        "useCases": [
+          "状态字段更新（如 DecisionRule.status）",
+          "派生属性持久化（baselineValue, isAnomaly）"
+        ],
+        "governance": "High（必须经 Action 调用，不可被 Agent 直接 invoke）",
+        "idempotent": "需显式声明（true 则可安全重试）"
+      },
+      "FunctionBacked": {
+        "name": "Function-backed 列函数",
+        "description": "类似 Palantir Function-backed column：每次读取 Object 时按需计算，输出不存库（或存派生列）。对 MetricSnapshot.baselineValue/isAnomaly 等派生值最合适。",
+        "examples": [
+          "calculateBaselineValue",
+          "detectAnomaly"
+        ],
+        "useCases": [
+          "MetricSnapshot 的 baselineValue 派生（14天滚动均值）",
+          "MetricSnapshot 的 isAnomaly 派生（|value-baseline|/baseline>0.3）",
+          "ScenicSpot 的 currentRank 派生（最近 7 天综合指数均值排名）"
+        ],
+        "governance": "Medium（持久化派生列时可走 SideEffect 模式）",
+        "idempotent": "true"
+      },
+      "Aggregator": {
+        "name": "聚合函数",
+        "description": "将 N 个输入 Object 聚合为 1 个输出（ObjectSet / 派生值）。",
+        "examples": [
+          "aggregateWeeklyMetrics",
+          "generateDailyInsight"
+        ],
+        "useCases": [
+          "周报：聚合 7 天 MetricSnapshot 为 1 个 WeeklyReport",
+          "日复盘：聚合 30+ 卡片为 1 个 insight 列表"
+        ],
+        "governance": "Low（不写入 Ontology，仅返回派生值）",
+        "idempotent": "true"
+      }
+    }
+  },
+  "actionGovernance": {
+    "description": "Action 治理层。Week 2 新增。所有 Action 必须经 5 层治理：Submission → Validation → Notification → Audit → Rollback。参考 Palantir Action Type governance (2025)",
+    "layers": {
+      "Submission": {
+        "purpose": "Action 入参校验",
+        "rules": [
+          "必填字段缺失 → 拒绝（HTTP 400 类语义）",
+          "枚举值不在 enum 列表 → 拒绝",
+          "外键引用不存在的 Object ID → 拒绝"
+        ],
+        "implementation": "scripts/ontology/validate.py::validate_action_params(action_name, params)"
+      },
+      "Validation": {
+        "purpose": "业务规则校验（在 V-001~V-006 基础上扩展）",
+        "rules": [
+          "V-007 DecisionRule.status 变更前必须验证 triggerCount",
+          "V-008 Action 写入前检查 cardinality 冲突",
+          "V-009 high-stakes Action 写入前确认 requiresApproval",
+          "V-010 Action 输出物必须可被 produces link 回溯"
+        ],
+        "implementation": "scripts/ontology/validate.py::validate_action_business_rules(action_name, params, object_targets)"
+      },
+      "Notification": {
+        "purpose": "执行前/后通知",
+        "rules": [
+          "low-stakes Action：执行后异步通知（飞书群 + log）",
+          "medium-stakes Action：执行前确认 + 执行后通知",
+          "high-stakes Action：执行前必须人工批准 (requiresApproval=true)"
+        ],
+        "implementation": "scripts/actions/notifier.py::notify(action_name, status, payload)"
+      },
+      "Audit": {
+        "purpose": "审计日志全留痕",
+        "rules": [
+          "所有 Action 写入 action_log 表（SQLite）：action_name, params, status, executed_at, executor, rollback_target",
+          "每条 Action 必须可追溯到 callingTasks（哪些 AgentTask 触发了它）",
+          "可追溯到相关 EvidenceFor / AddressedBy links"
+        ],
+        "implementation": "action_log 表 + HasAuditTrail interface (Week 1 引入)"
+      },
+      "Rollback": {
+        "purpose": "回滚机制",
+        "rules": [
+          "幂等 Action：自动可重试（不需要 rollback）",
+          "非幂等 SideEffect：记录 pre_state 快照，rollback 时回写",
+          "Function-backed Action：重新计算即可（无副作用可回滚）",
+          "human-approved Action：rollback 必须二次人工批准"
+        ],
+        "implementation": "scripts/actions/rollback.py::rollback(action_log_id)"
+      }
+    },
+    "actionCategories": {
+      "lowStakes": "no approval, async notification, idempotent safe. e.g. SendFeishuCard, UpdateWiki",
+      "mediumStakes": "no approval, sync notification, rollback required. e.g. AdjustStrategy, CreateAlert",
+      "highStakes": "approval required, audit critical, manual rollback. e.g. UpdateDecisionRule, OverrideRule"
+    }
+  },
+  "designDecisions": {
+    "D-016": {
+      "title": "Function 4 类型分类：Pure / SideEffect / FunctionBacked / Aggregator",
+      "rationale": "参考 Palantir Functions 概念 (2025-11)，Function-backed 是现代 Palantir 主推模式。我们现有 7 个 Function 全部是 Pure 风格（read-only），缺少对派生列、副作用、聚合的显式区分。Week 2 引入类型标签让 governance 可针对性应用。",
+      "impact": "Function 调用前检查 sideEffects 字段 → 副作用 Function 必须经 Action 调用，不可被 Agent 直接 invoke (避免越权写库)",
+      "reference": "functionTaxonomy section"
+    },
+    "D-017": {
+      "title": "Action 5 层治理：Submission → Validation → Notification → Audit → Rollback",
+      "rationale": "Palantir Action Type 治理是确保\"所有写操作可追溯、可回滚\"的核心。当前 SendFeishuCard/UpdateWiki/CreateAlert 只有 auditLog 一层治理，缺乏提交前校验、回滚机制。Week 2 引入完整 5 层。",
+      "impact": "highStakes Action (UpdateDecisionRule/OverrideRule) 必须 requiresApproval=true + 人工审批；mediumStakes (CreateAlert/AdjustStrategy) 异步通知 + 可回滚；lowStakes (SendFeishuCard/UpdateWiki/ScheduleOntologyResearch) 静默执行 + audit log 即可",
+      "reference": "actionGovernance section"
+    },
+    "D-018": {
+      "title": "Function-backed Action 模式（派生列 + 即时计算）",
+      "rationale": "现代 Palantir 主流做法：用 Function 实现 Action 的核心逻辑，Action 仅作为\"提交治理层\"。我们的 AdjustStrategy Action 内部调用 assessContentVacuum + competitiveAlert + enrichContentAsset 三个 Function，组装成建议。SendFeishuCard 也可视为 Function-backed (functionImpl 引用 send_feishu_card.py)。",
+      "impact": "所有 Action 显式声明 functionBacked + functionImpl 字段 → 未来 OSDK 自动生成代码时，Action Type wrapper 调用 Function 函数体",
+      "reference": "actions.*.functionBacked field"
+    },
+    "D-019": {
+      "title": "Action Category 3 档：lowStakes / mediumStakes / highStakes",
+      "rationale": "不同 Action 的风险/成本差异巨大。SendFeishuCard 是不可逆但低风险，UpdateDecisionRule 是可逆但高风险，OverrideRule 是紧急但需强治理。Week 2 引入 category 字段让治理策略可分级。",
+      "impact": "Cron 任务设计时显式选择 Action category；governance 字段（requiresApproval/rateLimit/preCondition）按 category 默认值自动填充",
+      "reference": "actionGovernance.actionCategories"
+    },
+    "D-020": {
+      "title": "V-007~V-010 业务规则层验证",
+      "rationale": "V-001~V-006 是 schema 层验证（ID 格式/cardinality/双向链），V-007~V-010 是 Action 业务规则层验证（状态机前置条件/审批要求/produces 回溯）。两层验证互补，确保 ontology 一致性 + 业务一致性。",
+      "impact": "scripts/ontology/validate.py 升级到 V-001~V-010 全覆盖；Action 提交前必跑 validate_action_business_rules()",
+      "reference": "validation.rules V-007~V-010"
+    }
   }
 }

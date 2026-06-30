@@ -1,8 +1,9 @@
 # 电影小镇 Ontology 架构设计研究
 
 > 对标 Palantir Foundry/AIP Ontology Architecture
-> 研究启动：2026-05-29 | 最近更新: 2026-06-19 (Week 6 原型完成)
-> 状态：Phase 1 原型已跑通；Phase 2 实施中
+> 研究启动：2026-05-29 | 最近更新: 2026-06-29 (Week 2 Actions & Functions 标准化完成)
+> 状态：Phase 1 schema 完整 + Phase 1.5 Actions/Functions 标准化完成；Phase 2 实施中
+> 最新版本：ontology.json v1.3.0（11 Functions / 7 Actions / 10 Validation Rules / 20 Design Decisions）
 
 ---
 
@@ -119,27 +120,44 @@ DecisionRule -- produces --> AgentTask               (规则生成任务)
 AgentTask -- writes_to --> KnowledgeBase             (任务输出到知识库)
 ```
 
-### 2.3 Functions (核心函数)
+### 2.3 Functions (核心函数) — v1.3.0 11 个
 
-| 函数 | 输入 | 输出 | 当前存在 |
-|------|------|------|---------|
-| `calculateSearchTrend()` | 景区ID, 日期范围 | 搜索指数趋势 | ✅ douyin_index.py |
-| `predictPeakPeriod()` | 历史客流, 节假日日历 | 峰值预测 | ✅ period.js (算法模式) |
-| `assessContentVacuum()` | 搜索指数, 综合指数 | 内容缺口判定 | ✅ MEMORY.md 铁律 |
-| `sentimentAnalysis()` | 舆情文本 | 正面/负面/情感分 | ✅ 舆情监控 |
-| `attributionScore()` | 营销动作, 客流变化 | 归因置信度 | ✅ 营销归因 |
-| `competitorAlert()` | 竞品动态, 电影小镇状态 | 预警等级 | ✅ 竞品动态 |
-| `decideAction()` | 所有上下文 | 建议动作 | ⚠️ 分散在各 cron 任务中 |
+> **v1.3.0 升级：** 引入 4 类型分类（Pure / SideEffect / FunctionBacked / Aggregator）。Week 2 新增 4 个 Function（⭐）。
 
-### 2.4 Action Types (业务动作)
+| 函数 | 类型 | 输入 | 输出 | 当前存在 |
+|------|------|------|------|---------|
+| `calculateSearchTrend()` | Pure | 景区ID, 日期范围 | 搜索指数趋势 | ✅ douyin_index.py |
+| `predictVisitorFlow()` | Pure | 历史客流, 节假日日历 | 峰值预测 | ✅ period.js (算法模式) |
+| `assessContentVacuum()` | Pure | 搜索指数, 综合指数 | 内容缺口判定 | ✅ MEMORY.md 铁律 |
+| `sentimentAnalysis()` | Pure | 舆情文本 | 正面/负面/情感分 | ✅ 舆情监控 |
+| `competitiveAlert()` | Pure | 竞品动态 | 预警等级 | ✅ 竞品动态 |
+| `enrichContentAsset()` ⭐ | Pure | ContentAsset + 上下文 | 富化语义 | ⚠️ Week 4 实施 |
+| `calculateBaselineValue()` ⭐ | FunctionBacked | 景区ID, 指标类型, 14天 | 基线值 | ⚠️ Week 3 实施 |
+| `detectAnomaly()` ⭐ | FunctionBacked | MetricSnapshot, 阈值 | 异常检测 | ⚠️ Week 3 实施 |
+| `attributionScore()` | **SideEffect** | 营销动作, 客流变化 | 归因置信度 + 写库 | ✅ 营销归因 |
+| `generateDailyInsight()` | Aggregator | 今日所有 Object | 洞察卡片 | ✅ 每日复盘 |
+| `aggregateWeeklyMetrics()` ⭐ | Aggregator | 景区ID, ISO week | 周度聚合 | ⚠️ Week 5 实施 |
 
-| 动作 | 触发条件 | 效果 | 当前 |
-|------|---------|------|------|
-| `SendFeishuCard` | 日报/分析完成 | 发送卡片到群 | ✅ send_feishu_card.py |
-| `UpdateWiki` | 新洞察产生 | 写入行业知识库 | ✅ wiki/ |
-| `CreateAlert` | 舆情/竞品重大变化 | 飞书私信告警 | ⚠️ 部分自动化 |
-| `UpdateDecisionRule` | 规则验证通过/失败 | 更新规则状态 | ❌ 手动 |
-| `AdjustStrategy` | 数据驱动 | 调整营销策略建议 | ❌ 手动 |
+**关键约束（D-016）：** SideEffect Function（attributionScore）必须经 Action 调用，不可被 Agent 直接 invoke。
+
+### 2.4 Action Types (业务动作) — v1.3.0 7 个
+
+> **v1.3.0 升级：** 引入 5 层治理（Submission/Validation/Notification/Audit/Rollback）+ 3 档 category（lowStakes/mediumStakes/highStakes）+ Function-backed Action 模式。Week 2 新增 2 个 Action（⭐）。
+
+| 动作 | Category | Function-backed | 触发条件 | 效果 | 当前 |
+|------|----------|----------------|---------|------|------|
+| `SendFeishuCard` | lowStakes | ✅ | 日报/分析完成 | 发送卡片到群 | ✅ send_feishu_card.py |
+| `UpdateWiki` | lowStakes | ✅ | 新洞察产生 | 写入行业知识库 | ✅ wiki/ |
+| `ScheduleOntologyResearch` | lowStakes | ✅ | 每周 cron 触发 | 写 Wiki 设计文档 | ✅ 已运行 |
+| `CreateAlert` | mediumStakes | ❌ | 舆情/竞品重大变化 | 飞书私信告警 | ⚠️ 部分自动化 |
+| `AdjustStrategy` ⭐ | mediumStakes | ✅ | 数据驱动 | 推送策略建议 | ❌ Week 4 实施 |
+| `UpdateDecisionRule` | **highStakes** | ❌ | 规则验证通过/失败 | 更新规则状态（需批准）| ❌ Week 4 实施 |
+| `OverrideRule` ⭐ | **highStakes** | ❌ | 紧急情况暂停规则 | 覆盖规则（需批准，到期恢复）| ❌ Week 4 实施 |
+
+**关键治理（D-017~D-019）：**
+- **lowStakes** (3 个)：no approval / async notify / idempotent
+- **mediumStakes** (2 个)：no approval / sync notify / rollback required
+- **highStakes** (2 个)：requires approval / audit critical / manual rollback
 
 ---
 
@@ -178,6 +196,8 @@ data sources → Ingestion Pipeline → Ontology Layer → AI Agents
 | 知识图谱 | wiki 是平面 markdown 文件 | 图结构知识库 | 🔴 高 |
 | AI-Ready | AI 通过 prompt 感知业务上下文 | AI 直接查询 ontology | 🟡 中 |
 | 版本控制 | 数据无版本 | Time Travel & Audit | 🟡 中 |
+| **Action 治理** | **每个 cron 直接写文件/发卡片** | **Action Types 5 层治理 (Submission/Validation/Notification/Audit/Rollback)** | **🟡 中** | 🆕 Week 2 升级 |
+| **Function 类型化** | **无分类** | **4 类型 (Pure/SideEffect/FunctionBacked/Aggregator)** | **🟡 中** | 🆕 Week 2 升级 |
 
 ---
 
@@ -195,10 +215,15 @@ data sources → Ingestion Pipeline → Ontology Layer → AI Agents
 - [ ] 客流 CSV 解析为 Ontology Object
 - [ ] Agent cron 任务输出写入 Ontology
 
-### Phase 3：Actions & Functions 标准化（1周）
-- [ ] 所有 SendFeishuCard 调用改为 Action Type
-- [ ] 所有决策逻辑抽为 Functions
-- [ ] Actions 增加治理层（权限/审计/回滚）
+### Phase 3：Actions & Functions 标准化（1周，✅ Week 2 完成 schema）
+- [x] Functions 4 类型分类（D-016，✅ schema 完成）
+- [x] Action 5 层治理（D-017，✅ schema 完成）
+- [x] Function-backed Action 模式（D-018，✅ schema 完成）
+- [x] Action Category 3 档（D-019，✅ schema 完成）
+- [ ] 全部 SendFeishuCard 调用改为 Action Type wrapper（Week 3 实施）
+- [ ] 全部决策逻辑抽为 Functions（部分已有，Week 3+ 补全）
+- [ ] scripts/actions/ 目录创建（Week 3）
+- [ ] scripts/ontology/validate.py V-001~V-010 实施（Week 3）
 
 ### Phase 4：AI Agent 接入 Ontology（2周）
 - [ ] Agent 通过 Ontology SDK 读取业务对象

@@ -1,0 +1,40 @@
+{
+  "date": "2026-06-29",
+  "day": 29,
+  "phase": "Phase 3 · Day 29 (周一 22:30 cron)",
+  "today_focus": "ontology_query.py 实战演练 (Day 28 候选 (c) 顺延到 D-29)",
+  "completed": [
+    "✅ ontology_query.py 9 个方法 smoke test: 7/9 零参直跑 OK, 2 个 (scenic_spot_metrics/metric_with_sources) 需参数 (设计正确)",
+    "✅ daily_douyin_ranking: 8 行 (8 大景区, 抖音最新), 清明上河园领先 (搜索 23.4万 / 综合 8.4万, 涨跌 -36% / -32%)",
+    "✅ competitor_comparison: 7 行竞品对比",
+    "✅ health_check: dict[11 keys] 系统健康指标",
+    "✅ decision_rules: 4 条决策规则"
+  ],
+  "blockers": [],
+  "blockers_resolved": [
+    "🟢 [继承自 D-27] baidu 链路已永久冻结 (FROZEN), 0 个新 blocker"
+  ],
+  "decisions": [
+    "D-029: ontology_query.py 是日报名义上的『唯一数据入口』(vs 直接写 SQL), 但当前生产 cron (douyin_index.py / xhs_competitor_crawl.py) 仍直接读 CSV/HTML, 未走 ontology_query.py",
+    "D-029: 暂不重构生产 cron (无 ROI 增量, 风险大于收益), 但 ontology_query.py 继续作为『查询能力底座』+『未来日报 API 化的中间层』"
+  ],
+  "store_stats": {
+    "scenicSpots": 8,
+    "metricSnapshots": 408,
+    "contentAssets": 24,
+    "bySource": {"douyin": 32, "xiaohongshu": 21, "csv": 355, "baidu": 0},
+    "note": "D-29 无新 ingest, 数据无变化"
+  },
+  "smoke_test_results": {
+    "daily_douyin_ranking": "list[8] OK",
+    "scenic_spot_metrics": "需 spot_id 参数 (设计正确)",
+    "competitor_comparison": "list[7] OK",
+    "recent_content": "list[0] (本周无新 content 写入, 设计正确)",
+    "recent_events": "list[0] (同上)",
+    "content_growth_7d": "list[0] (同上)",
+    "metric_with_sources": "需 metric_id 参数 (设计正确)",
+    "health_check": "dict[11 keys] OK",
+    "decision_rules": "list[4] OK"
+  },
+  "next_day_note": "🟢 Day 30 (周二 6/30): 0 active blocker. 候选 — (a) decision_rules 4 条规则人工 review 一次 (看是否过期) / (b) 写一份 ontology_query.py 实战查询示例 README 给未来自己 / (c) 准备月度归档 (6 月即将结束). 建议 (a), 30 分钟可完成"
+}

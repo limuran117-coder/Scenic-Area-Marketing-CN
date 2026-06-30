@@ -15,6 +15,11 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **数据必须读实际值** | 搜索「建业电影小镇」禁「建业华谊兄弟」| 不限7竞品
 **LLM失败不静默** 显式告警，不依赖自动fallback
 **洞察驱动** 所有分析任务必须先给结论再给数据，禁止只报数字
+**【6/30 站长纠错】发任何"收官/总结"卡片前必须做 2 项核对**：
+  ① **CSV 末尾完整性** — 扫 CSV 末日 N 列（≥3）是否为 0；为 0 → 标"暂态"，**不写"收官"**
+  ② **节假日逐日曲线** — 不能只看累计；要看逐日值，暴涨/暴跌/断崖异常必须显式标注
+**Why:** 6/30 H1 收官卡片把端午累计 11,513 当结论发，没看出 6/21=782 暴跌88%；把 6/29-30=0 的暂态数据当收官值；站长当场纠错
+**How:** 卡片生成前最后一步必跑 `tail -5` + 节假日逐日表两个 check；异常项进卡片必标 ⚠️
 
 ---
 
@@ -39,6 +44,12 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 - [project] **业务执行层脱节第8天** — 6/15预警的毕业生免票+海魂衫+80年代夜游2.0+品牌主标识 全部未落地
 - [project] **R08执行闭环连续5周跳票** — 端午窗口失守已确认
 - [project] **W26新建议**：`scripts/cookie_health_check.py` + cron `0 9 * * 1-5` 早于日报2小时发现Cookie/账号失效
+
+**🆕 6/30 H1 收官日报·站长当场纠错**（[feedback]）：
+- [feedback] **端午3天 4,099 / 6,632 / 782**——我只看累计 11,513，掩盖了 6/21(初六)暴跌 88% 的断崖；正常 U 型曲线应初五初六持平或缓降
+- [feedback] **CSV 6/29=0、6/30=0**——我把"暂态数据"当 H1 收官值 716,409 发出去，事实 H1 未收官；卡片标题应标"暂态"，等周二/Wed Excel 更新
+- [feedback] **铁律新增 2 条**（已写入上方铁律区）：① 发收官卡片前必扫 CSV 末日 N 列完整性 ② 节假日数据必看逐日曲线不能只看累计
+- [project] **已发修正卡 v2**（om_x100b6b06400b20bcc25b9d26883bf66）—— 显式标注"暂态"+端午异常曲线
 
 **🆕 6/24 重要修复**（3 个 cron 错同时落地）：
 - [project] **Cron 时间表重排**（6/24 09:00-09:25 完成）：业务日报全部挪白天，间隔硬规则 ≥2h，复盘挪 23:30/23:35，Cookie 挪凌晨 00:30（周二-周六），删除已 disabled 的 Memory Dreaming
@@ -213,6 +224,22 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cro
 - [project] **Week 1 文档**：`Week1_ObjectTypes_LinkTypes.md`（21.7KB，14 节）+ `ontology.json` v1.2.0（35.5KB）+ 实现路线图更新
 
 **Week 7 重点：** adapter 改造（D-008/D-011/D-015 集成）+ db migration 002（aliases/baselineValue 列扩展）+ only_henan/only_dream 双 ID 合并
+
+---
+
+**🏗️ Ontology Week 2 (2026-06-29 新周期) · Actions & Functions 标准化**
+- [project] **ontology.json v1.3.0 升级** — Functions 7→11, Actions 5→7, Validation 6→10, Decisions 15→20
+- [feedback] **D-016 Function 4 类型分类** — Pure / SideEffect / FunctionBacked / Aggregator。**治理可分级**的关键：SideEffect Function 必须经 Action 调用，**Agent Tool 不暴露 attributionScore** (避免越权写库)
+- [feedback] **D-017 Action 5 层治理** — Submission→Validation→Notification→Audit→Rollback 缺一不可。任意层失败 → Action 不执行 + 写 action_log + 飞书群通知
+- [feedback] **D-018 Function-backed Action 模式** — Action 治理层 + Function 业务逻辑层组合（现代 Palantir 主推）。AdjustStrategy 调 3 个 Pure Function 组合建议，比"Action 100 行"易测、复用、OSDK 友好
+- [feedback] **D-019 Action Category 3 档** — lowStakes(no approval) / mediumStakes(sync notify+rollback) / highStakes(requires approval)。让 cron 任务显式选择风险等级
+- [feedback] **D-020 V-007~V-010 业务规则层** — Schema 验证(V-001~V-006)≠ 业务验证(V-007~V-010)，两层互补
+- [project] **Week 2 新增 4 Function** — calculateBaselineValue / detectAnomaly (FunctionBacked，配套 Week 1 派生列) / aggregateWeeklyMetrics (Aggregator) / enrichContentAsset (Pure)
+- [project] **Week 2 新增 2 Action** — AdjustStrategy (mediumStakes functionBacked) / OverrideRule (highStakes，首次启用 Week 1 schema overridden_by link)
+- [project] **Week 2 文档**：`Week2_Actions_Functions.md`（24.7KB，16 节）+ `ontology.json` v1.3.0（83.7KB，read+write 流程）+ 实现路线图 + 电影小镇-Ontology架构设计 同步更新
+- [reference] Palantir Function-backed Action 模式参考：[CSDN 翻译 2025-11](https://blog.csdn.net/czhcc/article/details/154636416)
+
+**Week 3 重点：** scripts/ontology/validate.py V-001~V-010 全量实施 + calculateBaselineValue/detectAnomaly 写入 MetricSnapshot 派生列 + scripts/actions/ 目录创建（function_impl + action_wrapper 拆分）
 
 ---
 
