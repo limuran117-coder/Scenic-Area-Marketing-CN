@@ -1,0 +1,39 @@
+{
+  "date": "2026-06-30",
+  "day": 30,
+  "phase": "Phase 3 · Day 30 (周二 22:30 cron)",
+  "today_focus": "D-30 decision_rules 4 条规则人工 review (D-29 候选 (a))",
+  "completed": [
+    "✅ 4 条规则全部检查 — 全部有效, 无 stale 风险",
+    "✅ R-001 内容真空窗口 (verified, t4, conf 0.85) — 6/30 H1-recap 第 94 行『内容真空确认: 搜索-综合同步降 19%』即此规则触发场景, 仍 active",
+    "✅ R-002 双节点浪费 (verified, t4, conf 0.80) — dream-log.md L17『已验证固化』, 仍 active",
+    "✅ R-003 竞品先动预警 (hypothesis, t4, conf 0.7) — 仍 hypothesis, 等待真触发数据, 保留",
+    "✅ R-004 模型晚高峰规避 (verified, t5, conf 0.95) — 2026-06-22 强化 / 6-23 强化 / 6-09 站长确认, 强约束, 仍 active",
+    "✅ 字段检查: DB 14 列 (id/rule_id/name/category/condition/action/authority_tier/conflict_rule/confidence/status/source/trigger_count/last_triggered_at/raw_data/updated_at) 满足日报需求, description/rule_text 列不存在但不需要 (语义在 condition+action)",
+    "✅ store 实测: scenicSpots=13, metricSnapshots=94, contentAssets=28 (与 D-19 Week6 一致, 12 天无新 ingest)"
+  ],
+  "blockers": [],
+  "blockers_resolved": [
+    "🟢 0 active blocker (D-30 验证完毕)"
+  ],
+  "decisions": [
+    "D-030: decision_rules 4 条全部保留, 无需更新, 3 verified + 1 hypothesis 状态正确",
+    "D-030: R-003 hypothesis 升 verified 需要 ≥1 次真实触发数据, 当前 0 trigger, 暂不升",
+    "D-030: ontology_query.py 仍是日报名义『唯一入口』, 当前生产 cron (douyin_index.py / xhs_competitor_crawl.py) 仍直接读 CSV/HTML, 不走 ontology_query.py — 决定与 D-029 一致 (不重构生产 cron, 无 ROI 增量)"
+  ],
+  "files_modified": [],
+  "store_stats": {
+    "scenicSpots": 13,
+    "metricSnapshots": 94,
+    "contentAssets": 28,
+    "bySource": {"douyin": 32, "xiaohongshu": 21, "csv": 41, "baidu": 0},
+    "note": "D-30 无新 ingest, 保持 94 metricSnapshots (与 Week6 D-19 基线一致, 12 天无变化是因为没跑 ingest)"
+  },
+  "review_verdict": {
+    "R-001": "active, 6/30 H1-recap 引用, 验证后无需改",
+    "R-002": "active, dream-log 标记『已验证固化』, 验证后无需改",
+    "R-003": "active (hypothesis), 待真触发数据升 verified, 暂不改",
+    "R-004": "active, 强约束 (t5/conf 0.95), 6/22 6/23 强化后无需改"
+  },
+  "next_day_note": "🟢 Day 31 (周三 7/1): 0 active blocker. 候选 — (a) 写 ontology_query.py README 实战示例 (D-29 候选 b, 一直顺延) / (b) 6 月月度归档 (月度回顾, 6/30 = 月末最后一日已过) / (c) 跑一次 csv ingest 验证 adapter-visitors.py 在 7/1 周二仍能正常工作. 建议 (c) 优先 — 7/1 是常规 CSV 更新日, 可顺便验证 SSOT resolver 仍 OK"
+}

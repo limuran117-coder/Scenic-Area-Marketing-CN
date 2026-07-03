@@ -1,0 +1,35 @@
+{
+  "date": "2026-07-01",
+  "day": 31,
+  "phase": "Phase 3 · Day 31 (周三 22:30 cron)",
+  "today_focus": "D-30 next_day_note 候选 (c) 验证 → adapter 缺失 blocker 发现",
+  "completed": [
+    "✅ 文件存在性检查: scripts/ontology/ 实际只有 5 个核心脚本 (ontology_store.py / ontology_query.py / backfill_historical.py / seed_basic.py / ontology.db) — 无 ontology_constants.py / 无 adapter-*.py / 无 crawl_baidu.py",
+    "✅ SSOT resolver 验证: scenic_spots=13, 最近 5 条 metric_snapshot 全部是 6/19 ingest (xiaohongshu 旧), 6/20-7/1 共 12 天无新数据",
+    "✅ DB 路径校正: 实际生效的 DB 是 ~/.openclaw/workspace/.profile/ontology/ontology_store.db, 而非 scripts/ontology/ontology.db (后者 0 字节空文件, 6/28 残留)",
+    "✅ metric_snapshots 表 schema 12 列 (id/spot_id/source/date/metric_type/value/daily_change/weekly_change/confidence/raw_data/metadata/ingested_at), collected_at 字段不存在 (D-30 review 误报, 已修正)",
+    "✅ 6/30 H1-recap 引用的 decision_rules 4 条规则在 7/1 仍 active (D-30 review 结论延续)",
+    "✅ scenic_spots SSOT 发现重复 (fangte/fangte_joy, haichang/海昌海洋公园, wansui_mountain/wansuishan, only_dream/only_henan, yinji/yinji_animal_kingdom) — D-29 决策不修生产链路, 保留现状"
+  ],
+  "blockers": [
+    "🔴 D-30 候选 (c) 不可行: csv ingest 验证需要 adapter-visitors.py, 但 scripts/ontology/ 目录里**没有此文件**. 8 个候选 adapter 全部未建 (visitors / xhs / douyin / weibo / baidu / events / campaigns / tourist_segments)",
+    "🟡 scenic_spots SSOT 重复 5 处, 不影响日报但若启动 ingest 链路会触发主键冲突, 需 dedup 脚本 (低优)"
+  ],
+  "blockers_resolved": [
+    "🟢 D-30 review 结论延续, decision_rules 4 条在 7/1 仍 active"
+  ],
+  "decisions": [
+    "D-031: D-30 候选 (c) 验证结论 — adapter-visitors.py 不存在, csv ingest 路径尚未工程化, 当前 94 metricSnapshots 是 6/19 backfill 一次性写入的, 此后无持续 ingest. 这是 12 天无新数据的根本原因",
+    "D-031: scripts/ontology/ontology.db (0 字节) 是 6/28 残留, 实际生效的 DB 是 .profile/ontology/ontology_store.db, 建议清理 (低优, 暂不动)",
+    "D-031: 候选 (a) ontology_query.py README 实战示例已顺延 2 天 (D-29 候选 b → D-30 候选 b → D-31), 仍未做. 建议明天 D-32 直接做 — 30 分钟, 闭环 D-29 决策的『query 层始终薄』问题"
+  ],
+  "files_modified": [],
+  "store_stats": {
+    "scenicSpots": 13,
+    "metricSnapshots": 94,
+    "contentAssets": 28,
+    "bySource": {"douyin": 32, "xiaohongshu": 62, "csv": 0, "baidu": 0},
+    "note": "D-31 仍 94 metricSnapshots, 与 D-30 一致, 12 天无新 ingest — 根因是 adapter 链路未工程化 (D-031 决策)"
+  },
+  "next_day_note": "🟢 Day 32 (周四 7/2): 0 active blocker 增量. 候选 — (a) 直接做 ontology_query.py README 实战示例 (D-29 顺延至今, 优先级最高) / (b) 写一份『6/19-7/1 12 天无新 ingest』根因报告, 提出 8 个 adapter 工程化排期 / (c) 开始建第一个 adapter (visitors-csv, 复用 Downloads/ CSV). 建议 (a), 30 分钟闭环旧账; (c) 是 Phase 4 启动, 需要独立 cron 推进, 不在 30 分钟 cron 窗口内"
+}

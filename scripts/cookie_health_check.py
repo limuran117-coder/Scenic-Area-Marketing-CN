@@ -31,7 +31,7 @@ COOKIE_FILES = {
 }
 CDP_PORT = 18800
 PROXY_PORT = 7897
-FRESHNESS_HOURS = 6  # cookie 文件超过 6h 未更新视为陈旧
+FRESHNESS_HOURS = 12  # cookie 文件超过 12h 未更新视为陈旧（2026-07-02 W27 站长放宽：原 6h 误报率太高，6/23-7/1 连续 5 次告警实际均"陈旧但可用"）
 
 # 关键域名（用于探测 Cookie 有效性）
 TEST_DOMAINS = {

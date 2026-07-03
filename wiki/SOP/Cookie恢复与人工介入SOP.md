@@ -161,3 +161,31 @@ echo "[$(date +%H:%M:%S)] 完成"
 ## 📝 历史变更
 
 - 2026-06-22 创建（W26 新增，配套 `cookie_health_check.py` 上线）
+---
+
+## 🆕 2026-06-30 H1 收官更新
+
+### **6/30 状态（需介入）**
+
+- ⚠️ **小红书灵犀后台 not_logged_in 连续 3+ 日**（6/17-6/19 起）
+- 6/30 采集 `xiaohongshu_建业电影小镇.json` 返回 `search_box_not_found`
+
+### **6/30 行动（站长）**
+
+1. 打开 `https://idea.xiaongshu.com/idea/welcome/index` 扫码登录
+2. 等待 cookie 同步到 `/tmp/xiaohongshu_cookies.json`
+3. 重跑 `xiaohongshu_crawl.py`
+
+### **6/30 系统恢复状态**
+
+- ✅ 抖音 cookie 健康（6/30 08:34 同步）
+- ⚠️ 小红书 cookie 待恢复
+- ✅ CDP 18800 LISTEN
+- ✅ 代理 7897 LISTEN
+
+### 关联文档
+
+- 灵犀可用性：`wiki/行业知识/小红书灵犀数据可用性状态表.md`
+- 脚本实体：`entities/scripts/xiaohongshu_crawl.md`
+- 飞书配置：`wiki/技术配置/飞书配置.md`
+- H1 一页纸：`memory/2026-06-30-h1-recap.md`

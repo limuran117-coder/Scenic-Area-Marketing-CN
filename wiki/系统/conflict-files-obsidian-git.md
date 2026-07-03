@@ -64,3 +64,19 @@ I strongly recommend to use "Source mode" for viewing the conflicted files. For 
     File changes in remote repository
 >>>>>>> origin/main
 ```
+---
+
+## 🆕 2026-06-30 H1 收官节点
+
+本技术方法论保持 5/24 原始版本稳定，6/30 节点确认文档仍有效。
+
+### 6/30 关联应用
+
+- 飞书卡设计遵循本规范（`wiki/SOP/飞书卡片视觉规范.md`）
+- 4 张 6/30 飞书卡均符合本规范
+- 颜色/动效/排版无重大变更
+
+### 关联文档
+
+- 飞书卡规范：`wiki/SOP/飞书卡片视觉规范.md`
+- H1 一页纸：`memory/2026-06-30-h1-recap.md`

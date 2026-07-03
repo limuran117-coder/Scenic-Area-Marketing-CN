@@ -114,6 +114,98 @@
         "rain_days": 0
       },
       "ytd": 32824
+    },
+    {
+      "week": "W26_20260622",
+      "stats": {
+        "week_total_pax": 0,
+        "week_total_revenue": 0,
+        "avg_daily_pax": 0,
+        "wow_change_pct": 0,
+        "sk_ratio": 0,
+        "sk_total": 0,
+        "qd_total": 0,
+        "gate_in": 0,
+        "sjt_avg_occ": 0,
+        "sjt_sessions": 0
+      },
+      "weather_impact": {
+        "normal_avg": 0,
+        "rain_avg": 0,
+        "impact_pct": 0,
+        "normal_days": 7,
+        "rain_days": 0
+      },
+      "ytd": 32824
+    },
+    {
+      "week": "W25_20260615",
+      "stats": {
+        "week_total_pax": 0,
+        "week_total_revenue": 0,
+        "avg_daily_pax": 0,
+        "wow_change_pct": 0,
+        "sk_ratio": 0,
+        "sk_total": 0,
+        "qd_total": 0,
+        "gate_in": 0,
+        "sjt_avg_occ": 0,
+        "sjt_sessions": 0
+      },
+      "weather_impact": {
+        "normal_avg": 0,
+        "rain_avg": 0,
+        "impact_pct": 0,
+        "normal_days": 7,
+        "rain_days": 0
+      },
+      "ytd": 32824
+    },
+    {
+      "week": "W24_20260608",
+      "stats": {
+        "week_total_pax": 0,
+        "week_total_revenue": 0,
+        "avg_daily_pax": 0,
+        "wow_change_pct": -100.0,
+        "sk_ratio": 0,
+        "sk_total": 0,
+        "qd_total": 0,
+        "gate_in": 0,
+        "sjt_avg_occ": 0,
+        "sjt_sessions": 0
+      },
+      "weather_impact": {
+        "normal_avg": 0,
+        "rain_avg": 0,
+        "impact_pct": 0,
+        "normal_days": 7,
+        "rain_days": 0
+      },
+      "ytd": 32824
+    },
+    {
+      "week": "W23_20260601",
+      "stats": {
+        "week_total_pax": 8313,
+        "week_total_revenue": 763057,
+        "avg_daily_pax": 1187,
+        "wow_change_pct": -8.3,
+        "sk_ratio": 78.2,
+        "sk_total": 6503,
+        "qd_total": 1810,
+        "gate_in": 9129,
+        "sjt_avg_occ": 0,
+        "sjt_sessions": 0
+      },
+      "weather_impact": {
+        "normal_avg": 1188,
+        "rain_avg": 0,
+        "impact_pct": 100.0,
+        "normal_days": 7,
+        "rain_days": 0
+      },
+      "ytd": 41137
     }
   ],
   "insights": [
@@ -216,9 +308,69 @@
       "causal_analysis": "可能原因：①研学季结束 ②暑期散客还未启动 ③渠道正在补货",
       "action": "关注下周一散客占比是否回升，若持续低于 70%，需启动散客专项营销",
       "archive_path": "concepts/散客渠道结构.md"
+    },
+    {
+      "week": "W26_20260622",
+      "level": "P1",
+      "title": "散客占比跌破 70%（当前 0%）",
+      "data_fact": "本周散客 0 人（0%），渠道 0 人",
+      "business_meaning": "散客占比低于 70% 表明对渠道（旅行社/研学）依赖度过高，散客是利润更高、更稳定的客群",
+      "causal_analysis": "可能原因：①研学季结束 ②暑期散客还未启动 ③渠道正在补货",
+      "action": "关注下周一散客占比是否回升，若持续低于 70%，需启动散客专项营销",
+      "archive_path": "concepts/散客渠道结构.md"
+    },
+    {
+      "week": "W25_20260615",
+      "level": "P1",
+      "title": "散客占比跌破 70%（当前 0%）",
+      "data_fact": "本周散客 0 人（0%），渠道 0 人",
+      "business_meaning": "散客占比低于 70% 表明对渠道（旅行社/研学）依赖度过高，散客是利润更高、更稳定的客群",
+      "causal_analysis": "可能原因：①研学季结束 ②暑期散客还未启动 ③渠道正在补货",
+      "action": "关注下周一散客占比是否回升，若持续低于 70%，需启动散客专项营销",
+      "archive_path": "concepts/散客渠道结构.md"
+    },
+    {
+      "week": "W24_20260608",
+      "level": "P0",
+      "title": "W24 客流环比-100.0%（结构性下滑）",
+      "data_fact": "本周客流 0 人，日均 0 人，环比 减少 100.0pp",
+      "business_meaning": "同比/环比出现显著变化，需要判断是外部因素（天气/节假日/竞品）还是内部因素（节目/定价/营销）",
+      "causal_analysis": "需对照：①天气记录 ②节假日日历 ③竞品动态 ④近期营销动作",
+      "action": "核实根因，如为结构性下滑，需本周内启动营销应对",
+      "archive_path": "concepts/客流趋势/06/08-06/14.md"
+    },
+    {
+      "week": "W24_20260608",
+      "level": "P1",
+      "title": "散客占比跌破 70%（当前 0%）",
+      "data_fact": "本周散客 0 人（0%），渠道 0 人",
+      "business_meaning": "散客占比低于 70% 表明对渠道（旅行社/研学）依赖度过高，散客是利润更高、更稳定的客群",
+      "causal_analysis": "可能原因：①研学季结束 ②暑期散客还未启动 ③渠道正在补货",
+      "action": "关注下周一散客占比是否回升，若持续低于 70%，需启动散客专项营销",
+      "archive_path": "concepts/散客渠道结构.md"
+    },
+    {
+      "week": "W23_20260601",
+      "level": "P1",
+      "title": "🔻骤降 2026-06-02 客流偏离均值 -41.7%",
+      "data_fact": "2026-06-02 客流 692 人，偏离周均值 -41.7%，天气：正常天，可能原因：疑似闭园/恶劣天气",
+      "business_meaning": "需关注：2026-06-02 出现显著偏离",
+      "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
+      "action": "核实 2026-06-02 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
+      "archive_path": "concepts/异常日分析/2026-06-02.md"
+    },
+    {
+      "week": "W23_20260601",
+      "level": "P1",
+      "title": "🔻骤降 2026-06-04 客流偏离均值 -42.7%",
+      "data_fact": "2026-06-04 客流 680 人，偏离周均值 -42.7%，天气：正常天，可能原因：疑似闭园/恶劣天气",
+      "business_meaning": "需关注：2026-06-04 出现显著偏离",
+      "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
+      "action": "核实 2026-06-04 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
+      "archive_path": "concepts/异常日分析/2026-06-04.md"
     }
   ],
   "alerts": [],
   "historical_6月初": {},
-  "ytd": 32824
+  "ytd": 41137
 }

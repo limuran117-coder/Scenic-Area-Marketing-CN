@@ -162,3 +162,27 @@ v2026.4.20 更新后：
 - Gateway 重启会自动重建 browser MCP 连接
 
 **不需要重新配置**，只需确认Chrome进程在运行即可。
+
+---
+
+## 🆕 2026-06-30 H1 收官验证
+
+### **6/30 CDP 18800 状态**
+
+- ✅ LISTEN
+- ✅ 8 抖音景区采集 100% 有效
+- ⚠️ 小红书灵犀 not_logged_in（需站长扫码）
+
+### **6/30 维护要点**
+
+- Cookie 同步正常（6/30 08:34 抖音 / 08:05 小红书）
+- 标签页管理稳定
+- 代理 7897 LISTEN
+
+### 关联文档
+
+- 飞书配置：`wiki/技术配置/飞书配置.md`
+- 浏览器 Tab 配置：`wiki/SOP/专属浏览器Tab配置.md`
+- 抖音日报：`entities/scripts/douyin_index.md`
+- 小红书日报：`entities/scripts/xiaohongshu_crawl.md`
+- H1 一页纸：`memory/2026-06-30-h1-recap.md`
