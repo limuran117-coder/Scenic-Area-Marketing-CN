@@ -170,14 +170,16 @@ rules = q.decision_rules(status="verified")
 
 ---
 
-## 已知约束（D-32 当前状态）
+## 已知约束（D-33 当前状态 · 2026-07-03 22:30）
 
 | 维度 | 现状 |
 |------|------|
-| 数据时效 | 12 天无新 ingest（last=6/19） |
-| scenic_spots | 13（5 处 SSOT 重复未修） |
-| metricSnapshots | 94 全是 6/19 backfill |
-| contentAssets | 28 |
+| 数据时效 | 14 天无新 ingest（last=6/19） |
+| scenic_spots | **8**（D-033 完成 5 处 SSOT 去重） |
+| metricSnapshots | 84（94 - 10 only_dream/only_henan UNIQUE 冲突） |
+| contentAssets | 28（无变化） |
+| spot_relations | 10（5 处 loser 关系正确 re-point 到 winner） |
 | decision_rules | 4（3 verified + 1 hypothesis） |
 
-> 数据时效问题需要 Phase 4 启动 adapter 链工程化（不属于 query 层）
+> 数据时效问题需要 Phase 4 启动 adapter 链工程化（不属于 query 层）。  
+> D-033 SSOT 去重：详见 `.profile/ontology/migrations/20260703_dedup_scenic_spots.py`
