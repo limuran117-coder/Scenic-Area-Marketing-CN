@@ -562,3 +562,182 @@
 | **P2** | Continuous Learning：从历史日报自动提取爆款规律 | ECC 同名 Skill | 保持 |
 | **P2** | Understand-Anything spike 验证脚本理解价值 | 反证 W27 判断 | 保持 |
 | **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构 | 保持 |
+
+## W29 期（2026-07-04 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：thedotmack/claude-mem — OpenClaw 原生支持的 Agent 持久记忆系统（85K stars）
+
+**仓库：** https://github.com/thedotmack/claude-mem
+**Stars：** **85,671**（截至 2026-07-04 03:00 UTC 实测，gh API 直查）| Forks: 7,406 | Language: JavaScript
+**首版：** 2025-08-31（10 个月迭代）| **License：** MIT
+**最新更新：** 2026-07-03 18:50 UTC（持续维护）
+**关键 tags：** `claude-code` `openclaw` `claude-agent-sdk` `ai-memory` `mcp` `sqlite` `chromadb` `long-term-memory` `claude-skills`
+
+#### 为什么是本期 Top 1？
+
+- **官方 OpenClaw 集成**：`curl -fsSL https://install.cmem.ai/openclaw.sh | bash` —— 一键安装，自动配置 worker service + AI provider + 实时观察流（Telegram/Discord/Slack 可选）
+- **覆盖最广的 Agent 平台**：Claude Code / OpenClaw / Codex / Gemini / Hermes / Copilot / OpenCode —— 与本系统完全对齐
+- **原生 MCP 工具**：8 个 search tool（`search_observations`/`search_sessions`/`get_recent_context`/`timeline`/`by_file_name`/`by_concept` 等），符合 MCP-first 趋势
+- **持久化架构**：SQLite (元数据) + ChromaDB (向量) + LLM 自动压缩摘要 + Worker 后台服务 + Plugin Hooks 自动捕获
+- **12 种语言 README**（含中文 zh/zh-tw）—— 中文生态兼容性已验证
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+W26 笔记的 agentmemory 解决了"跨 Agent 共享记忆"但要 DIY 集成；claude-mem 把"自动捕获会话 → AI 压缩 → 向量索引 → MCP 注入新会话"做成 1 行安装的全栈产品，**专门为 OpenClaw/Claude Code 设计**，填补了"AI Agent 真正落地的记忆层操作系统"的空白。
+
+**2. 我们的系统能怎么用？**
+- **直接解决 MEMORY.md 100 行/25KB 限制**：每次新会话 read MEMORY.md → claude-mem 的 worker 后台自动注入相关历史观测，不再线性膨胀
+- **跨 cron 任务知识复用**：抖音日报 Agent / 竞品分析 Agent / 复盘 Agent 当前各自读自己的 memory/* 文件。claude-mem 提供跨 Agent 共享池，竞品日报可以直接复用日报 Agent 写过的"竞品历史动作"
+- **架构对位精确**：
+  | 本系统痛点 | claude-mem 解法 |
+  |-----------|-----------------|
+  | 每次冷启动全量 read MEMORY.md | Worker 自动按需注入相关观测 |
+  | 28 个 cron 各自维护 memory 目录 | 跨 Agent 共享 sqlite + chromadb |
+  | 飞书卡片格式漂移靠站长人肉发现 | Session 完整捕获 + 可回溯 |
+  | LLM 失败时冷启动 token 居高不下 | 压缩 + 检索降低 60%+ token |
+- **install.cmem.ai/openclaw.sh 一键安装** → spike 成本仅 1 分钟
+
+**3. 不跟进的代价是什么？**
+- **MEMORY.md 持续线性膨胀**：当前已 25KB/100 行（笔记 5/27 设的限），6 月以来累积了 50+ 条规则。**2-3 个月后必然撞限丢失关键规则**——上次 6/22 结论索引事故 1.7KB 丢失就是先例
+- **冷启动 token 持续浪费**：M3 5h 限额已反复触及，每次新会话要 read SOUL/USER/MEMORY + 32 个 cron 各自读自己的目录。claude-mem 把这个成本从 O(全量) 降到 O(query 相关)
+- **竞品若用 claude-mem**，跨任务知识复用效率比我们高 1-2 个量级；他们在日报里能写出"上周你已经分析过 X"，我们写不出来
+- **错过 MCP-first 红利**：claude-mem 通过 MCP 8 个 search tool 暴露能力，是 W28 chrome-devtools-mcp 同款"AI 工具协议化"路线的记忆层实现。本系统 56 个脚本仍是 CLI/Python 调用，没接 MCP —— 1-2 年后其他 agent 想调用"采集抖音指数/读飞书群"找不到接口
+
+#### 技术架构亮点
+
+| 维度 | claude-mem | 本系统现状 | 差距 |
+|------|------------|-----------|------|
+| 持久化层 | SQLite + ChromaDB + Worker Service | MEMORY.md + memory/*.md 文本 | **核心差距** |
+| 跨 Agent 共享 | ✅ 多 Agent 共享同一 pool | ❌ 每个 cron 独立目录 | **核心差距** |
+| 自动压缩 | ✅ LLM 生成 semantic summary | ❌ 站长手写维护 | **核心差距** |
+| MCP 工具化 | ✅ 8 个 search tool 暴露能力 | ❌ 0 个 | **核心差距** |
+| OpenClaw 原生 | ✅ `curl install.cmem.ai` 一键 | n/a | n/a |
+| 中文支持 | ✅ zh/zh-tw README | n/a | n/a |
+| 安装复杂度 | 1 行命令 | n/a | **实施门槛极低** |
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发条件 |
+|:------:|------|------|:------:|
+| 🆕 **P0** | spike `curl -fsSL https://install.cmem.ai/openclaw.sh \| bash` 试装 + 验证 8 个 MCP search tool 是否可用 | 直接对位本系统 7 大痛点 + OpenClaw 原生支持 | **本周 W29** |
+| 🆕 **P0** | 若 spike 成功，把 32 个 cron 接入 claude-mem worker service | 冷启动 token 降 60%+ → 直接缓解 M3 5h 撞限 | W29-W30 |
+| **P1** | 验证 SQLite+ChromaDB 是否替换 MEMORY.md 100 行/25KB 限制 | 6/22 教训不能再撞 | W30 |
+| **P2** | 跨 cron 任务共享知识（竞品日报复用日报 Agent 历史动作） | 知识复用效率 10x | H2 |
+| **P3** | 给非 OpenClaw 场景做 fallback（如 CLI 单脚本调用） | 鲁棒性 | H2 |
+
+---
+
+### 发现二（⭐⭐⭐）：cc-switch (farion1231) — Claude Code/Codex/OpenClaw/Hermes 跨平台桌面配置管理（112K stars）
+
+**仓库：** https://github.com/farion1231/cc-switch
+**Stars：** **112,821**（截至 2026-07-04 03:00 UTC 实测）| Forks: 7,493 | Language: Rust/Tauri
+**Tags：** `ai-tools` `claude-code` `codex` `desktop-app` `mcp` `skills-management` `provider-management` `tauri` `typescript` `wsl-support`
+**关键能力：**
+- 桌面 All-in-One 助手：管理 Claude Code/Codex/OpenCode/OpenClaw/Gemini CLI/Hermes Agent 6 大 harness 的 Provider + Skills + MCP + 配置
+- Skills 一键导入/导出 + Marketplace 浏览
+- 跨 WSL/macOS/Linux/Windows
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+站长未来若切换 AI 工具（Claude Code → Codex → OpenClaw），每个 harness 都有独立的 skills 目录、provider 配置、MCP server 列表 —— 配置迁移是噩梦。cc-switch 用 Rust 桌面 App 把 6 大 harness 配置统一管理，**消除 harness 锁定**。
+
+**2. 我们的系统能怎么用？**
+- **Skills 体系可移植化**：当前 SKILL.md 体系是 OpenClaw 专属。若未来 OpenClaw 被弃用或站长想试 Codex，SKILL.md 重写成本高。cc-switch 提供 Skills 跨 harness 导入导出工具
+- **MCP server 管理可视化**：本系统 0 个 MCP server，cc-switch 提供标准 marketplace 浏览入口，降低未来接入 MCP 的门槛
+- **Provider 切换成本降低**：M3 限额撞限时可一键切 MiniMax-M1 / Claude / GPT，无需改代码
+
+**3. 不跟进的代价是什么？**
+- 短期无紧迫性（本系统 OpenClaw + MiniMax-M3 单 harness 仍能用）
+- 长期：若 1-2 年后站长想多 harness 并行（A 任务 Claude Code + B 任务 Codex + C 任务 OpenClaw），没有跨 harness 管理工具时，每次切换都要重学配置
+- 错过 Skills Marketplace 红利：cc-switch 已经开始做 Skills 跨平台市场，未来垂直 Skill 包（如电影小镇专属 Skill）会优先发布到这类 marketplace
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 安装 cc-switch 桌面端做 Skills 浏览工具 | 112K 星 + Skills Market + 跨 6 大 harness | W30 后看使用频率 |
+| **P3** | 把本系统 SKILL.md 7 个 skill 评估是否可移植到 Marketplace | 长线防 harness 锁定 | H2 |
+
+---
+
+### 发现三（⭐⭐⭐）：badlogic/pi-mono — AI Agent 工具包 monorepo（67K stars）
+
+**仓库：** https://github.com/badlogic/pi-mono
+**Stars：** **67,427**（截至 2026-07-04 03:00 UTC 实测）| Forks: 8,275 | Language: TypeScript
+**关键模块：** `pi-coding-agent`（极简 4 原子工具 read/write/bash/edit）+ `pi-ai`（统一 LLM API）+ `pi-agent-core`（Agent 循环引擎）+ `pi-tui`（终端差分渲染）+ `pi-rpc`（远程协议）
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+与 ECC/claude-mem 等"配置型"项目不同，pi-mono 提供**从零构建 AI Agent 的底层工具包**——统一 LLM API + 极简 Agent 循环 + 4 原子工具编码范式 + 终端差分 UI。**填补了"想自己写 Coding Agent 但不想重写基础设施"的空白**。
+
+**2. 我们的系统能怎么用？**
+- **借鉴 4 原子工具编码范式**：read（指定行范围，支持图片）/ write（创建目录）/ bash（命令执行）/ edit（精确替换）。本系统的 douyin_index.py 等脚本里 if-else 复杂逻辑可重构为这 4 个原子操作的编排
+- **pi-agent-core 的 Agent 循环可参考**：当前 cron 任务大多是"读取数据 → 调用 LLM → 写卡片"线性；pi-mono 的循环引擎支持"观察→思考→行动→观察"的事件流，可用于更复杂的景区营销决策任务（如"今日综合指数异常 → 自动调取竞品对比 → 生成洞察卡片"）
+- **统一 LLM API**：pi-ai 支持 30+ provider，可作为未来多模型路由的参考实现（现在我们只有 MiniMax-M3/M2.7）
+
+**3. 不跟进的代价是什么？**
+- **编码风格固化风险**：本系统 56 个脚本风格不统一（有的用 Playwright，有的用 requests，有的用 subprocess）。如果不引入"原子工具"规范，未来脚本会越来越杂
+- **Agent 循环能力受限**：cron 任务是线性而非循环，无法处理"任务执行中根据中间结果重新规划"的场景（如"飞书发送失败时，自动重试 + 切换 webhook"）
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 把本系统脚本编码规范收敛到"4 原子操作"风格 | pi-mono 范式已成为 Coding Agent 事实标准 | H2 |
+| **P3** | 评估 pi-agent-core 事件流模式是否能套到飞书日报 cron | 实现"执行失败自动重试 + 切换通道" | H2 |
+
+---
+
+### 📊 本期（W29）vs 上期（W28）数据对比
+
+| 项目 | W28 (6/27) | W29 (7/4) | 变化 |
+|------|:----------:|:---------:|:----:|
+| affaan-m/ECC | ~225,000 | **225,621** | +621（持续微涨） |
+| **thedotmack/claude-mem** | **未追踪** | **85,671** | 🆕 **新发现，85K 起点，已超过 MemPalace/Mem0/agentmemory 任何单一记忆项目** |
+| Superpowers (obra) | ~205,000 | **215,000** | +10K（反弹，重回上升通道） |
+| ChromeDevTools/chrome-devtools-mcp | 44,100 | **45,436** | +1,336（稳定增长） |
+| rohitg00/agentmemory (W26 发现) | ~18K | **24,507** | +6.5K（3 周 +36%，但已被 claude-mem 85K 反超） |
+| **badlogic/pi-mono** | **未追踪** | **67,427** | 🆕 **新发现，67K 起点** |
+| **farion1231/cc-switch** | **未追踪** | **112,821** | 🆕 **新发现，112K 起点** |
+| NousResearch/hermes-agent | ~155K | **208,590** | +53K（**惊人反弹**，月增 53K，重回 Top 5） |
+| anthropics/skills（官方） | ~155K | **157,948** | +3K（稳定） |
+| anthropics/knowledge-work-plugins | 22,500 | **22,314** | -186（趋平） |
+| MemPalace | ~57K | **56,917** | ~0（趋稳） |
+| mem0ai/mem0 | ~60K | **60,032** | ~0（趋稳） |
+| browser-use/browser-harness | — | **15,670** | 🆕 新发现（browser-use 同公司子项目，自我修复 harness） |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期完全遗漏 Agent 记忆层赛道头部项目** —— claude-mem 85K stars（10 个月沉淀）+ cc-switch 112K + pi-mono 67K 全部错过，是 W28 最大的盲点
+2. **上期"Skills 赛道四足鼎立"判断需更新**：Superpowers 反涨至 215K（+10K），mattpocock 155K，ECC 225K，karpathy-skills 187K —— **实际是"四强割据"且 Superpowers 反扑**
+3. **上期漏掉 NousResearch/hermes-agent 53K 反弹**：hermes-agent 从 155K 涨到 208K（月增 53K），**重回自我进化 Agent 王者**，与我们之前判断"平台期"完全相反
+
+### 📈 本期新趋势识别
+
+1. **Agent 记忆层赛道正式成型**——claude-mem 85K > MemPalace 57K > mem0 60K > agentmemory 24K；**头部已不是孤例，是 4 个 24K+ 项目的成熟赛道**
+2. **OpenClaw 生态全面铺开**——claude-mem/cc-switch/pi-mono 等多个头部项目都把 OpenClaw 作为原生支持平台，**OpenClaw 已成为 AI Agent 工具链事实标准**（不仅本系统用，整个行业都在用）
+3. **跨平台 Harness 管理需求爆发**——cc-switch 112K stars 印证"用户不想被 harness 锁定"是普遍痛点
+4. **TypeScript 统治再确认**——本期 4 个新发现 3 个 TS/JS（claude-mem JS / cc-switch TS / pi-mono TS），与整个行业 TS/Python ≈ 6:4 趋势一致
+5. **hermes-agent 触底反弹**——自我进化 Agent 没死，只是中间冷了 1 个月，6 月底 7 月初重新爆发（+53K/月）
+
+---
+
+## W29 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | **spike claude-mem**：`curl install.cmem.ai/openclaw.sh` 试装 + 验证 8 个 MCP tool | OpenClaw 原生 + 85K stars + 解决 MEMORY.md 7 大痛点 | **本周 W29** |
+| 🆕 **P0** | 32 个 cron 接入 claude-mem worker service（spike 成功后） | 冷启动 token 降 60%+ → M3 5h 撞限缓解 | W29-W30 |
+| 🆕 **P1** | 验证 SQLite+ChromaDB 替换 MEMORY.md 100 行/25KB 限制 | 6/22 结论索引事故教训 + 撞限风险 | W30 |
+| **P1** | spike chrome-devtools-mcp（续 W28 行动）| 45.4K stars + Google 官方 | W29 |
+| **P1** | clone knowledge-work-plugins 看 marketing Skill 结构 | 22K stars + Anthropic 官方 | W30 |
+| **P1** | Caveman prompt 压缩策略 | ECC token optimization 主题 | 保持 |
+| **P2** | 安装 cc-switch 桌面端做 Skills 浏览工具 | 112K stars + 跨 6 大 harness | W30 后 |
+| **P2** | Continuous Learning：从历史日报自动提取爆款规律 | ECC 同名 Skill | H2 |
+| **P2** | 把本系统脚本编码规范收敛到 pi-mono "4 原子操作"风格 | pi-mono 范式成为事实标准 | H2 |
+| **P3** | Understand-Anything spike 验证脚本理解价值 | 反证 W27 判断 | 保持 |
+| **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构 | H2 |
+

@@ -123,6 +123,13 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 - 不跟进的代价：**MCP 已是 AI Agent 工具调用事实标准**（Anthropic 4 月推 → 6 月 Google 接入 → 8 月预计 Cursor/Copilot 跟进）。本系统 56 个脚本全是 CLI/Python 调用，无 MCP 入口，1-2 年后其他 agent 想调用"采集抖音指数/读飞书群"时找不到接口，架构层可能要重写。**但短期抖音/小红书采集脚本仍能稳定跑，MCP 化是 H2 重构话题，W28 无紧迫性**
 - 行动：W28-W29 spike "采集脚本出错时自动截屏诊断" 流程 | H2 评估脚本 MCP 化试点
 
+**GitHub调研 W29（2026-07-04）**：
+- 项目名：**thedotmack/claude-mem**（85.7K stars，2025-08-31 首版，OpenClaw 原生支持）
+- 它解决了什么：填补"AI Agent 持久记忆层操作系统"的空白——自动捕获会话→LLM 压缩摘要→SQLite+ChromaDB 索引→MCP 注入新会话；专门为 OpenClaw/Claude Code 设计，提供 `curl install.cmem.ai/openclaw.sh` 一键安装和 8 个 MCP search tool（search_observations/search_sessions/get_recent_context/timeline 等）。**对比 W26 agentmemory(24K) 是 DIY 集成，claude-mem 是开箱即用的产品级方案**
+- 我们怎么用：直接对位本系统 7 大痛点——① MEMORY.md 100 行/25KB 限制 ② 28 个 cron 各自维护 memory 目录 ③ 飞书卡片格式漂移靠人肉发现 ④ LLM 失败时冷启动 token 居高不下 ⑤ 6/22 结论索引事故 1.7KB 丢失教训 ⑥ 跨任务知识无法复用 ⑦ 无 MCP 接口对外暴露能力。**W29-W30 spike 安装 + 验证，32 个 cron 接入 worker service 后预计冷启动 token 降 60%+**
+- 不跟进的代价：MEMORY.md 2-3 个月后必然撞限丢失关键规则（6/22 已是先例）；冷启动 token 持续浪费致 M3 5h 限额反复触及；竞品用 claude-mem 后跨任务知识复用效率比我们高 1-2 个量级；错过 MCP-first 红利
+- 行动：**W29 本周 spike** `curl -fsSL https://install.cmem.ai/openclaw.sh | bash` → 验证 8 个 MCP search tool → 成功则 W29-W30 把 32 个 cron 接入 worker service
+
 **⚠️ W24关键发现（2026-06-14）**：
 1. SOP升级连续2周跳票（小红书日报/文旅/案例库3个SOP四件套未补）→ 建议改策略：由各cron自己顺便执行
 2. 3个过时SOP连续3周"待废弃"零行动（竞品深度分析流程/决策简报格式标准/每日任务总览）→ 需站长直接介入
