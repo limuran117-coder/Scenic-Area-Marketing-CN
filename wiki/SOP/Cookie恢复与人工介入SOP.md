@@ -108,20 +108,6 @@ python3 ~/.openclaw/workspace/scripts/cdp_cookie_hub.py
 
 ---
 
-## 🛠️ 一键恢复脚本（可选，2026-06-23 排期）
-
-```bash
-#!/bin/bash
-# ~/.openclaw/workspace/scripts/cookie_recovery.sh
-# 用法: bash cookie_recovery.sh [douyin|xiaohongshu|all]
-TARGET=${1:-all}
-echo "[$(date +%H:%M:%S)] Cookie 恢复开始 → $TARGET"
-python3 ~/.openclaw/workspace/scripts/cdp_cookie_hub.py --target $TARGET
-sleep 2
-python3 ~/.openclaw/workspace/scripts/cookie_health_check.py --quiet
-echo "[$(date +%H:%M:%S)] 完成"
-```
-
 ---
 
 ## 📞 何时需要人工介入更深

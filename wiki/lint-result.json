@@ -1,45 +1,53 @@
 {
-  "timestamp": "2026-06-28T11:03:59.258820",
-  "issues_count": 21,
+  "timestamp": "2026-07-05T11:03:24.168095",
+  "issues_count": 36,
   "issues": [
     {
       "type": "stale",
       "file": "全国景区案例库/更新台账.md",
       "last_update": "2026-05-26",
-      "days_old": 33,
+      "days_old": 40,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/关键词池状态.md",
       "last_update": "2026-05-27",
-      "days_old": 32,
+      "days_old": 39,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/脚本清单.md",
       "last_update": "2026-05-24",
-      "days_old": 35,
+      "days_old": 42,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/竞品深度档案/万岁山武侠城深度分析.md",
       "last_update": "2026-05-12",
-      "days_old": 47,
-      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
-    },
-    {
-      "type": "stale",
-      "file": "entities/scripts/README.md",
-      "last_update": "2026-05-24",
-      "days_old": 35,
+      "days_old": 54,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/海南欢乐节「沉浸式光影+4A景区主会场+全民快闪」省级方法论-2026W27.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/飞猪暑期报告+厦门鼓浪屿毕业生66元畅游-2026W27.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/浙江雁楠飞仙海天游-温台6景区门票互惠-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/2026暑期县域山水预订暴涨62%反向消费-2026W27.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -55,6 +63,16 @@
     {
       "type": "orphan",
       "file": "全国景区案例库/银基动物王国缤纷焰火季6-22暑期夜场启动-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/山西大同《何以悬空寺》光影秀+暑期三城霸榜TOP10-2026W27.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/郏县2026暑期「一票畅游+UGC三件套」全域惠民-2026W27.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -84,12 +102,62 @@
     },
     {
       "type": "orphan",
+      "file": "竞品分析/竞品动态追踪/2026-W27-周度竞争格局.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "竞品分析/竞品动态追踪/2026-W26-周度竞争格局.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/Week2_Actions_Functions.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "技术配置/Ontology架构设计/Week1_ObjectTypes_LinkTypes.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
+      "file": "行业知识/结论索引/结论索引.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "行业知识/结论索引/已验证结论_竞品关键词深度分析.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W26期-20260630.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W25期-20260623.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W24期-20260616.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W27期-20260707.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "entities/scripts/xiaohongshu_crawl.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "entities/scripts/competitor_program_tracker.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -122,6 +190,18 @@
       "files": [
         "overview.md",
         "sources/客流营收历年分析.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "行业知识/结论索引.md"
       ],
       "values": [
         "153"

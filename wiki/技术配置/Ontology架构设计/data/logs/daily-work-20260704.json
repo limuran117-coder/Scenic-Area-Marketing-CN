@@ -1,0 +1,50 @@
+{
+  "date": "2026-07-04",
+  "day": 34,
+  "phase": "Phase 3 → Phase 4 过渡期 (周六 22:30 cron)",
+  "today_focus": "D-034: 架构认知纠错 — adapter 文件已存在但未接 cron (推荐方案 a 失焦)",
+  "insights_first": {
+    "1_most_important_progress": "架构认知纠错: D-30~33 一直报告『adapter 未工程化』是误判 — scripts/adapter-douyin.py / adapter-xiaohongshu.py / adapter-visitors.py / ontology_constants.py 4 个文件实际都已存在 (Jun 19 创建),且 adapter-douyin.py 实测可执行 (返回 0)。Phase 4 真正 blocker 已切换为「adapter 写完但未接 cron + douyin_index.py 采集失效」",
+    "1_blocker": "双层 blocker: (1) /tmp/crawl_data.json 全部 value=0 (douyin_index.py 拿不到真实数据,采集层失效但脚本不报错) — 这是采集层问题,不是 ontology 问题 (2) 即使采集恢复,adapter 未接到任何 cron,需要手工执行才能写入 DB — Phase 4 启动需要把『adapter-douyin.py + ontology_store.ingest_metric()』串成 1 行 shell",
+    "1_tomorrow_first": "Phase 4 启动条件清单 (Phase 4 Readiness): (a) 先验证 douyin_index.py 是否真的失效 (手工跑一次,看是否还是全 0) — 30 分钟; (b) 写 ingest_pipeline.sh (含 douyin_index.py + adapter-douyin.py + sqlite ingest),手工跑通后挂 cron — 1 小时; (c) 同样范式复制给 xiaohongshu/visitors — Phase 4 全程 2-3 天"
+  },
+  "completed": [
+    "✅ 文件存在性检查: scripts/ontology/ 实际 5 个文件 (同 D-33), 无新增",
+    "✅ **重大发现**: scripts/ 顶层存在 4 个 adapter 文件 (adapter-douyin.py 9049B / adapter-xiaohongshu.py 16031B / adapter-visitors.py 6505B / ontology_constants.py 5623B),且 __pycache__ 有对应 .pyc (Jun 19 创建) — 说明 4 个文件都曾被 import 过",
+    "✅ **架构认知纠错**: D-30~33 日志的『8 个 adapter 未工程化』是误判 — adapter 文件已存在,问题是 (1) 未接到 cron, (2) 采集层失效",
+    "✅ adapter-douyin.py --help 验证: 脚本可执行,CLI 接口完整 (--input / --output)",
+    "✅ adapter-douyin.py --input /tmp/crawl_data.json 实测: 脚本正常返回 0,转换日志清晰 — adapter 本身**完全可用**",
+    "✅ **采集层失效硬证据**: /tmp/crawl_data.json 8 个景区全部 search=0/synth=0/error=null — douyin_index.py 跑通了但拿不到真实数据 (my-subscript 页结构可能变化或 cookie 失效)",
+    "✅ query_log 累积 28 条 (D-33 报告的 4 周累积 0 条已过时 — 实际是从 7/2 开始累积,daily_douyin_ranking 每天跑约 14 次): query 层**活跃**,不是死的",
+    "✅ store_stats 验证: scenic_spots=8 (D-033 后), metric_snapshots=84, content_assets=28, spot_relations=10, decision_rules=4, last_ingest=2026-06-19 (15 天, D-33 是 14 天)"
+  ],
+  "blockers": [
+    "🔴 **Phase 4 真正 blocker 双层**: (a) **采集层失效** — douyin_index.py 跑通但 /tmp/crawl_data.json 全 0,采集失效 15 天 (last=6/19) 实际根因不在 ontology 而在采集 (b) **adapter 未接 cron** — 4 个 adapter 文件存在但没有任何 cron 调用,需要手工 python3 adapter-douyin.py 才能触发",
+    "🟡 D-033 推荐方案 (a)『写最小 douyin_adapter.py』**失焦** — adapter 已存在,再写一个会产生 2 套范式分歧,正确做法是用现有 adapter-douyin.py + 串成 ingest_pipeline",
+    "🟡 adapter-douyin.py 输出走的是『JSON + 双轨 SQLite』,但实测只输出到 JSON 日志,SQLite 写入路径在 __main__ 末尾 — 需要看 store 是否真的接收到了 (今日没验证)"
+  ],
+  "blockers_resolved": [
+    "🟢 **架构认知纠错完成**: 4 个 adapter 文件已存在的事实,推翻了 D-30~33 的『Phase 4 adapter 未启动』判断 — Phase 4 卡的不是『代码不存在』而是『代码未串成 cron pipeline』,这是更精细的判断",
+    "🟢 query_log 28 条累积推翻 D-32 报告『query 层有文档无热点』判断 — 实际 daily_douyin_ranking 每天 ~14 次,健康检查每天 ~2 次,query 层活跃"
+  ],
+  "decisions": [
+    "D-034: 撤销『adapter 未工程化』表述 — 改用『adapter 已工程化但未接入 cron + 采集层失效』,这是 D-30~33 期间反复出现的盲点,Day 35 起所有报告用新表述",
+    "D-034: Phase 4 启动顺序定为 (a) 验证采集失效根因 (b) 写 ingest_pipeline.sh (c) 串 cron — 不再写新 adapter",
+    "D-034: 明天先做 (a) 验证 douyin_index.py 失效根因 — 1 小时内完成,不修复 (修复属采集层,需另开 D-035+ 任务)"
+  ],
+  "files_modified": [
+    "(仅日志,无代码改动 — D-034 是认知纠错日,不是实施日)"
+  ],
+  "store_stats": {
+    "scenicSpots": 8,
+    "metricSnapshots": 84,
+    "content_assets": 28,
+    "spot_relations": 10,
+    "decision_rules": 4,
+    "query_log": 28,
+    "bySource": {"douyin": 28, "xiaohongshu": 56, "csv": 0, "baidu": 0},
+    "last_ingest": "2026-06-19T20:10:43 (15 天前)",
+    "note": "D-34 关键发现: 4 个 adapter 文件 (adapter-douyin.py / adapter-xiaohongshu.py / adapter-visitors.py / ontology_constants.py) 已存在但未接 cron; douyin_index.py 采集全 0 失效 15 天; query_log 实际 28 条累积"
+  },
+  "next_day_note": "🟢 Day 35 (周日 7/5 22:30): Phase 4 启动 - 验证采集失效根因 (30 分钟)。流程: (1) 手工跑 douyin_index.py 一次,看 /tmp/crawl_data.json 是否仍全 0; (2) 如果全 0 → 检查 my-subscript 页结构是否变化 + cookie 是否失效; (3) 如果采集恢复 → 串 ingest_pipeline.sh 挂 cron (1 小时)。注意: 周日 7/5 是休息日,建议只做 (1)(2) 验证,不做 (3) — 避免周末失败带来情绪负担"
+}
