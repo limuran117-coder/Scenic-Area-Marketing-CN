@@ -120,11 +120,18 @@ def write_to_sqlite(objects, adapter_name="adapter-douyin"):
     返回: (inserted_count, error_message)
     """
     try:
-        from ontology_store import OntologyStore
+        # D-036 fix: 旧版 scripts/ontology_store.py (Jun 2) 保留 ingest_metric_snapshots
+        # 新版 scripts/ontology/ontology_store.py 提供 ingest_objects(adapter, schema, objects, source_file)
+        # adapter 必须显式 import 新版,否则会拿到旧版 API (缺 ingest_objects)
+        from ontology.ontology_store import OntologyStore
         store = OntologyStore()
-        with store:
-            count = store.ingest_metric_snapshots(objects, adapter_name)
-        return count, None
+        result = store.ingest_objects(
+            adapter_name=adapter_name,
+            schema="MetricSnapshot",
+            objects=objects,
+            source_file="/tmp/crawl_data.json",
+        )
+        return (result.records_added, None) if result.status != "failed" else (0, result.error_message)
     except Exception as e:
         return 0, str(e)[:200]
 
@@ -237,9 +244,10 @@ def main():
     
     # 🔗 双轨: 同步写入 SQLite
     sqlite_count, sqlite_err = write_to_sqlite(objects, "adapter-douyin")
-    if sqlite_err:
-        print(f"[⚠️] SQLite 写入失败: {sqlite_err}")
-        print(f"[💡] JSON 备份仍然有效，可稍后手动导入")
+    if sqlite_err or sqlite_count == 0:
+        msg = sqlite_err or "0 条写入 — adapter 路径异常,请检查 store.ingest_objects 返回"
+        print(f"[⚠️] SQLite 写入失败: {msg}")
+        print(f"[💡] JSON 备份仍然有效,可稍后手动导入")
     else:
         print(f"[🗄️] SQLite: {sqlite_count} 条已写入 ontology_store.db")
     
