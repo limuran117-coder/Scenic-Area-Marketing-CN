@@ -1,5 +1,5 @@
 # MEMORY.md - Long-Term Memory
-role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | update: 2026-07-05
+role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | update: 2026-07-06
 
 ---
 
@@ -45,8 +45,10 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **W26 站长当场纠错（6/30 H1 收官）**：端午 4,099/6,632/782（6/21 暴跌88%）；CSV 6/29-30=0 是暂态非收官 → 铁律新增 2 条
 
 **W27 重大进展**：
+- [project] **Ontology Week 3 完成（7/6）**：ontology.json v1.4.0（100.5KB）+ Functions 11→16 + Rules 10→15 + Decisions 5→10 + PipelineRun entity
 - [project] **Ontology Week 2 完成**：ontology.json v1.3.0（83.7KB）+ Functions 7→11 + Actions 5→7 + D-016~D-020 设计决策
-- [project] **Ontology Week 1 完成**：Object Types 8→12, Link Types 14→33, D-011~D-015（ID命名/Cardinality/KB反向引用/Inverse Link/Validation）
+- [project] **Ontology Week 1 完成**：Object Types 8→12, Link Types 14→33, D-011~D-015
+- [project] **Phase 2 提前 3 周**：原计划 Week 7 启动的数据接入管道实施，被 Week 3 设计完成推前到 **Week 4 (7/13)**
 - [project] **GitHub W29 调研**：thedotmack/claude-mem (85.7K) 拟 W29 spike 安装
 - [project] **scripts/ontology/dedup 迁移**（7/3）：ScenicSpot 去重，241KB 快照保留
 
@@ -88,7 +90,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 
 **结论索引系统**（2026-06-13上线）：所有洞察任务前置读 `wiki/行业知识/结论索引.md`，矛盾必须显式标注
 **系统进化审视**（2026-06-13升级）：每周迭代→每月准确率→每季淘汰，三层闭环
-**Ontology**：Week 6 原型 + Week 1（Object/Link Types v1.2.0）+ Week 2（Actions/Functions v1.3.0）；Week 3 计划 V-001~V-010 实施 + calculateBaselineValue 派生列写入
+**Ontology**：Week 6 原型 + Week 1（Object/Link Types v1.2.0）+ Week 2（Actions/Functions v1.3.0）+ **Week 3（数据接入管道设计 v1.4.0）**；Week 4 启动 Phase 2 实施（pipeline.py + validate.py + actions/wrapper.py + 3 adapter 改造 + db migration 002）
 **系统瘦身**（2026-06-13）：disable 6个冗余任务，清理21个prompt冗余，结论索引+矛盾检查落地
 **爆款公式库**：14条公式+52案例，W24新增票根经济/万岁山商业模型
 **漂移双跑**：每周一/三/五 cron执行
@@ -100,7 +102,20 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 
 ---
 
-# ✅ 已结项（存档参考）
+# ✅ W27 推进（新增）：
+- [project] **PipelineRun first-class**：ontology.json v1.4.0 引入 PipelineRun 实体（5 stage: extract/transform/load/validate/audit），一次完整采集→入库可端到端追踪
+- [project] **adapter-tier 三档分级**：critical（抖音/客流）→飞书群 / important（小红书/百度）→个人 DM / optional（手工）→log only
+- [project] **V-011~V-015 业务规则**：V-011 Adapter Schema 必填 / V-012 ingestRunId provenance / V-013 confidence 区间 / V-014 run 状态一致性 / V-015 高频 adapter 必带 health 探针
+- [project] **F-012~F-016 Pipeline 编排 Function**：orchestratePipeline (Aggregator) / validateAdapterSchema (Pure) / enrichWithProvenance (SideEffect) / calculateAdapterHealthScore (Pure) / detectPipelineAnomaly (FunctionBacked)
+
+**W28 关键收获**：
+- 7/6 小红书 not_logged_in 已恢复（cookie 周二刷新），周三 10:00 cron 跑通 → 印证了 Week 3「adapter 失败立即告警」的必要性
+
+---
+
+**详细 Ontology Week 3 进展**：5 stage pipeline 设计 + 5 decision + 5 rule → `wiki/技术配置/Ontology架构设计/Week3_数据接入管道.md`
+
+已结项（存档参考）
 DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | 14+15点cron冲突修复 | SOP路径漂移修复 | auth配置修复 | 洞察驱动prompt升级(6/12) | catalog.json key注入(6/12) | 系统瘦身+结论索引(6/13) | 6/22 方案A 5项升级 | 6/24 cron时间表重排+复盘回退 | 7/2 Cookie健康不再刷群 | 7/2 MEMORY.md压缩机制建立 | Ontology Week 1+2 完成
 
 ---
