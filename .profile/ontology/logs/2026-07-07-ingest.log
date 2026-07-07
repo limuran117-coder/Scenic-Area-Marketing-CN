@@ -1,0 +1,30 @@
+[2026-07-07T09:29:50.286661] adapter-xiaohongshu.py status=success added=0 updated=4 err=
+[2026-07-07T09:29:50.288033] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.289312] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.290841] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.297261] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.299811] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.301429] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.302776] adapter-xiaohongshu.py status=success added=0 updated=1 err=
+[2026-07-07T09:29:50.304155] adapter-xiaohongshu.py status=success added=0 updated=6 err=
+[2026-07-07T09:29:50.305452] adapter-xiaohongshu.py status=success added=0 updated=6 err=
+[2026-07-07T09:29:50.307377] adapter-xiaohongshu.py status=success added=0 updated=4 err=
+[2026-07-07T09:29:50.308647] adapter-xiaohongshu.py status=success added=0 updated=8 err=
+[2026-07-07T09:29:50.309818] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.311025] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:29:50.312140] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.207724] adapter-xiaohongshu.py status=success added=0 updated=4 err=
+[2026-07-07T09:30:00.209607] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.211004] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.212338] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.213842] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.215304] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.216756] adapter-douyin.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.218091] adapter-xiaohongshu.py status=success added=0 updated=1 err=
+[2026-07-07T09:30:00.219607] adapter-xiaohongshu.py status=success added=0 updated=6 err=
+[2026-07-07T09:30:00.221100] adapter-xiaohongshu.py status=success added=0 updated=6 err=
+[2026-07-07T09:30:00.222427] adapter-xiaohongshu.py status=success added=0 updated=4 err=
+[2026-07-07T09:30:00.225081] adapter-xiaohongshu.py status=success added=0 updated=8 err=
+[2026-07-07T09:30:00.226568] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.227950] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T09:30:00.229585] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
