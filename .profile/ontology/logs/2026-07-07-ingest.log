@@ -28,3 +28,10 @@
 [2026-07-07T09:30:00.226568] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
 [2026-07-07T09:30:00.227950] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
 [2026-07-07T09:30:00.229585] adapter-xiaohongshu.py status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T22:32:22.308005] adapter-douyin status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T22:32:43.792031] adapter-douyin status=failed added=0 updated=0 err=FOREIGN KEY constraint failed
+[2026-07-07T22:33:01.558820] test1 status=failed added=0 updated=0 err=UNIQUE constraint failed: metric_snapshots.spot_id, metric_snapshots.source, metric_snapshots.date, metric_snapshots.metric_type
+[2026-07-07T22:33:01.559606] test_all status=failed added=0 updated=0 err=UNIQUE constraint failed: metric_snapshots.spot_id, metric_snapshots.source, metric_snapshots.date, metric_snapshots.metric_type
+[2026-07-07T22:33:20.261647] test1 status=failed added=0 updated=0 err='_GeneratorContextManager' object has no attribute 'set_trace_callback'
+[2026-07-07T22:33:23.509591] adapter-douyin status=success added=3 updated=0 err=
+[2026-07-07T22:33:27.936712] adapter-douyin status=success added=16 updated=0 err=
