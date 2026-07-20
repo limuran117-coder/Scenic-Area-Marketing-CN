@@ -1,0 +1,42 @@
+{
+  "date": "2026-07-20",
+  "day": 50,
+  "phase": "Phase 4 后半段：ingest_pipeline.sh 未完成，cron 空跑 13 天无数据",
+  "today_focus": "D-050 现状评估：确认 ingest_pipeline.sh 从未创建，cron 每日触发但无日志产出，DB 仅 7/6 一天数据",
+  "insights_first": {
+    "1_most_important_progress": "**无进展** — ingest_pipeline.sh (D-038 计划) 从未创建，cron 每日空跑无日志，Phase 4 自动采集闭环未完成",
+    "1_blocker": "ingest_pipeline.sh 缺失导致整个自动化链条断裂：douyin_index.py → adapter-douyin.py → sqlite 的串联从未实现",
+    "1_tomorrow_first": "D-051 写 scripts/ingest_pipeline.sh，把 douyin_index.py + adapter-douyin.py 串成可执行 shell，用绝对路径避免 import 混乱",
+    "4_architecture_decision": "cron 缺乏自我验证机制：每日任务跑了 13 天没有任何产出，却没有告警，需要给 ontology_daily_work cron 加成功条件判断"
+  },
+  "completed": [
+    "✅ **现状全面评估**: DB 仅 7/6 一天数据 (16 条 MetricSnapshot)，无后续增量；log 目录无 7/8~7/20 日志；scripts/ 无 pipeline/ingest 串接脚本",
+    "✅ **根因确认**: D-037 计划 D-038 写 ingest_pipeline.sh，但该脚本从未被创建；D-038~D-049 cron 每日触发但全部空跑",
+    "✅ **文件清单确认**: scripts/ontology/ 有 7 个文件 (QUERY_README, backfill_historical, ontology.db, ontology_query, ontology_store, seed_basic)；scripts/ 有 adapter-douyin.py (258行) + ontology_constants.py (151行)；ingest_pipeline.sh 不存在",
+    "✅ **架构缺陷识别**: cron 无自我验证（无 log 文件 = 失败），需加断言逻辑"
+  ],
+  "blockers": [
+    "🔴 **ingest_pipeline.sh 不存在** — 这是 Phase 4 核心缺失：douyin_index.py 和 adapter-douyin.py 各自能跑，但从未串成自动化管道；D-038~D-049 cron 每日空跑 13 天无产出",
+    "🔴 **cron 无自我验证机制** — 每日 cron 触发后无 log 文件产出（7/8~7/20 共 13 天），但系统不告警；DB 数据永远是 7/6 的旧数据",
+    "🟡 **scripts/ontology/ontology_store.py 与 scripts/ontology_store.py 双版本共存** — adapter-douyin.py 第 127 行用 `from ontology.ontology_store import`，但 scripts/ 根目录也有一个旧版 ontology_store.py，import 路径若不匹配会静默失败"
+  ],
+  "blockers_resolved": [
+    "🟢 D-037 报告的『FOREIGN KEY constraint failed』: 已排除，DB schema 正常，7/6 数据写入成功证明 foreign key 无问题"
+  ],
+  "decisions": [
+    "D-050: **cron 必须加自我验证** — 每日 ingest_pipeline.sh 完成后必须有 log 文件，否则视为失败并告警；建议在 cron trigger script 中加 `test -f $LOG_FILE || exit 1`",
+    "D-050: **ingest_pipeline.sh 优先级 P0** — 这是 Phase 4 最后一块缺失，明天（D-051）必须完成，不能再推迟",
+    "D-050: **双版 ontology_store.py 需统一** — scripts/ontology/ontology_store.py (新) vs scripts/ontology_store.py (旧)；ingest_pipeline.sh 应显式用 `scripts/ontology/ontology_store.py` 避免 import 歧义"
+  ],
+  "files_checked": [
+    "scripts/ontology/ (7文件): QUERY_README.md, __pycache__, backfill_historical.py, ontology.db, ontology_query.py, ontology_store.py, seed_basic.py",
+    "scripts/ (相关): adapter-douyin.py (258行 ✅ 存在), ontology_constants.py (151行 ✅ 存在), adapter-visitor.py, adapter-xiaohongshu.py, llmwiki_ingest.py (204行, 不相关)",
+    "scripts/ (不存在): ingest_pipeline.sh ❌, crawl_baidu.py (未假设不存在)"
+  ],
+  "store_stats": {
+    "scenic_spots": 13,
+    "metric_snapshots": 16,
+    "note": "DB 数据仍停留在 7/6 (16条)，13 天 cron 空跑无增量；ingest_pipeline.sh 缺失是根本原因"
+  },
+  "next_day_note": "D-051 (周二 7/21 22:30): 写 scripts/ingest_pipeline.sh。步骤: (1) 确认 douyin_index.py 输出 /tmp/crawl_data.json 路径 (2) 用绝对路径串 douyin_index.py → adapter-douyin.py → sqlite ingest (3) chmod +x (4) 手工跑 1 次验证 16 条入库 (5) 更新 cron trigger 验证逻辑"
+}
