@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电影小镇战略思考作业 · 版本1 · 精炼版</title>
+<style>
+:root{
+  --blue-pale-1:#f5fafe;
+  --blue-pale-2:#eaf3fb;
+  --blue-pale-3:#dceaf7;
+  --blue-mid:#4a90e2;
+  --blue-mid-2:#5ba3d8;
+  --blue-accent:#7eb6e0;
+  --white:#ffffff;
+  --gray-50:#f8fafc;
+  --gray-100:#eef2f7;
+  --gray-200:#dde4ed;
+  --text:#1e3a5f;
+  --text2:#5a7390;
+  --green:#15803d;
+  --red:#b91c1c;
+  --yellow:#a16207;
+  --orange:#c2410c;
+  --purple:#6d28d9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--blue-pale-1) 0,
+      var(--blue-pale-1) 18px,
+      var(--white) 18px,
+      var(--white) 36px
+    );
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.75;
+  padding:40px 20px;
+  min-height:100vh;
+}
+.wrap{max-width:980px;margin:0 auto}
+.header{
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--blue-pale-2) 0,
+      var(--blue-pale-2) 12px,
+      var(--white) 12px,
+      var(--white) 24px
+    );
+  border:2px solid var(--blue-mid);
+  border-radius:14px;
+  padding:36px;
+  margin-bottom:28px;
+  box-shadow:0 4px 16px rgba(74,144,226,0.18);
+  text-align:center;
+}
+.header h1{
+  font-size:30px;
+  color:var(--blue-mid);
+  margin-bottom:10px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+.header .meta{font-size:14px;color:var(--text2)}
+.badge{
+  display:inline-block;
+  background:var(--white);
+  color:var(--blue-mid);
+  padding:3px 12px;
+  border-radius:12px;
+  font-size:12px;
+  margin-right:6px;
+  font-weight:600;
+  border:1px solid var(--blue-accent);
+}
+.q{
+  background:var(--white);
+  border:2px solid var(--blue-pale-3);
+  border-radius:12px;
+  padding:28px 32px;
+  margin-bottom:24px;
+  box-shadow:0 2px 8px rgba(74,144,226,0.08);
+}
+.q-title{
+  font-size:22px;
+  color:var(--blue-mid);
+  margin-bottom:18px;
+  padding-bottom:12px;
+  border-bottom:3px double var(--blue-accent);
+}
+.q-title .num{
+  display:inline-block;
+  background:var(--blue-mid);
+  color:var(--white);
+  width:32px;height:32px;
+  border-radius:50%;
+  text-align:center;
+  line-height:32px;
+  font-weight:bold;
+  margin-right:12px;
+  font-size:15px;
+  vertical-align:middle;
+}
+h3{
+  color:var(--blue-mid);
+  font-size:17px;
+  margin:20px 0 12px;
+  padding-left:12px;
+  border-left:4px solid var(--blue-mid);
+}
+h4{
+  color:var(--blue-mid);
+  font-size:15px;
+  margin:16px 0 8px;
+  font-weight:700;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:12px 0;
+  font-size:13px;
+  background:var(--white);
+}
+th,td{
+  border:1px solid var(--blue-pale-3);
+  padding:9px 12px;
+  text-align:left;
+  vertical-align:top;
+}
+th{
+  background:var(--blue-pale-2);
+  color:var(--blue-mid);
+  font-weight:700;
+  font-size:13px;
+}
+tr:nth-child(even) td{background:var(--gray-50)}
+ul,ol{margin:10px 0 10px 24px}
+li{margin:4px 0}
+.highlight{
+  background:var(--blue-pale-2);
+  border-left:4px solid var(--blue-mid);
+  padding:12px 16px;
+  margin:14px 0;
+  border-radius:0 8px 8px 0;
+  font-style:italic;
+  color:var(--blue-mid);
+  font-weight:500;
+}
+.quote{
+  background:var(--gray-50);
+  border-left:4px solid var(--green);
+  padding:12px 16px;
+  margin:14px 0;
+  border-radius:0 8px 8px 0;
+}
+.priority-p0{color:var(--red);font-weight:bold}
+.priority-p1{color:var(--yellow);font-weight:bold}
+.priority-p2{color:var(--blue-mid);font-weight:bold}
+.summary{
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--blue-pale-2) 0,
+      var(--blue-pale-2) 8px,
+      var(--white) 8px,
+      var(--white) 16px
+    );
+  border:2px solid var(--blue-mid);
+  border-radius:12px;
+  padding:28px;
+  margin-top:28px;
+}
+.summary h2{
+  color:var(--blue-mid);
+  font-size:24px;
+  margin-bottom:16px;
+  text-align:center;
+}
+.tag{
+  display:inline-block;
+  padding:2px 9px;
+  border-radius:8px;
+  font-size:11px;
+  margin-right:4px;
+  font-weight:600;
+  color:var(--white);
+}
+.tag-s{background:var(--red)}
+.tag-a{background:var(--yellow)}
+.tag-b{background:var(--blue-mid)}
+.tag-p0{background:var(--red)}
+.tag-p1{background:var(--yellow)}
+.tag-p2{background:var(--blue-mid)}
+.tag-c0{background:var(--red)}
+.tag-c1{background:var(--yellow)}
+.tag-c2{background:var(--blue-mid)}
+.tag-c3{background:var(--purple)}
+.footer{
+  text-align:center;
+  color:var(--text2);
+  font-size:12px;
+  margin-top:32px;
+  padding-top:22px;
+  border-top:2px solid var(--blue-pale-3);
+}
+.fix-note{
+  background:#fff8e1;
+  border-left:4px solid var(--yellow);
+  padding:10px 14px;
+  margin:10px 0;
+  border-radius:0 6px 6px 0;
+  font-size:12px;
+  color:#7a5a00;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <h1>🎬 电影小镇战略思考作业</h1>
+  <div class="meta">
+    <span class="badge">v1 · 精炼版</span>
+    <span class="badge">2026-07-13</span>
+    <span class="badge">李涯 · 景区营销中心总经理</span>
+  </div>
+  <p style="margin-top:14px;font-size:13px;color:var(--text2)">
+    本文为三个开放式思考题的回答框架。详细展开见 <strong>v2 · 深入展开版</strong>。
+  </p>
+</div>
+
+<!-- ========== 问题一 ========== -->
+<div class="q">
+  <div class="q-title"><span class="num">一</span>关于电影小镇人设及发展方向的思考</div>
+
+  <h3>1. 只有我们有、别人没有的东西</h3>
+  <table>
+    <tr><th>维度</th><th>独占资产</th><th>为何抢不走</th></tr>
+    <tr>
+      <td>空间形态</td>
+      <td>郑州向东30公里唯一完整街区尺度影视实景城</td>
+      <td>竞品都是单点剧场+绿化带，无人复制过"中原近代城市街区"</td>
+    </tr>
+    <tr>
+      <td>合作框架</td>
+      <td>建业×华谊合作框架内的IP优先调用权</td>
+      <td>《1942》《太极》等是华谊出品，不是建业独享；但合作框架内的优先调用权+本地化改编能力是稀缺组合</td>
+    </tr>
+    <tr>
+      <td>项目联动</td>
+      <td>集团内部只有河南/大集古镇/七盛角等项目联动</td>
+      <td>持只有河南票优惠进电影小镇；联票设计+内容互推+客群互导，是建业系景区独有</td>
+    </tr>
+    <tr>
+      <td>街区可塑性</td>
+      <td>一条800米街=可重写剧本的舞台</td>
+      <td>方特/银基设备固化，街区"剧本可换"是真正的剧本杀式空间</td>
+    </tr>
+    <tr>
+      <td>交通区位</td>
+      <td>中牟3条高速+郑开城际，半小时直达郑州</td>
+      <td>轻决策门槛，无门票街区免费开放是城市客群基本盘</td>
+    </tr>
+    <tr>
+      <td>光影密度</td>
+      <td>白天→夜晚→早市三种光影同街三种情绪</td>
+      <td>同行要么纯日景要么纯夜游，"一街三时"是爆款母体</td>
+    </tr>
+  </table>
+  <div class="fix-note">
+    ⚠️ <strong>v1原稿修正（7/13 17:14 站长指出）：</strong>"建业集团20年影视/文旅IP库"表述错误——《1942》《太极》《新少林寺》《昆仑》等是华谊兄弟出品的电影，建业是地产集团出身（建业×华谊合作项目），无自有影视IP库。原稿将"合作框架优先调用权"误写为"独占IP库"，已修正为更准确的合作框架+多项目联动叙事。
+  </div>
+  <div class="highlight">一句话：竞品卖"节目单"，我们卖"街区剧本"——街区是固定舞台，剧本是无限次重写的流量入口。</div>
+
+  <h3>2. 一句话概括（三种版本）</h3>
+  <ul>
+    <li><strong style="color:var(--blue-mid)">对外营销版：</strong>"一座能走进去的中原古风剧场。"</li>
+    <li><strong style="color:var(--blue-mid)">对外品牌版：</strong>"郑州向东半小时，中原唯一一座可以走进去演戏的城。"</li>
+    <li><strong style="color:var(--blue-mid)">对内战略版：</strong>"一条可重写剧本的街区 = 无限次开业的景区。"</li>
+  </ul>
+
+  <h3>3. 未来小镇的方向与提升路径</h3>
+  <h4>核心判断：NPC内卷的本质问题——所有景区都在卖"演员"，没人卖"剧情"。</h4>
+  <div class="quote">
+    <strong style="color:var(--green)">未来小镇构想：</strong>"中原古风沉浸式剧本轮播剧场化街区"<br>
+    不是"NPC密度"决定小镇，而是<strong>"剧本密度"</strong>决定小镇。NPC是可替换演员，剧本是不可复制资产。
+  </div>
+
+  <table>
+    <tr><th>优先级</th><th>方向</th><th>动作</th><th>预期</th></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>剧本结构化</td><td>主线-支线-隐藏任务三段式，NPC升级为剧情节点</td><td>停留时长↑30%，复访↑</td></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>剧本轮播</td><td>季度切换主推剧本（春夏秋冬4本），单本集中宣发</td><td>摆脱一次性打卡心智</td></tr>
+    <tr><td><span class="tag tag-p1">P1</span></td><td>玩家化体系</td><td>阵营/身份/任务卡三件套，游客从观众变玩家</td><td>客单价↑</td></tr>
+    <tr><td><span class="tag tag-p1">P1</span></td><td>创作分层</td><td>内部+外部+达人共创三层并行</td><td>产能↑成本↓</td></tr>
+    <tr><td><span class="tag tag-p2">P2</span></td><td>街区夜态</td><td>夜场独立剧本（古风/志怪/沉浸戏剧）</td><td>夜场客单↑50%</td></tr>
+    <tr><td><span class="tag tag-p2">P2</span></td><td>街区+住宿</td><td>剧本杀民宿，两天一夜住在剧本里</td><td>过夜率↑</td></tr>
+  </table>
+</div>
+
+<!-- ========== 问题二 ========== -->
+<div class="q">
+  <div class="q-title"><span class="num">二</span>常态化热点内容推送方案</div>
+
+  <p style="color:var(--yellow);font-size:13px;margin-bottom:12px;font-weight:600">⚠️ 题目标注"待定"——以下为建议框架，等待站长定夺后落地。</p>
+
+  <h3>1. 机制设计：双轨制</h3>
+  <table>
+    <tr><th>轨道</th><th>形态</th><th>频次</th><th>产能</th></tr>
+    <tr><td>基础内容（预设脚本）</td><td>街区日常、节目预告、节气、爆款复用</td><td>周更3-5条</td><td>内部团队</td></tr>
+    <tr><td>热点内容（敏捷响应）</td><td>蹭社会热点/竞品动态/天气/突发事件</td><td>不限量触发即出</td><td>内部+达人双轨</td></tr>
+  </table>
+
+  <h3>热点分级机制（关键）</h3>
+  <table>
+    <tr><th>级别</th><th>触发条件</th><th>响应</th><th>负责人</th></tr>
+    <tr><td><span class="tag tag-s">S</span> 蹭社会热搜</td><td>微博/抖音热搜TOP50且与中原/影视/古风/演艺相关</td><td>≤2小时</td><td>站长决策+内容团队</td></tr>
+    <tr><td><span class="tag tag-a">A</span> 蹭竞品动作</td><td>只有河南/万岁山/清明上河园有显著营销动作</td><td>≤6小时</td><td>内容主管</td></tr>
+    <tr><td><span class="tag tag-b">B</span> 蹭天气/节日</td><td>突发天气/节气/纪念日/本地大事</td><td>≤24小时</td><td>内容专员</td></tr>
+  </table>
+  <div class="highlight">关键：S级必须有"放行机制"——站长24小时可达，单条决策≤30分钟，否则热点衰减完还没发。</div>
+
+  <h3>2. 渠道矩阵（对外·八大平台）</h3>
+  <div class="fix-note">
+    ⚠️ <strong>v1原稿修正（7/13 17:14 站长指出）：</strong>原稿把"飞书群"列为对外推送渠道是错误的——飞书群是站长与我的内部决策协同工具，景区对外宣发只能用抖音/小红书/视频号/微博/公众号/B站/本地媒体/线下物料八大真实外部平台。
+  </div>
+  <table>
+    <tr><th>渠道</th><th>形态</th><th>角色</th><th>频率</th></tr>
+    <tr><td>抖音主号</td><td>短视频+直播</td><td>主阵地·曝光+转化</td><td>日更1-2条</td></tr>
+    <tr><td>抖音矩阵号（3-5个达人号）</td><td>短视频</td><td>蹭热点+人设号</td><td>日更3-5条</td></tr>
+    <tr><td>小红书官方号</td><td>笔记+图文</td><td>种草+口碑</td><td>周更3-5篇</td></tr>
+    <tr><td>小红书达人合作</td><td>笔记</td><td>借势+UGC</td><td>每周5-10位</td></tr>
+    <tr><td>微信视频号</td><td>短视频+直播</td><td>私域+中老年</td><td>周更2-3条</td></tr>
+    <tr><td>微博官方号</td><td>海报+图文</td><td>热搜+话题</td><td>周更3-5条</td></tr>
+    <tr><td>微信公众号</td><td>长图文</td><td>本地深耕</td><td>周更1篇</td></tr>
+    <tr><td>B站官方号</td><td>长视频（剧情/纪录）</td><td>拉新+Z世代</td><td>月更2-4条</td></tr>
+    <tr><td>本地媒体/线下物料</td><td>投放+海报+票面</td><td>区域渗透+现场转化</td><td>按需</td></tr>
+  </table>
+
+  <h3>3. 渠道间配合：内容母题多渠道分形</h3>
+  <div class="quote">
+    一次拍摄 = 5个渠道内容。一次《一路有戏》30秒片段 → 抖音短视频 / 小红书图文 / 微博话题 / 视频号长版 / B站导演剪辑版。<br>
+    <strong style="color:var(--green)">产能放大5倍。</strong>
+  </div>
+
+  <p><strong>渠道接力关系（用户路径）：</strong></p>
+  <pre style="background:var(--blue-pale-2);color:var(--blue-mid);padding:14px;border-radius:6px;font-size:13px;overflow-x:auto;border:1px solid var(--blue-accent)">
+抖音(曝光/话题) → 小红书(搜索/种草) → 视频号(信任/复访) → 微信公众号/社群(留存/复购)
+   ↓                  ↓                     ↓
+抖音直播带货         小红书评论区           微信社群转化
+   ↓                  ↓                     ↓
+      \_______________抖音POI定位____________/
+                       ↓
+                  线下到店
+  </pre>
+
+  <h3>4. 释放节奏</h3>
+  <h4>对外宣发节奏（八大平台）</h4>
+  <table>
+    <tr><th>时间</th><th>动作</th><th>渠道</th></tr>
+    <tr><td>每日12:00</td><td>抖音主号1条短视频</td><td>抖音</td></tr>
+    <tr><td>每日15:00</td><td>小红书/微博推送</td><td>小红书/微博</td></tr>
+    <tr><td>每日19:00</td><td>抖音主号第2条 + 矩阵号</td><td>抖音</td></tr>
+    <tr><td>每日21:00</td><td>视频号晚间推送</td><td>视频号</td></tr>
+    <tr><td>每周五17:00</td><td>本周复盘 + 周末预告</td><td>全渠道</td></tr>
+    <tr><td>每周日22:00</td><td>下周内容预排</td><td>微信公众号+视频号</td></tr>
+  </table>
+
+  <h4>内部决策协同（飞书群，非对外渠道）</h4>
+  <table>
+    <tr><th>时间</th><th>动作</th><th>说明</td></tr>
+    <tr><td>每日10:30</td><td>抖音指数日报推送</td><td>我自动跑采集+日报，仅推送给站长，不对外</td></tr>
+    <tr><td>每日24h</td><td>热点监测预警</td><td>我监测热搜/竞品/天气，触发即通知站长</td></tr>
+    <tr><td>S级触发时</td><td>飞书一键决策放行</td><td>站长≤30分钟内确认是否发布</td></tr>
+    <tr><td>每周日22:00</td><td>下周热点预判报告</td><td>推送给站长做排期参考</td></tr>
+  </table>
+
+  <h4>热点节奏（触发即动）</h4>
+  <table>
+    <tr><th>阶段</th><th>时间窗</th><th>动作</th></tr>
+    <tr><td>监测</td><td>24/7</td><td>我实时监测热搜/竞品/天气（飞书群内部预警）</td></tr>
+    <tr><td>决策</td><td>≤15分钟</td><td>S级触发站长飞书一键确认</td></tr>
+    <tr><td>生产</td><td>≤60分钟</td><td>30秒/15秒/图文三版本</td></tr>
+    <tr><td>发布</td><td>≤30分钟</td><td>多渠道同步（抖音/小红书/视频号等外部平台）</td></tr>
+    <tr><td>复盘</td><td>24小时内</td><td>数据回收+案例归档（内部飞书群同步站长）</td></tr>
+  </table>
+
+  <h3>5. 内容端执行思路：双引擎并行</h3>
+  <table>
+    <tr><th>引擎</th><th>节奏</th><th>适用内容</th><th>原因</th></tr>
+    <tr><td>基础引擎</td><td>集中式：1次拍摄产5条</td><td>街区日常、节目预告、爆款复用</td><td>效率高但反应慢</td></tr>
+    <tr><td>热点引擎</td><td>渐进式：单条独立制作</td><td>蹭社会热点、竞品动作</td><td>灵活但产能不稳</td></tr>
+  </table>
+  <p style="margin-top:10px;color:var(--text2);font-size:13px">基础保证日常，热点保证爆款，<strong style="color:var(--blue-mid)">两条线互不干扰</strong>。</p>
+</div>
+
+<!-- ========== 问题三 ========== -->
+<div class="q">
+  <div class="q-title"><span class="num">三</span>西厢剧场一条街（与《一路有戏》同级产品）</div>
+
+  <div class="fix-note">
+    ⚠️ <strong>v1原稿修正（7/13 17:14 站长指出）：</strong>"《西厢》是「中原爱情史诗」"定位错误——西厢记虽是经典爱情故事，但电影小镇的整体定位是「中原古风沉浸式戏剧街区」，不是「爱情主题」。客群从情侣扩到汉服圈/古风摄影/国风爱好者/传统文化群体。
+  </div>
+
+  <h3>1. 产品呈现形式</h3>
+  <div class="quote">
+    <strong style="color:var(--green)">核心定位：</strong>「中原古风沉浸式戏剧街区」（西厢记为首季剧本）<br>
+    《一路有戏》是「中原市井烟火」，<strong>《西厢》是「中原古风雅集」</strong>——同一条街，两种调性。<br>
+    白天《一路有戏》是烟火人间，傍晚《西厢》是中式美学。
+  </div>
+
+  <h4>空间结构：一条街三幕递进（800米）</h4>
+  <table>
+    <tr><th>第一幕：相遇</th><th>第二幕：相知</th><th>第三幕：圆满</th></tr>
+    <tr><td>"普救寺前初见"<br>· 抛绣球入戏仪式<br>· 角色身份确认<br>· 中式风雅亮相</td><td>"西厢月下传书"<br>· 隔墙诗会<br>· 红娘NPC穿梭<br>· 月下论艺</td><td>"圆满归来"<br>· 金榜题名/名落孙山<br>· 中式大礼<br>· 古风巡游</td></tr>
+    <tr><td>入口</td><td>中段</td><td>出口</td></tr>
+  </table>
+
+  <h4>时间结构</h4>
+  <table>
+    <tr><th>时段</th><th>剧本形态</th><th>游客参与方式</th></tr>
+    <tr><td>15:00-17:00 暖场</td><td>红娘NPC+互动小游戏，铺垫"今日入戏"故事背景</td><td>与NPC对话、领任务卡</td></tr>
+    <tr><td>17:30-19:00 正剧A场</td><td>完整《西厢记》主线，三幕连贯（古风框架）</td><td>跟随队伍，可驻足选支线</td></tr>
+    <tr><td>19:30-21:00 正剧B场（夜场）</td><td>同剧本夜间灯光版，关键场景加"月下"段落</td><td>夜游限定，部分NPC二次出场</td></tr>
+    <tr><td>21:30 古风巡游</td><td>全员NPC送亲/送考 + 游客"假面随行"</td><td>游客加入巡游队列，全程跟拍</td></tr>
+  </table>
+
+  <h4>与《一路有戏》差异化（避免内搏）</h4>
+  <table>
+    <tr><th>维度</th><th>《一路有戏》</th><th>《西厢剧场一条街》</th></tr>
+    <tr><td>调性</td><td>市井烟火/喜剧</td><td>古风雅集/中式美学</td></tr>
+    <tr><td>时间</td><td>白天</td><td>傍晚+夜场</td></tr>
+    <tr><td>客群</td><td>家庭/年轻朋友</td><td>汉服圈/古风摄影/国风爱好者/夜游</td></tr>
+    <tr><td>互动方式</td><td>围观+合影</td><td>参与剧情+古风任务</td></tr>
+    <tr><td>视觉</td><td>鲜艳民俗</td><td>雅致国风</td></tr>
+    <tr><td>二消</td><td>小吃/纪念品</td><td>汉服妆造/古风摄影/中式手信</td></tr>
+  </table>
+  <div class="highlight">关键：两张产品设"联票"——白天《一路有戏》+ 傍晚《西厢》联票，引导游客"白天+晚上"双体验，避免分流。</div>
+
+  <h3>2. 一句话概括（三版本）</h3>
+  <ul>
+    <li><strong style="color:var(--blue-mid)">对外营销：</strong>"白天烟火《一路有戏》，夜间入梦《西厢记》。"</li>
+    <li><strong style="color:var(--blue-mid)">对外产品：</strong>"中原第一条古风沉浸式戏剧街区——800米穿越一段中式美学。"</li>
+    <li><strong style="color:var(--blue-mid)">对内战略：</strong>"把《一路有戏》的'看'升级成'演'——游客是观众也是演员。"</li>
+  </ul>
+  <p style="font-size:13px;color:var(--text2);margin-top:6px">推荐：第1句用于户外/票面/海报；第2句用于达人brief；第3句用于内部对齐。</p>
+
+  <h3>3. 玩法设计：线下+线上</h3>
+
+  <h4>【线下·开场】"普救寺前·入戏结缘"（前200米）</h4>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:6px">目的：让游客从"走路"切换到"入戏"</p>
+  <table>
+    <tr><th>环节</th><th>时长</th><th>内容</th><th>互动</th></tr>
+    <tr><td>入戏仪式</td><td>10分钟</td><td>角色NPC抛绣球，落地人成为"今日主角"</td><td>抢绣球→领角色证→换装</td></tr>
+    <tr><td>入门仪式</td><td>5分钟</td><td>红娘NPC发"入戏结缘带"，系手腕</td><td>结缘带+小任务卡</td></tr>
+    <tr><td>任务卡激活</td><td>5分钟</td><td>任务卡：①找到主角NPC ②作诗一首 ③送一封信</td><td>完成度决定结局分支</td></tr>
+  </table>
+
+  <h4>【线下·中段高潮】"西厢月下·三试三折"（中400米）</h4>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:6px">目的：让游客从"看戏"切换到"演自己"</p>
+  <table>
+    <tr><th>环节</th><th>时长</th><th>内容</th><th>互动</th></tr>
+    <tr><td>隔墙诗会</td><td>15分钟</td><td>主角NPC墙内吟诗，游客作诗回应</td><td>优诗被NPC念出→作者获"红娘手信"</td></tr>
+    <tr><td>红娘穿梭</td><td>持续</td><td>红娘NPC穿梭提醒未完成任务游客</td><td>推进+照顾"迷失游客"</td></tr>
+    <tr><td><strong style="color:var(--red)">月下论艺（核心爆点）</strong></td><td>10分钟</td><td>主角NPC在"西厢"阁楼对话，楼下游客投"月票"</td><td>投月票数决定结局</td></tr>
+    <tr><td>丫鬟支线</td><td>持续</td><td>丫鬟NPC做"红娘媒婆"小游戏（猜灯谜/对诗句）</td><td>参与获"红娘认证"盖章</td></tr>
+  </table>
+
+  <h4>【线下·收尾】"金榜题名·或名落孙山"（后200米）</h4>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:6px">目的：让游客带走"一段故事"</p>
+  <table>
+    <tr><th>结局</th><th>触发</th><th>内容</th><th>体验</th></tr>
+    <tr><td><strong style="color:var(--green)">圆满结局（70%）</strong></td><td>月票达标</td><td>主角高中归来，全街红绸+巡游</td><td>游客加入巡游队列，发中式喜糖</td></tr>
+    <tr><td><strong style="color:var(--text2)">遗憾结局（30%）</strong></td><td>月票不足</td><td>长亭送别，雨中离别，全街白绫</td><td>收"红娘手信"明信片——提示下次再来</td></tr>
+  </table>
+  <div class="highlight">设计哲学：每次故事不一样 → 复访动机。两种结局都是好结局，只是给你不同的故事记忆。</div>
+
+  <h4>【线上·主动机制】让游客愿意拍</h4>
+  <table>
+    <tr><th>机制</th><th>设计</th><th>心理驱动</th></tr>
+    <tr><td>"角色证"晒证仪式</td><td>入口合影墙，扫码生成"今日我是××"海报</td><td>身份认同+仪式感</td></tr>
+    <tr><td>"结缘带打卡点"</td><td>全街5个打卡点，完成生成"西厢游历图"</td><td>收集癖+成就感</td></tr>
+    <tr><td>"月票排行榜"</td><td>实时大屏显示TOP10，TOP3获VIP夜场席位</td><td>攀比心+荣誉感</td></tr>
+    <tr><td>"诗意漂流瓶"</td><td>游客诗作上传"诗意墙"，可被投票</td><td>创作欲+表达欲</td></tr>
+  </table>
+
+  <h4>【线上·被动机制】让游客不自觉拍</h4>
+  <table>
+    <tr><th>机制</th><th>设计</th><th>心理驱动</th></tr>
+    <tr><td>"光线时刻"调度</td><td>每日固定5个光线最美的瞬间，现场提示</td><td>怕错过+拍出片</td></tr>
+    <tr><td>"误入镜头"机关</td><td>NPC恰好经过游客背后，制造"像剧照"抓拍</td><td>偶遇感+真实感</td></tr>
+    <tr><td>"二刷彩蛋"</td><td>二刷游客戴特殊手环，NPC说"咦你又来了"</td><td>隐藏身份+复访奖励</td></tr>
+    <tr><td>"朋友圈仪式文案"</td><td>出口设生成器，输入名字+心情生成中式美学文案</td><td>文案焦虑+自传播</td></tr>
+  </table>
+</div>
+
+<!-- ========== 总结 ========== -->
+<div class="summary">
+  <h2>三个问题的内在关联</h2>
+  <table>
+    <tr><th>问题</th><th>解决的核心矛盾</th></tr>
+    <tr><td>一·人设方向</td><td>同质化困局 → 用"剧本密度"替代"NPC密度"作为竞争壁垒</td></tr>
+    <tr><td>二·内容推送</td><td>内容产能不足 → 用"双轨制+多渠道分形"实现产能放大5倍</td></tr>
+    <tr><td>三·西厢产品</td><td>单点产品局限 → 用"古风沉浸式戏剧街区+玩家化设计"实现"一座街=一部剧"</td></tr>
+  </table>
+  <div class="highlight" style="margin-top:18px">
+    三个问题的统一答案：「电影小镇的本质不是景区，是一座能持续重写剧本的剧场。所有的产品、内容、运营，都应该围绕'剧本化'这条主线展开。」
+  </div>
+
+  <h3 style="color:var(--blue-mid);margin-top:20px;border:none;padding:0">📌 落地建议</h3>
+  <ol>
+    <li><strong>问题一（人设方向）</strong>：作为团队战略对齐的起点，先在管理层内部讨论共识</li>
+    <li><strong>问题二（内容推送）</strong>：方案框架已就绪，等站长确定S级放行机制后即可试运行</li>
+    <li><strong>问题三（西厢）</strong>：建议作为Q3重点产品立项，先做30%街区的MVP版本试运营验证</li>
+  </ol>
+</div>
+
+<div class="footer">
+  版本1 · 精炼版 · 2026-07-13 16:54 · 李涯<br>
+  <span style="color:var(--yellow)">⚠️ 7/13 17:14 修正：IP库归属 + 飞书群渠道 + 西厢定位 → 已同步修正</span><br>
+  详细展开见 <strong style="color:var(--blue-mid)">电影小镇战略思考作业-v2-深入展开版.html</strong>
+</div>
+
+</div>
+</body>
+</html>

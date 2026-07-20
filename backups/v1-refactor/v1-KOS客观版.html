@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>电影小镇战略思考作业 · 版本1 · 精炼版（客观口径）</title>
+<style>
+:root{
+  --blue-pale-1:#f5fafe;
+  --blue-pale-2:#eaf3fb;
+  --blue-pale-3:#dceaf7;
+  --blue-mid:#4a90e2;
+  --blue-mid-2:#5ba3d8;
+  --blue-accent:#7eb6e0;
+  --white:#ffffff;
+  --gray-50:#f8fafc;
+  --gray-100:#eef2f7;
+  --gray-200:#dde4ed;
+  --text:#1e3a5f;
+  --text2:#5a7390;
+  --green:#15803d;
+  --red:#b91c1c;
+  --yellow:#a16207;
+  --orange:#c2410c;
+  --purple:#6d28d9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--blue-pale-1) 0,
+      var(--blue-pale-1) 18px,
+      var(--white) 18px,
+      var(--white) 36px
+    );
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.75;
+  padding:40px 20px;
+  min-height:100vh;
+}
+.wrap{max-width:980px;margin:0 auto}
+.header{
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--blue-pale-2) 0,
+      var(--blue-pale-2) 12px,
+      var(--white) 12px,
+      var(--white) 24px
+    );
+  border:2px solid var(--blue-mid);
+  border-radius:14px;
+  padding:36px;
+  margin-bottom:28px;
+  box-shadow:0 4px 16px rgba(74,144,226,0.18);
+  text-align:center;
+}
+.header h1{
+  font-size:30px;
+  color:var(--blue-mid);
+  margin-bottom:10px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+.header .meta{font-size:14px;color:var(--text2)}
+.badge{
+  display:inline-block;
+  background:var(--white);
+  color:var(--blue-mid);
+  padding:3px 12px;
+  border-radius:12px;
+  font-size:12px;
+  margin-right:6px;
+  font-weight:600;
+  border:1px solid var(--blue-accent);
+}
+.q{
+  background:var(--white);
+  border:2px solid var(--blue-pale-3);
+  border-radius:12px;
+  padding:28px 32px;
+  margin-bottom:24px;
+  box-shadow:0 2px 8px rgba(74,144,226,0.08);
+}
+.q-title{
+  font-size:22px;
+  color:var(--blue-mid);
+  margin-bottom:18px;
+  padding-bottom:12px;
+  border-bottom:3px double var(--blue-accent);
+}
+.q-title .num{
+  display:inline-block;
+  background:var(--blue-mid);
+  color:var(--white);
+  width:32px;height:32px;
+  border-radius:50%;
+  text-align:center;
+  line-height:32px;
+  font-weight:bold;
+  margin-right:12px;
+  font-size:15px;
+  vertical-align:middle;
+}
+h3{
+  color:var(--blue-mid);
+  font-size:17px;
+  margin:20px 0 12px;
+  padding-left:12px;
+  border-left:4px solid var(--blue-mid);
+}
+h4{
+  color:var(--blue-mid);
+  font-size:15px;
+  margin:16px 0 8px;
+  font-weight:700;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:12px 0;
+  font-size:13px;
+  background:var(--white);
+}
+th,td{
+  border:1px solid var(--blue-pale-3);
+  padding:9px 12px;
+  text-align:left;
+  vertical-align:top;
+}
+th{
+  background:var(--blue-pale-2);
+  color:var(--blue-mid);
+  font-weight:700;
+  font-size:13px;
+}
+tr:nth-child(even) td{background:var(--gray-50)}
+ul,ol{margin:10px 0 10px 24px}
+li{margin:4px 0}
+.highlight{
+  background:var(--blue-pale-2);
+  border-left:4px solid var(--blue-mid);
+  padding:12px 16px;
+  margin:14px 0;
+  border-radius:0 8px 8px 0;
+  font-style:italic;
+  color:var(--blue-mid);
+  font-weight:500;
+}
+.quote{
+  background:var(--gray-50);
+  border-left:4px solid var(--green);
+  padding:12px 16px;
+  margin:14px 0;
+  border-radius:0 8px 8px 0;
+}
+.warn{
+  background:#fff7ed;
+  border-left:4px solid var(--orange);
+  padding:12px 16px;
+  margin:14px 0;
+  border-radius:0 8px 8px 0;
+}
+.summary{
+  background:
+    repeating-linear-gradient(
+      45deg,
+      var(--blue-pale-2) 0,
+      var(--blue-pale-2) 8px,
+      var(--white) 8px,
+      var(--white) 16px
+    );
+  border:2px solid var(--blue-mid);
+  border-radius:12px;
+  padding:28px;
+  margin-top:28px;
+}
+.summary h2{
+  color:var(--blue-mid);
+  font-size:24px;
+  margin-bottom:16px;
+  text-align:center;
+}
+.tag{
+  display:inline-block;
+  padding:2px 9px;
+  border-radius:8px;
+  font-size:11px;
+  margin-right:4px;
+  font-weight:600;
+  color:var(--white);
+}
+.tag-s{background:var(--red)}
+.tag-a{background:var(--yellow)}
+.tag-b{background:var(--blue-mid)}
+.tag-p0{background:var(--red)}
+.tag-p1{background:var(--yellow)}
+.tag-p2{background:var(--blue-mid)}
+.tag-c0{background:var(--red)}
+.tag-c1{background:var(--yellow)}
+.tag-c2{background:var(--blue-mid)}
+.tag-c3{background:var(--purple)}
+.footer{
+  text-align:center;
+  color:var(--text2);
+  font-size:12px;
+  margin-top:32px;
+  padding-top:22px;
+  border-top:2px solid var(--blue-pale-3);
+}
+pre.code-block{
+  background:var(--blue-pale-2);
+  color:var(--blue-mid);
+  padding:14px;
+  border-radius:6px;
+  font-size:12.5px;
+  overflow-x:auto;
+  border:1px solid var(--blue-accent);
+  line-height:1.6;
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+  <h1>🎬 电影小镇战略思考作业</h1>
+  <div class="meta">
+    <span class="badge">v1 · 精炼版（客观口径）</span>
+    <span class="badge">2026-07-14</span>
+  </div>
+  <p style="margin-top:14px;font-size:13px;color:var(--text2)">
+    三个开放式思考题的回答框架。<strong style="color:var(--orange)">本版口径：客观评估</strong>——既不夸大自有优势，也不矮化同行；既报成果，也报未验证假设与已知短板。
+  </p>
+</div>
+
+<!-- ========== 问题一 ========== -->
+<div class="q">
+  <div class="q-title"><span class="num">一</span>关于电影小镇人设及发展方向的思考</div>
+
+  <h3>1. 已具备的资产（事实层面，不夸大复制壁垒）</h3>
+  <table>
+    <tr><th>资产</th><th>实际状态（数据）</th><th>已被验证的部分</th><th>未被验证 / 仍存疑</th></tr>
+    <tr>
+      <td>室内千座剧场《穿越德化街》</td>
+      <td>座位由 450 座（2023）扩至 1,140 座（2025扩建后）</td>
+      <td>2025 平日观演 37.7 万人次，大假 9.4 万，合计约 47 万人次；套票占比 90.7%</td>
+      <td>扩建后上座率从 63% 降至 51%（"扩建悖论"）；最旺月 8 月上座 70.3%，但全年上座率仅 51%——<strong>说明容量并未被稳定填满</strong></td>
+    </tr>
+    <tr>
+      <td>《一路有戏》街区夜游</td>
+      <td>全园沉浸式四幕大戏，民国电影风格</td>
+      <td>已与《穿越德化街》并列，成为夜游核心</td>
+      <td>夜游本身的转化率、停留时长、复访率缺乏单产品维度的公开数据</td>
+    </tr>
+    <tr>
+      <td>800 米连续街区</td>
+      <td>多层建筑 + 多入口，<strong>白天剧场 + 街区漫步</strong>双产品组合</td>
+      <td>街区的"可拍照、可漫步"是抖音/小红书的内容母体</td>
+      <td>街区本身作为独立产品的转化路径未量化（多为剧场套票顺带消费）</td>
+    </tr>
+    <tr>
+      <td>激励机制（阶段性杠杆）</td>
+      <td>7.16-7.31 激励：上座 38.4%→44.6% / 加购 14.1%→27.3%<br>8 月整月激励：上座 70.3% / 加购 46.4%</td>
+      <td>激励期<strong>短期</strong>对观演和加购有显著拉升作用</td>
+      <td>①激励的边际效益衰减曲线未跟踪；②8 月高基数含暑期旺季本身的需求拉动，<strong>激励外的常态上座率仍待验证</strong></td>
+    </tr>
+    <tr>
+      <td>客群基本盘</td>
+      <td>郑州 1 小时圈 80%+；23-35 岁女性 60%+；亲子 30%+</td>
+      <td>都市圈复访型客群底盘真实</td>
+      <td>基本盘外的拉新能力（外省客 / 中老年客 / 商旅客）未被验证</td>
+    </tr>
+  </table>
+  <div class="highlight">客观判断：上述资产是"基础底盘"，不是"护城河"。<strong>护城河 ≠ 已建成</strong>，护城河需要长期不可替代性。街区形态可被竞品模仿、激励机制可被复制、剧场内容存在迭代衰减——真正的护城河正在<strong>形成中</strong>，尚未建成。</div>
+
+  <h3>2. 表 A：电影小镇 vs 万岁山 · 护城河路径对比</h3>
+  <div class="warn">⚠️ <strong>对比口径声明：</strong>本表是路径差异对比，不是"我们强他们弱"的价值判断。两个景区的资源禀赋、客群目标、运营逻辑不在同一维度。</div>
+  <table>
+    <tr><th>维度</th><th>万岁山武侠城（公开数据）</th><th>电影小镇（我方数据）</th><th>路径差异</th></tr>
+    <tr><td>体量参考</td><td>2025 年接待 2,452.2 万人次，综合营收 12.7 亿元，<strong>全国景区第一</strong></td><td>2025 入园 124.9 万；2026 YTD 65.6 万（截至 5/17），完成度 42.9%</td><td>量级差距显著（约 20 倍入园量）</td></tr>
+    <tr><td>演艺形态</td><td>2,000+ NPC，日均 2,700 场，100 元三日通票</td><td>《穿越德化街》1,140 座剧场 + 《一路有戏》夜游</td><td>堆量型 vs 深度型</td></tr>
+    <tr><td>护城河主张</td><td>"演员密度+演艺总量"形成重复消费驱动</td><td>"剧本深度+激励机制"形成转化效率驱动</td><td>不同路径</td></tr>
+    <tr><td>客单价</td><td>100 元三日通票（极低门槛）</td><td>门票 + 套票 + 二消 综合客单 200 元+</td><td>低单价高频 vs 高单价低频</td></tr>
+    <tr><td>复制难度（自我评估）</td><td>NPC 招聘·演员培训·人多难管理</td><td>剧本创作人才稀缺·内容轮作压力</td><td>两边都难，但难点不同</td></tr>
+    <tr><td>对方视角</td><td colspan="3">万岁山自述其护城河为"演员数量+剧目迭代速度"；我们自述路径为"剧本深度+激励机制"。<strong>两个主张都没有被第三方独立验证</strong>，都是景区自我定位。</td></tr>
+  </table>
+
+  <h3>3. 表 B：五竞品路径类型总览（不评价优劣，只描述路径）</h3>
+  <table>
+    <tr><th>路径类型</th><th>代表景区</th><th>核心载体</th><th>可借鉴的环节</th><th>不可借鉴的环节</th></tr>
+    <tr><td>剧场盒子型</td><td>只有河南·戏剧幻城<strong style="color:var(--green)">（建业集团同集团）</strong></td><td>《幻城》剧场 + 地坑院 + 麦田</td><td>· 大型剧场的产品逻辑<br>· <strong style="color:var(--green)">集团内部资源联动</strong>（内容互导+客群互送+渠道共享+导演资源同源）</td><td>· 地坑院为重资产且已建成，<strong>不需复制</strong>，只需联动其现成资产<br>· 集团联动机制尚<strong>未真正打通</strong>（多周复盘反复提及“同集团未形成联动”）</td></tr>
+    <tr><td>高密度演艺型</td><td>万岁山武侠城</td><td>2,000+ NPC · 2,700 场/天</td><td>演员密度与节目总量对停留时长的拉升</td><td>招聘+培训 2,000 NPC 的人力体系</td></tr>
+    <tr><td>宋韵夜游型</td><td>清明上河园</td><td>《大宋·东京梦华》夜场演艺</td><td>夜游作为差异化品牌锚点</td><td>夜游的资本+内容沉淀周期</td></tr>
+    <tr><td>设备驱动型</td><td>方特欢乐世界</td><td>第四代高科技主题乐园</td><td>设备更新换代的运营节奏</td><td>重资产+高折旧</td></tr>
+    <tr><td>动物亲子型</td><td>银基动物王国</td><td>六大主题区 + 亲子住宿</td><td>亲子客群的产品设计</td><td>活体动物运营体系</td></tr>
+    <tr><td><strong>街区+剧本化戏剧型</strong></td><td><strong>电影小镇（我方）</strong></td><td>《穿越德化街》+ 《一路有戏》+ 拟定《西厢》</td><td>—</td><td>—</td></tr>
+  </table>
+  <div class="highlight">客观判断：六个路径之间<strong>不是取代关系</strong>。游客可以"今年去万岁山，明年去清园，后年去电影小镇"——五个景区都在扩张，<strong>真正的竞争不是路径之争，是同一拨城市休闲客群的预算分配之争</strong>。</div>
+
+  <h3>4. 自我定位的三种口径（区分对内对外）</h3>
+  <ul>
+    <li><strong style="color:var(--blue-mid)">对外营销版：</strong>"一座能走进去的 80 年代怀旧剧场。"<span style="color:var(--text2)">——面向散客，<strong>尚未验证其拉新转化率</strong>。</span></li>
+    <li><strong style="color:var(--blue-mid)">对外品牌版：</strong>"郑州半小时，穿越一条老德化街，看一场 80 年代郑州。"<span style="color:var(--text2)">——面向渠道和分销，<strong>未覆盖"为什么是电影小镇而非清园/万岁山"</strong>。</span></li>
+    <li><strong style="color:var(--blue-mid)">对内战略版：</strong>"一条 800 米街区（容器）+ 一台《穿越德化街》（镇台）+ 一台《一路有戏》（街区夜游）+ 一台拟定《西厢》（古风戏剧）+ 阶段性激励机制 = <strong>正在形成的街区型产品矩阵</strong>。"<span style="color:var(--text2)">——内部对齐用，<strong>"正在形成"而非"已成"</strong>。</span></li>
+  </ul>
+
+  <h3>5. 未来方向与提升路径（含未验证假设）</h3>
+  <h4>5.1 战略起点：从"演员同质化"识别出的真实问题</h4>
+  <div class="quote">
+    现象：所有景区都在增加"演员数量"——万岁山 2,000+ NPC、清园 1,000+ NPC、只有河南 400+ NPC。<br>
+    <strong>真实问题：</strong>"演员数量"本身不是差异化。"剧本/剧情结构"才是——但我方剧本深度护城河<strong>尚未被验证</strong>，仅有《穿越德化街》一台镇台剧。
+  </div>
+
+  <h4>5.2 路径与动作（含每条的风险标注）</h4>
+  <table>
+    <tr><th>优先级</th><th>方向</th><th>具体动作</th><th>预期收益</th><th>未验证假设 / 风险</th></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>剧本结构化</td><td>《穿越德化街》主线+支线+隐藏任务三段式，演员升级为剧情节点</td><td>停留时长↑、复访↑</td><td>假设：游客愿意为剧情停留更长。<strong>未验证</strong>。</td></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>剧本轮播</td><td>《穿越德化街》镇台 + 季节性加演短剧（春夏秋冬 4 本）+ 年度大戏升级</td><td>摆脱一次性打卡心智</td><td>假设：剧本产能跟得上。<strong>编剧人才供给未验证</strong>。</td></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>激励杠杆常态化</td><td>将 7-8 月实证有效的激励拆为可复用 SOP</td><td>上座率↑、加购↑</td><td>假设：激励的边际效益不会衰减。<strong>激励期外常态上座率仍待验证</strong>（8 月高基数含暑期旺季本身拉动）。</td></tr>
+    <tr><td><span class="tag tag-p1">P1</span></td><td>玩家化体系</td><td>身份卡/任务卡/盖章收集（民国风）</td><td>客单价↑</td><td>假设：游客对"收集"机制有持续兴趣。<strong>未验证</strong>。</td></tr>
+    <tr><td><span class="tag tag-p1">P1</span><br>KOS 配套</td><td>KOS 内容生产协同</td><td>剧本/剧情节点同时输出为 KOS 短视频脚本（详见问题二）</td><td>内容产能↑、爆款命中率↑</td><td>假设：剧情片段具备短视频属性。<strong>未验证</strong>——目前两个万赞节目（《彩色的送别》《刺杀行动》）均非《穿越德化街》主剧情。</td></tr>
+    <tr><td><span class="tag tag-p1">P1</span></td><td>创作分层</td><td>内部编剧+外部编剧+达人共创三层并行（80 年代怀旧母题）</td><td>产能↑成本↓</td><td>假设：外部编剧能交付电影小镇剧本质量。<strong>未验证</strong>。</td></tr>
+    <tr><td><span class="tag tag-p2">P2</span></td><td>街区夜态</td><td>夜场独立剧本（民国夜游 / 怀旧沉浸戏剧）</td><td>夜场客单↑50%</td><td>假设：游客愿意为夜游二次付费。<strong>未验证</strong>——夜游当前包含在门票内。</td></tr>
+    <tr><td><span class="tag tag-p2">P2</span></td><td>街区+住宿</td><td>剧本杀民宿，两天一夜住在剧本里</td><td>过夜率↑</td><td>假设：景区周边住宿配套能承接。<strong>未验证</strong>。</td></tr>
+  </table>
+
+  <h4>5.3 我们真实存在的短板（不回避）</h4>
+  <div class="warn">
+    <strong>已知短板 1：</strong>穿越德化街座位扩建后上座率从 63% 降至 51%，<strong>"扩建悖论"</strong>已显性化——供给过剩时转化率反而受 FOMO 减弱影响。<br>
+    <strong>已知短板 2：</strong>2025 国庆入园从 15.6 万→9.1 万（<strong>-41.7%</strong>），<strong>大假下滑显著</strong>——是园区整体客流问题，不只是剧场问题。<br>
+    <strong>已知短板 3：</strong>2026Q1 套票占比从 83.0% 降至 49.5%（<strong>-33.5pp</strong>），加购占比反向上升——存在套票产品结构调整的可能，<strong>需立即核实</strong>。<br>
+    <strong>已知短板 4：</strong>德化街客单价从 2023Q1 的 65.2 元持续下滑至 2026Q1 的 36.1 元（<strong>-29.1 元</strong>），价格策略未与产品调整同步。<br>
+    <strong>已知短板 5：</strong>外部剧本产能、激励机制边际效益衰减曲线、玩家化体系接受度——三条 P0/P1 路径都尚未验证。
+  </div>
+</div>
+
+<!-- ========== 问题二 ========== -->
+<div class="q">
+  <div class="q-title"><span class="num">二</span>常态化内容推送方案：基于全员营销 KOS 机制</div>
+
+  <div class="warn">⚠️ 题目标注"待定"——以下为基于 2026 H1 矩阵小号实测数据 + 7/14 调整后激励政策的方案框架，<strong>等待站长定夺后落地</strong>。</div>
+
+  <h3>1. 现状（数据来自 7/14 UGC 复盘）</h3>
+  <table>
+    <tr><th>指标</th><th>2025 H1（基期）</th><th>2026 H1（实测）</th><th>变化</th></tr>
+    <tr><td>矩阵账号数</td><td>约 50 个</td><td>70 个</td><td>+40%</td></tr>
+    <tr><td>总发布条数</td><td>1,134</td><td>30,391</td><td><strong>+26.8 倍</strong></td></tr>
+    <tr><td>10w+ 条数</td><td>176</td><td>193</td><td>+9.7%</td></tr>
+    <tr><td>总曝光</td><td>3.05 亿</td><td>1.76 亿</td><td><strong>-42.3%</strong></td></tr>
+    <tr><td>总激励</td><td>12.6 万</td><td>24.4 万</td><td>+93.7%</td></tr>
+    <tr><td>条均曝光</td><td>26.9 万</td><td>5,790</td><td><strong>-97.8%（断崖）</strong></td></tr>
+  </table>
+  <div class="warn">
+    <strong>客观诊断（来自 UGC 附件原文）：</strong><br>
+    ① 内容质量低，过度追求数量 — 一条素材反复剪辑、发布充数薅羊毛<br>
+    ② 新节目爆款较少 — 刺杀行动虹吸大部分流量，其他节目难以出头，"拍老不拍新"<br>
+    ③ 条均曝光从 26.9 万跌至 5,790 — <strong>说明规模没换来效果，反而摊薄了单条质量</strong>
+  </div>
+
+  <h3>2. 7/14 调整后的激励政策（已落地）</h3>
+  <table>
+    <tr><th>激励档位</th><th>门槛</th><th>金额</th><th>封顶</th></tr>
+    <tr><td>基础激励</td><td>30 条 × 500+ 播放量/条</td><td>100 元</td><td>—</td></tr>
+    <tr><td>普通爆款</td><td>10w+ / 条</td><td>100 元/条</td><td>1,000 元（最多 4 条）</td></tr>
+    <tr><td><strong>指定节目爆款</strong></td><td>10w+ / 条</td><td><strong>200 元/条</strong></td><td><strong>2,000 元</strong></td></tr>
+    <tr><td>个人综合</td><td>—</td><td>—</td><td><strong>10,000 元</strong></td></tr>
+  </table>
+  <div class="quote">
+    <strong>暑期指定节目（重点推流）：</strong>《彩色的送别》《回到小时候》《星光铁花秀》《夏夜老电影》<br>
+    <strong>必带话题：</strong>#郑州电影小镇 #郑州建业电影小镇 #在郑州过童年的老式夏天<br>
+    <strong>必带定位：</strong>郑州电影小镇
+  </div>
+
+  <h3>3. KOS 全员营销机制（核心机制设计）</h3>
+  <div class="highlight">
+    <strong>机制定义：</strong>KOS（Key Opinion Staff）= 员工内化为内容生产者。不是"员工发朋友圈"，是<strong>员工成为"景区内容的官方输出端口"</strong>——他们本身就是景区人设的一部分。<br><br>
+    <strong>为什么必须做机制化 KOS：</strong><br>
+    ① 内部员工对景区场景、节目细节、运营节奏的理解深度，是外部达人和素人不可替代的；<br>
+    ② 70 个矩阵账号 ≠ 70 个内容生产者——<strong>真正可输出内容的员工是少数</strong>，机制要做的是<strong>把这少数人识别出来+持续供给素材+把激励精准投到他们</strong>；<br>
+    ③ 单纯靠激励驱动 → 出现"反复剪辑充数"问题（UGC 附件原文）；<strong>必须用机制替代纯激励</strong>——把"我发什么"从员工决定变成"我接什么任务"。
+  </div>
+
+  <h4>3.1 KOS 三层架构</h4>
+  <table>
+    <tr><th>层级</th><th>角色</th><th>人数估计</th><th>核心职责</th><th>激励逻辑</th></tr>
+    <tr>
+      <td><strong>KOS-头 部</strong>（种子 KOL）</td>
+      <td>员工中具备内容生产力的核心人员 + 长期合作达人</td>
+      <td>5-10 人</td>
+      <td>· 自带选题与脚本能力<br>· 月产出 ≥4 条 10w+ 候选<br>· 承担节目"指定爆款"主拍</td>
+      <td>基础激励 + <strong>指定节目 200 元/条封顶 2,000 元</strong> + 月度奖金池</td>
+    </tr>
+    <tr>
+      <td><strong>KOS-腰 部</strong>（内容协作者）</td>
+      <td>员工中可执行拍摄/剪辑的"半专业"群体</td>
+      <td>20-30 人</td>
+      <td>· 接任务卡完成拍摄+剪辑<br>· 月产出 8-15 条达标内容<br>· 承担指定节目+常规节目拍摄</td>
+      <td>基础激励 100 元 + 普通爆款 100 元/条封顶 1,000 元</td>
+    </tr>
+    <tr>
+      <td><strong>KOS-尾 部</strong>（基础内容池）</td>
+      <td>全体员工（含一线运营、演员、客服、行政）</td>
+      <td>全员</td>
+      <td>· 接简易任务卡完成日常拍摄<br>· 月产出 ≥5 条 500+ 播放<br>· 提供原始素材供腰部二次创作</td>
+      <td>基础激励 100 元（30 条 × 500+ 播放）</td>
+    </tr>
+  </table>
+
+  <h4>3.2 任务卡驱动（替代"自选素材-反复剪辑"）</h4>
+  <div class="quote">
+    <strong>核心机制：</strong>从"员工自己决定拍什么" → 改为"任务卡驱动员工接什么"。<br>
+    <strong>任务卡来源：</strong>内容主管每周日 22:00 发布下周 7 张任务卡，明确：<br>
+    · 节目名（指定节目优先）<br>
+    · 拍摄角度（游客视角/演员视角/航拍/特写）<br>
+    · 必带元素（话题+定位+指定BGM）<br>
+    · 期望时长（30s/15s/图文）<br>
+    · 上交时间窗
+  </div>
+  <table>
+    <tr><th>任务卡类型</th><th>频次</th><th>承接人</th><th>产出形态</th></tr>
+    <tr><td>指定节目深拍</td><td>每周 4 张（暑期）</td><td>KOS-头部</td><td>30s 精剪视频，含剧情/情绪爆点</td></tr>
+    <tr><td>节目切片多角度</td><td>每周 8-10 张</td><td>KOS-腰部</td><td>15s 切片 + 3 图文笔记</td></tr>
+    <tr><td>日常运营内容</td><td>每周 30+ 张</td><td>KOS-尾部</td><td>9-图 vlog + 15s 随手拍</td></tr>
+    <tr><td>突发事件响应</td><td>触发即出</td><td>当班 KOS 群体</td><td>现场 30 分钟内出片</td></tr>
+  </table>
+
+  <h4>3.3 选品机制（解决"拍老不拍新"）</h4>
+  <div class="warn">
+    <strong>问题：</strong>2026 H1 刺杀行动持续虹吸流量，新节目难以出头——员工知道"拍刺杀稳出爆款"，激励反而强化了这种路径依赖。<br><br>
+    <strong>机制应对：</strong>
+  </div>
+  <ul>
+    <li><strong>指定节目激励加倍：</strong>《彩色的送别》《回到小时候》《星光铁花秀》《夏夜老电影》四档爆款激励 200 元/条（普通 100 元/条），<strong>用价格信号引导内容流向</strong></li>
+    <li><strong>新节目冷启动：</strong>新节目上线首 14 天，KOS-头部强制接任务卡 2 张，<strong>不接任务不享受头部激励</strong></li>
+    <li><strong>爆款轮换机制：</strong>当某节目连续 4 周霸榜 10w+ TOP1，<strong>自动降权</strong>——下一个 4 周指定节目转向新节目</li>
+    <li><strong>小红书差异化激励：</strong>小红书爆款独立计奖（避免被抖音爆款虹吸后放弃小红书）</li>
+  </ul>
+
+  <h4>3.4 选题来源（不让员工"自己想"）</h4>
+  <table>
+    <tr><th>来源</th><th>占比目标</th><th>机制</th></tr>
+    <tr><td>运营节目排期</td><td>50%</td><td>节目主创提供 5 条拍摄角度建议</td></tr>
+    <tr><td>热点监测</td><td>20%</td><td>内容主管每日 12:00 / 18:00 推送热点任务</td></tr>
+    <tr><td>游客 UGC 复用</td><td>15%</td><td>游客好评/打卡视频经授权后改编</td></tr>
+    <tr><td>员工自荐</td><td>10%</td><td>提交选题卡通过后可独立出片</td></tr>
+    <tr><td>同行/竞品参照</td><td>5%</td><td>竞品出现新爆款形态后 24h 内出对位内容</td></tr>
+  </table>
+
+  <h3>4. 渠道矩阵（KOS + 达人双轨）</h3>
+  <table>
+    <tr><th>渠道</th><th>形态</th><th>角色</th><th>频率（KOS 驱动后）</th></tr>
+    <tr><td>抖音主号（官方）</td><td>短视频 + 直播</td><td>主阵地·曝光+转化</td><td>日更 1-2 条</td></tr>
+    <tr><td>抖音矩阵（KOS-头/腰部）</td><td>短视频</td><td>主力内容供给</td><td>日更 5-8 条</td></tr>
+    <tr><td>小红书官方号</td><td>笔记+图文</td><td>种草+口碑</td><td>周更 3-5 篇</td></tr>
+    <tr><td>小红书达人合作（KOS-头部）</td><td>笔记</td><td>借势+UGC</td><td>每周 5-10 位</td></tr>
+    <tr><td>员工个人号（KOS-尾部）</td><td>朋友圈+短视频</td><td>信任背书+日常</td><td>每周 3-5 条</td></tr>
+  </table>
+  <div class="quote">
+    <strong>渠道接力关系（用户路径）：</strong><br>
+    KOS 矩阵号（曝光/话题） → 抖音主号（话题聚合） → 小红书（搜索/种草） → KOS 员工号（信任背书） → 线下到店<br>
+    <strong>关键变化：</strong>把"信任"环节从"达人背书"升级到"员工本人背书"——<strong>KOS-尾部员工号是最低成本最高信任的渠道</strong>。
+  </div>
+
+  <h3>5. 释放节奏</h3>
+  <table>
+    <tr><th>时间</th><th>动作</th><th>渠道</th><th>承接人</th></tr>
+    <tr><td>每日 09:00</td><td>KOS-头部 周任务卡推送</td><td>内部群</td><td>内容主管</td></tr>
+    <tr><td>每日 12:00</td><td>抖音主号 1 条 + 矩阵号 2-3 条</td><td>抖音</td><td>KOS-头部 + 腰部</td></tr>
+    <tr><td>每日 15:00</td><td>小红书推送</td><td>小红书</td><td>KOS-腰部</td></tr>
+    <tr><td>每日 19:00</td><td>抖音主号第 2 条 + 矩阵号 3-5 条</td><td>抖音</td><td>KOS-头部 + 腰部 + 尾部</td></tr>
+    <tr><td>每周五 17:00</td><td>本周复盘 + 周末预告</td><td>全渠道</td><td>内容主管</td></tr>
+    <tr><td>每周日 22:00</td><td>下周任务卡预排 + 热点预判</td><td>内部群</td><td>内容主管</td></tr>
+  </table>
+
+  <h4>热点节奏（触发即动）</h4>
+  <table>
+    <tr><th>阶段</th><th>时间窗</th><th>动作</th><th>承接人</th></tr>
+    <tr><td>监测</td><td>24/7</td><td>实时监测热搜/竞品/天气</td><td>内容主管</td></tr>
+    <tr><td>决策（S 级）</td><td>≤15 分钟</td><td>站长一键确认</td><td>站长</td></tr>
+    <tr><td>派单</td><td>≤15 分钟</td><td>S 级任务卡推送 KOS-头部</td><td>内容主管</td></tr>
+    <tr><td>生产</td><td>≤60 分钟</td><td>30s/15s/图文三版本</td><td>KOS-头部 + 腰部</td></tr>
+    <tr><td>发布</td><td>≤30 分钟</td><td>抖音+小红书+KOS-尾部同步</td><td>全员</td></tr>
+    <tr><td>复盘</td><td>24 小时内</td><td>数据回收+案例归档</td><td>内容主管</td></tr>
+  </table>
+  <div class="highlight">关键：S 级必须有"放行机制"——站长 24 小时可达，单条决策 ≤30 分钟，否则热点衰减完还没发。</div>
+
+  <h3>6. 双引擎 vs KOS 三层（路径差异）</h3>
+  <table>
+    <tr><th>维度</th><th>v1 旧方案（双引擎）</th><th>新版方案（KOS 三层）</th></tr>
+    <tr><td>生产主体</td><td>内部团队 + 达人</td><td>员工 KOS 三层（头/腰/尾）+ 达人协同</td></tr>
+    <tr><td>选题方式</td><td>内部团队自选</td><td><strong>任务卡驱动</strong>（50% 节目排期 + 20% 热点 + 15% UGC + 10% 自荐 + 5% 同行）</td></tr>
+    <tr><td>激励逻辑</td><td>全激励统一</td><td>指定节目 200 元 / 普通 100 元 / 头部额外奖金池</td></tr>
+    <tr><td>产能保障</td><td>基础 + 热点 双轨</td><td>KOS 三层 + 任务卡保底</td></tr>
+    <tr><td>解决的核心问题</td><td>产能不稳定</td><td>内容质量低 + 拍老不拍新 + 反复剪辑充数</td></tr>
+  </table>
+</div>
+
+<!-- ========== 问题三 ========== -->
+<div class="q">
+  <div class="q-title"><span class="num">三</span>西厢剧场一条街（与《一路有戏》同级产品）</div>
+
+  <div class="quote">
+    <strong style="color:var(--green)">核心定位：</strong>「西厢剧场一条街」——拟在 800 米街区上叠加的中原首条古风沉浸式戏剧街区（西厢记为首季剧本）<br>
+    <strong>关键特征：</strong>演出与互动深度融合——不是"演一段然后互动一下"，而是"在表演进行中让游客参与决策，在情绪高点让游客做出选择影响结局"。<br>
+    <strong>时间定位：</strong>17:30-20:00，在《一路有戏》夜游之前结束，让一张门票覆盖三段沉浸式体验：白天《穿越德化街》→ 傍晚《西厢》→ 夜晚《一路有戏》。
+  </div>
+  <div class="warn">
+    <strong>客观评估（必须前置）：</strong><br>
+    ① 本方案<strong>尚未立项</strong>，是设计阶段的思考作业；<br>
+    ② 与《一路有戏》共享演员池，但<strong>演员复用率、调度冲突、新排练成本</strong>均未实测；<br>
+    ③ 布景投入 50-80 万为估算值，<strong>未走采购询价</strong>；<br>
+    ④ "投月票决定结局"机制在主题景区<strong>未见公开成功案例</strong>——属于新形态，<strong>需 MVP 试点后再判断</strong>。
+  </div>
+
+  <h3>1. 空间结构：800 米 × 5 个互动节点</h3>
+  <table>
+    <tr><th>节点（距入口）</th><th>场景</th><th>主要功能</th><th>核心互动</th></tr>
+    <tr><td>0-150m</td><td>普救寺</td><td>入戏仪式+角色分配</td><td>抢绣球→领角色证</td></tr>
+    <tr><td>200-400m</td><td>西厢阁</td><td>主线高潮+互动融合</td><td>隔墙诗会+月票投票</td></tr>
+    <tr><td>450-550m</td><td>后花园</td><td>支线+汉服摄影+二消</td><td>换装+诗墙+5 个打卡点</td></tr>
+    <tr><td>600-700m</td><td>长亭</td><td>结局分支公布</td><td>剧情高点+决定结局</td></tr>
+    <tr><td>750-800m</td><td>正堂</td><td>签到留念+无缝衔接夜游</td><td>手印+明信片+送别</td></tr>
+  </table>
+
+  <h3>2. 时间结构：17:30-20:00 三段式晚场（与现有产品对位）</h3>
+  <table>
+    <tr><th>时段</th><th>穿越德化街（剧场）</th><th>西厢剧场一条街（街区）</th><th>一路有戏（街区夜游）</th><th>衔接状态</th></tr>
+    <tr><td>10:00–17:00</td><td>日间场次 12:00 / 14:00 / 15:30</td><td>未开始</td><td>未开始</td><td>剧场为主，街区自由步行</td></tr>
+    <tr><td>17:30–18:00</td><td>下场中</td><td><strong>①普救寺：入戏仪式</strong></td><td>未开始</td><td>剧场↔街区冷交接</td></tr>
+    <tr><td>18:00–19:00</td><td>18:10 / 18:50 高场</td><td><strong>②西厢阁：主线高潮</strong></td><td>未开始</td><td>剧场中场 vs 西厢街区独家</td></tr>
+    <tr><td>19:00–19:30</td><td>剧场下半场</td><td><strong>③后花园：支线+汉服</strong></td><td>未开始</td><td>街区人气渐起</td></tr>
+    <tr><td>19:30–19:50</td><td>剧场收尾</td><td><strong>④长亭：结局公布</strong></td><td>未开始</td><td>街区高潮，剧场尾声</td></tr>
+    <tr><td>19:50–20:00</td><td>剧场闭馆冷场</td><td><strong>⑤正堂：签到+送别</strong></td><td>未开始</td><td>演员护送，衔接夜游</td></tr>
+    <tr><td>20:00–22:00</td><td>闭场</td><td>演出结束</td><td><strong>民国夜游区开启</strong></td><td><strong>无缝衔接</strong></td></tr>
+    <tr><td>22:00–闭场</td><td>闭场</td><td>退出区</td><td>夜游高潮区</td><td>一路有戏独立</td></tr>
+  </table>
+  <div class="highlight">关键约束：西厢必须在 20:00 前结束，恰好衔接《一路有戏》夜游。<strong>三条产品同一张门票</strong>——这是从"看一段"变成"待一天"的产品逻辑。</div>
+
+  <h3>3. 演员体系：8 个核心 NPC × 15 人轮班 × 7 个要求维度</h3>
+  <table>
+    <tr><th>角色</th><th>人数</th><th>演出位置</th><th>互动职能</th><th>台词量</th><th>服装化妆</th><th>体力要求</th><th>特殊技能</th></tr>
+    <tr><td><strong>崔莺莺</strong></td><td>1 人（核心）</td><td>②西厢阁阁楼</td><td>全剧情感核心+隔墙对话</td><td>高（诗词为主）</td><td>宋代小姐+凤冠+帔</td><td>中高（阁楼上下）</td><td>古琴/箫+诗词+声音甜润</td></tr>
+    <tr><td><strong>张生</strong></td><td>1 人（核心）</td><td>②+④+⑤</td><td>月票主导+结局演技全开</td><td>高（与莺莺对位）</td><td>宋代书生+襴衫+摖子</td><td>高（全场走动+折返）</td><td>即兴作诗+戏曲念白+文人气质</td></tr>
+    <tr><td><strong>红娘</strong></td><td>2 人轮班</td><td>全场流动</td><td>引导者+节奏控制+安抚</td><td>极高（场上话术）</td><td>宋代丫鬟+聘头布</td><td>高（全场走动 1.5h）</td><td>亲和力+市井俏皮+应变化解</td></tr>
+    <tr><td><strong>丫鬟</strong></td><td>2 人轮班</td><td>③+④</td><td>小游戏主持+支线引导</td><td>中（诙谐台词）</td><td>宋代丫鬟</td><td>中（后花园+长亭）</td><td>活泼可爱+手巧（红娘手信）</td></tr>
+    <tr><td><strong>老夫人</strong></td><td>1 人（客串）</td><td>①开场+⑤送别</td><td>开场仪式+离别"反派"</td><td>中（气场台词）</td><td>宋代贵妇+主帽</td><td>低（两场戏）</td><td>威严感+戏曲功底</td></tr>
+    <tr><td><strong>和尚法本</strong></td><td>1 人（客串）</td><td>①普救寺</td><td>主持"入戏仪式"+佛门氛围</td><td>低（梵语+吉语）</td><td>宋代僧人+袈裟</td><td>低（一场戏）</td><td>禅意气质+朗诵</td></tr>
+    <tr><td><strong>巡街书生 3 人组</strong></td><td>3 人</td><td>街区流动</td><td>气氛烘托+游客分流</td><td>低（背景背诗）</td><td>宋代书生×3</td><td>高（全程走动）</td><td>颜值（中上）+队列整齐</td></tr>
+    <tr><td><strong>花轿队+轿夫</strong></td><td>4 人</td><td>④⑤</td><td>收尾仪式氛围</td><td>低（赞礼词）</td><td>宋代喜服+花轿</td><td>高（花轿+巡游）</td><td>体力好+礼仪规范</td></tr>
+  </table>
+  <div class="highlight">演员复用：15 人主要从现有《穿越德化街》《一路有戏》剧组（30-50 人）抽调，无需新招。<strong>但：</strong>演员复用率 30-50%，意味着 30-50% 现有演员会增加排练和演出负荷，<strong>需评估对现有产品上座率的影响</strong>。</div>
+
+  <h3>4. 演出+互动深度融合：各节点详解</h3>
+
+  <h4>【第①·普救寺·相遇】17:30-18:00（30 分钟）</h4>
+  <table>
+    <tr><th>环节</th><th>时长</th><th>演出</th><th>互动</th></tr>
+    <tr><td>入戏仪式（抢绣球）</td><td>10min</td><td>莺莺阁楼惊艳亮相+法本对话</td><td>红娘抛绣球→抢到者获"今日主角"换汉服/书生服</td></tr>
+    <tr><td>入门仪式（老夫人出场+红娘发带）</td><td>5min</td><td>老夫人威严出场，命张生离去</td><td>红娘给每位游客发"入戏结缘带"（红绳）</td></tr>
+    <tr><td>任务卡激活</td><td>5min</td><td>红娘宣布三任务</td><td>领任务卡（实物+小程序）</td></tr>
+    <tr><td>移场过场（自由活动）</td><td>10min</td><td>巡街书生沿街念诗</td><td>拍照+汉服租赁+二消引导</td></tr>
+  </table>
+
+  <h4>【第②·西厢阁·相知主线】18:00-19:00（60 分钟·核心段）</h4>
+  <table>
+    <tr><th>环节</th><th>时长</th><th>演出</th><th>互动</th></tr>
+    <tr><td>隔墙诗会</td><td>15min</td><td>莺莺抚琴吟诗+张生仰望和诗（古琴/箫现场演奏）</td><td>选一位游客"和诗"（红娘递话筒，提供押韵模板+藏头诗辅助）→ 优秀者获"红娘手信"折扇</td></tr>
+    <tr><td>丫鬟小游戏（穿插）</td><td>持续</td><td>街角做"红娘媒婆"小游戏（猜灯谜/对诗句）</td><td>完成游戏获"红娘认证"盖章</td></tr>
+    <tr><td><strong>月下论艺（核心爆点）</strong></td><td>15min</td><td>黄昏光线下莺莺张生月下立誓</td><td>游客投"月票"（纸折月亮），<strong>月票倾向决定结局分支</strong>→ 投月票=为剧情负责</td></tr>
+    <tr><td>红娘穿梭</td><td>全程</td><td>全程陪同+对未完成任务的游客提示</td><td>拍照协助+心理疏导</td></tr>
+  </table>
+  <div class="warn">
+    <strong>未验证假设：</strong>"投月票决定结局"在主题景区无公开案例。<strong>风险：</strong>游客可能因为"投错了"产生负面情绪（"我让莺莺走了"），反而拉低 NPS。建议 MVP 阶段先用"加演式分支"（不影响主线结局）试水，验证游客接受度后再切换到"决定式分支"。
+  </div>
+
+  <h4>【第③·后花园·相知支线】19:00-19:30（30 分钟）</h4>
+  <table>
+    <tr><th>环节</th><th>演出</th><th>互动</th></tr>
+    <tr><td>支线任务+汉服摄影</td><td>后花园留白式演出（无主线剧情）</td><td>完成"送一封信给张生"任务+汉服妆造点（10-15 分钟换装）+5 个拍照打卡位</td></tr>
+    <tr><td>诗墙</td><td>电子屏显示游客上传诗句</td><td>"今日最才情游客"投票+西厢游历图生成</td></tr>
+  </table>
+
+  <h4>【第④·长亭·高潮】19:30-19:50（20 分钟）</h4>
+  <table>
+    <tr><th>结局</th><th>触发（月票）</th><th>演出</th><th>游客体验</th></tr>
+    <tr><td><strong style="color:var(--green)">圆满结局</strong>（70% 概率，初始）</td><td>月票 ≥ 50%</td><td>张生骑马归来+拜堂+花轿巡游+撒喜糖</td><td>加入巡游+抢喜糖</td></tr>
+    <tr><td><strong style="color:var(--text2)">遗憾结局</strong>（30% 概率）</td><td>月票 &lt; 50%</td><td>老夫人带莺莺离京+长亭送别+雨中白绫</td><td>收"红娘手信"明信片=复访钩子</td></tr>
+  </table>
+
+  <h4>【第⑤·正堂·签到留念】19:50-20:00（10 分钟）</h4>
+  <table>
+    <tr><th>环节</th><th>演出</th><th>互动</th></tr>
+    <tr><td>盖印留念</td><td>10 米红绸签到墙</td><td>每位游客按手印+签名</td></tr>
+    <tr><td>西厢明信片</td><td>出口处 NPC 颁发专属印章明信片</td><td>印有当日日期+游客角色+复访 VIP 权益</td></tr>
+    <tr><td>无缝衔接《一路有戏》</td><td>莺莺张生最后一次送别</td><td>演员护送到夜游起点</td></tr>
+  </table>
+
+  <h3>5. 角色卡 × 结局机制</h3>
+  <table>
+    <tr><th>角色</th><th>获得方式</th><th>特权</th></tr>
+    <tr><td><strong>崔莺莺/张生</strong>（主角）</td><td>抢绣球+换汉服/书生服</td><td>· 同框合影特权<br>· 西厢 VIP 章（复访权益）<br>· 优先进场</td></tr>
+    <tr><td>陪客（半数）</td><td>未抢到绣球</td><td>自由拍照+月票投票</td></tr>
+    <tr><td>丫鬟小分队</td><td>现场登记加入</td><td>学古代礼仪+小红书话题奖</td></tr>
+  </table>
+  <div class="highlight">结局概率分布可调：首期 70% 圆满+30% 遗憾，3 个月后根据游客情绪调研调整。</div>
+
+  <h3>6. 布景与道具：8 个核心场景</h3>
+  <table>
+    <tr><th>场景</th><th>位置</th><th>关键道具</th></tr>
+    <tr><td>普救寺山门</td><td>①</td><td>绣球×5、签到台×2、汉服换装区</td></tr>
+    <tr><td>西厢阁楼</td><td>②</td><td>真古琴/真箫、纸折月票×3000、月票投票桶</td></tr>
+    <tr><td>后花园石桌</td><td>③</td><td>汉服租赁×30 套、化妆台×3、5 个拍照物料</td></tr>
+    <tr><td>长亭外</td><td>④</td><td>雨幕发生器×2、花轿、唢呐×2</td></tr>
+    <tr><td>正堂签到墙</td><td>⑤</td><td>10 米×3 米红绸、印泥×200、明信片</td></tr>
+    <tr><td>宋代店招街</td><td>①→②移场</td><td>绸缎庄/书坊/茶肆店招×10、灯笼×50</td></tr>
+    <tr><td>巡街小道</td><td>全场串联</td><td>指引灯笼×100、5 个节点导视</td></tr>
+  </table>
+  <div class="quote">
+    <strong>布景投入（首期）估算：</strong>50% 复用现有街区布景 + 4 个核心场景新增 ≈ 50-80 万元（<strong>估算值，未走采购询价</strong>）；<strong>演员复用无人工增量</strong>。结论：西厢是"用现有资产重做组合"，不是"从 0 建一个新景区"。
+  </div>
+
+  <h3>7. 票务定位</h3>
+  <div class="quote">
+    《西厢》演出<strong>免费包含在大门票内</strong>（7/13 站长确认），不单独售票。商业价值不来自门票，而来自汉服妆造/古风摄影/诗墙留念/宋宴餐饮/西厢 VIP 复访权益等二消。<br>
+    <strong>目标：</strong>西厢剧场拉动单客二消 +50%，带动整体停留时长 +30%（从 3 小时延长到 5 小时）。<br>
+    <strong>风险标注：</strong>上述目标为<strong>设计目标</strong>，未实测。
+  </div>
+
+  <h3>8. 与《一路有戏》的差异化</h3>
+  <table>
+    <tr><th>维度</th><th>《一路有戏》（民国夜游）</th><th>《西厢剧场一条街》（宋代古风）</th></tr>
+    <tr><td>互动深度</td><td>跟随演员+拍照打卡</td><td><strong>游客参演+投月票决定结局（待 MVP 验证）</strong></td></tr>
+    <tr><td>时间</td><td>20:00 后（夜游）</td><td>17:30-20:00（衔接夜游）</td></tr>
+    <tr><td>客群</td><td>年轻朋友/家庭/打卡客</td><td>汉服圈/古风摄影/国风爱好者</td></tr>
+    <tr><td>时代</td><td>民国（德化街风格）</td><td>宋代（中式古风）</td></tr>
+    <tr><td>核心吸引力</td><td>视觉冲击+沉浸氛围</td><td>剧情参与+结局决定</td></tr>
+    <tr><td>二消</td><td>小吃/打铁花周边</td><td>汉服妆造/古风摄影/宋宴</td></tr>
+  </table>
+
+  <h3>9. 一句话概括（三版本）</h3>
+  <ul>
+    <li><strong style="color:var(--blue-mid)">对外营销：</strong>"傍晚《西厢记》，入夜《一路有戏》。"</li>
+    <li><strong style="color:var(--blue-mid)">对外产品：</strong>"中原第一条古风沉浸式戏剧街区——800 米穿越宋代美学，你的选择决定结局。<strong>（待 MVP 验证）</strong>"</li>
+    <li><strong style="color:var(--blue-mid)">对内战略：</strong>"《一路有戏》是'跟拍'，《西厢》是'参演'——同一街区，两种沉浸深度，三段连续体验。<strong>前提：演员复用率+激励常态化+西厢排练成本，三项约束需立项时一并评估</strong>。"</li>
+  </ul>
+
+  <h3>10. 线上晒机制 + 关键风险与备选方案</h3>
+
+  <h4>主动机制（让游客愿意拍）</h4>
+  <table>
+    <tr><th>机制</th><th>设计</th><th>心理</th></tr>
+    <tr><td>"角色证"晒证仪式</td><td>① 入口合影墙扫码生成"今日我是崔莺莺/张生"海报</td><td>身份认同</td></tr>
+    <tr><td>"结缘带打卡点"</td><td>5 个打卡点完成生成"西厢游历图"</td><td>收集癖</td></tr>
+    <tr><td>"月票排行榜"</td><td>西厢阁大屏 TOP10，TOP3 获 VIP 夜场席位</td><td>攀比心</td></tr>
+    <tr><td>"诗意漂流瓶"</td><td>后花园诗墙扫码上传被投票</td><td>创作欲</td></tr>
+  </table>
+
+  <h4>被动机制（让游客不自觉拍）</h4>
+  <table>
+    <tr><th>机制</th><th>设计</th><th>心理</th></tr>
+    <tr><td>"光线时刻"调度</td><td>每日 5 个光线最美的瞬间提示</td><td>怕错过</td></tr>
+    <tr><td>"误入镜头"机关</td><td>NPC 恰好经过游客背后制造"剧照"抓拍</td><td>偶遇感</td></tr>
+    <tr><td>"二刷彩蛋"</td><td>第二次入园游客戴特殊手环，NPC 说"咦你又来了"</td><td>复访奖励</td></tr>
+    <tr><td>"朋友圈仪式文案"</td><td>出口生成器输入名字+心情生成中式美学文案</td><td>文案焦虑</td></tr>
+  </table>
+
+  <h4>5 大关键风险与备选方案（含发生概率与影响评估）</h4>
+  <table>
+    <tr><th>风险</th><th>发生概率</th><th>影响</th><th>应对方案</th></tr>
+    <tr><td><strong>天气突变（雨天）</strong></td><td>中高（华北 6-8 月多雨）</td><td>中</td><td>雨幕装置可省去+提供雨披+缩短隔墙诗会到 30 分钟</td></tr>
+    <tr><td><strong>演员临时请假</strong></td><td>高（核心 8 人）</td><td>高</td><td>莺莺张生 AB 角备份+红娘独白填补</td></tr>
+    <tr><td><strong>节假日爆满</strong></td><td>高（暑期/国庆）</td><td>中</td><td>分批入园 30 人/批+西厢阁限流 50 人+月票改电子投票</td></tr>
+    <tr><td><strong>平日冷清</strong></td><td>中（参考 9 月上座率 37%）</td><td>中</td><td>演员凑足 5 人才开演+举牌投票+加演延长时间</td></tr>
+    <tr><td><strong>三产品时段冲突</strong></td><td>低（时段已锁定）</td><td>高</td><td>西厢时间锁死 17:30-20:00+演员护送衔接+共用一张门票</td></tr>
+  </table>
+  <div class="warn">
+    <strong>风险清单补遗（自评）：</strong><br>
+    ① "投月票决定结局"机制体验风险（见第②节点）<br>
+    ② 演员复用导致《穿越德化街》《一路有戏》上座率下滑的风险（未量化）<br>
+    ③ 二消目标 +50% / 停留时长 +30% 未实测<br>
+    ④ 布景投入 50-80 万为估算值，未走采购询价<br>
+    ⑤ KOS 机制与西厢内容的协同（西厢上线后须接入 KOS 任务卡池）
+  </div>
+</div>
+
+<!-- ========== 总结 ========== -->
+<div class="summary">
+  <h2>📌 三个问题的内在关联 + 真实差距 + 下一步</h2>
+
+  <h3>1. 三个问题在战略上是一件事</h3>
+  <div class="quote">
+    <strong>统一答案：</strong>电影小镇的护城河<strong>正在形成</strong>，尚未建成。<br>
+    · <strong>问题一（人设）</strong>：在六条景区路径中选了"街区+剧本化戏剧"路径——这条路径<strong>真实存在但市场份额未验证</strong>。<br>
+    · <strong>问题二（推送）</strong>：把"演员同质化"的瓶颈转化为"内容生产机制"问题——KOS 全员营销是机制化路径，但<strong>激励机制是否真正提升内容质量尚未验证</strong>。<br>
+    · <strong>问题三（西厢）</strong>：在已形成的"剧场+夜游"双产品上叠加第三段——但<strong>演员复用、布景投入、互动机制三项约束需立项时一并评估</strong>。
+  </div>
+
+  <h3>2. 我们与同行 / 与自己的真实差距</h3>
+  <table>
+    <tr><th>维度</th><th>电影小镇（2025 / 2026）</th><th>同行参照</th><th>差距判断</th></tr>
+    <tr><td>入园体量</td><td>2025 124.9 万 / 2026 YTD 65.6 万</td><td>万岁山 2,452 万</td><td><strong>约 20 倍量级差距</strong>——量级差距是事实，不应回避</td></tr>
+    <tr><td>产品稳定度</td><td>穿越德化街全年上座率 51%（扩建后）</td><td>清园《东京梦华》夜场演艺稳定</td><td>我们上座率波动大，最旺 8 月 70.3% / 9 月 37.2%</td></tr>
+    <tr><td>激励机制</td><td>7-8 月实证有效</td><td>—</td><td>激励期外常态上座率<strong>未验证</strong></td></tr>
+    <tr><td>大假表现</td><td>2025 国庆入园 -41.7%</td><td>—</td><td><strong>大假下滑显著</strong>，是真实的运营风险</td></tr>
+    <tr><td>客单价</td><td>德化街客单 36.1 元（2026Q1）</td><td>—</td><td>较 2023Q1 的 65.2 元下滑 -29.1 元</td></tr>
+    <tr><td>内容产能</td><td>矩阵 70 个 / 30,391 条 / 193 条 10w+ / 条均曝光 5,790</td><td>—</td><td>规模没换来效果，<strong>内容质量低、拍老不拍新</strong></td></tr>
+  </table>
+
+  <h3>3. 下一步（按 7/14 已落地动作 + 立项建议）</h3>
+  <table>
+    <tr><th>优先级</th><th>动作</th><th>时间窗</th><th>负责人</th><th>状态</th></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>KOS 全员营销机制落地</td><td>Q3（暑期）</td><td>内容主管 + 站长</td><td>激励政策已落地，<strong>机制与任务卡本周内设计完成</strong></td></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>7 月指定节目流量监控</td><td>7-8 月</td><td>内容主管</td><td>《彩色的送别》《回到小时候》《星光铁花秀》《夏夜老电影》4 档</td></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>扩建悖论应对：座位/入园比监控</td><td>持续</td><td>运营</td><td><strong>建议立刻建"座位供需比"日跟踪指标</strong></td></tr>
+    <tr><td><span class="tag tag-p0">P0</span></td><td>2026Q1 套票占比 -33.5pp 原因核查</td><td>本周内</td><td>票务 + 站长</td><td>预警：可能存在票务产品结构调整，需立即核实</td></tr>
+    <tr><td><span class="tag tag-p1">P1</span></td><td>西厢剧场一条街 MVP 试点</td><td>Q4（建议）</td><td>站长决策</td><td><strong>未立项</strong>——建议先做 30% 长度试点，验证"演员复用+月票机制"后再决定全线铺开</td></tr>
+    <tr><td><span class="tag tag-p1">P1</span></td><td>外部剧本产能试点</td><td>Q3-Q4</td><td>站长决策</td><td><strong>未启动</strong>——编剧人才供给未验证</td></tr>
+    <tr><td><span class="tag tag-p2">P2</span></td><td>西厢街+夜游 800 米全线版</td><td>2027 H1</td><td>—</td><td>取决于 MVP 验证结果</td></tr>
+  </table>
+
+  <h3>4. 仍待验证的核心假设清单</h3>
+  <div class="warn">
+    <strong>P0 假设（直接影响主战略）：</strong><br>
+    ① KOS 机制能否把矩阵条均曝光从 5,790 拉回 5 万+ 水平<br>
+    ② 激励机制在非暑期时段的边际效益是否仍显著<br>
+    ③ 扩建悖论能否通过"座位供需比"动态调整缓解<br>
+    ④ 2026Q1 套票占比下滑是良性结构调整还是恶性流失<br><br>
+    <strong>P1 假设（影响西厢项目）：</strong><br>
+    ⑤ 投月票决定结局机制的游客接受度<br>
+    ⑥ 演员复用 30-50% 对现有产品上座率的影响<br>
+    ⑦ 外部编剧产能能否匹配电影小镇剧本质量
+  </div>
+
+  <div class="highlight">
+    <strong>本版核心口径：</strong><br>
+    · 不夸大自有优势 —— 万岁山 2,452 万人次 / 12.7 亿营收是事实，约 20 倍量级差距是事实<br>
+    · 不矮化同行 —— 五个竞品的路径各有合理性，电影小镇的"街区+剧本化戏剧"路径尚未被市场验证<br>
+    · 不回避短板 —— 扩建悖论、国庆 -41.7%、Q1 套票 -33.5pp、客单 -29.1 元、内容质量低、拍老不拍新——所有问题都写出来了<br>
+    · 不写"已验证"当"结论" —— 所有路径都标注"未验证假设"，所有目标都标注"设计目标"
+  </div>
+</div>
+
+<div class="footer">
+  <p>版本1 · 精炼版（客观口径） · 2026-07-14 覆盖</p>
+  <p style="margin-top:6px">核心改动：①"1140 座实体剧场" → "室内千座剧场穿越德化街" ②问题二整体重写为 KOS 全员营销机制（基于 7/14 UGC 复盘数据）③清理自我拔高+同行矮化+自我保护口径 ④修复重复标题 ⑤补完整总结部分 ⑥新增"已知短板""未验证假设""真实差距"三块客观内容</p>
+  <p style="margin-top:6px">数据来源：wiki/电影小镇/演出节目/穿越德化街.md · wiki/overview.md · 7/14 UGC 复盘附件 · 站长 7/14 8:27 指示</p>
+  <p style="margin-top:6px">景区营销中心 · 建业电影小镇 · 内部文件</p>
+</div>
+
+</div>
+</body>
+</html>
