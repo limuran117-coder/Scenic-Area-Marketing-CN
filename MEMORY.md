@@ -135,7 +135,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 |------|------|
 | 历年客流 | ~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx |
 | 内部运营数据（SSOT） | `wiki/sources/建业电影小镇阶段性数据表.md`（年度/Q1/德化街模拟/2026KPI/排期模型）|
-| 2026每日 SSOT | ~/Downloads/2026游客量统计 (N).csv + ~/Downloads/电影小镇-2026年数量统计.dbt(N).xlsx（每周二更新，最新6/21）|
+| 2026每日 SSOT | ~/Downloads/2026游客量统计 (N).csv + ~/Downloads/电影小镇-2026年数量统计.dbt(N).xlsx（每周二更新，最新 7/21 = (16).csv）→ SSOT 截止 7/19 |
 | 抖音Cookie | /tmp/juLiang_cookies.json |
 | 小红书Cookie | /tmp/xiaohongshu_cookies.json |
 | Cookie健康产物 | **/tmp/cookie_health_latest.json**（cron `Cookie健康检查` 每日 00:30 写入，6 项 check；7/2 起不再发群，failureAlert 个人 DM 兜底）|
