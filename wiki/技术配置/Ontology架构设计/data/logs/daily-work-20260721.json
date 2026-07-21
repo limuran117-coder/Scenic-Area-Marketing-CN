@@ -1,0 +1,40 @@
+{
+  "date": "2026-07-21",
+  "day": 51,
+  "phase": "Phase 4 后半段：确认 import 路径陷阱，D-038~D-049 cron 空跑根因定位",
+  "today_focus": "D-051 验证 adapter-douyin.py import 路径依赖，定位 cron 空跑直接根因",
+  "insights_first": {
+    "1_most_important_progress": "确认 adapter-douyin.py 第 127 行 `from ontology.ontology_store import` 只在 cd scripts/ 后才能解析 — 这是 D-038~D-049 cron 空跑 13 天的直接根因",
+    "1_blocker": "adapter-douyin.py 的 import 路径依赖 cd 到 scripts/ 目录才能工作，ingest_pipeline.sh 若不 cd 则双轨写入永远不会触发",
+    "1_tomorrow_first": "D-052 写 scripts/ingest_pipeline.sh，cd 到 scripts/ 目录后串 douyin_index.py → adapter-douyin.py，手工跑通验证",
+    "4_architecture_decision": "Phase 4 自动化管道必须用 cd scripts/ 显式设置工作目录，不能依赖 PYTHONPATH 或相对路径"
+  },
+  "completed": [
+    "✅ **import 路径验证**: cd scripts/ && python3 -c 'from ontology.ontology_store import OntologyStore' → OK；cd scripts/ontology/ && python3 -c 'from ontology.ontology_store import OntologyStore' → ModuleNotFoundError",
+    "✅ **根因确认**: adapter-douyin.py 第 127 行用 `from ontology.ontology_store import`（需先 cd scripts/），第 231 行 main() 调用 write_to_sqlite(objects) 时若不在 scripts/ 目录运行则导入失败，返回 (0, error)，SQLite 写入静默失败",
+    "✅ **文件清单确认**: scripts/ontology/ 有 7 文件（QUERY_README, __pycache__, backfill_historical, ontology.db, ontology_query, ontology_store, seed_basic）；scripts/ 有 adapter-douyin.py ✅, adapter-xiaohongshu.py ✅, adapter-visitors.py ✅, ontology_constants.py ✅, ontology_store.py ✅, douyin_index.py ✅；不存在: ingest_pipeline.sh ❌"
+  ],
+  "blockers": [
+    "🔴 **ingest_pipeline.sh 缺失** — Phase 4 核心缺失仍未解决；明天（D-052）必须完成",
+    "🔴 **ingest_pipeline.sh 必须 cd scripts/** — 这是今天发现的关键实现细节：shell 脚本必须 `cd ~/.openclaw/workspace/scripts` 后才能运行 adapter-douyin.py，否则 import 失败，SQLite 双轨写入静默跳过",
+    "🟡 **scripts/ontology/ontology_store.py vs scripts/ontology_store.py 双版本** — adapter-douyin.py 显式引用 `from ontology.ontology_store import`（新版本），已在 scripts/ 下验证通过；两个版本功能可能不同步，需后续审计"
+  ],
+  "blockers_resolved": [
+    "🟢 D-050: 根因定位完成 — 不是 cron 无自我验证，而是 ingest_pipeline.sh 从未存在；cron 空跑 13 天是因为根本没有可跑的脚本"
+  ],
+  "decisions": [
+    "D-051: **ingest_pipeline.sh 必须 cd scripts/** — 开头加 `cd ~/.openclaw/workspace/scripts`，不可省略；这是整个管道能否闭合的关键实现细节",
+    "D-051: **Phase 4 管道设计确认**: douyin_index.py → /tmp/crawl_data.json → adapter-douyin.py (cd scripts/ 后运行) → SQLite (via write_to_sqlite)"
+  ],
+  "files_checked": [
+    "scripts/ontology/ (7文件): QUERY_README.md, __pycache__, backfill_historical.py, ontology.db, ontology_query.py, ontology_store.py, seed_basic.py",
+    "scripts/ (存在): adapter-douyin.py (258行 ✅), adapter-xiaohongshu.py ✅, adapter-visitors.py ✅, ontology_constants.py (151行 ✅), ontology_store.py ✅, douyin_index.py ✅, insert_all_records.sh ✅",
+    "scripts/ (不存在): ingest_pipeline.sh ❌"
+  ],
+  "import_path_test": {
+    "from_scripts_dir": "cd scripts/ && python3 -c 'from ontology.ontology_store import OntologyStore' → OK ✅",
+    "from_ontology_dir": "cd scripts/ontology/ && python3 -c 'from ontology.ontology_store import OntologyStore' → ModuleNotFoundError ❌",
+    "conclusion": "adapter-douyin.py 必须从 scripts/ 目录运行，ingest_pipeline.sh 必须在开头 cd 到该目录"
+  },
+  "next_day_note": "D-052 (周三 7/22 22:30): 写 scripts/ingest_pipeline.sh。步骤: (1) cd ~/.openclaw/workspace/scripts (2) python3 douyin_index.py → /tmp/crawl_data.json (3) python3 adapter-douyin.py (4) 检查 SQLite 新增记录 (5) chmod +x (6) 手工跑 1 次验证"
+}
