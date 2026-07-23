@@ -61,12 +61,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "电影小镇/演出节目/穿越德化街.md",
+                "file": "技术配置/Ontology架构设计/Week3_数据接入管道.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "穿越德化街"
+              "title": "Week3_数据接入管道"
             }
           }
         ]
@@ -291,8 +291,9 @@
       "bases:新建数据库": false
     }
   },
-  "active": "170f2840afe9af74",
+  "active": "00d16cba3229cf03",
   "lastOpenFiles": [
+    "技术配置/Ontology架构设计/Week6_原型实现.md",
     "concepts/ontology/architecture.md",
     "concepts/ontology",
     "技术配置/Ontology架构设计/data/logs/daily-work-20260723.json",
@@ -328,7 +329,6 @@
     "行业知识/景区类型/景区类型索引.md",
     "行业知识/景区类型/古镇古街.md",
     "技术配置/Ontology架构设计/每日工作流.md",
-    "技术配置/Ontology架构设计/实现路线图.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",
