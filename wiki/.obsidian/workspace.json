@@ -61,12 +61,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "技术配置/Ontology架构设计/Week3_数据接入管道.md",
+                "file": "电影小镇/历史数据/2026年/数据.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Week3_数据接入管道"
+              "title": "数据"
             }
           }
         ]
@@ -291,8 +291,17 @@
       "bases:新建数据库": false
     }
   },
-  "active": "00d16cba3229cf03",
+  "active": "170f2840afe9af74",
   "lastOpenFiles": [
+    "行业知识/景区运营数据/v9_2026_7月_完整复盘报告.md",
+    "行业知识/景区运营数据/月度复盘索引.md",
+    "行业知识/景区运营数据/月度复盘_2026-07_partial.md",
+    "电影小镇/历史数据/W29期-20260723.md",
+    "电影小镇/历史数据/W28期-20260723.md",
+    "电影小镇/历史数据/W30期-20260723.md",
+    "系统/W29-知识库脱节补救计划.md",
+    "电影小镇/历史数据/W27期-20260707.md",
+    "技术配置/Ontology架构设计/Week3_数据接入管道.md",
     "技术配置/Ontology架构设计/Week6_原型实现.md",
     "concepts/ontology/architecture.md",
     "concepts/ontology",
@@ -320,15 +329,6 @@
     "行业知识/决策规则库.md",
     "电影小镇/历史数据/2026年每日客流数据.md",
     "sources/小红书历史快照索引-2026H1.md",
-    "sources/抖音历史快照索引-2026H1.md",
-    "sources/价格排期/2026-H1-价格排期-SSOT.md",
-    "全国景区案例库/阿尔山反向旅游宝藏小城双平台联合推荐-2026W28.md",
-    "技术配置/Ontology架构设计/Week3_数据接入管道.md",
-    "全国景区案例库/郏县2026暑期「一票畅游+UGC三件套」全域惠民-2026W27.md",
-    "行业知识/结论索引/已验证结论_竞品关键词深度分析.md",
-    "行业知识/景区类型/景区类型索引.md",
-    "行业知识/景区类型/古镇古街.md",
-    "技术配置/Ontology架构设计/每日工作流.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",
