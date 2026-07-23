@@ -47,6 +47,10 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **Why:** 7/22 失败根因之一：日志落盘后跑兜底 verification，撞文件不存在 wc 失败，挂 7 分钟
 **How:** 完成最后一步 = 写入 daily-work-YYYYMMDD.json + 输出四段 ≤200 字洞察，超此即 scope creep
 
+**【7/23 站长决策】Obsidian 周日晚补策略**：wiki/ 6/30 H1 收官后 7 个目录（系统/电影小镇/竞品分析/entities/schema/queries/运营规划）23 天未更新，但周日维护 cron 18 天没跑也是根因之一。周日 cron 配置已修（staggerMs=0, lightContext=false），下次 7/26 09:00 触发时会自动反哺 7 月数据到 wiki 知识库。**不主动手补**。
+**Why:** 站长 9:30 决策 C 选项 —— 等周日 cron 自动补
+**How:** W30 周日（7/26）09:00 cron 自然触发 → system-metabolism 第二部分会执行"wiki 反哺"；如触发失败 → 7/29 上午 review
+
 ---
 
 # 🚨 当前系统状态（2026-07-23 W29）
