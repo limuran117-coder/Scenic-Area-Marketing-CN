@@ -1,236 +1,271 @@
 {
-  "timestamp": "2026-07-05T11:03:24.168095",
-  "issues_count": 36,
-  "issues": [
-    {
-      "type": "stale",
-      "file": "全国景区案例库/更新台账.md",
-      "last_update": "2026-05-26",
-      "days_old": 40,
-      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
-    },
-    {
-      "type": "stale",
-      "file": "竞品分析/关键词池状态.md",
-      "last_update": "2026-05-27",
-      "days_old": 39,
-      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
-    },
-    {
-      "type": "stale",
-      "file": "技术配置/脚本清单.md",
-      "last_update": "2026-05-24",
-      "days_old": 42,
-      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
-    },
-    {
-      "type": "stale",
-      "file": "竞品分析/竞品深度档案/万岁山武侠城深度分析.md",
-      "last_update": "2026-05-12",
-      "days_old": 54,
-      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/海南欢乐节「沉浸式光影+4A景区主会场+全民快闪」省级方法论-2026W27.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/飞猪暑期报告+厦门鼓浪屿毕业生66元畅游-2026W27.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/浙江雁楠飞仙海天游-温台6景区门票互惠-2026W26.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/2026暑期县域山水预订暴涨62%反向消费-2026W27.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/贵州×阅文「一人之下」IP联动-2个月长效打卡-2026W26.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/国色天乡夜场海边蹦迪模式-2026W26.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/银基动物王国缤纷焰火季6-22暑期夜场启动-2026W26.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/山西大同《何以悬空寺》光影秀+暑期三城霸榜TOP10-2026W27.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/郏县2026暑期「一票畅游+UGC三件套」全域惠民-2026W27.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/贵州文旅×阅文《一人之下》省级IP联动2个月长效打卡-2026W26.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "全国景区案例库/贵州《四渡》电影票根影旅联动-2026W26.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "SOP/Cookie恢复与人工介入SOP.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "SOP/周日cron合并方案-W26.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "SOP/方案A-W26系统可靠性升级.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "竞品分析/竞品动态追踪/2026-W27-周度竞争格局.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "竞品分析/竞品动态追踪/2026-W26-周度竞争格局.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "技术配置/Ontology架构设计/Week2_Actions_Functions.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "技术配置/Ontology架构设计/Week1_ObjectTypes_LinkTypes.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "行业知识/结论索引/结论索引.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "行业知识/结论索引/已验证结论_竞品关键词深度分析.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "电影小镇/历史数据/W26期-20260630.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "电影小镇/历史数据/W25期-20260623.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "电影小镇/历史数据/W24期-20260616.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "电影小镇/历史数据/W27期-20260707.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "entities/scripts/xiaohongshu_crawl.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "entities/scripts/competitor_program_tracker.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "overview.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "系统/overview.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "sources/客流营收历年分析.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "行业知识/结论索引.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "电影小镇/基础档案.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
-        "entities/建业电影小镇.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+  "timestamp": "2026-07-23T08:42:00+08:00",
+  "status": "has_drifts",
+  "summary": {
+    "lint_total": 36,
+    "lint_orphan": 26,
+    "lint_contradictions": 6,
+    "scripts_undocumented": 62,
+    "project_drifts": 20,
+    "drift_severity_breakdown": {
+      "脚本版本不一致": "中 (12 items)",
+      "脚本清单与实际不符": "中 (4 items)",
+      "raw/目录状态异常": "低 (4 items)"
     }
-  ]
+  },
+  "wiki_drift": {
+    "timestamp": "2026-07-23T08:41:46.028828",
+    "status": "has_issues",
+    "issues": [
+      {
+        "type": "lint_summary",
+        "total_issues": 36,
+        "orphan_count": 26,
+        "contradiction_count": 6
+      },
+      {
+        "type": "scripts_not_documented",
+        "count": 62,
+        "scripts": [
+          "adapter-douyin.py",
+          "adapter-visitors.py",
+          "adapter-xiaohongshu.py",
+          "add_yaml_frontmatter.py",
+          "archive_case.py",
+          "autonomous_skill_create.py",
+          "build_dashboard.py",
+          "build_xhs_card.py",
+          "case_library_scan.py",
+          "cdp_collect.py",
+          "cdp_collector.py",
+          "cdp_cookie_hub.py",
+          "cdp_douyin.py",
+          "cdp_keyword_deep.py",
+          "cdp_restore_tabs.py",
+          "cdp_tab_manager.py",
+          "competitor_keyword.py",
+          "competitor_keyword_debug.py",
+          "competitor_keyword_index.py",
+          "competitor_program_tracker.py",
+          "confirm_action.py",
+          "content_intel.py",
+          "cookie_health_check.py",
+          "daily_recap_deliver.py",
+          "dashboard.py",
+          "douyin_index.py",
+          "douyin_keyword_detail.py",
+          "industry_news_browser.py",
+          "industry_news_rss.py",
+          "lingxi_keepalive.py",
+          "llmwiki_ingest.py",
+          "llmwiki_lint.py",
+          "llmwiki_query.py",
+          "m3_usage_alert.py",
+          "nudge_knowledge.py",
+          "ontology_constants.py",
+          "ontology_query.py",
+          "ontology_store.py",
+          "pattern_analysis.py",
+          "periodic_nudge.py",
+          "project_drift_check.py",
+          "prompt_minify.py",
+          "query_passenger.py",
+          "seed_content_assets.py",
+          "self_check.py",
+          "send_case_lib_update.py",
+          "send_daily_intel_20260615.py",
+          "send_daily_intel_20260618.py",
+          "send_daily_tourism_report.py",
+          "send_feishu_card.py",
+          "send_industry_news.py",
+          "send_intel_20260618.py",
+          "send_marketing_case_qyshy.py",
+          "send_w16_report.py",
+          "send_wenhua_tracking.py",
+          "sync_obsidian_daily.py",
+          "validate_data.py",
+          "weekly_visitor_report.py",
+          "wiki_drift_check.py",
+          "xhs_competitor_crawl.py",
+          "xhs_daily_collector.py",
+          "xiaohongshu_crawl.py"
+        ]
+      }
+    ]
+  },
+  "project_drift": {
+    "timestamp": "2026-07-23T08:41:46.062432",
+    "schema": "2.0",
+    "drift_categories": [
+      {
+        "category": "脚本版本不一致",
+        "severity": "中",
+        "items": [
+          {
+            "file": "cdp_collect.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "cdp_collector.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "cdp_douyin.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "cdp_douyin.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "cdp_keyword_deep.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/arithmetic-index/analysis",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "cdp_restore_tabs.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "cdp_tab_manager.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "competitor_keyword.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "competitor_keyword.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "cookie_health_check.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "douyin_index.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator",
+            "type": "url_changed_not_documented"
+          },
+          {
+            "file": "douyin_index.py",
+            "url": "creator.douyin.com/creator-micro/creator-count/my-subscript?source=creator",
+            "type": "url_changed_not_documented"
+          }
+        ]
+      },
+      {
+        "category": "脚本清单与实际不符",
+        "severity": "中",
+        "items": [
+          {
+            "inventory": "wiki/技术配置/脚本清单.md",
+            "missing_count": 25,
+            "missing": [
+              "adapter-douyin.py",
+              "adapter-visitors.py",
+              "adapter-xiaohongshu.py",
+              "add_yaml_frontmatter.py",
+              "archive_case.py",
+              "cdp_tab_manager.py",
+              "competitor_keyword.py",
+              "content_intel.py",
+              "cookie_health_check.py",
+              "daily_recap_deliver.py",
+              "douyin_keyword_detail.py",
+              "lingxi_keepalive.py",
+              "m3_usage_alert.py",
+              "ontology_constants.py",
+              "ontology_query.py",
+              "ontology_store.py",
+              "pattern_analysis.py",
+              "prompt_minify.py",
+              "seed_content_assets.py",
+              "send_daily_intel_20260615.py",
+              "send_daily_intel_20260618.py",
+              "send_daily_tourism_report.py",
+              "send_intel_20260618.py",
+              "weekly_visitor_report.py",
+              "xhs_daily_collector.py"
+            ],
+            "type": "scripts_not_in_inventory"
+          },
+          {
+            "inventory": "wiki/技术配置/脚本清单.md",
+            "stale_count": 3,
+            "stale": [
+              "competitor_keyword_v8.py",
+              "init_chrome_tabs.py",
+              "xiaohongshu.py"
+            ],
+            "type": "stale_references_in_inventory"
+          },
+          {
+            "inventory": "wiki/entities/scripts/README.md",
+            "missing_count": 25,
+            "missing": [
+              "adapter-douyin.py",
+              "adapter-visitors.py",
+              "adapter-xiaohongshu.py",
+              "add_yaml_frontmatter.py",
+              "archive_case.py",
+              "cdp_tab_manager.py",
+              "competitor_keyword.py",
+              "content_intel.py",
+              "cookie_health_check.py",
+              "daily_recap_deliver.py",
+              "douyin_keyword_detail.py",
+              "lingxi_keepalive.py",
+              "m3_usage_alert.py",
+              "ontology_constants.py",
+              "ontology_query.py",
+              "ontology_store.py",
+              "pattern_analysis.py",
+              "prompt_minify.py",
+              "seed_content_assets.py",
+              "send_daily_intel_20260615.py",
+              "send_daily_intel_20260618.py",
+              "send_daily_tourism_report.py",
+              "send_intel_20260618.py",
+              "weekly_visitor_report.py",
+              "xhs_daily_collector.py"
+            ],
+            "type": "scripts_not_in_inventory"
+          },
+          {
+            "inventory": "wiki/entities/scripts/README.md",
+            "stale_count": 2,
+            "stale": [
+              "competitor_keyword_v8.py",
+              "init_chrome_tabs.py"
+            ],
+            "type": "stale_references_in_inventory"
+          }
+        ]
+      },
+      {
+        "category": "raw/目录状态异常",
+        "severity": "低",
+        "items": [
+          "raw/景区运营/2026-04-14-电影小镇基础信息.md",
+          "raw/竞品数据/2026-04-14-清明上河园搜索指数暴涨.md",
+          "raw/运营记录/2023-2025年门票销售及客流统计数据表.md",
+          "raw/运营记录/2023-2025年门票销售及客流统计数据表.xlsx"
+        ]
+      }
+    ],
+    "total_drifts": 20,
+    "status": "has_drifts"
+  },
+  "owner": "W29 周度巡检 (cron a2d54264)",
+  "next_action": "W30 跟进：URL 漂移非紧急；orphan 文件待补 frontmatter；contradiction 在结论索引里检查"
 }
