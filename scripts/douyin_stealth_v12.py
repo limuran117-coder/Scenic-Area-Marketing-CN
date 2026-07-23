@@ -1,6 +1,8 @@
 #!/opt/homebrew/bin/python3.12
 """
-抖音指数数据采集脚本 v12 (stealth 增强版)
+抖音指数数据采集脚本 douyin_stealth_v12 (双轨版)
+- 与 v11 并行存在，与 v12 在同一目录下
+- 专为 stealth 优化，不降级
 - v11 + playwright_stealth 防反爬升级预防
 - 不依赖 steath 则优雅降级为 v11 行为
 - W30 spike 验证通过 (stealth.apply_stealth_async 后 navigator.webdriver=False)
