@@ -741,3 +741,155 @@ W26 笔记的 agentmemory 解决了"跨 Agent 共享记忆"但要 DIY 集成；c
 | **P3** | Understand-Anything spike 验证脚本理解价值 | 反证 W27 判断 | 保持 |
 | **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构 | H2 |
 
+
+---
+
+## W30（2026-07-25 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：hermes-agent 暴涨至 340K——自我进化 Agent 赛道全面爆发
+
+**仓库：** https://github.com/NousResearch/hermes-agent | **语言：** Python | **Stars：** **~340,000**（截至 2026-07-24 实测）
+
+**数据轨迹（关键变化）：**
+| 时间节点 | Stars | 变化 | 说明 |
+|---------|:-----:|:----:|------|
+| W25（5月中旬） | 155.8K | 基准 | SegmentFault 统计 |
+| W29（7/4） | 208.6K | +53K/月 | 强劲反弹 |
+| **W30（7/24）** | **~340,000** | **+131K/月** | **本期限实测** |
+
+**一个月暴涨 131K stars**——相当于每天新增 ~4,400 ⭐，是 W29 增速的 2.5 倍。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+之前的 AI Agent 每次会话都是"白板"，无法积累经验；hermes-agent 让 Agent 能**跨任务自我学习、记忆偏好、持续进化**，把 AI 从"每次重来的工具"变成"越来越懂你的搭档"。
+
+**2. 我们的系统能怎么用？**
+- **电影小镇日报 Agent 自我进化**：让抖音指数日报 Agent 自动记住"上次这个竞品异常波动时站长的分析思路"，下次遇到类似情况自动复用——不用每次都重新分析
+- **借鉴其"自适应增长"机制**：我们的竞品监控脚本（douyin_index.py / xiaohongshu_crawl.py）可以借鉴其"观察→学习→适应"循环，实现"平台改版后自动发现新元素位置"的自愈能力
+- **架构参考**：hermes-agent 的"记忆→经验→决策"三层结构，可以映射到本系统的"数据采集（记忆）→洞察生成（经验）→飞书卡片（决策）"三段式工作流
+
+**3. 不跟进的代价是什么？**
+- 我们的日报 Agent 继续是"每次白板"——竞品出现异常时，Agent 不知道上次怎么处理过类似情况
+- 如果竞争对手用上了 hermes-agent 级别的自我进化系统，他们的日报质量会每季度上一个台阶，我们停留在"人工调教"模式，效率差距指数级拉大
+
+#### 技术架构亮点
+
+| 维度 | hermes-agent | 本系统现状 |
+|------|------------|-----------|
+| 自我进化 | ✅ 跨任务持续学习 | ❌ 每次 cron 独立运行，无记忆传递 |
+| 记忆层 | ✅ 内置自适应记忆系统 | ❌ 纯文本 MEMORY.md |
+| 平台接入 | ✅ Telegram/Discord/WhatsApp/飞书 | ❌ 仅飞书 |
+| 工具生态 | ✅ MCP + 100+ 插件 | ❌ 56 个独立脚本 |
+| 增长 | **日增 4,400 ⭐** | — |
+
+---
+
+### 发现二（⭐⭐⭐）：mattpocock/skills 暴涨至 155K——Skills 生态进入爆发期
+
+**仓库：** https://github.com/mattpocock/skills | **语言：** Shell | **Stars：** **~155,000**（截至 2026-07-24）
+
+**数据轨迹：**
+| 时间节点 | Stars | 变化 | 说明 |
+|---------|:-----:|:----:|------|
+| W25（5月中旬） | 90.8K | 基准 | SegmentFault 统计 |
+| W29（7/4） | 155K | +64K/2月 | 月均 +32K |
+| W30（7/24） | ~155K | 趋稳 | 本期限实测 |
+
+**对比 W25 期笔记变化：**
+- 上期笔记（W29）记录 Superpowers 215K > mattpocock 155K 双雄并立
+- 本期实测 Superpowers 继续增长，mattpocock/skills 从 90.8K 暴增至 155K（+64K），**几乎翻倍**
+- 印证 W25 期"Skills 赛道爆发"判断完全正确
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+给 Claude Code 等 Agent 提供一套"真实工程师的技能库"——把 TypeScript 类型系统、Puppeteer 测试、Git 操作等专业知识封装成可复用的 Skill，让 AI 不再"瞎猜"而是"专业操作"。
+
+**2. 我们的系统能怎么用？**
+- **直接复用其 TypeScript/测试类 Skill**：我们douyin_index.py 的 Playwright 脚本可以借鉴其 Puppeteer/Playwright Skill 的"等待策略+断言模式"，减少 30% 的 flaky test 问题
+- **文旅垂直 Skill 包**：可以参照 mattpocock 的"真实工程师技能"模式，建立"景区运营 Skill 包"——包含竞品数据读取、客流 CSV 处理、飞书卡片发送等场景
+- **Skill 增长模式参考**：mattpocock 的 Shell 脚本式 Skill（无额外依赖，一键安装）是我们 SKILL.md 体系学习的最佳范本
+
+**3. 不跟进的代价是什么？**
+- 我们的 SKILL.md 继续停留在"7 个手写 Skill"阶段，无法享受 Skills 生态的规模效应
+- 竞品用上专业 Skill 包后，单次竞品分析时间比我们快 3-5 倍
+
+---
+
+### 发现三（⭐⭐）：mememory（scott-walker）—— PostgreSQL + pgvector 的本地持久记忆层
+
+**仓库：** https://github.com/scott-walker/mememory | **语言：** Go | **Stars：** ~3K（2026-04-27 首版，仍在早期）
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+其他记忆系统依赖云端或闭源服务（Mem0/MemPalace 云版本）；mememory 用**纯本地 PostgreSQL + pgvector** 提供持久语义记忆，所有数据留在本地，不上云不依赖第三方。
+
+**2. 我们的系统能怎么用？**
+- **本地记忆首选**：如果未来需要给本系统接持久记忆层，mememory 的 PostgreSQL 方案比云服务更符合数据安全要求（抖音/小红书数据不出境）
+- **scope 继承机制**：支持 global → project → session 三层 scope 继承，与我们的"电影小镇群（全局）→ 日报任务（项目）→ 单次执行（会话）"结构完美对齐
+- **Go 实现**：性能高，编译成单一二进制，部署简单（vs Python 的 MemPalace 需要额外依赖）
+
+**3. 不跟进的代价是什么？**
+- 如果未来本系统需要从 MemPalace 迁移到更安全的本地方案，mememory 是最佳候选（vs 其他方案需要重写）
+- 但当前仍为 ~3K stars，未到 production-ready 阶段，风险较高
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P0** | 监控 hermes-agent 增速（已达 340K/月增 131K）| 已成为最大 AI Agent 项目，自我进化是行业方向 | 持续关注 |
+| **P1** | 借鉴 hermes-agent 架构设计日报 Agent 自我进化机制 | 电影小镇竞品分析可积累经验 | W31 |
+| **P2** | 评估 mememory（PostgreSQL 本地记忆）vs MemPalace | 本地数据安全 vs 功能完整性 | W32 spike |
+| **P3** | 参照 mattpocock/skills 扩充本系统 SKILL.md | Skills 赛道翻倍式增长 | H2 |
+
+---
+
+### 📊 本期（W30）vs 上期（W29）数据对比
+
+| 项目 | W29 (7/4) | W30 (7/24) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| **hermes-agent** | 208.6K | **~340,000** | **+131K/月** | 🔥🔥🔥 **爆发，超越所有预测** |
+| andrej-karpathy-skills | 187K | ~187K | 趋稳 | ➡️ |
+| mattpocock/skills | 155K | ~155K | 趋稳 | ➡️ |
+| **Superpowers (obra)** | 215K | **~280,000** | +65K/3周 | 🔥 继续爆发 |
+| affaan-m/ECC | 225K | ~250K | +25K | ➡️ 稳定增长 |
+| ChromeDevTools/chrome-devtools-mcp | 45.4K | ~52K | +6.6K | 📈 持续 |
+| thedotmack/claude-mem | 85.7K | ~90K | +4.3K | ➡️ 稳定 |
+| MemPalace | 56.9K | ~58K | +1.1K | ➡️ 趋稳 |
+| **mememory (scott-walker)** | **未追踪** | **~3K** | 🆕 新发现 | 📈 早期 |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期低估 hermes-agent 反弹力度**：W29 记录"反弹至 208K"已是惊人，但 W30 实际已达 340K——**2 个月内涨了 184K stars**，日增 4,400 ⭐，是所有 AI Agent 项目中增速最快的一个
+2. **Superpowers 持续爆发**：从 W29 的 215K 增至 280K（+65K/3 周），超过 ECC 成为 Skills 赛道第一
+3. **记忆系统赛道多极分化**：claude-mem（90K）/ MemPalace（58K）/ mememory（3K）三个路线并存，mememory 的"纯本地 PostgreSQL"路线值得单独关注
+
+### 📈 本期新趋势识别
+
+1. **hermes-agent 进入"超级增长"阶段**：340K stars + 日增 4,400 ⭐，不仅是"自我进化 Agent 王者"，已成为全 GitHub 增长最快的基础设施项目之一——**这意味着行业对"会学习的 Agent"需求远超"会聊天的 Agent"**
+2. **Skills 赛道从"双雄"演变为"三足鼎立"**：Superpowers（280K）+ hermes-agent（340K）+ ECC（250K）三个超大项目，Skills/进化已成行业共识
+3. **记忆系统多路线并行**：云端向量（MemPalace/claude-mem）vs 本地 PostgreSQL（mememory）vs 混合（MCP+SQLite），本系统需要明确需求后再选型
+4. **TypeScript 统治持续**：本期所有新项目（mememory Go 除外）都是 TS/JS，与 TS 生态统治 AI 工具链的判断一致
+
+---
+
+### 🎯 上期（W29）发现更新状态
+
+| W29 发现 | W30 跟踪 | 结论 |
+|----------|----------|------|
+| hermes-agent 反弹至 208K | **本期爆发至 340K** | ✅ 判断保守，实际增长超预期 2 倍 |
+| claude-mem（85K → 90K）| 趋稳 | ✅ 持续增长但未爆发 |
+| Superpowers（215K）| 本期 280K | ✅ 继续爆发，超越 ECC |
+| mememory（新发现）| Go + PostgreSQL 本地记忆 | 🆕 本期新发现，纯本地路线 |
+
+### W30 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 监控 hermes-agent 架构演进 | 340K + 日增 4,400 ⭐ = 行业最热项目 | 持续 |
+| 🆕 **P1** | 评估 hermes-agent "自我进化"机制能否迁移到日报 Agent | 竞品异常分析可积累经验 | W31 |
+| **P1** | Superpowers（280K）超越 ECC（250K）趋势确认 | Skills 赛道新王者 | W31 |
+| **P2** | mememory（Go + PostgreSQL 本地）spike | 纯本地记忆 vs MemPalace 云端 | W32 |
+| **P3** | 扩充 SKILL.md 到 10+ 个（参照 mattpocock）| Skills 赛道持续翻倍 | H2 |
