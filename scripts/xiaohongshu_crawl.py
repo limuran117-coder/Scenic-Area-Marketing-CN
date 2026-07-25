@@ -22,7 +22,7 @@ DEFAULT_CDP_PORT = 18800
 
 def parse_args():
     """解析命令行参数"""
-    keyword = sys.argv[1] if len(sys.argv) > 1 else "建业电影小镇"
+    keyword = sys.argv[1] if len(sys.argv) > 1 else "郑州电影小镇"  # 7/25 更名：建业→郑州
     cdp_port = int(sys.argv[2]) if len(sys.argv) > 2 else DEFAULT_CDP_PORT
     return keyword, cdp_port
 

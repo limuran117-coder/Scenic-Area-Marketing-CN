@@ -10,8 +10,11 @@
 备选(关键词搜索): https://creator.douyin.com/creator-micro/creator-count/arithmetic-index
 
 景区列表:
-1. 建业电影小镇  2. 万岁山武侠城  3. 清明上河园  4. 只有河南戏剧幻城
+1. 郑州电影小镇  2. 万岁山武侠城  3. 清明上河园  4. 只有河南戏剧幻城
 5. 郑州方特欢乐世界  6. 郑州海昌海洋公园  7. 郑州银基动物王国  8. 只有红楼梦戏剧幻城
+
+⚠️ 7/25 更名：建业电影小镇 → 郑州电影小镇。日常 cron 默认采「郑州电影小镇」；
+旧名「建业电影小镇」仅在历史指数比对时手动指定（--legacy-name）。
 
 输出: /tmp/crawl_data.json
 Cookie: /tmp/juLiang_cookies.json
@@ -41,7 +44,7 @@ OUTPUT = "/tmp/crawl_data.json"
 LOCK_PATH = "/tmp/douyin_crawl.lock"
 
 ALL_SPOTS = [
-    "建业电影小镇", "万岁山武侠城", "清明上河园", "只有河南戏剧幻城",
+    "郑州电影小镇", "万岁山武侠城", "清明上河园", "只有河南戏剧幻城",
     "郑州方特欢乐世界", "郑州海昌海洋公园", "郑州银基动物王国", "只有红楼梦戏剧幻城"
 ]
 

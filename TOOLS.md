@@ -399,3 +399,25 @@ openclaw skills check
 ### ⚠️ 已知 warning
 
 `feishu` plugin 在 `installed_plugin_index` 有 shared SQLite state conflict metadata，不影响使用（plugin 本身 enabled + 在用），但 `openclaw doctor` 会报 warning。**目前不修，等下次 plugin 升级时自动解决。**
+
+## 周度技能探索 #6（2026-07-25）
+
+**扫描范围：** 54个scripts + 58个系统skills + brew CLI
+**CLI就绪：** gh✅ curl✅ jq✅ ffmpeg✅
+
+| 工具 | 说明 | 上线前提 |
+|------|------|----------|
+| **node-connect** | OpenClaw Android/iOS/macOS 配对诊断+连接故障排查 | 需配对设备；当前无移动端集成需求 |
+| **gog** | Google Workspace CLI（Gmail/Calendar/Drive/Sheets/Docs）| 需 GCP 凭证；站长用的是飞书非 Google Workspace |
+
+**无高ROI新工具** — 本周扫描未发现值得立即试点的工具。
+
+**待触发条件：**
+- node-connect：未来需要手机配对或移动端集成时
+- gog：站长切换到 Google Workspace 时
+
+**上周期有效候选（保留）：**
+- nano-pdf ✅ 已装（2026-06-22）
+- model-usage：token 消耗显著增长时 | 触发安装
+- sag：站长说"配音"/"语音"时 | 需 ELEVENLABS_API_KEY
+
