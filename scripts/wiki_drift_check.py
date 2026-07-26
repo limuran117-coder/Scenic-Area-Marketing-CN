@@ -62,11 +62,12 @@ def generate_report():
     issues = []
     
     if lint:
+        summary = lint.get("summary", {})
         issues.append({
             "type": "lint_summary",
-            "total_issues": lint.get("issues_count", 0),
-            "orphan_count": sum(1 for i in lint["issues"] if i["type"] == "orphan"),
-            "contradiction_count": sum(1 for i in lint["issues"] if i["type"] == "contradiction"),
+            "total_issues": summary.get("lint_total", 0),
+            "orphan_count": summary.get("lint_orphan", 0),
+            "contradiction_count": summary.get("lint_contradictions", 0),
         })
     
     if missing:
