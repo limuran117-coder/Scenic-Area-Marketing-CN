@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-07-26T11:04:35.948597",
+  "timestamp": "2026-07-26T12:15:00.000000",
   "issues_count": 91,
   "issues": [
     {
@@ -565,5 +565,11 @@
       ],
       "suggestion": "年度目标在多个文件中存在，需确认最新值"
     }
+  ],
+  "health_check_date": "2026-07-26",
+  "auto_fixed": [
+    "Archived 6 W30 spike reports to 系统/archived-spike-reports/",
+    "Removed redundant CSV 2026游客量统计_20260629.csv (kept latest)",
+    "Confirmed 6 contradiction issues are false positives (all report 153万)"
   ]
 }
