@@ -56,6 +56,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **Ontology 进度**：Week 1-3 已完（v1.4.0 PipelineRun）；Phase 2 W4 启动
 **结论索引系统**：洞察任务前置读 `wiki/行业知识/结论索引.md`
 **漂移双跑**：每周一/三/五 cron（wiki_drift_check + project_drift_check）
+**SOP质量系统**：W30进化审视新增 SOP质量升级计划（wiki/技术配置/）；当前34个SOP，2个优先修复：防错机制补When字段 + 竞品分析SOP合并
 详细 → `memory/topics/ontology-progress.md`
 
 ---
