@@ -1,5 +1,5 @@
 # MEMORY.md - Long-Term Memory
-role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | update: 2026-07-26
+role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | update: 2026-07-26 W30
 
 ---
 
@@ -29,6 +29,9 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **【7/23 站长纠错】双 db 路径陷阱**：`scripts/ontology/ontology.db` ≠ `.profile/ontology/ontology_store.db`（生产db）；写修复脚本前必先确认 DB_PATH
 **【7/23 站长纠错】ontology_daily_work 强制收尾**：日志写入 wiki 后立即结束，不跑 verification/cross-check
 **【7/25 站长决策】景区更名**：建业电影小镇 → 郑州电影小镇（双轨采集，新名优先）；历史档案保留旧名
+**【7/23 重要教训】v9误判**：我说"movietown-ai-system-v9完整版不存在"是错的——该文件真实存在于Desktop，13天前生成，150KB/2481行。**所有"XX不存在/找不到"的判断，必须先查workspace全路径+Desktop，不能草率结论**
+**【7/23 spike结论】ego-lite**：装了app+v12 stealth脚本，但 ego-browser不能替代CDP18800（已登录采集场景不适配）；feishu-mcp-server与现有4件套冗余；PaddleOCR可用（PDF/PPT/图片中文识别）；crawl4ai默认headless不适合已登录dashboard
+**【7/23 v12 stealth】douyin_index.py v12**：stealth wrap在全局作用域调用，graceful degrade（无venv时回退v11）；原v11备份在`/tmp/wiki_remedy_20260723/`
 
 ---
 
@@ -58,6 +61,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **漂移双跑**：每周一/三/五 cron（wiki_drift_check + project_drift_check）
 **SOP质量系统**：W30进化审视新增 SOP质量升级计划（wiki/技术配置/）；当前34个SOP，2个优先修复：防错机制补When字段 + 竞品分析SOP合并
 详细 → `memory/topics/ontology-progress.md`
+**郑州电影小镇易主**（7/23 港交所公告）：建业30亿出售只有河南+电影小镇，国资（中信资本旗下信宸资本）90%控股，民企主导正式终结 → 运营策略需重新评估
 
 ---
 
@@ -76,11 +80,6 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 ---
 
 # 已结项
-DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突修复 | SOP路径漂移修复 | 洞察驱动prompt升级(6/12) | 系统瘦身+结论索引(6/13) | 6/22 方案A升级 | 6/24 cron时间表重排 | 7/2 Cookie健康+MEMORY压缩 | Ontology Week 1+2+3 | 7/23 双db路径修复 | 7/25 景区更名执行
+DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突修复 | SOP路径漂移修复 | 洞察驱动prompt升级(6/12) | 系统瘦身+结论索引(6/13) | 6/22 方案A升级 | 6/24 cron时间表重排 | 7/2 Cookie健康+MEMORY压缩 | Ontology Week 1+2+3 | 7/23 双db路径修复 | 7/25 景区更名执行 | W30 v9误判纠正+stealth集成+PaddleOCR | 7/26 MEMORY二次压缩+w30维护
 
 ---
-
-# 🗜️ 7/26 周维护压缩记录
-- MEMORY.md: 125行→99行 / 12KB→6KB
-- hermes-agent 研究 → `memory/topics/github-research-20260725.md`
-- 更名铁律细节压缩（原12行→精简版）
