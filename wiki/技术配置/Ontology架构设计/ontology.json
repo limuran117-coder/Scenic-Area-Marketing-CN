@@ -1,21 +1,22 @@
 {
   "schema": "电影小镇-Ontology-v1",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "createdAt": "2026-05-29",
-  "updatedAt": "2026-07-06T20:00:00+08:00",
+  "updatedAt": "2026-07-27T20:00:00+08:00",
   "authorityHierarchyVersion": "1.0",
   "description": "电影小镇运营决策系统的领域本体——对标 Palantir Ontology 架构",
   "weekCycle": {
-    "currentWeek": "Week 3",
-    "currentFocus": "数据接入管道设计（采集→映射→存储→治理→可观测）",
+    "currentWeek": "Week 4",
+    "currentFocus": "AI Agent × Ontology 集成方案（含 LLM Query Translator）",
     "completedPhases": [
       "Phase 1 schema 雏形",
       "Phase 2 prototype SQLite",
       "Week 6 原型跑通",
       "Week 1 Object Types + Link Types 完整定义",
-      "Week 2 Actions & Functions 标准化"
+      "Week 2 Actions & Functions 标准化",
+      "Week 3 数据接入管道设计"
     ],
-    "nextMilestone": "Week 4: AI Agent × Ontology 集成方案（含 LLM Query Translator）"
+    "nextMilestone": "Week 5: 实施 QueryHandler + LLM Translator + Schema注入脚本"
   },
   "idNamingConvention": {
     "description": "统一 ID 命名规范（解决 Week 6 发现的 only_henan/only_dream 同景区不同 ID 问题）",
@@ -3056,6 +3057,73 @@
       "triggerForRefactor": "当真实出现 cron 重入导致重复 run 时再升级",
       "addedAt": "2026-07-06",
       "addedByWeek": "Week 3"
+    },
+    "D-026": {
+      "id": "D-026",
+      "title": "Query Translator 采用 3-Stage LLM Chain",
+      "decision": "Query Translator 分3阶段（分类/提取/生成），避免单次 prompt 过长导致 schema 信息截断",
+      "rationale": "Stage 1 用 fast model 做意图分类；Stage 2 用主力 model 提取实体（需 ontology schema context）；Stage 3 用确定性规则 + 轻量 LLM 生成",
+      "alternatives": "单次 prompt（过长导致 schema 截断）/ 两阶段（缺少生成的可测试性）",
+      "implementation": "scripts/ontology/llm_translator.py 三个独立函数",
+      "references": [
+        "Week4_Agent集成.md §4.2"
+      ]
+    },
+    "D-027": {
+      "id": "D-027",
+      "title": "Query Translator 优先返回 Function Call 而非原始 SQL",
+      "decision": "QueryTranslator.translate() 输出优先返回 FunctionCall，次选 SQLQuery",
+      "rationale": "FunctionCall 有显式函数名 + 参数，Agent 更容易理解'查了什么'；SQL 是实现细节不应暴露给 Agent",
+      "alternatives": "直接暴露 SQL（Agent 无法理解语义）",
+      "implementation": "queryIntentToFunctionMap 映射表 + Fallback SQL 兜底",
+      "references": [
+        "Week4_Agent集成.md §4.4"
+      ]
+    },
+    "D-028": {
+      "id": "D-028",
+      "title": "Query Translator Fail Gracefully 策略",
+      "decision": "翻译/执行失败的 fallback：无法分类→追问；实体提取失败→fuzzy match；执行失败→返回错误+建议",
+      "rationale": "不阻塞 Agent 对话；fuzzy match 降低用户输入精确度要求",
+      "alternatives": "失败直接报错（用户体验差）",
+      "implementation": "llm_translator.py 三个 fallback 分支",
+      "references": [
+        "Week4_Agent集成.md §4.5"
+      ]
+    },
+    "D-029": {
+      "id": "D-029",
+      "title": "Agent 所有写操作必须走 Action Dispatcher（禁止绕过）",
+      "decision": "所有 Agent 触发的写操作必须经 ActionDispatcher，不允许直接调用 send_feishu_card.py",
+      "rationale": "Action 是 Ontology 写操作的唯一治理点；绕过 = 失去 audit trail + validation + approval 控制",
+      "alternatives": "直接调用（失去治理）",
+      "implementation": "scripts/actions/dispatcher.py；过渡期保留 send_feishu_card.py 向后兼容",
+      "references": [
+        "Week4_Agent集成.md §6.3",
+        "Week2_Actions_Functions.md D-017"
+      ]
+    },
+    "D-030": {
+      "id": "D-030",
+      "title": "Session 启动仅注入约2KB Ontology Schema 摘要",
+      "decision": "Session 启动注入简化版 Object Types + Link Types + Function 列表，不注入完整 ontology.json",
+      "rationale": "Token 限制 + Schema 细节 Agent 用到时再查；完整注入 100KB+ 过于冗余",
+      "alternatives": "注入完整 ontology.json（token 浪费）/ 完全不注入（Agent 不知道可用对象）",
+      "implementation": "scripts/ontology/inject_schema.py；SOUL.md 追加 schema_summary",
+      "references": [
+        "Week4_Agent集成.md §5.2"
+      ]
+    },
+    "D-031": {
+      "id": "D-031",
+      "title": "QueryIntent → Function Call 确定性映射表",
+      "decision": "6种 QueryIntent 有确定性 Function 调用映射；无合适 Function 时 fallback 到 SQL",
+      "rationale": "QueryTranslator Stage 3 不需要每次都调用 LLM；确定性映射提高速度 + 降低 LLM 调用成本",
+      "alternatives": "全用 LLM 生成 SQL（每次调用 LLM，成本高）",
+      "implementation": "agentIntegration.queryIntentToFunctionMap；FALLBACK_SQL 字典",
+      "references": [
+        "Week4_Agent集成.md §8"
+      ]
     }
   },
   "adapterGovernance": {
@@ -3361,6 +3429,111 @@
         "retries": 0,
         "onFinalFailure": "log_only"
       }
+    }
+  },
+  "agentIntegration": {
+    "version": "1.0",
+    "addedAt": "2026-07-27",
+    "addedBy": "Week4_Agent集成.md",
+    "description": "AI Agent 与 Ontology Layer 的集成方案（Query Handler + LLM Query Translator + Agent Context Injection）",
+    "queryHandler": {
+      "description": "自然语言查询的统一入口",
+      "className": "AgentQueryHandler",
+      "location": "scripts/ontology/query_handler.py",
+      "methods": {
+        "ask(question: str) -> QueryResult": "主查询方法，3-stage LLM translation",
+        "get_context_for(ontology_object_id: str) -> dict": "获取特定对象的完整上下文",
+        "list_recent_alerts(days: int = 7) -> list[Alert]": "快速查询近期异常"
+      }
+    },
+    "llmQueryTranslator": {
+      "description": "3-Stage LLM Chain：将自然语言翻译为 Ontology 查询",
+      "stage1": {
+        "name": "QueryIntentClassification",
+        "model": "fast（mini/maxflash）",
+        "output": "QueryIntent enum (METRIC_RANKING/METRIC_TREND/CONTENT_ANALYSIS/COMPETITOR_BRIEF/ALERT_REVIEW/SEND_CARD/UPDATE_WIKI/CREATE_ALERT/INSIGHT_SUMMARY/UNKNOWN)"
+      },
+      "stage2": {
+        "name": "EntityExtraction",
+        "model": "主力 model（MiniMax-M2/M3）",
+        "prompt_includes": [
+          "ontology_schema_summary",
+          "scenic_spot_map",
+          "metric_type_list"
+        ],
+        "output": "ExtractedQuery(scenic_spot_ids, metric_types, date_range, comparators, filters)"
+      },
+      "stage3": {
+        "name": "QueryGeneration",
+        "model": "确定性规则 + 轻量 LLM",
+        "output": "FunctionCall | SQLQuery"
+      }
+    },
+    "queryIntentToFunctionMap": {
+      "METRIC_RANKING": {
+        "function": "aggregateWeeklyMetrics",
+        "ref": "F-011"
+      },
+      "METRIC_TREND": {
+        "function": "calculateSearchTrend",
+        "ref": "F-001"
+      },
+      "CONTENT_ANALYSIS": {
+        "function": "enrichContentAsset",
+        "ref": "F-010"
+      },
+      "COMPETITOR_BRIEF": {
+        "function": "competitiveAlert",
+        "ref": "F-006"
+      },
+      "ALERT_REVIEW": {
+        "function": "detectAnomaly",
+        "ref": "F-009"
+      },
+      "INSIGHT_SUMMARY": {
+        "function": "generateDailyInsight",
+        "ref": "F-008"
+      }
+    },
+    "contextInjection": {
+      "session_startup": {
+        "description": "Session 启动时注入简化 Schema（约2KB）",
+        "location": "SOUL.md / AGENTS.md 末尾追加",
+        "size_limit_bytes": 2048,
+        "content_type": "简化 Object Types + Link Types + Function 列表（不含详细 property 定义）"
+      },
+      "query_time": {
+        "description": "查询结果内联返回（structured + 自然语言 answer）",
+        "structured_format": "FunctionCall 返回值 + query_metadata"
+      },
+      "decision_time": {
+        "description": "Agent 决策前主动拉取相关 DecisionRule + Action History",
+        "trigger": "Agent 说'要调整策略'/'要设置告警'时"
+      }
+    },
+    "actionIntegration": {
+      "description": "Agent Write Path：所有写操作走 Action Dispatcher",
+      "dispatcher_class": "ActionDispatcher",
+      "location": "scripts/actions/dispatcher.py",
+      "action_by_category": {
+        "LOW_STAKES": [
+          "SendFeishuCard",
+          "UpdateWiki",
+          "ScheduleOntologyResearch"
+        ],
+        "MEDIUM_STAKES": [
+          "CreateAlert",
+          "AdjustStrategy"
+        ],
+        "HIGH_STAKES": [
+          "UpdateDecisionRule",
+          "OverrideRule"
+        ]
+      },
+      "forbidden_paths": [
+        "直接调用 send_feishu_card.py（必须经 ActionDispatcher）",
+        "直接写 wiki 文件（必须经 UpdateWiki Action）"
+      ]
     }
   }
 }
