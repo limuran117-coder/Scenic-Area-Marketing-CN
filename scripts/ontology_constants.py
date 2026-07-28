@@ -149,3 +149,48 @@ if __name__ == "__main__":
     print(f"id 'movie_town' → {resolve_spot_name('movie_town')}")
     print(f"confidence('douyin') = {get_confidence('douyin')}")
     print(f"DB_PATH: {DB_PATH}")
+
+# ─── 实体类型枚举（D-058 补充）────────────────────
+# 对应 ontology_store.py ScenicSpot / MetricSnapshot / ContentAsset / Event 对象
+
+ENTITY_TYPES = {
+    "scenic_spot": "景区（核心实体）",
+    "metric_snapshot": "指标快照",
+    "content_asset": "内容资产",
+    "event": "事件",
+    "competitor": "竞品景区",  # [D-058] 兼容旧 adapter 硬编码
+}
+
+# ─── 关系类型枚举（D-058 补充）────────────────────
+# 对应 ontology_store.py object_links 表 relation_type 列
+
+RELATIONSHIP_TYPES = {
+    "nearby": "邻近关系",
+    "similar_to": "相似竞品",
+    "belongs_to": "归属关系",
+    "derives_from": "衍生来源",
+    "competes_with": "竞争关系",
+    "partners_with": "合作联动",
+}
+
+# ─── 状态枚举（D-058 补充）────────────────────────
+# 通用对象状态 + 数据采集状态
+
+STATUS_ONTOLOGY = {
+    "active": "活跃",
+    "inactive": "非活跃",
+    "archived": "已归档",
+}
+
+STATUS_COLLECTION = {
+    "pending": "待采集",
+    "crawling": "采集中",
+    "crawled": "已采集",
+    "failed": "采集失败",
+}
+
+STATUS_QUALITY = {
+    "verified": "已验证",
+    "unverified": "未验证",
+    "stale": "数据过期",
+}
