@@ -28,6 +28,10 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **【7/13 站长纠错】事实核查铁律**：wiki/SOP/票务系统里没记录的内容视为伪事实，必须先 read 知识库验证
 **【7/23 站长纠错】双 db 路径陷阱**：`scripts/ontology/ontology.db` ≠ `.profile/ontology/ontology_store.db`（生产db）；写修复脚本前必先确认 DB_PATH
 **【7/23 站长纠错】ontology_daily_work 强制收尾**：日志写入 wiki 后立即结束，不跑 verification/cross-check
+**【7/29 站长纠错】禁止发卡自检循环**：每个 isolated session 全程最多发 1 张卡片到电影小镇群；飞书 API code=0 即视为成功，**禁止看 response.content 再判断**；禁止任何 layout A/B test 刷屏
+  - 7/28 19:37 实证事故：竞品关键词深度分析 isolated session 03fb2625 飞书 API 返回老格式占位图，agent 自检循环发了 17 张「Test 1-5/测试/调试/Split/Full E5」+ 2 张原版重渡沟 + 1 张续图 = 20 张刷屏
+  - 防错：cron 9bf47f42 prompt 已加【发卡铁律】硬约束（每个 session 最多 1 张 + code=0 即视为成功 + 禁止 test/debug 字样）
+  - 监控：cron 7ae9127b 飞书发消息审计（每天 23:55 扫群消息，异常推 ou_f308d672 私聊）
 **【7/25 站长决策】景区更名**：建业电影小镇 → 郑州电影小镇（双轨采集，新名优先）；历史档案保留旧名
 **【7/23 重要教训】v9误判**：我说"movietown-ai-system-v9完整版不存在"是错的——该文件真实存在于Desktop，13天前生成，150KB/2481行。**所有"XX不存在/找不到"的判断，必须先查workspace全路径+Desktop，不能草率结论**
 **【7/23 spike结论】ego-lite**：装了app+v12 stealth脚本，但 ego-browser不能替代CDP18800（已登录采集场景不适配）；feishu-mcp-server与现有4件套冗余；PaddleOCR可用（PDF/PPT/图片中文识别）；crawl4ai默认headless不适合已登录dashboard
