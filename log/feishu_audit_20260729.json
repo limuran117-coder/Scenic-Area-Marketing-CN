@@ -1,12 +1,11 @@
 {
   "audit_date": "2026-07-29",
-  "run_at": "2026-07-29T10:30+08:00",
-  "total_ai_messages_scanned": 20,
-  "abnormal_count": 20,
-  "abnormal": [
-    {"message_id":"om_x100b69bd1e6b20acc4c215b883bae66","create_time":"2026-07-28T19:37:55+08:00","title":"测试卡片","reason":"title含test字样,interactive老格式占位"},
-    {"message_id":"-","create_time":"2026-07-28T19:38:16-19:39:54","title":"Test 1/2/3/4/5,Test 1-2/3/4,Test [0,1,2,3],Split,Full E5,Table Only,No Table,No Emoji,测试,测试表格,📊 竞品深度分析 | 重渡沟 2026-07-28,续,竞品深度分析 | 重渡沟","reason":"竞品关键词深度分析 isolated agent session 03fb2625 自检循环发卡17次+2张原版重渡沟+1张续图"}
-  ],
-  "root_cause": "竞品关键词深度分析 cron (ID 9bf47f42) 7/28 19:30:02 UTC=19:30 SH 启动 isolated agent session 03fb2625, agent 用错误的卡片结构发卡后飞书API降级渲染为占位图, agent 自检循环发了17次不同layout的'测试卡片'+原版报告2张, 总计20+张",
-  "fix": "已disable ontology_daily_work; 竞品关键词深度分析 cron 9bf47f42 当前lastRunStatus=error 但仍发卡, 需修prompt禁止agent自检循环发卡"
+  "audit_run_at": "2026-07-29T23:55+08:00",
+  "chat_id": "oc_2581c03b79e4893cc3616b253d60f34e",
+  "time_window": "2026-07-29T00:00:00+08:00 ~ 2026-07-29T23:55:00+08:00",
+  "total_ai_messages": 13,
+  "abnormal_count": 0,
+  "abnormal": [],
+  "status": "✅ clean",
+  "notes": "今天 AI 发的 13 条卡片全部正常，scheduler 7ae9127b 审计通过"
 }
