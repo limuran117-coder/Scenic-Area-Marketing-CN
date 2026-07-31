@@ -893,3 +893,151 @@ W26 笔记的 agentmemory 解决了"跨 Agent 共享记忆"但要 DIY 集成；c
 | **P1** | Superpowers（280K）超越 ECC（250K）趋势确认 | Skills 赛道新王者 | W31 |
 | **P2** | mememory（Go + PostgreSQL 本地）spike | 纯本地记忆 vs MemPalace 云端 | W32 |
 | **P3** | 扩充 SKILL.md 到 10+ 个（参照 mattpocock）| Skills 赛道持续翻倍 | H2 |
+
+---
+
+## W31（2026-08-01 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐）：addyosmani/agent-skills — Google 工程总监发布的"AI 工程纪律"框架（26-27K stars，日增 405⭐）
+
+**仓库：** https://github.com/addyosmani/agent-skills
+**作者：** Addy Osmani（Google Cloud AI 工程总监）
+**语言：** Markdown（Skill 定义）+ TypeScript（插件）| **License：** MIT
+**最新更新：** 2026-05-28（持续维护，201 commits）
+**Stars：** ~26,000-27,000（5/24: 26K+ → 7/4: 27K+，日增 405⭐）| Forks: 2,200+
+**定位：** "Production-grade engineering skills for AI coding agents" — 把 Google 内部严苛的工程规范编码成 AI Agent 可执行的 Skill 工作流
+
+#### 核心洞察
+
+**Skill 不是文档，是工作流定义。** 这是 agent-skills 与其他 Skills 项目的本质区别：
+- 传统 Skills（如 mattpocock/skills）是"给 AI 读的参考手册"
+- agent-skills 是"给 AI 执行的强制纪律护栏"——先写规格再写代码、测试即证明、禁止绕过质量门
+
+**三步路由机制：**
+1. `meta-skill` 分析任务类型（学会判断"这是什么任务"）
+2. 选择合适的 `skill`（如 `writing-tests`、`security-review`、`performance-profiling`）
+3. 执行并通过 `quality gate`（质量门：测试覆盖率/类型检查/Lint 通过才放行）
+
+**7 个 slash commands**：`/test` `/review` `/spec` `/perf` `/security` `/debug` `/measure`
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 倾向于走"最短路径"——跳过规格、跳过测试、直接生成"能跑就行"的玩具代码。agent-skills 把 Google 工程师的工程纪律（先写规格再写代码、测试即证明、安全审查）编码成强制执行的质量门，**让 AI 从"能跑"进化到"可合并 PR"**。
+
+**2. 我们的系统能怎么用？**
+- **直接对位本系统 SKILL.md 痛点**：我们现在的 SKILL.md 是"给人读的 Markdown"，AI 执行时不一定遵守。agent-skills 的 frontmatter + quality gate 模式可以让我们的"文旅日报 Skill"从"建议"变成"强制流程"
+- **参考其 Skill 文件结构**：
+  ```yaml
+  ---
+  name: writing-tests
+  description: Ensures AI writes tests BEFORE code
+  trigger: "writing code without tests"
+  quality_gate:
+    - "test file exists"
+    - "test coverage > 80%"
+  ---
+  ```
+- **引入"质量门"到日报流程**：生成报告前自动检查"数据完整性（tail -5）+ 格式校验（schema 2.0）+ 来源标注"——不符合则自动修正后再发布
+- **斜杠命令模式**：可借鉴到飞书日报的 `/report` `/competitor` `/客流` 等指令
+
+**3. 不跟进的代价是什么？**
+- 日报质量完全依赖 AI 自觉，无法自动化校验——格式漂移、数据缺失只能等站长人肉发现
+- 如果竞品用上了 agent-skills 级别的工程纪律系统，他们的报告产出质量稳定性远超我们
+
+---
+
+### 发现二（⭐⭐⭐）：anthropics/financial-services — 垂直领域 Agent Skill 包的商业化范本（10.5K stars，日增 145⭐）
+
+**仓库：** https://github.com/anthropics/financial-services
+**Stars：** ~10,478（5/7 数据，日增 145⭐）| Forks: 1,374 | **Anthropic 官方**
+**定位：** 金融服务行业垂直 Agent 工作流套件——覆盖投行、PE、财富管理，提供预构建代理（Pitch Agent、Model Builder、DD Checklist）+ 可复用 Skill（DCF、LBO、Comps）+ MCP 数据连接器
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+把"领域知识"变成"可执行的 Agent Skill"——金融分析师不用学 AI，AI 直接学会分析师的工作流（建模、写备忘录、KYC、LP 报表），**填补了"通用 AI 不懂专业领域"的空白**。
+
+**2. 我们的系统能怎么用？**
+- **直接参考其 Skill 包结构**：一个垂直行业的 Skill 包 = 预构建 Agent（可拆解的工作流）+ 领域 Skill（可复用的子任务）+ 数据连接器（MCP）
+- **可迁移到文旅场景**：如果我们做"景区运营 Skill 包"：
+  - Agent：`景区日报 Agent`、`竞品分析 Agent`、`客流预测 Agent`
+  - Skill：`YTD 计算`、`同比分析`、`抖音指数解读`
+  - Connector：`抖音 API`、`飞书卡片发送`、`客流 CSV 读取`
+- **商业化路径验证**：financial-services 10.5K stars 说明"垂直行业 Agent Skill 包"有真实需求，本系统积累的文旅运营经验可以封装成类似产品
+
+**3. 不跟进的代价是什么？**
+- 本系统的"文旅运营经验"继续停留在站长脑子里，无法复用、无法规模化
+- 竞品做出景区版 financial-services 后，可以快速铺到其他景区，我们的先发优势消失
+
+---
+
+### 发现三（⭐⭐）：kvcache-ai/AgentENV — 分布式 Agent 环境运行平台（928 stars，Rust）
+
+**仓库：** https://github.com/kvcache-ai/AgentENV
+**Stars：** 928（7/23 首版，1 周内）| **语言：** Rust
+**定位：** 分布式 Agent 环境运行平台，可在大规模场景下执行智能体任务
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+单一 Agent 环境无法支撑大规模并行任务（100+ 景区同时监控、实时数据采集）；AgentENV 提供**分布式任务调度 + 环境隔离**，让多个 Agent 实例并行运行不打架。
+
+**2. 我们的系统能怎么用？**
+- **当前不需要**：本系统 32 个 cron 任务是串行调度，不需要分布式
+- **远期参考**：如果未来要支持"多景区同时并行采集"（如同时监控 10 个竞品 × 5 个平台），AgentENV 的架构值得参考
+- **Rust 实现参考**：其环境隔离设计可用于"采集脚本沙箱化"——防止某个平台登录态失效影响其他采集任务
+
+**3. 不跟进的代价是什么？**
+- 当前无影响（串行 cron 完全够用）
+- 未来扩展到多景区并行时需要重新选型
+
+---
+
+### 📊 本期（W31）vs 上期（W30）数据对比
+
+| 项目 | W30 (7/24) | W31 (8/1) | 变化 | 趋势 |
+|------|:----------:|:---------:|:----:|:----:|
+| hermes-agent | ~340,000 | 官方进入维护模式 | ⚠️ | 进入平台期/维护 |
+| Superpowers (obra) | ~280,000 | 持续增长 | +缓慢 | ➡️ |
+| affaan-m/ECC | ~250,000 | 趋稳 | +缓慢 | ➡️ |
+| mattpocock/skills | ~155,000 | 趋稳 | ~0 | ➡️ |
+| andrej-karpathy-skills | ~187,000 | 趋稳 | ~0 | ➡️ |
+| ChromeDevTools/chrome-devtools-mcp | ~52,000 | 持续增长 | +缓慢 | 📈 |
+| thedotmack/claude-mem | ~90,000 | 趋稳 | ~0 | ➡️ |
+| **addyosmani/agent-skills** | **未追踪** | **~26-27K** | 🆕 | 📈 **日增 405⭐，高速** |
+| **anthropics/financial-services** | **未追踪** | **~10.5K** | 🆕 | 📈 **日增 145⭐** |
+| MemPalace | ~58,000 | 趋稳 | ~0 | ➡️ |
+| **kvcache-ai/AgentENV** | **未追踪** | **928** | 🆕 | 📈 **新项目，Rust 分布式** |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **hermes-agent 进入维护模式**：多个 W31 文章显示 Hermes 已放缓，hermes-agent 340K 可能是近期峰值，未来增长将趋缓
+2. **Skills 赛道新分化**：不再只是"数量竞争"，而是"质量门竞争"——agent-skills 的 quality gate 理念比纯 Skill 数量更有价值
+3. **垂直行业 Skill 包验证**：anthropics/financial-services 证实"垂直领域 Agent Skill 包"有真实市场需求，本系统文旅 Skill 包方向正确
+
+### 📈 本期新趋势识别
+
+1. **Skills 进入"工程纪律"时代**：agent-skills（Google 工程总监背书）把 Skills 从"提示词合集"升级为"带质量门的强制工作流"，是 Skills 3.0 的标志性事件
+2. **垂直行业 Skill 包商业化验证**：financial-services 10.5K stars + 日增 145⭐ 证明垂直行业 Agent Skill 包有真实付费意愿，本系统文旅 Skill 包可以参考其商业模式
+3. **hermes-agent 增长触顶**：进入维护模式意味着自我进化 Agent 的"第一波浪潮"结束，行业关注点从"能不能学习"转向"学得专不专业"
+4. **Rust 在 Agent 基础设施层渗透**：AgentENV（Rust 分布式平台）+ chrome-devtools-mcp（TypeScript MCP）并存，说明 Agent 底层语言选择取决于场景——基础设施选 Rust（性能），工具层选 TypeScript（生态）
+
+### 🎯 上期（W30）发现更新状态
+
+| W30 发现 | W31 跟踪 | 结论 |
+|----------|----------|------|
+| hermes-agent 爆发至 340K | **进入维护模式** | ⚠️ 增长触顶，行业重心转移 |
+| Superpowers（280K）| 持续增长 | ✅ 继续稳定 |
+| mememory（PostgreSQL 本地记忆）| 未获新数据 | ⏸ 保持 P3 |
+
+### W31 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 升级 SKILL.md 引入"质量门"机制（参照 agent-skills quality_gate）| agent-skills 已成为 Skills 3.0 事实标准 | W31 |
+| 🆕 **P1** | 整理本系统"文旅日报 Skill 包"结构（Agent + Skill + Connector）| financial-services 商业化验证了垂直 Skill 包方向 | W32 |
+| **P1** | 评估 hermes-agent 进入维护模式后对我们"自我进化"路线的影响 | 340K 峰值后路线需重新审视 | W32 |
+| **P2** | 调研 agent-skills 的 frontmatter 格式，看能否迁移到现有 SKILL.md | frontmatter 比纯 Markdown 更结构化 | H2 |
+| **P2** | 评估 anthropics/financial-services 的 Skill 包商业模式 | 为本系统文旅 Skill 包商业化做参考 | H2 |
+| **P3** | AgentENV 架构调研（多景区并行采集场景）| Rust 分布式架构适合大规模采集 | H2 |

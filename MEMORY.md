@@ -87,3 +87,10 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突修复 | SOP路径漂移修复 | 洞察驱动prompt升级(6/12) | 系统瘦身+结论索引(6/13) | 6/22 方案A升级 | 6/24 cron时间表重排 | 7/2 Cookie健康+MEMORY压缩 | Ontology Week 1+2+3 | 7/23 双db路径修复 | 7/25 景区更名执行 | W30 v9误判纠正+stealth集成+PaddleOCR | 7/26 MEMORY二次压缩+w30维护
 
 ---
+
+---
+**[W31 2026-08-01] GitHub高星标学习：Skills 3.0 — 质量门时代**
+- **项目名**：addyosmani/agent-skills（Google工程总监出品，26-27K stars，日增405⭐）
+- **它解决了什么**：AI写代码走"最短路径"跳测试跳规格，agent-skills把Google工程纪律编码成强制quality gate（测试覆盖率/类型检查/Lint通过才放行），让AI从"能跑"进化到"可合并PR"
+- **我们怎么用**：升级SKILL.md引入frontmatter+quality gate——日报发布前自动校验"数据完整性+schema 2.0+来源标注"，不合格则自动修正后再发布
+- **不跟进的代价**：日报质量靠AI自觉，无自动化校验；竞品用quality gate后报告稳定性远超我们
