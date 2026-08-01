@@ -723,3 +723,4 @@ log更新完成
 
 **健康报告：** wiki/WIKI_HEALTH_REPORT_20260726.md
 ## [2026-07-29] 案例库更新 | 🎯产品金融化+实时互动装置：让消费行为变成可博弈的社交事件（青岛啤酒交易所端午破万客流）
+## [2026-08-01] Wiki漂移检查 | lint: 91 issues (34 stale + 56 orphan + 6矛盾), project_drift: 22 drifts | 脚本已跑,LLM跳过
