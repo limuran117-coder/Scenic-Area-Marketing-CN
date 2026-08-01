@@ -206,6 +206,29 @@
         "rain_days": 0
       },
       "ytd": 41137
+    },
+    {
+      "week": "W27_20260629",
+      "stats": {
+        "week_total_pax": 0,
+        "week_total_revenue": 0,
+        "avg_daily_pax": 0,
+        "wow_change_pct": 0,
+        "sk_ratio": 0,
+        "sk_total": 0,
+        "qd_total": 0,
+        "gate_in": 0,
+        "sjt_avg_occ": 0,
+        "sjt_sessions": 0
+      },
+      "weather_impact": {
+        "normal_avg": 0,
+        "rain_avg": 0,
+        "impact_pct": 0,
+        "normal_days": 4,
+        "rain_days": 0
+      },
+      "ytd": 41137
     }
   ],
   "insights": [
@@ -368,6 +391,16 @@
       "causal_analysis": "天气/节假日/临时活动/数据误差均可能，需交叉核实",
       "action": "核实 2026-06-04 是否有特殊事件（天气/节假日/竞品/内部活动），如有数据错误需更正 CSV",
       "archive_path": "concepts/异常日分析/2026-06-04.md"
+    },
+    {
+      "week": "W27_20260629",
+      "level": "P1",
+      "title": "散客占比跌破 70%（当前 0%）",
+      "data_fact": "本周散客 0 人（0%），渠道 0 人",
+      "business_meaning": "散客占比低于 70% 表明对渠道（旅行社/研学）依赖度过高，散客是利润更高、更稳定的客群",
+      "causal_analysis": "可能原因：①研学季结束 ②暑期散客还未启动 ③渠道正在补货",
+      "action": "关注下周一散客占比是否回升，若持续低于 70%，需启动散客专项营销",
+      "archive_path": "concepts/散客渠道结构.md"
     }
   ],
   "alerts": [],
