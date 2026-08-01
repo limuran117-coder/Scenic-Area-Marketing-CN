@@ -47,6 +47,9 @@ def validate_card(card):
         errors.append("检测到根级 elements，请改为 body.elements[]，否则渲染异常")
 
     for i, el in enumerate(elements or []):
+        if not isinstance(el, dict):
+            errors.append(f"第 {i+1} 个 element 不是 dict: {el!r}")
+            continue
         if el.get("tag") == "markdown":
             content = el.get("content", "")
             if "|--" in content and "景区" not in content and "搜索指数" not in content:
@@ -76,8 +79,12 @@ def get_token():
 def send_card(chat_id, card, skip_validation=False):
     if not skip_validation:
         print(f"📋 正在验证卡片格式（{len(card.get('body',{}).get('elements',[]))} 个元素）...")
-        validate_card(card)
+        ok = validate_card(card)
         print()
+        if not ok:
+            # Quality gate: errors 时拒绝发送
+            print("🚫 Quality gate 拦截：卡片格式有错误，已拒绝发送（用 --force 跳过）")
+            return {"code": -1, "msg": "aborted_by_quality_gate", "errors": "see above"}
 
     token = get_token()
     # 根据ID类型动态选择receive_id_type
