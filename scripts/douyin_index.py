@@ -48,6 +48,57 @@ ALL_SPOTS = [
     "郑州方特欢乐世界", "郑州海昌海洋公园", "郑州银基动物王国", "只有红楼梦戏剧幻城"
 ]
 
+# === Quality Gate 常量（W31 实装） ================================
+MIN_VALID_SPOTS = 6        # 8 景区里至少 6 个有数才算有效
+MAX_INDEX_VALUE = 10**9    # 1e9：搜索/综合指数上限（超过视为异常）
+REQUIRED_KEYS = {"name", "search", "synth"}
+
+
+def check_quality_gate(spots):
+    """质量门（3 道闸）：完整性 + 数值范围 + 结构合法性
+
+    返回 (ok: bool, report: str)
+      ok=True  → 可进入后续处理（生成卡片、发飞书）
+      ok=False → 采集数据不可靠，警告+返回 False
+    """
+    issues = []
+    warnings = []
+
+    # C. 结构合法性
+    valid_spots = []
+    for s in spots:
+        if not isinstance(s, dict):
+            warnings.append(f"格式错误：非 dict 项 {s!r}")
+            continue
+        missing = REQUIRED_KEYS - set(s.keys())
+        if missing:
+            warnings.append(f"格式错误：{s.get('name','?')} 缺键 {missing}")
+            continue
+        valid_spots.append(s)
+
+    # A. 完整性
+    with_data = sum(1 for s in valid_spots if s.get("search", 0) > 0 or s.get("synth", 0) > 0)
+    if with_data < MIN_VALID_SPOTS:
+        issues.append(f"完整性失败：仅 {with_data}/{len(valid_spots)} 景区有数据（要求 ≥{MIN_VALID_SPOTS}）")
+
+    # B. 数值范围
+    for s in valid_spots:
+        for key in ("search", "synth"):
+            v = s.get(key, 0)
+            if v < 0 or v > MAX_INDEX_VALUE:
+                warnings.append(f"数值超范围：{s.get('name','?')}.{key}={v}")
+
+    # 拼报告
+    parts = []
+    if issues:
+        parts.append("❌ 阻断：\n  " + "\n  ".join(issues))
+    if warnings:
+        parts.append("⚠️ 警告：\n  " + "\n  ".join(warnings))
+    if not parts:
+        parts.append(f"✅ 通过（{with_data}/{len(valid_spots)} 景区有效）")
+
+    return (len(issues) == 0), "\n".join(parts)
+
 
 def parse_subscription_text(page_text):
     """从「我的订阅」页面文本中解析所有景区数据"""
@@ -201,6 +252,15 @@ async def crawl():
             spots = parse_subscription_text(page_text)
             result["competitors"] = spots
 
+            # === Quality Gate（W31）: 完整性 + 数值范围 + 结构合法性 ===============
+            ok, gate_report = check_quality_gate(spots)
+            print("\n[Quality Gate]")
+            print(gate_report)
+            result["quality_gate"] = {"ok": ok, "report": gate_report}
+            if not ok:
+                print("[⚠️] 数据不可靠，仍保存原始数据供排查，但后续发卡应拦截")
+            # =====================================================================
+
             # 🖼️ 多模态截图（v11+）: 保存订阅页截图供日报M3分析
             screenshot_path = "/tmp/douyin_screenshot.png"
             try:
@@ -259,4 +319,8 @@ if __name__ == "__main__":
     if r and r.get("competitors"):
         success = sum(1 for s in r["competitors"] if s["search"] > 0)
         print(f"\n结果: {success}/{len(r['competitors'])} 景区数据有效")
+        # Quality Gate exit code: 不通过则退出 2（区别于采集失败 1）
+        if r.get("quality_gate", {}).get("ok") is False:
+            print("[🚪] Quality Gate 未通过，exit code=2")
+            sys.exit(2)
     sys.exit(0 if r and r.get("competitors") else 1)
