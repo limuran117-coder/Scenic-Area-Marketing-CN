@@ -15,15 +15,12 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **数据必须读实际值** | 搜索「建业电影小镇」禁「建业华谊兄弟」
 **洞察驱动** 所有分析任务必须先给结论再给数据，禁止只报数字
 
-**【6/30 站长纠错】收官/总结卡片前必做 2 项核对**：
+**【6/30 站长纠错】收官/总结卡片前必做 2 项核对**（Why: 6/30 H1 收官没看出 6/21=782 暴跌88%）：
   ① **CSV 末尾完整性** — 扫末日 N 列（≥3）是否为 0；为 0 → 标"暂态"，**不写"收官"**
   ② **节假日逐日曲线** — 暴涨/暴跌/断崖异常必须显式标注
-**Why:** 6/30 H1 收官把端午累计 11,513 当结论，没看出 6/21=782 暴跌88%
-**How:** 卡片生成前最后一步必跑 `tail -5` + 节假日逐日表两个 check
+  → How: 卡片生成前最后一步必跑 `tail -5` + 节假日逐日表两个 check
 
-**【7/2 站长纠错】客流分析必须用 4 年均值口径**：任何同比必须三轨（2024/2025/2026）同时输出，**禁止仅比 2025**
-**Why:** 2025 是异常大年（剔除2月后H1 -51.7%）
-**How:** 月度/季度/年报类必出 4 年×月份矩阵表 + 4年均值列
+**【7/2 站长纠错】客流分析必须用 4 年均值口径**：同比必须三轨（2024/2025/2026）同时输出，**禁止仅比 2025**（Why: 2025 是异常大年，剔除2月后H1 -51.7%）→ How: 月度/季度/年报类必出 4 年×月份矩阵表 + 4年均值列
 
 **【7/13 站长纠错】事实核查铁律**：wiki/SOP/票务系统里没记录的内容视为伪事实，必须先 read 知识库验证
 **【7/23 站长纠错】双 db 路径陷阱**：`scripts/ontology/ontology.db` ≠ `.profile/ontology/ontology_store.db`（生产db）；写修复脚本前必先确认 DB_PATH
@@ -75,70 +72,39 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 ---
 
 # 防错机制
-- 详细：`wiki/SOP/防错机制-2026-06-16.md`
-- 写入3步：搜索→交叉→标注来源 | 任务5步法：源→事实→脚本→检查→验证
-- ⚠️ wiki/ 大文件迁移 → 先 /tmp dry-run + 数据完整性核对
-- ⚠️ 覆盖前必 cp 备份
-- ⚠️ 结论索引.md 禁止 in-place 重写
+- 详细：`wiki/SOP/防错机制-2026-06-16.md` | 写入3步：搜索→交叉→标注来源 | 任务5步法：源→事实→脚本→检查→验证
+- ⚠️ wiki/ 大文件迁移 → 先 /tmp dry-run + 数据完整性核对 | ⚠️ 覆盖前必 cp 备份 | ⚠️ 结论索引.md 禁止 in-place 重写
 
 ---
 
 # 已结项
-DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突修复 | SOP路径漂移修复 | 洞察驱动prompt升级(6/12) | 系统瘦身+结论索引(6/13) | 6/22 方案A升级 | 6/24 cron时间表重排 | 7/2 Cookie健康+MEMORY压缩 | Ontology Week 1+2+3 | 7/23 双db路径修复 | 7/25 景区更名执行 | W30 v9误判纠正+stealth集成+PaddleOCR | 7/26 MEMORY二次压缩+w30维护
+DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突修复 | SOP路径漂移修复 | 6/12洞察驱动 | 6/13系统瘦身+结论索引 | 6/22方案A升级 | 6/24 cron时间表重排 | 7/2 Cookie健康+MEMORY压缩 | Ontology W1+2+3 | 7/23双db路径修复+stealth | 7/25景区更名执行 | 7/26 MEMORY二次压缩+w30维护
 
 ---
 
 ---
 **[W31 2026-08-01] GitHub高星标学习：Skills 3.0 — 质量门时代（已落地 24/24）**
-- **项目名**：addyosmani/agent-skills（Google工程总监出品，81K⭐ MIT，updatedAt=2026-08-01）
-- **它解决了什么**：AI写代码走"最短路径"跳测试跳规格，agent-skills把Google工程纪律编码成强制quality gate（测试覆盖率/类型检查/Lint通过才放行），让AI从"能跑"进化到"可合并PR"
-- **安装位置**：`~/.openclaw/skills/`（OpenClaw 系统级目录，24 个全装入）
-- **装法**：`npx skills add addyosmani/agent-skills -a openclaw -g -y --dangerously-accept-openclaw-risks`
-- **OpenClaw 状态**：全部 `ready` + `openclaw-managed` 标签（验证：`openclaw skills list` 见 24 行）
+- **项目名**：addyosmani/agent-skills（Google工程总监出品，81K⭐ MIT）
+- **它解决了什么**：AI写代码走"最短路径"跳测试跳规格，把Google工程纪律编码成强制quality gate，让AI从"能跑"进化到"可合并PR"
+- **安装位置**：`~/.openclaw/skills/`（24 个全装入），全部 `ready` + `openclaw-managed`
+- **验证**：`openclaw skills list | grep openclaw-managed` 应返 24 行
 
-**24 skill 触发矩阵（按场景分组）：**
+**24 skill 分组（完整触发表在 TOOLS.md）：**
 
-| 场景 | 优先 skill | 备注 |
-|------|-----------|------|
-| 新需求模糊/一句话任务 | `interview-me` | 一问一答到 95% 信心，**7/23 站长纠错"静默填洞"事故的对症药** |
-| 任务超 1 文件/感觉大 | `incremental-implementation` | 防一次性大改（agent-skills 元方法论） |
-| 写新代码/改脚本前 | `spec-driven-development` | spec 先行，禁止裸奔 |
-| cron 失败/采集异常 | `debugging-and-error-recovery` | 系统化根因，禁止猜 3 次（替代当前乱试模式） |
-| 改 cron 脚本提交前 | `code-review-and-quality` | 五维 review（correctness/readability/architecture/security/performance） |
-| 修 bug/改行为 | `test-driven-development` | 红绿重构强制，TDD 落地 |
-| 找"哪个 skill 适用当前任务" | `using-agent-skills` | 元 skill，路由到其他 skill |
-| 新项目/大改造 | `context-engineering` + `planning-and-task-breakdown` | 上下文+任务拆分 |
-| 想法还模糊 | `idea-refine` | 发散→收敛 |
-| 高风险决策（生产/不可逆） | `doubt-driven-development` | 对抗式 review，**验证比自信便宜** |
-| 设计 API/模块边界 | `api-and-interface-design` | 稳定接口 |
-| 改 web UI/前端 | `frontend-ui-engineering` | 生产级 UI |
-| Git 提交/打 tag/分支冲突 | `git-workflow-and-versioning` | semver/changelog |
-| 加日志/指标/追踪 | `observability-and-instrumentation` | 生产可见性 |
-| 性能慢/N+1 查询 | `performance-optimization` | profile 先于优化 |
-| 删旧系统/迁移用户 | `deprecation-and-migration` | sunset 流程 |
-| 写 ADR/记录决策 | `documentation-and-adrs` | 决策可追溯 |
-| 准备上线 | `shipping-and-launch` | 部署前 checklist |
-| 用第三方库/框架 | `source-driven-development` | 官方文档优先 |
-| CI/CD 配置 | `ci-cd-and-automation` | 质量门流水线 |
-| 安全/输入校验/认证 | `security-and-hardening` | 漏洞防护 |
-| 浏览器测试/DevTools MCP | `browser-testing-with-devtools` | 需 chrome-devtools MCP |
-| 代码太复杂想简化 | `code-simplification` | 行为不变下提升可读性 |
+| 组 | 主要 skill | 触发词 |
+|----|-----------|--------|
+| 🚨 应急 | `interview-me` `debugging-and-error-recovery` `doubt-driven-development` `idea-refine` | 模糊需求/cron失败/高风险/想法模糊 |
+| 🛠️ 编码 | `spec-driven-development` `test-driven-development` `code-review-and-quality` `incremental-implementation` `code-simplification` `source-driven-development` | 写新代码/改脚本/修bug/提交前 |
+| 🏗️ 架构 | `context-engineering` `planning-and-task-breakdown` `api-and-interface-design` `frontend-ui-engineering` `performance-optimization` `observability-and-instrumentation` `security-and-hardening` `documentation-and-adrs` `deprecation-and-migration` `git-workflow-and-versioning` | 新项目/API/UI/性能/安全/决策记录 |
+| 🚀 上线 | `shipping-and-launch` `ci-cd-and-automation` | 上线/CI |
+| 🌐 Web | `browser-testing-with-devtools` `frontend-ui-engineering` | 浏览器测试（需 MCP） |
+| 🔍 元 | `using-agent-skills` | 不确定哪个适用 → 自动路由 |
 
-**我们怎么用**：
-- 触发符合 description 时**自动激活**（agent-skills 设计如此）
-- 关键场景：日报发布前自动用 `code-review-and-quality` 五维 review schema 2.0 + 数据来源标注
-- **不跟进的代价**：日报质量靠AI自觉，无自动化校验；竞品用quality gate后报告稳定性远超我们
+**自动化**：触发符合 description 时自动激活。验证：`openclaw skills list | grep openclaw-managed` 应返 24 行。质量门：日报发布前可自动用 `code-review-and-quality` 五维 review。
+完整安装命令 / 场景触发表 → `TOOLS.md "Skill 3.0 触发矩阵"`段。
 
-**安装命令（重装/更新用）**：
-```bash
-# 重装全部 24 个
-npx skills add addyosmani/agent-skills -a openclaw -g -y --dangerously-accept-openclaw-risks
-
-# 卸指定 skill
-npx skills remove <name> -a openclaw -g
-
-# 验证安装
-openclaw skills list | grep openclaw-managed
-```
-
-**TOOLS.md 同步触发矩阵**：见 TOOLS.md "Skill 3.0 触发矩阵"段
+**【8/1 排查结果】周末市场观察 cron 偶发 exec 失败**：
+- 历史：12 次运行中 2 次 error（6/28 list_files 失败 + 8/1 exec 包装失败），均非脚本本身问题
+- 验证：8/1 10:58 force-run ✅ 成功 → quality gate 上线后无恶化
+- 结论：**已存在 6 周的偶发故障，不修**；failureAlert.after=2 已配，连失 2 次才推送
+- 升级条件：连续 2 个月内累计 ≥5 次失败或脚本本身有 bug 才介入
