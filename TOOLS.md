@@ -494,3 +494,21 @@ npx skills add addyosmani/agent-skills -a openclaw -g -y --dangerously-accept-op
 # 卸指定 skill
 npx skills remove <name> -a openclaw -g
 ```
+
+## 周度技能探索 #7（2026-08-01 周六）
+
+**扫描范围：** 53个scripts + brew CLI
+**CLI就绪：** gh✅ curl✅ jq✅ ffmpeg✅
+
+| 工具 | 说明 | 上线前提 |
+|------|------|----------|
+| **llmwiki** | 本地 wiki 知识库管理（lint/ingest/query），已有 3 个相关脚本 | 无，直接可用 |
+| **ontology** | 景区营销本体论/知识图谱脚本目录 | 无，直接可用 |
+
+**无高ROI新工具** — 本周扫描未发现值得立即试点的工具。
+
+**上周期有效候选（保留）：**
+- nano-pdf ✅ 已装（2026-06-22）
+- model-usage：token 消耗显著增长时 | 触发安装
+- sag：站长说"配音"/"语音"时 | 需 ELEVENLABS_API_KEY
+- summarize：需 OPENAI_API_KEY | 缺 key，暂搁置
