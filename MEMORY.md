@@ -89,8 +89,56 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突�
 ---
 
 ---
-**[W31 2026-08-01] GitHub高星标学习：Skills 3.0 — 质量门时代**
-- **项目名**：addyosmani/agent-skills（Google工程总监出品，26-27K stars，日增405⭐）
+**[W31 2026-08-01] GitHub高星标学习：Skills 3.0 — 质量门时代（已落地 24/24）**
+- **项目名**：addyosmani/agent-skills（Google工程总监出品，81K⭐ MIT，updatedAt=2026-08-01）
 - **它解决了什么**：AI写代码走"最短路径"跳测试跳规格，agent-skills把Google工程纪律编码成强制quality gate（测试覆盖率/类型检查/Lint通过才放行），让AI从"能跑"进化到"可合并PR"
-- **我们怎么用**：升级SKILL.md引入frontmatter+quality gate——日报发布前自动校验"数据完整性+schema 2.0+来源标注"，不合格则自动修正后再发布
+- **安装位置**：`~/.openclaw/skills/`（OpenClaw 系统级目录，24 个全装入）
+- **装法**：`npx skills add addyosmani/agent-skills -a openclaw -g -y --dangerously-accept-openclaw-risks`
+- **OpenClaw 状态**：全部 `ready` + `openclaw-managed` 标签（验证：`openclaw skills list` 见 24 行）
+
+**24 skill 触发矩阵（按场景分组）：**
+
+| 场景 | 优先 skill | 备注 |
+|------|-----------|------|
+| 新需求模糊/一句话任务 | `interview-me` | 一问一答到 95% 信心，**7/23 站长纠错"静默填洞"事故的对症药** |
+| 任务超 1 文件/感觉大 | `incremental-implementation` | 防一次性大改（agent-skills 元方法论） |
+| 写新代码/改脚本前 | `spec-driven-development` | spec 先行，禁止裸奔 |
+| cron 失败/采集异常 | `debugging-and-error-recovery` | 系统化根因，禁止猜 3 次（替代当前乱试模式） |
+| 改 cron 脚本提交前 | `code-review-and-quality` | 五维 review（correctness/readability/architecture/security/performance） |
+| 修 bug/改行为 | `test-driven-development` | 红绿重构强制，TDD 落地 |
+| 找"哪个 skill 适用当前任务" | `using-agent-skills` | 元 skill，路由到其他 skill |
+| 新项目/大改造 | `context-engineering` + `planning-and-task-breakdown` | 上下文+任务拆分 |
+| 想法还模糊 | `idea-refine` | 发散→收敛 |
+| 高风险决策（生产/不可逆） | `doubt-driven-development` | 对抗式 review，**验证比自信便宜** |
+| 设计 API/模块边界 | `api-and-interface-design` | 稳定接口 |
+| 改 web UI/前端 | `frontend-ui-engineering` | 生产级 UI |
+| Git 提交/打 tag/分支冲突 | `git-workflow-and-versioning` | semver/changelog |
+| 加日志/指标/追踪 | `observability-and-instrumentation` | 生产可见性 |
+| 性能慢/N+1 查询 | `performance-optimization` | profile 先于优化 |
+| 删旧系统/迁移用户 | `deprecation-and-migration` | sunset 流程 |
+| 写 ADR/记录决策 | `documentation-and-adrs` | 决策可追溯 |
+| 准备上线 | `shipping-and-launch` | 部署前 checklist |
+| 用第三方库/框架 | `source-driven-development` | 官方文档优先 |
+| CI/CD 配置 | `ci-cd-and-automation` | 质量门流水线 |
+| 安全/输入校验/认证 | `security-and-hardening` | 漏洞防护 |
+| 浏览器测试/DevTools MCP | `browser-testing-with-devtools` | 需 chrome-devtools MCP |
+| 代码太复杂想简化 | `code-simplification` | 行为不变下提升可读性 |
+
+**我们怎么用**：
+- 触发符合 description 时**自动激活**（agent-skills 设计如此）
+- 关键场景：日报发布前自动用 `code-review-and-quality` 五维 review schema 2.0 + 数据来源标注
 - **不跟进的代价**：日报质量靠AI自觉，无自动化校验；竞品用quality gate后报告稳定性远超我们
+
+**安装命令（重装/更新用）**：
+```bash
+# 重装全部 24 个
+npx skills add addyosmani/agent-skills -a openclaw -g -y --dangerously-accept-openclaw-risks
+
+# 卸指定 skill
+npx skills remove <name> -a openclaw -g
+
+# 验证安装
+openclaw skills list | grep openclaw-managed
+```
+
+**TOOLS.md 同步触发矩阵**：见 TOOLS.md "Skill 3.0 触发矩阵"段

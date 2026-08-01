@@ -421,3 +421,76 @@ openclaw skills check
 - model-usage：token 消耗显著增长时 | 触发安装
 - sag：站长说"配音"/"语音"时 | 需 ELEVENLABS_API_KEY
 
+
+---
+
+## Skill 3.0 触发矩阵（2026-08-01 W31 安装，24/24 ready）
+
+> **来源**：`MEMORY.md` W31 段；`~/.openclaw/skills/`；addyosmani/agent-skills（81K⭐ MIT）
+> **不重复列**：完整描述见 `MEMORY.md`，这里只放**触发场景 → skill 的速查**（让明天 session 起来 30 秒找到答案）
+
+### 🚨 应急场景（先看这行）
+
+| 触发 | 立即调 |
+|------|--------|
+| 站长给一句话模糊需求 | `interview-me`（一问一答 95% 信心，**7/23 静默填洞事故对症药**） |
+| cron 失败/采集异常 | `debugging-and-error-recovery`（**禁止连续猜 3 次**，根因分析先行） |
+| 高风险决策（生产/不可逆） | `doubt-driven-development`（验证比自信便宜） |
+| 想法模糊/概念未成形 | `idea-refine`（发散→收敛） |
+
+### 🛠️ 编码场景
+
+| 触发 | 立即调 |
+|------|--------|
+| 新功能/改脚本前 | `spec-driven-development`（spec 先行） |
+| 任务超 1 文件/感觉大 | `incremental-implementation`（防一次性大改） |
+| 修 bug/改行为 | `test-driven-development`（TDD 红绿重构） |
+| 提交前 review | `code-review-and-quality`（五维 review） |
+| 代码变复杂 | `code-simplification`（行为不变，可读性提升） |
+| 用第三方库 | `source-driven-development`（官方文档优先） |
+
+### 🏗️ 架构/系统场景
+
+| 触发 | 立即调 |
+|------|--------|
+| 新项目/大改造 | `context-engineering` + `planning-and-task-breakdown` |
+| 设计 API/模块边界 | `api-and-interface-design` |
+| 性能慢/N+1 | `performance-optimization` |
+| 加日志/指标 | `observability-and-instrumentation` |
+| 删旧系统 | `deprecation-and-migration` |
+| 安全/输入校验 | `security-and-hardening` |
+| 写决策记录 | `documentation-and-adrs` |
+
+### 🚀 部署/上线
+
+| 触发 | 立即调 |
+|------|--------|
+| 准备上线 | `shipping-and-launch` |
+| CI/CD 配置 | `ci-cd-and-automation` |
+| Git 提交/打 tag | `git-workflow-and-versioning` |
+
+### 🌐 Web/浏览器
+
+| 触发 | 立即调 |
+|------|--------|
+| 改 web UI | `frontend-ui-engineering` |
+| 浏览器测试 | `browser-testing-with-devtools`（需 chrome-devtools MCP） |
+
+### 🔍 元 skill
+
+| 触发 | 立即调 |
+|------|--------|
+| 不确定哪个 skill 适用 | `using-agent-skills`（自动发现/路由） |
+
+### 🔧 维护命令
+
+```bash
+# 看哪些 skill 已装
+openclaw skills list | grep openclaw-managed
+
+# 重装全部
+npx skills add addyosmani/agent-skills -a openclaw -g -y --dangerously-accept-openclaw-risks
+
+# 卸指定 skill
+npx skills remove <name> -a openclaw -g
+```
