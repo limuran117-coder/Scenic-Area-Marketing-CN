@@ -1,5 +1,5 @@
 # MEMORY.md - Long-Term Memory
-role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | update: 2026-07-26 W30
+role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | update: 2026-08-02 W32
 
 ---
 
@@ -25,21 +25,19 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **【7/13 站长纠错】事实核查铁律**：wiki/SOP/票务系统里没记录的内容视为伪事实，必须先 read 知识库验证
 **【7/23 站长纠错】双 db 路径陷阱**：`scripts/ontology/ontology.db` ≠ `.profile/ontology/ontology_store.db`（生产db）；写修复脚本前必先确认 DB_PATH
 **【7/23 站长纠错】ontology_daily_work 强制收尾**：日志写入 wiki 后立即结束，不跑 verification/cross-check
-**【7/29 站长纠错】禁止发卡自检循环**：每个 isolated session 全程最多发 1 张卡片到电影小镇群；飞书 API code=0 即视为成功，**禁止看 response.content 再判断**；禁止任何 layout A/B test 刷屏
-  - 7/28 19:37 实证事故：竞品关键词深度分析 isolated session 03fb2625 飞书 API 返回老格式占位图，agent 自检循环发了 17 张「Test 1-5/测试/调试/Split/Full E5」+ 2 张原版重渡沟 + 1 张续图 = 20 张刷屏
-  - 防错：cron 9bf47f42 prompt 已加【发卡铁律】硬约束（每个 session 最多 1 张 + code=0 即视为成功 + 禁止 test/debug 字样）
-  - 监控：cron 7ae9127b 飞书发消息审计（每天 23:55 扫群消息，异常推 ou_f308d672 私聊）
+**【7/29 站长纠错】禁止发卡自检循环**：每个 isolated session 全程最多发 1 张卡片到电影小镇群；飞书 API code=0 即视为成功，**禁止看 response.content 再判断**
+  - 实证事故：7/28 竞品关键词 isolated session 03fb2625 自检循环发了 20 张刷屏
+  - 防错：cron 9bf47f42 prompt 已加【发卡铁律】硬约束 + cron 7ae9127b 飞书发消息审计
 **【7/25 站长决策】景区更名**：建业电影小镇 → 郑州电影小镇（双轨采集，新名优先）；历史档案保留旧名
-**【7/23 重要教训】v9误判**：我说"movietown-ai-system-v9完整版不存在"是错的——该文件真实存在于Desktop，13天前生成，150KB/2481行。**所有"XX不存在/找不到"的判断，必须先查workspace全路径+Desktop，不能草率结论**
-**【7/23 spike结论】ego-lite**：装了app+v12 stealth脚本，但 ego-browser不能替代CDP18800（已登录采集场景不适配）；feishu-mcp-server与现有4件套冗余；PaddleOCR可用（PDF/PPT/图片中文识别）；crawl4ai默认headless不适合已登录dashboard
-**【7/23 v12 stealth】douyin_index.py v12**：stealth wrap在全局作用域调用，graceful degrade（无venv时回退v11）；原v11备份在`/tmp/wiki_remedy_20260723/`
+**【7/23 重要教训】v9误判**：所有"XX不存在/找不到"的判断，必须先查workspace全路径+Desktop，不能草率结论
+**【7/23 spike结论】ego-lite不能替代CDP18800** | PaddleOCR可用 | crawl4ai默认headless不适合已登录dashboard
 
 ---
 
-# 🚨 当前系统状态（2026-07-26 W30）
+# 🚨 当前系统状态（2026-08-02 W32）
 
 **模型**: M3 | 基础设施 all ✅ | cron: 30 ok / 3 err（小红书日报+竞品关键词+周二客流深度报告）
-🚨 小红书采集 42 天断档（站长决策不修）| 近期工作 → `memory/2026-07-23.md`
+🚨 小红书采集 49 天断档（站长决策不修）| 近期工作 → `memory/2026-08-01.md`
 
 ---
 
@@ -57,12 +55,10 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 
 # [project] 项目状态
 
-**Ontology 进度**：Week 1-3 已完（v1.4.0 PipelineRun）；Phase 2 W4 启动
-**结论索引系统**：洞察任务前置读 `wiki/行业知识/结论索引.md`
+**Ontology 进度**：Week 1-3 已完（v1.4.0 PipelineRun）；Phase 2 W4 启动 → `memory/topics/ontology-progress.md`
 **漂移双跑**：每周一/三/五 cron（wiki_drift_check + project_drift_check）
-**SOP质量系统**：W30进化审视新增 SOP质量升级计划（wiki/技术配置/）；当前34个SOP，2个优先修复：防错机制补When字段 + 竞品分析SOP合并
-详细 → `memory/topics/ontology-progress.md`
-**郑州电影小镇易主**（7/23 港交所公告）：建业30亿出售只有河南+电影小镇，国资（中信资本旗下信宸资本）90%控股，民企主导正式终结 → 运营策略需重新评估
+**SOP质量系统**：W30进化审视，2个优先修复（防错机制补When字段 + 竞品分析SOP合并）
+**郑州电影小镇易主**（7/23 港交所公告）：建业30亿出售，国资（中信资本旗下信宸资本）90%控股 → 运营策略需重新评估
 
 ---
 
@@ -78,33 +74,13 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 ---
 
 # 已结项
-DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突修复 | SOP路径漂移修复 | 6/12洞察驱动 | 6/13系统瘦身+结论索引 | 6/22方案A升级 | 6/24 cron时间表重排 | 7/2 Cookie健康+MEMORY压缩 | Ontology W1+2+3 | 7/23双db路径修复+stealth | 7/25景区更名执行 | 7/26 MEMORY二次压缩+w30维护
+DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突修复 | SOP路径漂移修复 | 6/12洞察驱动 | 6/13系统瘦身+结论索引 | 6/22方案A升级 | 6/24 cron时间表重排 | 7/2 Cookie健康+MEMORY压缩 | Ontology W1+2+3 | 7/23双db路径修复+stealth | 7/25景区更名执行 | 7/26 MEMORY二次压缩+w30维护 | **W31 MEMORY瘦身+skill3.0落地+quality gate部署**
+详细履历 → `memory/topics/system-evolution-20260802.md`
 
 ---
 
----
-**[W31 2026-08-01] GitHub高星标学习：Skills 3.0 — 质量门时代（已落地 24/24）**
-- **项目名**：addyosmani/agent-skills（Google工程总监出品，81K⭐ MIT）
-- **它解决了什么**：AI写代码走"最短路径"跳测试跳规格，把Google工程纪律编码成强制quality gate，让AI从"能跑"进化到"可合并PR"
-- **安装位置**：`~/.openclaw/skills/`（24 个全装入），全部 `ready` + `openclaw-managed`
-- **验证**：`openclaw skills list | grep openclaw-managed` 应返 24 行
+# 📌 W32 重要发现（2026-08-02）
 
-**24 skill 分组（完整触发表在 TOOLS.md）：**
+**【8/1 排查】周末市场观察 cron 偶发故障**：12次运行中2次error（6/28 list_files失败+8/1 exec包装失败），均非脚本本身问题。结论：**已存在6周的偶发故障，不修**；failureAlert.after=2已配，连失2次才推送。升级条件：连续2个月内累计≥5次失败或脚本本身有bug才介入。
 
-| 组 | 主要 skill | 触发词 |
-|----|-----------|--------|
-| 🚨 应急 | `interview-me` `debugging-and-error-recovery` `doubt-driven-development` `idea-refine` | 模糊需求/cron失败/高风险/想法模糊 |
-| 🛠️ 编码 | `spec-driven-development` `test-driven-development` `code-review-and-quality` `incremental-implementation` `code-simplification` `source-driven-development` | 写新代码/改脚本/修bug/提交前 |
-| 🏗️ 架构 | `context-engineering` `planning-and-task-breakdown` `api-and-interface-design` `frontend-ui-engineering` `performance-optimization` `observability-and-instrumentation` `security-and-hardening` `documentation-and-adrs` `deprecation-and-migration` `git-workflow-and-versioning` | 新项目/API/UI/性能/安全/决策记录 |
-| 🚀 上线 | `shipping-and-launch` `ci-cd-and-automation` | 上线/CI |
-| 🌐 Web | `browser-testing-with-devtools` `frontend-ui-engineering` | 浏览器测试（需 MCP） |
-| 🔍 元 | `using-agent-skills` | 不确定哪个适用 → 自动路由 |
-
-**自动化**：触发符合 description 时自动激活。验证：`openclaw skills list | grep openclaw-managed` 应返 24 行。质量门：日报发布前可自动用 `code-review-and-quality` 五维 review。
-完整安装命令 / 场景触发表 → `TOOLS.md "Skill 3.0 触发矩阵"`段。
-
-**【8/1 排查结果】周末市场观察 cron 偶发 exec 失败**：
-- 历史：12 次运行中 2 次 error（6/28 list_files 失败 + 8/1 exec 包装失败），均非脚本本身问题
-- 验证：8/1 10:58 force-run ✅ 成功 → quality gate 上线后无恶化
-- 结论：**已存在 6 周的偶发故障，不修**；failureAlert.after=2 已配，连失 2 次才推送
-- 升级条件：连续 2 个月内累计 ≥5 次失败或脚本本身有 bug 才介入
+**【W32 压缩】MEMORY.md 110→78行（-29%）**：W31 Skills 3.0详情→topics/system-evolution-20260802.md；已结项完整履历→topics/system-evolution-20260802.md；郑州电影小镇易主摘要化；周末市场观察cron故障详情压缩为1行结论。
