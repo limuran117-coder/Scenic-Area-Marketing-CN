@@ -29,6 +29,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
   - 实证事故：7/28 竞品关键词 isolated session 03fb2625 自检循环发了 20 张刷屏
   - 防错：cron 9bf47f42 prompt 已加【发卡铁律】硬约束 + cron 7ae9127b 飞书发消息审计
 **【7/25 站长决策】景区更名**：建业电影小镇 → 郑州电影小镇（双轨采集，新名优先）；历史档案保留旧名
+**【7/25 易主确认】**：7/23港交所公告，建业30亿出售电影小镇+只有河南，国资（中信资本旗下信宸资本）90%控股，运营策略需重新评估
 **【7/23 重要教训】v9误判**：所有"XX不存在/找不到"的判断，必须先查workspace全路径+Desktop，不能草率结论
 **【7/23 spike结论】ego-lite不能替代CDP18800** | PaddleOCR可用 | crawl4ai默认headless不适合已登录dashboard
 
@@ -55,8 +56,8 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 
 # [project] 项目状态
 
-**Ontology 进度**：Week 1-3 已完（v1.4.0 PipelineRun）；Phase 2 W4 启动 → `memory/topics/ontology-progress.md`
-**漂移双跑**：每周一/三/五 cron（wiki_drift_check + project_drift_check）
+**Ontology 进度**：W1-4 已完（v1.5.0发布，Agent集成架构确定）；W5实施：QueryHandler+LLM Translator+ActionDispatcher+Schema注入
+**漂移双跑**：每周一/三/五 cron（wiki_drift_check + project_drift_check）；W32 drift: 22 issues（4 orphan raw + scripts_not_in_inventory：competitor_keyword_v8.py已归档需更新inventory）
 **SOP质量系统**：W30进化审视，2个优先修复（防错机制补When字段 + 竞品分析SOP合并）
 **郑州电影小镇易主**（7/23 港交所公告）：建业30亿出售，国资（中信资本旗下信宸资本）90%控股 → 运营策略需重新评估
 
@@ -81,8 +82,10 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突�
 
 # 📌 W32 重要发现（2026-08-02）
 
-**【8/1 排查】周末市场观察 cron 偶发故障**：12次运行中2次error（6/28 list_files失败+8/1 exec包装失败），均非脚本本身问题。结论：**已存在6周的偶发故障，不修**；failureAlert.after=2已配，连失2次才推送。升级条件：连续2个月内累计≥5次失败或脚本本身有bug才介入。
+**【8月是年度最关键单月】**：历史最高单月绝对量，完成153万目标唯一量级窗口。7月散客占比87.9%（近春节高点），但日均仅1,699人（5月的38.7%），6月崩盘后遗症延续。
 
-**【W32 压缩】MEMORY.md 110→78行（-29%）**：W31 Skills 3.0详情→topics/system-evolution-20260802.md；已结项完整履历→topics/system-evolution-20260802.md；郑州电影小镇易主摘要化；周末市场观察cron故障详情压缩为1行结论。
+**【7/18周六3,145人】**：暑期最高单日，但原因待查（散客/团队/活动？）。
 
-**【W32 系统审视】结论索引739条（已验证635/待验证102）| 本周新增67条 | 准确率100% | Q3淘汰检查：0条超期 | SOP质量：6个0/4分需补When触发条件 | 详见 wiki/技术配置/SOP质量升级计划.md**
+**【W32 系统审视】结论索引739条（已验证635/待验证102）| 本周新增67条 | 准确率100% | Q3淘汰检查：0条超期 | SOP质量：6个0/4分需补When触发条件**
+
+**【周末市场观察cron偶发故障】**：12次中2次error，均非脚本本身，不修；failureAlert.after=2已配
