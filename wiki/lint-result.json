@@ -1,237 +1,261 @@
 {
-  "timestamp": "2026-07-26T12:15:00.000000",
-  "issues_count": 91,
+  "timestamp": "2026-08-02T11:02:48.356160",
+  "issues_count": 103,
   "issues": [
     {
       "type": "stale",
       "file": "全国景区案例库/更新台账.md",
       "last_update": "2026-05-26",
-      "days_old": 61,
+      "days_old": 68,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "全国景区案例库/爆款公式.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/关键词池状态.md",
       "last_update": "2026-05-27",
-      "days_old": 60,
+      "days_old": 67,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/案例库更新.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/每日复盘整合.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/抖音指数日报.md",
       "last_update": "2026-06-15",
-      "days_old": 41,
+      "days_old": 48,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品内容动态.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/专属浏览器Tab配置.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/文旅活动热点追踪日报.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/小红书日报.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/代码库Wiki漂移检查.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品深度分析流程.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/飞书卡片视觉规范.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/Wiki健康检查.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品关键词深度分析流程.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品爆款拆解.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品深度档案标准格式.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/每日任务总览.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/脚本清单.md",
       "last_update": "2026-05-24",
-      "days_old": 63,
+      "days_old": 70,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/飞书配置.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/Skills探索笔记.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/竞品深度档案/拈花湾深度分析.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/竞品深度档案/万岁山武侠城深度分析.md",
       "last_update": "2026-05-12",
-      "days_old": 75,
+      "days_old": 82,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/主题乐园.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/演艺景区.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/古镇古街.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/自然景区.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/文旅小镇.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "电影小镇/演出节目/穿越德化街.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "电影小镇/历史数据/2026年门票政策.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "电影小镇/历史数据/2026年/数据.md",
+      "last_update": "2026-06-30",
+      "days_old": 33,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "entities/scripts/send_feishu_card.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "entities/scripts/douyin_index.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
+      "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "stale",
+      "file": "entities/scripts/README.md",
+      "last_update": "2026-06-30",
+      "days_old": 33,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "entities/scripts/query_passenger.md",
       "last_update": "2026-06-07",
-      "days_old": 49,
+      "days_old": 56,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
+    },
+    {
+      "type": "orphan",
+      "file": "WIKI_HEALTH_REPORT_20260726.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "WIKI_HEALTH_REPORT_20260726.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
@@ -260,6 +284,11 @@
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/铜官窑明星达人偶遇营销-2026W31.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/老君山月薪6万云海观察员驻场创作者模式-2026W30.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
@@ -275,12 +304,27 @@
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/老君山月薪6万云海观察员：UGC众包+长期驻场创作模式-2026W31.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/山东枣庄铁道游击队景区短视频悬赏计划-2026W30.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
       "file": "全国景区案例库/贵州×阅文「一人之下」IP联动-2个月长效打卡-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/景德镇“申遗成功”蹭热度——国家级话题借势方法论-2026W31.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/青岛啤酒交易所-实时博弈互动装置-2026W30.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -315,6 +359,11 @@
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/天台山避暑雾森爆款-2026W31.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/贵州《四渡》电影票根影旅联动-2026W26.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
@@ -335,37 +384,7 @@
     },
     {
       "type": "orphan",
-      "file": "系统/W30-ego-lite-调研报告.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
       "file": "系统/W29-知识库脱节补救计划.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "系统/W30-GitHub-skill-TOP5-spike-清单.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "系统/W30-ego-browser-spike-报告.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "系统/W30-ego-lite-完整集成报告.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "系统/W30-GitHub-skill-spike-实战报告.md",
-      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
-    },
-    {
-      "type": "orphan",
-      "file": "系统/W30-GitHub-skill-候选推荐_v1.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -395,12 +414,47 @@
     },
     {
       "type": "orphan",
+      "file": "技术配置/Ontology架构设计/Week4_Agent集成.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "技术配置/Ontology架构设计/Week1_ObjectTypes_LinkTypes.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
       "file": "技术配置/Ontology架构设计/Week3_数据接入管道.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "系统/archived-spike-reports/W30-ego-lite-调研报告.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "系统/archived-spike-reports/W30-GitHub-skill-TOP5-spike-清单.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "系统/archived-spike-reports/W30-ego-browser-spike-报告.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "系统/archived-spike-reports/W30-ego-lite-完整集成报告.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "系统/archived-spike-reports/W30-GitHub-skill-spike-实战报告.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "系统/archived-spike-reports/W30-GitHub-skill-候选推荐_v1.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -498,7 +552,31 @@
       "concept": "年度目标",
       "files": [
         "overview.md",
+        "WIKI_HEALTH_REPORT_20260726.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
         "overview.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "WIKI_HEALTH_REPORT_20260726.md"
       ],
       "values": [
         "153"
@@ -565,11 +643,5 @@
       ],
       "suggestion": "年度目标在多个文件中存在，需确认最新值"
     }
-  ],
-  "health_check_date": "2026-07-26",
-  "auto_fixed": [
-    "Archived 6 W30 spike reports to 系统/archived-spike-reports/",
-    "Removed redundant CSV 2026游客量统计_20260629.csv (kept latest)",
-    "Confirmed 6 contradiction issues are false positives (all report 153万)"
   ]
 }
