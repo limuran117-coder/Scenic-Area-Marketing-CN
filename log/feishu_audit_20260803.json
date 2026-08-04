@@ -1,0 +1,56 @@
+{
+  "audit_date": "2026-08-03",
+  "total_ai_messages": 7,
+  "abnormal_count": 7,
+  "abnormal": [
+    {
+      "message_id": "om_x100b683f16f6dca0c2a8b2430fd7c6c",
+      "create_time": "2026-08-03 23:36:35",
+      "title": "",
+      "preview": "",
+      "reason": "疑似空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b683f1f8020a0c4430acd24ebd43",
+      "create_time": "2026-08-03 23:34:45",
+      "title": "",
+      "preview": "",
+      "reason": "疑似空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b683ddbac90acc0b045b65e1a170",
+      "create_time": "2026-08-03 21:36:22",
+      "title": "",
+      "preview": "",
+      "reason": "疑似空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b68317a10c0a4c4c0d4e0da4057d",
+      "create_time": "2026-08-03 16:37:34",
+      "title": "",
+      "preview": "",
+      "reason": "疑似空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b69cba23a84b8c2252444604f23e",
+      "create_time": "2026-08-03 10:37:04",
+      "title": "",
+      "preview": "",
+      "reason": "疑似空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b69ca7e9ea4a4ddeed2c95ed487e",
+      "create_time": "2026-08-03 08:38:29",
+      "title": "",
+      "preview": "",
+      "reason": "疑似空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b69c9e08e38a0dda9de3a3e7a37b",
+      "create_time": "2026-08-03 08:03:48",
+      "title": "",
+      "preview": "",
+      "reason": "疑似空卡片(elements<2)"
+    }
+  ]
+}
