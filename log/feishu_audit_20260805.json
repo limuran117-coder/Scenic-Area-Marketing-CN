@@ -1,0 +1,49 @@
+{
+  "audit_date": "2026-08-05",
+  "total_ai_messages": 6,
+  "abnormal_count": 6,
+  "abnormal": [
+    {
+      "message_id": "om_x100b6801c6fd48a0dd83fb7b0079dd9",
+      "create_time": "2026-08-05 23:36:35",
+      "title": "",
+      "preview": "[{'tag': 'img', 'image_key': 'img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g'}, {'tag': 'text', 'text': '请升级至最新版本客户端，以查看内容'}, {'tag': 'text', 'text': ''}]",
+      "reason": "空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b680137806ca0c43f1e9c495ccce",
+      "create_time": "2026-08-05 23:32:37",
+      "title": "",
+      "preview": "[{'tag': 'img', 'image_key': 'img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g'}, {'tag': 'text', 'text': '请升级至最新版本客户端，以查看内容'}, {'tag': 'text', 'text': ''}]",
+      "reason": "空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b68078e6e98a8c0b116f4eeb4e4d",
+      "create_time": "2026-08-05 21:35:06",
+      "title": "",
+      "preview": "[{'tag': 'img', 'image_key': 'img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g'}, {'tag': 'text', 'text': '请升级至最新版本客户端，以查看内容'}, {'tag': 'text', 'text': ''}]",
+      "reason": "空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b681b172bb080df6fbda8642c103",
+      "create_time": "2026-08-05 16:34:38",
+      "title": "",
+      "preview": "[{'tag': 'img', 'image_key': 'img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g'}, {'tag': 'text', 'text': '请升级至最新版本客户端，以查看内容'}, {'tag': 'text', 'text': ''}]",
+      "reason": "空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b681e5b3fe8b0dd82c88924a8a31",
+      "create_time": "2026-08-05 10:35:11",
+      "title": "",
+      "preview": "[{'tag': 'img', 'image_key': 'img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g'}, {'tag': 'text', 'text': '请升级至最新版本客户端，以查看内容'}, {'tag': 'text', 'text': ''}]",
+      "reason": "空卡片(elements<2)"
+    },
+    {
+      "message_id": "om_x100b681ce81144a8dd35aff330cacc5",
+      "create_time": "2026-08-05 08:57:18",
+      "title": "",
+      "preview": "[{'tag': 'img', 'image_key': 'img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g'}, {'tag': 'text', 'text': '请升级至最新版本客户端，以查看内容'}, {'tag': 'text', 'text': ''}]",
+      "reason": "空卡片(elements<2)"
+    }
+  ]
+}
