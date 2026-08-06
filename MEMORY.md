@@ -25,6 +25,14 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **【7/13 站长纠错】事实核查铁律**：wiki/SOP/票务系统里没记录的内容视为伪事实，必须先 read 知识库验证
 **【7/23 站长纠错】双 db 路径陷阱**：`scripts/ontology/ontology.db` ≠ `.profile/ontology/ontology_store.db`（生产db）；写修复脚本前必先确认 DB_PATH
 **【7/23 站长纠错】ontology_daily_work 强制收尾**：日志写入 wiki 后立即结束，不跑 verification/cross-check
+**【8/6 站长纠错】剧情化包装不能编造事实**
+- **Why**: 任何方案中具体年份/具体事件/具体人物/具体年代物件必须 wiki 知识库可查证，不能用修辞手法包装虚构细节
+- **How**:
+  - 戏剧外壳（剧本杀/对话/场景）可以保留，但具体细节必须有事实锚点
+  - 资产方向可以用（如"80 年代怀旧"），具体年份必须可查证
+  - "具体年份/年代物件/历史场景" 三类是事实核查重点
+  - 战略/汇报方案写作前先 grep wiki/，把数据点列出来再动笔
+
 **【7/29 站长纠错】禁止发卡自检循环**：每个 isolated session 全程最多发 1 张卡片到电影小镇群；飞书 API code=0 即视为成功，**禁止看 response.content 再判断**
   - 实证事故：7/28 竞品关键词 isolated session 03fb2625 自检循环发了 20 张刷屏
   - 防错：cron 9bf47f42 prompt 已加【发卡铁律】硬约束 + cron 7ae9127b 飞书发消息审计
