@@ -126,7 +126,7 @@ CDP端口：18800
 - healthcheck（安全审计，按需运行）
 
 ### 不适用
-- Claude API相关技能（使用DeepSeek/ minimax模型）
+- Claude API相关技能（仅使用DeepSeek模型）
 - React/前端设计技能（无前端项目）
 - 微信小程序技能（无相关项目）
 

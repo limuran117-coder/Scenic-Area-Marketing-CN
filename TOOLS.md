@@ -68,8 +68,8 @@ curl "wttr.in/郑州?format=j1"   # JSON格式
 - **全面禁止**：包括专属 Chrome 标签页的任何操作，一概拒绝
 - **唯一例外**：临时性/没遇到过/复杂的探索任务（新平台/一次性调研），且 Playwright 脚本无法快速覆盖时，才能用
 用户指定PRO模型名: MiniMax-M1（MiniMax Pro）
-- 6/8 之后 M3-only 模式：默认 model = `minimax/MiniMax-M3`（M3 闪速版）
-- 特定任务：用户说用 PRO/MiniMax Pro 时 → model=`minimax/MiniMax-M1`（需要先把 M1 加回 openclaw.json providers）
+- 2026-08-10 起：**唯一模型 = `deepseek/deepseek-v4-flash`**（站长决策：不再使用其他任何模型）
+- MiniMax 已彻底移除（provider/插件/key/env 全部清理）
 - ⚠️ **fallback 链已清空**（6/6 站长决策）：失败要让站长知道，不静默降级
 
 ---
@@ -511,4 +511,19 @@ npx skills remove <name> -a openclaw -g
 - nano-pdf ✅ 已装（2026-06-22）
 - model-usage：token 消耗显著增长时 | 触发安装
 - sag：站长说"配音"/"语音"时 | 需 ELEVENLABS_API_KEY
+- summarize：需 OPENAI_API_KEY | 缺 key，暂搁置
+
+## 周度技能探索 #8（2026-08-10）
+
+**扫描范围：** 53个scripts + 52个系统skills + brew CLI
+**CLI就绪：** gh✅ curl✅ jq✅ ffmpeg✅
+
+无新工具/新 skill 出现，与 #7（7/25）清单一致。低ROI工具均已有触发条件记录（node-connect、gog、model-usage、sag等）。
+**结论：** 本周无值得立即试点的工具，无需变更。
+
+**仍待触发条件：**
+- node-connect：未来需要手机配对/移动端集成
+- gog：站长切换到 Google Workspace
+- model-usage：token 消耗显著增长
+- sag：站长说"配音"/"语音" → 需 ELEVENLABS_API_KEY
 - summarize：需 OPENAI_API_KEY | 缺 key，暂搁置

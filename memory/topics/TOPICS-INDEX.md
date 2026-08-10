@@ -12,5 +12,5 @@
 | 飞书群 | oc_2581c03b79e4893cc3616b253d60f34e |
 | 用户偏好 | SESSION-STATE.md | 热状态 |
 | 每日日志 | memory/YYYY-MM-DD.md |
-| 经验教训 | .learnings/LEARNINGS.md |
+| 经验教训/规则 | topics/rules/ | SOP审计+超时诊断规则沉淀 |
 | 多Agent架构 | multi-agent/ |
