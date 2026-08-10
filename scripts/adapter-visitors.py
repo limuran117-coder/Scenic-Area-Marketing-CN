@@ -24,8 +24,11 @@ import argparse
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from ontology_store import OntologyStore
+# 统一入口（2026-08-10 P2）：改走新版 store 的 ingest_objects（含 M6 图谱钩子）
+# 旧版顶层 ontology_store 写本家库 ~/.profile 且无图谱同步，已弃用
+sys.path.insert(0, str(Path(__file__).parent / "ontology"))
 from ontology_constants import MONTH_MAP, safe_float as _safe_float, get_confidence
+from ontology.ontology_store import OntologyStore
 
 # ─── 常量 ────────────────────────────────────────
 
@@ -145,10 +148,12 @@ def _build_metric(metric_type: str, date_str: str, value: float) -> dict:
 
 
 def write_to_store(objects: list[dict]) -> int:
-    """写入Ontology Store，返回写入行数"""
-    with OntologyStore() as store:
-        count = store.ingest_metric_snapshots(objects, adapter_name="visitors")
-    return count
+    """写入统一生产库（新版 store），返回记录数。
+    走 ingest_objects → 自动写 SQLite + M6 图谱同步（FAIL-OPEN）"""
+    store = OntologyStore()
+    store.initialize()  # 确保生产库表存在（幂等）
+    result = store.ingest_objects("visitors", "MetricSnapshot", objects)
+    return result.records_added
 
 
 # ─── 主入口 ──────────────────────────────────────

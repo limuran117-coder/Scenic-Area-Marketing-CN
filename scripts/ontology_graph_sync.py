@@ -87,7 +87,8 @@ def sync_to_graph(schema: str, objects: list[dict]) -> tuple[int, str | None]:
             props = {k: v for k, v in obj.items() if k != "id" and v is not None}
             if etype == "MetricSnapshot":
                 # 指标需带 spot_id 关联 → 生成 has_metric 关系
-                sid = obj.get("spot_id")
+                # 兼容两种字段：SQLite列 spot_id（_map_fields后）或 adapter原始 scenicSpotId
+                sid = obj.get("spot_id") or obj.get("scenicSpotId")
                 if sid:
                     rel_key = (sid, "has_metric", eid)
                     if rel_key not in rels:

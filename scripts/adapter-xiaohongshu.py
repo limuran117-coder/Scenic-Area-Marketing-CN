@@ -359,13 +359,15 @@ def write_daily_summary(all_objects, log_lines, output_dir, date_str):
 # ─── SQLite 双轨写入 ─────────────────────────────
 
 def write_to_sqlite(content_assets, metric_snapshots, adapter_name="adapter-xiaohongshu"):
-    """双轨策略: 写 ContentAsset + MetricSnapshot 到 SQLite"""
+    """统一入口（2026-08-10 P2）：改走新版 store 的 ingest_objects（含 M6 图谱钩子）
+    旧顶层 ontology_store 写本家库 ~/.profile 且无图谱同步，已弃用"""
     try:
-        from ontology_store import OntologyStore
+        sys.path.insert(0, str(Path(__file__).parent / "ontology"))
+        from ontology.ontology_store import OntologyStore
         store = OntologyStore()
-        with store:
-            ca_count = store.ingest_content_assets(content_assets, adapter_name)
-            ms_count = store.ingest_metric_snapshots(metric_snapshots, adapter_name)
+        store.initialize()  # 确保生产库表存在（幂等）
+        ca_count = store.ingest_objects(adapter_name, "ContentAsset", content_assets).records_added
+        ms_count = store.ingest_objects(adapter_name, "MetricSnapshot", metric_snapshots).records_added
         return ca_count, ms_count, None
     except Exception as e:
         return 0, 0, str(e)[:200]
