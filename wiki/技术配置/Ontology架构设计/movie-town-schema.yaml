@@ -1,0 +1,115 @@
+# Movie Town Ontology — 景区营销领域 Schema (M2 里程碑)
+# 融合：通用 ontology skill 图谱引擎（skills/ontology/）+ 景区营销领域模型
+# 版本：0.1.0 | 日期：2026-08-10 | ADR-001 落地
+# 注：validate_graph 引擎读 schema["types"]/["relations"]/["constraints"]，必须用此包裹结构
+
+types:
+  ScenicSpot:
+    required: [name, category]
+    properties:
+      name: string
+      aliases: string[]            # 与 SCENIC_SPOT_MAP 别名对齐（建业电影小镇/郑州电影小镇）
+      category_enum: [演艺小镇, 乐园, 海洋公园, 戏剧幻城, 武侠城, 水乡古镇]
+      province: string?
+      city: string?
+      region: string?              # 郑州/开封/中牟…
+      peak_season_months: int[]?
+      ticket_price_range: string?
+      target_age_groups: string[]?
+
+  Region:
+    required: [name]
+    properties:
+      name: string
+      province: string?
+      city: string?
+      level_enum: [city, district, county, scenic]
+
+  TouristSegment:
+    required: [name]
+    properties:
+      name: string
+      age_range: string?
+      gender_split: object?
+      region: string?
+      characteristics: string?
+      tags: string[]?
+
+  MetricSnapshot:
+    required: [spot_id, date, metric_type, value]
+    properties:
+      spot_id: ref(ScenicSpot)
+      source_enum: [douyin, xiaohongshu, weibo, web]
+      date: date
+      metric_type_enum: [search_index, composite_index, content_count, engagement_rate, follower_count, ticket_sales, visitor_count]
+      value: number
+      daily_change: number?
+      weekly_change: number?
+      confidence: number?
+      raw_data: object?
+      is_anomaly: boolean?
+
+  ContentAsset:
+    required: [source, title]
+    properties:
+      source_enum: [douyin, xiaohongshu, weibo, web]
+      spot_id: ref(ScenicSpot)?
+      title: string
+      url: url?
+      author: string?
+      like_count: number?
+      comment_count: number?
+      share_count: number?
+      publish_date: date?
+      tags: string[]?
+
+  MarketingCampaign:
+    required: [name, channel]
+    properties:
+      name: string
+      channel_enum: [douyin, xiaohongshu, weibo, offline, koc, ugc]
+      status_enum: [planning, active, completed, paused]
+      start_date: date?
+      end_date: date?
+      budget: number?
+      metrics: object[]?
+
+relations:
+  competes_with:
+    from_types: [ScenicSpot]
+    to_types: [ScenicSpot]
+    cardinality: many_to_many
+    symmetric: true
+
+  located_in:
+    from_types: [ScenicSpot]
+    to_types: [Region]
+    cardinality: many_to_one
+
+  has_metric:
+    from_types: [ScenicSpot]
+    to_types: [MetricSnapshot]
+    cardinality: one_to_many
+
+  targets_segment:
+    from_types: [ScenicSpot, MarketingCampaign]
+    to_types: [TouristSegment]
+    cardinality: many_to_many
+
+  published_by:
+    from_types: [ContentAsset]
+    to_types: [ScenicSpot]
+    cardinality: many_to_one
+
+  linked_to:
+    from_types: [ScenicSpot]
+    to_types: [ScenicSpot]
+    cardinality: many_to_many
+
+constraints:
+  - type: MetricSnapshot
+    rule: "if confidence exists: 0 <= confidence <= 1"
+    message: "Metric confidence must be in [0,1]"
+  - type: MetricSnapshot
+    rule: "date required"
+    message: "Metric snapshot must have a date"

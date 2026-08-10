@@ -254,6 +254,14 @@ class OntologyStore:
             result.records_added = added
             result.records_updated = updated
             result.finished_at = datetime.now().isoformat()
+            # M6: 同步图谱（FAIL-OPEN，绝不影响 SQLite 主流程）
+            try:
+                from ontology_graph_sync import sync_to_graph
+                synced, err = sync_to_graph(schema, objects)
+                if err:
+                    result.error_message = f"{result.error_message or ''} {err}".strip()
+            except Exception as _e:  # 任何导入/运行异常都忽略
+                pass
         except Exception as e:
             result.status = "failed"
             result.error_message = str(e)[:500]
