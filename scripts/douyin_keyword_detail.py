@@ -18,6 +18,9 @@
 输出：/tmp/douyin_keyword_detail.json
 截图：/tmp/douyin_kw_{keyword}_tab{1,2,3}.png（供AI解读图表数据）
 
+⚠️ 2026-08-11：目标关键词由「建业电影小镇」改为「电影小镇」（与订阅页新增订阅一致，日报主目标口径）。
+旧名「建业电影小镇」关键词详情不再单独采，如需历史同比可在运行时临时改 KEYWORDS。
+
 数据来源: https://creator.douyin.com/creator-micro/creator-count/arithmetic-index
 """
 import asyncio, json, re, datetime, time, os
@@ -27,7 +30,7 @@ CDP_URL = "http://127.0.0.1:18800"
 OUTPUT_JSON = "/tmp/douyin_keyword_detail.json"
 LOCK = "/tmp/douyin_kw_detail.lock"
 KEYWORDS = [
-    "建业电影小镇", "万岁山武侠城", "清明上河园", "只有河南戏剧幻城",
+    "电影小镇", "万岁山武侠城", "清明上河园", "只有河南戏剧幻城",
     "郑州方特欢乐世界", "郑州海昌海洋公园", "郑州银基动物王国", "只有红楼梦戏剧幻城",
 ]
 
