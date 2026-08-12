@@ -1,0 +1,28 @@
+{
+  "audit_date": "2026-08-12",
+  "total_ai_messages": 9,
+  "abnormal_count": 3,
+  "abnormal": [
+    {
+      "message_id": "om_x100b6889a67b30a8c38daf6d91264d4",
+      "create_time": "2026-08-12 10:46:35",
+      "title": "",
+      "preview": "{\"_raw_nonjson\": \"This message was recalled\"}",
+      "reason": "interactive空卡片(elements无有效内容/消息被撤回)"
+    },
+    {
+      "message_id": "om_x100b6889a6fb24a4df67a38df9ddbf2",
+      "create_time": "2026-08-12 10:46:27",
+      "title": "",
+      "preview": "{\"_raw_nonjson\": \"This message was recalled\"}",
+      "reason": "interactive空卡片(elements无有效内容/消息被撤回)"
+    },
+    {
+      "message_id": "om_x100b6888169638a8dd2be2998760762",
+      "create_time": "2026-08-12 08:59:50",
+      "title": "test",
+      "preview": "{\"title\": \"test\", \"elements\": [[{\"tag\": \"img\", \"image_key\": \"img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g\"}, ...]]}",
+      "reason": "title含test字样"
+    }
+  ]
+}
