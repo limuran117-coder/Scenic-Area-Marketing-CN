@@ -52,6 +52,8 @@
 | `llmwiki_lint.py` | Wiki语法检查 |
 | `llmwiki_query.py` | Wiki知识库查询 |
 | `dashboard.py` | 基础仪表盘 |
+| `cron_governor.py` | Cron自进化治理引擎（--daily哨兵 / --weekly治理 / --apply安全优化） |
+| `cron_governor_daily.sh` | 每日Cron健康哨兵包装（纯脚本静默采集，零LLM） |
 
 ## 废弃脚本（已移入 scripts/archive/）
 
