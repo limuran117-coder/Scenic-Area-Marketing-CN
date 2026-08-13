@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-08-12 10:47",
+  "generated_at": "2026-08-13 10:31",
   "window_days": 14,
-  "task_count": 32,
+  "task_count": 33,
   "hourly_errors": {
     "0": 2,
     "3": 1,
     "4": 4,
     "7": 4,
-    "8": 13,
-    "9": 9,
+    "8": 14,
+    "9": 13,
     "10": 7,
     "11": 2,
-    "12": 2,
-    "14": 5,
-    "16": 2,
-    "19": 9,
+    "12": 1,
+    "14": 4,
+    "16": 3,
+    "19": 8,
     "20": 1,
     "21": 5,
     "23": 6
@@ -23,7 +23,6 @@
     8,
     9,
     10,
-    14,
     19,
     21,
     23
@@ -33,28 +32,28 @@
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
       "name": "抖音指数日报",
-      "schedule": "30 8 * * 1-5",
+      "schedule": "0 9 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 15,
-      "ok": 7,
-      "error": 8,
-      "error_rate": 0.53,
-      "consecutive_errors": 4,
-      "avg_duration_ms": 656721,
+      "runs": 16,
+      "ok": 6,
+      "error": 10,
+      "error_rate": 0.62,
+      "consecutive_errors": 6,
+      "avg_duration_ms": 696502,
       "error_types": {
-        "other": 6,
-        "rate_limit": 1,
+        "other": 7,
+        "rate_limit": 2,
         "restart": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "连续4次失败",
-        "近14天错误率53%"
+        "连续6次失败",
+        "近14天错误率62%"
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 14, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 9:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -63,24 +62,24 @@
       "schedule": "30 19 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 17,
+      "runs": 16,
       "ok": 7,
-      "error": 10,
-      "error_rate": 0.59,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 592825,
+      "error": 9,
+      "error_rate": 0.56,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 558073,
       "error_types": {
-        "other": 7,
+        "other": 6,
         "exec": 1,
         "rate_limit": 1,
         "process": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率59%"
+        "近14天错误率56%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 19:00 撞限流高峰 [8, 9, 10, 14, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 19:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -93,20 +92,43 @@
       "ok": 5,
       "error": 5,
       "error_rate": 0.5,
-      "consecutive_errors": 5,
-      "avg_duration_ms": 359342,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 365512,
       "error_types": {
         "exec": 4,
         "rate_limit": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "连续5次失败",
         "近14天错误率50%"
       ],
       "suggestions": [
+        "⚠️ 任务时段 21:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+      ]
+    },
+    {
+      "job_id": "553f1d57-61ba-4439-b4bf-eb725a36090c",
+      "name": "文旅营销案例",
+      "schedule": "30 10 * * 4",
+      "kind": "agentTurn",
+      "timeout": 900,
+      "runs": 3,
+      "ok": 1,
+      "error": 2,
+      "error_rate": 0.67,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 528523,
+      "error_types": {
+        "other": 2
+      },
+      "timeout_hits": 1,
+      "issues": [
+        "连续2次失败",
+        "近14天错误率67%"
+      ],
+      "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "⚠️ 任务时段 21:00 撞限流高峰 [8, 9, 10, 14, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 10:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -130,8 +152,7 @@
         "连续2次失败"
       ],
       "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "⚠️ 任务时段 14:00 撞限流高峰 [8, 9, 10, 14, 19, 21, 23]，可人工考虑错峰"
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
       ]
     },
     {
@@ -157,9 +178,17 @@
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "⚠️ 任务时段 10:00 撞限流高峰 [8, 9, 10, 14, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 10:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     }
   ],
-  "recommendations": []
+  "recommendations": [
+    {
+      "type": "bump_timeout",
+      "job": "0c6f51f7-1557-4f42-82a6-4f8075eae25d",
+      "name": "cron自进化-每日哨兵",
+      "from": 300,
+      "to": 1500
+    }
+  ]
 }

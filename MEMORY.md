@@ -8,7 +8,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 **客流日报** 密码912530 | 5章: YTD→月度→近7日→德化街→建议 | ≤5表/卡
 **飞书卡片** schema=2.0走 `scripts/send_feishu_card.py` | 表格外 `
 `，表内 `
-`，表头可用`⚠️`
+`，表头可用`⚠️` | **单卡markdown表≤5张**（超限ErrCode11310，8/13踩坑）| header.title须`{tag:plain_text,content}` | 表内不加粗/不用`>`引用（8/13实测）
 **【7/2 站长纠错】数据类报告必须用 markdown 表格**：搜索指数/综合指数/同比环比/分项分解/区域TOP5/关联词等任何多列数据，禁止用 emoji+加粗列表+内联文字罗列；必须 `| 列1 | 列2 | ... |` 格式
 **双通道采集** 抖音脚本+CDP交替验证
 **CDP必须用Playwright** urllib/websockets连18800会超时
@@ -47,6 +47,7 @@ role: 景区营销中心总经理 | core_mission: 客流153万、营收1.2亿 | 
 
 **模型**: M3 | 基础设施 all ✅ | cron: 30 ok / 3 err（小红书日报+竞品关键词+周二客流深度报告）
 🚨 小红书采集 49 天断档（站长决策不修）| 近期工作 → `memory/2026-08-01.md`
+✅ **image工具MiniMax残留已清除(8/13)**：`service-env/ai.openclaw.gateway.env` 删2行MINIMAX key + managed keys精简，gateway已restart(17809→81071)，进程/launchctl/shell全无MINIMAX。⚠️残留仅存于历史会话进程内存，新会话即干净；deepseek-v4-flash无视觉能力，截图解读仍需可用的VLM模型（待定）
 
 ---
 
