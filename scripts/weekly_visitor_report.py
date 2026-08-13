@@ -479,7 +479,7 @@ def build_card(metrics, historical, daily):
 
 | 指标 | 2026 实际 | 同比 | 进度 |
 |---|---|---|---|
-| 1-{m['last_month']}月门票 | **{m['ytd']:,.0f}** | **{m['yoy_change']:+.1f}%** | 年度 153 万目标 **{m['ytd']/1530000*100:.1f}%** |
+| 1-{m['last_month']}月门票 | **{m['ytd']:,.0f}** | **{m['yoy_change']:+.1f}%** | 年度 123 万目标 **{m['ytd']/1230000*100:.1f}%** |
 | 1-{m['last_month']}月收入(元) | **{m['ytd_income']/10000:,.0f} 万** | — | 月均需达 14.07 万才达标 |
 | 闸机入园 | {m['ytd_gate']:,.0f} | — | 转化率 {m['ytd_gate']/m['ytd']:.3f} |
 

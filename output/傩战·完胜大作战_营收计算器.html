@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>「傩战·完胜大作战」营收计算器 | 郑州电影小镇</title>
+<style>
+  :root{
+    --red:#b3271d; --dark:#1a1210; --gold:#e8b64c; --light:#f5efe6; --night:#0f0a08;
+    --card:#241610;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:var(--night);color:var(--light);line-height:1.7;}
+  .wrap{max-width:900px;margin:0 auto;padding:24px 20px 80px;}
+
+  .head{text-align:center;padding:40px 0 34px;}
+  .head h1{font-size:34px;letter-spacing:.1em;color:var(--gold);}
+  .head p{color:#c9a86a;font-size:14px;letter-spacing:.18em;margin-top:8px;}
+
+  .tabs{display:flex;justify-content:center;gap:10px;margin-bottom:28px;flex-wrap:wrap;}
+  .tab{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:19px;background:var(--card);border:1px solid #4a2c1c;cursor:pointer;transition:.2s;}
+  .tab.active{background:var(--gold);color:var(--dark);transform:translateY(-3px);box-shadow:0 6px 18px #b3271d66;}
+  .tab:hover{border-color:var(--gold);}
+
+  .panel{display:none;}
+  .panel.active{display:block;animation:fade .3s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+  .card{background:linear-gradient(180deg,#241610,#1a100c);border:1px solid #4a2c1c;border-radius:14px;padding:20px 24px;margin-bottom:16px;}
+  .card h3{color:var(--gold);font-size:17px;margin-bottom:14px;display:flex;align-items:center;gap:9px;}
+  .card h3::before{content:"◆";color:var(--red);font-size:12px;}
+
+  /* 滑条行 */
+  .row{margin-bottom:16px;}
+  .row label{display:flex;justify-content:space-between;font-size:14px;color:#e8dccb;margin-bottom:7px;}
+  .row label .val{color:var(--gold);font-weight:700;}
+  input[type=range]{width:100%;height:6px;-webkit-appearance:none;background:#4a2c1c;border-radius:6px;outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;
+    background:var(--gold);border:3px solid var(--night);cursor:pointer;box-shadow:0 0 8px #e8b64c88;}
+  input[type=number]{background:#2a1c12;border:1px solid #5a3620;color:var(--gold);padding:6px 10px;border-radius:8px;
+    width:110px;font-size:15px;text-align:right;font-weight:600;}
+
+  .result{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:8px;}
+  .stat{background:#2a1c12;border:1px solid #5a3620;border-radius:12px;padding:16px;text-align:center;}
+  .stat .lbl{font-size:12px;color:#c9a86a;letter-spacing:.05em;}
+  .stat .num{font-size:26px;color:var(--gold);font-weight:800;margin-top:6px;}
+  .stat .sub{font-size:12px;color:#8a7662;margin-top:4px;}
+  .stat.hl{background:linear-gradient(180deg,#3a1712,#241610);border-color:var(--red);}
+  .stat.hl .num{color:#ff9a8a;}
+
+  .bar-wrap{margin-top:6px;}
+  .bar{height:26px;background:#1a100c;border:1px solid #4a2c1c;border-radius:8px;overflow:hidden;margin-bottom:4px;position:relative;}
+  .bar .fill{height:100%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;
+    transition:width .4s ease;}
+  .bar .lbl{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;color:#e8dccb82;}
+
+  .note{border-left:4px solid var(--gold);background:#2a1c12aa;padding:12px 16px;border-radius:0 10px 10px 0;font-size:13px;color:#e8dccb;margin-top:14px;}
+  .note.alert{border-left-color:#ff7a6b;}
+
+  .btn{display:inline-block;padding:10px 22px;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700;transition:.2s;}
+  .btn.gold{background:var(--gold);color:var(--dark);}
+  .btn.gold:hover{filter:brightness(1.1);}
+  .btn.ghost{background:transparent;color:#c9a86a;border:1px solid #5a3620;}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold);}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  .scen-tag{font-size:13px;color:#8a7662;letter-spacing:.06em;}
+
+  .footer{text-align:center;margin-top:40px;color:#8a7662;font-size:12px;letter-spacing:.1em;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="head">
+    <h1>营收测算计算器</h1>
+    <p>傩战·完胜大作战 · 参数驱动 · 实时计算</p>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-tab="main" title="主测算">📊</div>
+    <div class="tab" data-tab="ticket" title="门票">🎟️</div>
+    <div class="tab" data-tab="game" title="参赛费">⚔️</div>
+    <div class="tab" data-tab="merch" title="二销">🛍️</div>
+    <div class="tab" data-tab="sponsor" title="赞助">🤝</div>
+    <div class="tab" data-tab="cost" title="成本">🧮</div>
+  </div>
+
+  <!-- 主测算 -->
+  <div class="panel active" id="panel-main">
+    <div class="card">
+      <h3>核心参数</h3>
+      <div class="row"><label>万圣档游客总人次 <span class="val" id="main_total">&nbsp;</span></label>
+        <input type="range" id="in_total" min="50000" max="150000" step="5000" value="100000"></div>
+      <div class="row"><label>参赛报名参与率 <span class="val" id="main_game">&nbsp;</span></label>
+        <input type="range" id="in_game" min="5" max="50" step="1" value="30"></div>
+      <div class="row"><label>二销商品购买率 <span class="val" id="main_merch">&nbsp;</span></label>
+        <input type="range" id="in_merch" min="5" max="40" step="1" value="20"></div>
+      <div class="row"><label>夜场门票溢价（元/人）<span class="val" id="main_prem">&nbsp;</span></label>
+        <input type="range" id="in_prem" min="0" max="30" step="1" value="8"></div>
+      <div class="btnrow">
+        <button class="btn ghost" onclick="setScenario('low')">保底情景</button>
+        <button class="btn gold" onclick="setScenario('mid')">基准情景</button>
+        <button class="btn ghost" onclick="setScenario('high')">冲刺情景</button>
+        <span class="scen-tag" id="scen_tag">当前：基准</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>营收结果</h3>
+      <div class="result">
+        <div class="stat"><div class="lbl">门票收入</div><div class="num" id="r_ticket">—</div><div class="sub" id="r_ticket_sub"></div></div>
+        <div class="stat"><div class="lbl">参赛收入</div><div class="num" id="r_game">—</div><div class="sub" id="r_game_sub"></div></div>
+        <div class="stat"><div class="lbl">二销收入</div><div class="num" id="r_merch">—</div><div class="sub" id="r_merch_sub"></div></div>
+        <div class="stat"><div class="lbl">赞助</div><div class="num" id="r_sponsor">—</div><div class="sub">商务洽谈</div></div>
+      </div>
+      <div class="stat hl" style="margin-top:14px;"><div class="lbl">💰 总营收（不含赞助）</div>
+        <div class="num" id="r_total">—</div>
+        <div class="sub" id="r_total_sub"></div></div>
+      <div class="bar-wrap" style="margin-top:14px;">
+        <div class="bar"><div class="fill" id="bar_merch" style="background:#c9a86a;width:0%"></div><span class="lbl">二销</span></div>
+        <div class="bar"><div class="fill" id="bar_game" style="background:var(--red);width:0%"></div><span class="lbl">参赛</span></div>
+        <div class="bar"><div class="fill" id="bar_ticket" style="background:var(--gold);width:0%"></div><span class="lbl">门票</span></div>
+      </div>
+    </div>
+
+    <div class="note">📐 结果基于可调参数实时计算，为<b>量级参考</b>，非承诺目标。落地前须结合运营团队实际票价、参与率、赞助拆分校准。</div>
+  </div>
+
+  <!-- 门票 -->
+  <div class="panel" id="panel-ticket">
+    <div class="card">
+      <h3>🎟️ 门票参数</h3>
+      <div class="row"><label>游客总人次 <input type="number" id="t_total" value="100000" min="10000" step="5000"></label></div>
+      <div class="row"><label>平日/基础票价（元）<input type="number" id="t_base" value="65" min="0" step="5"></label></div>
+      <div class="row"><label>夜场票占比（%）<input type="number" id="t_nightpct" value="60" min="0" max="100" step="5"></label></div>
+      <div class="row"><label>夜场票溢价（元）<input type="number" id="t_prem" value="8" min="0" step="1"></label></div>
+      <div class="result"><div class="stat"><div class="lbl">门票收入</div><div class="num" id="t_out">—</div></div></div>
+    </div>
+  </div>
+
+  <!-- 参赛 -->
+  <div class="panel" id="panel-game">
+    <div class="card">
+      <h3>⚔️ 参赛费参数</h3>
+      <div class="row"><label>游客总人次 <input type="number" id="g_total" value="100000" min="10000" step="5000"></label></div>
+      <div class="row"><label>参赛报名参与率（%）<input type="number" id="g_pct" value="30" min="0" max="100" step="1"></label></div>
+      <div class="row"><label>参赛费单价（元）<input type="number" id="g_price" value="40" min="0" step="5"></label></div>
+      <div class="note">含傩面名牌 + 初始神谕道具，是本次「付费玩景」的核心锚点。</div>
+      <div class="result"><div class="stat"><div class="lbl">参赛收入</div><div class="num" id="g_out">—</div></div></div>
+    </div>
+  </div>
+
+  <!-- 二销 -->
+  <div class="panel" id="panel-merch">
+    <div class="card">
+      <h3>🛍️ 二销商品参数</h3>
+      <div class="row"><label>游客总人次 <input type="number" id="m_total" value="100000" min="10000" step="5000"></label></div>
+      <div class="row"><label>商品购买率（%）<input type="number" id="m_pct" value="20" min="0" max="100" step="1"></label></div>
+      <div class="row"><label>客单价（元）<input type="number" id="m_arpu" value="40" min="0" step="5"></label></div>
+      <div class="note">傩面面具 25-69、服装、手作、定制金傩面 199+，傩面墙/写真棚场景化带逛。</div>
+      <div class="result"><div class="stat"><div class="lbl">二销收入</div><div class="num" id="m_out">—</div></div></div>
+    </div>
+  </div>
+
+  <!-- 赞助 -->
+  <div class="panel" id="panel-sponsor">
+    <div class="card">
+      <h3>🤝 联名赞助</h3>
+      <div class="row"><label>预估赞助金额（万元）<input type="number" id="s_val" value="30" min="0" step="5"></label></div>
+      <div class="note">对标长隆 × 《天官赐福》外部 IP 借势拆账。含国漫/影视/快消品牌冠名、场景植入、傩面联名款。属商务洽谈项，预估区间 10—100 万。</div>
+      <div class="result"><div class="stat"><div class="lbl">赞助收入</div><div class="num" id="s_out">—</div></div></div>
+    </div>
+  </div>
+
+  <!-- 成本 -->
+  <div class="panel" id="panel-cost">
+    <div class="card">
+      <h3>🧮 成本估算</h3>
+      <div class="row"><label>人力（傩舞团队+裁判NPC+运营）<input type="number" id="c_labor" value="60" min="0" step="5"></label></div>
+      <div class="row"><label>道具（名牌/腕带/面具/神谕）<input type="number" id="c_prop" value="25" min="0" step="5"></label></div>
+      <div class="row"><label>场地搭建/灯光/营销（万元）<input type="number" id="c_other" value="40" min="0" step="5"></label></div>
+      <div class="row"><label>保险 &amp; 安全（万元）<input type="number" id="c_insur" value="8" min="0" step="2"></label></div>
+      <div class="result">
+        <div class="stat"><div class="lbl">总成本</div><div class="num" id="c_out">—</div></div>
+        <div class="stat"><div class="lbl">毛利（总营收-成本）</div><div class="num" id="c_profit">—</div></div>
+        <div class="stat hl"><div class="lbl">毛利率</div><div class="num" id="c_margin">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">郑州电影小镇 · 傩战·完胜大作战 · 营收测算计算器 | 参数驱动，仅供参考</div>
+</div>
+
+<script>
+// ---------- 通用 ----------
+const W = v => v.toLocaleString('zh-CN');
+const Y = n => '¥' + W(Math.round(n));
+const WM = n => (Math.round(n/10000)).toLocaleString('zh-CN') + ' 万';
+let sponsorVal = 30; // 万元，供主测算引用
+
+// 主面板引用值（实时同步到子面板）
+const mainTap = {
+  total:()=>+document.getElementById('in_total').value,
+  game:()=>+document.getElementById('in_game').value,
+  merch:()=>+document.getElementById('in_merch').value,
+  prem:()=>+document.getElementById('in_prem').value,
+};
+
+function price(){ return +document.getElementById('t_base').value || 0; }
+function nightPct(){ return (+document.getElementById('t_nightpct').value||0)/100; }
+function prem(){ return +document.getElementById('t_prem').value || 0; }
+function gamePrice(){ return +document.getElementById('g_price').value || 0; }
+function merchArpu(){ return +document.getElementById('m_arpu').value || 0; }
+
+// 收入分部
+function revTicket(total){
+  const np = nightPct();
+  const avg = price() + np*prem(); // 加权平均票价
+  return total*avg;
+}
+function revGame(total, pct){ const n = total*pct/100; return n*gamePrice(); }
+function revMerch(total, pct){ const n = total*pct/100; return n*merchArpu(); }
+
+// ---------- 主测算 ----------
+function updateMain(){
+  const total = mainTap.total(), gp = mainTap.game(), mp = mainTap.merch(), pr = mainTap.prem();
+
+  // 标签
+  document.getElementById('main_total').textContent = W(total) + ' 人次';
+  document.getElementById('main_game').textContent = gp + '%';
+  document.getElementById('main_merch').textContent = mp + '%';
+  document.getElementById('main_prem').textContent = pr + ' 元';
+
+  // 同步子面板的 total / prem（保持一致）
+  ['t_total','g_total','m_total'].forEach(id=>{ document.getElementById(id).value = total; });
+  document.getElementById('t_prem').value = pr;
+
+  const rT = revTicket(total);
+  const rG = revGame(total, gp);
+  const rM = revMerch(total, mp);
+  const totalRev = rT + rG + rM;
+
+  document.getElementById('r_ticket').textContent = Y(rT);
+  document.getElementById('r_ticket_sub').textContent = WM(rT);
+  document.getElementById('r_game').textContent = Y(rG);
+  document.getElementById('r_game_sub').textContent = WM(rG);
+  document.getElementById('r_merch').textContent = Y(rM);
+  document.getElementById('r_merch_sub').textContent = WM(rM);
+  document.getElementById('r_sponsor').textContent = '¥' + W(sponsorVal*10000);
+  document.getElementById('r_total').textContent = Y(totalRev);
+  document.getElementById('r_total_sub').textContent = '门票 ' + WM(rT) + ' · 参赛 ' + WM(rG) + ' · 二销 ' + WM(rM) + (sponsorVal>0 ? ' · 赞助 ' + WM(sponsorVal*10000) : '');
+
+  // 堆叠条（比例）
+  const max = Math.max(rT, rG, rM, 1);
+  document.getElementById('bar_ticket').style.width = (rT/max*100)+'%';
+  document.getElementById('bar_ticket').textContent = '门票 ' + Y(rT);
+  document.getElementById('bar_game').style.width = (rG/max*100)+'%';
+  document.getElementById('bar_game').textContent = '参赛 ' + Y(rG);
+  document.getElementById('bar_merch').style.width = (rM/max*100)+'%';
+  document.getElementById('bar_merch').textContent = '二销 ' + Y(rM);
+
+  // 成本毛利联动
+  updateCost();
+  // 子面板输出同步
+  updateTicket(); updateGame(); updateMerch(); updateSponsor();
+}
+
+// ---------- 子面板 ----------
+function updateTicket(){
+  const total = +document.getElementById('t_total').value || 0;
+  document.getElementById('r_ticket').textContent = Y(revTicket(total));
+  document.getElementById('t_out').textContent = Y(revTicket(total));
+}
+function updateGame(){
+  const total = +document.getElementById('g_total').value || 0;
+  const pct = +document.getElementById('g_pct').value || 0;
+  document.getElementById('g_out').textContent = Y(revGame(total, pct));
+}
+function updateMerch(){
+  const total = +document.getElementById('m_total').value || 0;
+  const pct = +document.getElementById('m_pct').value || 0;
+  document.getElementById('m_out').textContent = Y(revMerch(total, pct));
+}
+function updateSponsor(){
+  sponsorVal = +document.getElementById('s_val').value || 0;
+  document.getElementById('s_out').textContent = Y(sponsorVal*10000);
+  document.getElementById('r_sponsor').textContent = Y(sponsorVal*10000);
+}
+function updateCost(){
+  const labor = +document.getElementById('c_labor').value || 0;
+  const prop = +document.getElementById('c_prop').value || 0;
+  const other = +document.getElementById('c_other').value || 0;
+  const insur = +document.getElementById('c_insur').value || 0;
+  const cost = (labor+prop+other+insur)*10000;
+  const total = mainTap.total();
+  const rev = revTicket(total)+revGame(total, mainTap.game())+revMerch(total, mainTap.merch())+sponsorVal*10000;
+  const profit = rev - cost;
+  document.getElementById('c_out').textContent = Y(cost);
+  document.getElementById('c_profit').textContent = Y(profit);
+  document.getElementById('c_margin').textContent = rev>0 ? (profit/rev*100).toFixed(1)+'%' : '—';
+}
+
+// 情景预设（同时联动主滑条 + 门票票价/夜场占比，保证三档可复现）
+function setScenario(s){
+  if(s==='low'){
+    setS('in_total',80000);setS('in_game',15);setS('in_merch',10);setS('in_prem',6);
+    setS('t_base',60);setS('t_nightpct',50);
+    setS('c_other',45);setS('c_labor',55);
+    document.getElementById('scen_tag').textContent='当前：保底';
+  } else if(s==='mid'){
+    setS('in_total',100000);setS('in_game',30);setS('in_merch',20);setS('in_prem',8);
+    setS('t_base',65);setS('t_nightpct',60);
+    setS('c_other',40);setS('c_labor',60);
+    document.getElementById('scen_tag').textContent='当前：基准';
+  } else {
+    setS('in_total',130000);setS('in_game',35);setS('in_merch',25);setS('in_prem',10);
+    setS('t_base',70);setS('t_nightpct',70);
+    setS('c_other',55);setS('c_labor',75);
+    document.getElementById('scen_tag').textContent='当前：冲刺';
+  }
+  updateMain();
+}
+function setS(id, v){ document.getElementById(id).value = v; }
+
+// Tab 切换
+document.getElementById('tabs').addEventListener('click', e=>{
+  const t = e.target.closest('.tab'); if(!t) return;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+});
+
+// 绑定主窗口滑条
+['in_total','in_game','in_merch','in_prem'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', updateMain);
+});
+// 绑定子面板
+['t_total','t_base','t_nightpct','t_prem'].forEach(id=>document.getElementById(id).addEventListener('input', updateTicket));
+['g_total','g_pct','g_price'].forEach(id=>document.getElementById(id).addEventListener('input', updateGame));
+['m_total','m_pct','m_arpu'].forEach(id=>document.getElementById(id).addEventListener('input', updateMerch));
+document.getElementById('s_val').addEventListener('input', updateSponsor);
+['c_labor','c_prop','c_other','c_insur'].forEach(id=>document.getElementById(id).addEventListener('input', updateCost));
+
+// 初始
+updateMain();
+</script>
+</body>
+</html>

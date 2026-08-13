@@ -8,7 +8,7 @@ import subprocess
 DATA = {
     "date": "2026-06-30",
     "report_period": "W25(6/15-6/21) + 端午档 + W26(6/22-6/28) + 6/29",
-    "ytd_target": 1530000,
+    "ytd_target": 1230000,
     "ytd_current": 705589,
     "ytd_progress": 46.1,
     "ytd_gap": 824411,
@@ -197,7 +197,7 @@ def build_card():
         + act_md + "\n"
         "---\n\n"
         "## 📌 九、YTD目标进度\n\n"
-        "- **年度目标：** 1,530,000人（153万）\n"
+        "- **年度目标：** 1,230,000人（123万，2026-08-13下调）\n"
         "- **截至6/21累计：** " + "{:,}".format(DATA["ytd_current"]) + "人\n"
         "- **完成度：** " + ytd_pct + "（时间进度 " + "%.1f%%" % (DATA["ytd_days_passed"]/365*100) + "）\n"
         "- **目标缺口：** " + gap_str + "人\n"

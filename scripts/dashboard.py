@@ -11,8 +11,8 @@ from datetime import datetime
 
 PORT = 8888
 OUTPUT_DIR = "/tmp/movie_town_dashboard"
-VISITOR_CSV = os.path.expanduser("~/Desktop/2026游客量统计.csv")
-ANNUAL_TARGET = 1530000
+VISITOR_CSV = os.path.expanduser("~/Downloads/2026游客量统计 (17).csv")
+ANNUAL_TARGET = 1230000
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # ========== DATA ==========
@@ -39,7 +39,7 @@ def chart_daily(df):
                              fill='tozeroy', fillcolor='rgba(231,76,60,0.1)'),
                   row=2, col=1)
     fig.add_hline(y=ANNUAL_TARGET, line_dash="dash", line_color="green",
-                  annotation_text="目标 153万", row=2, col=1)
+                  annotation_text="目标 123万", row=2, col=1)
     fig.update_layout(height=600, title_text="日客流趋势", template='plotly_white')
     fig.write_html(OUTPUT_DIR + "/daily_trend.html")
 

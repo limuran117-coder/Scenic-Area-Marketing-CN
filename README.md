@@ -245,7 +245,7 @@ Each week, the system calculates its own prediction accuracy across all decision
 | Mar | 80,285 | 31 | 2,589 | 444,025 | 29.0% |
 | Apr | 93,295 | 30 | 3,109 | 537,320 | 35.1% |
 | May (to 17th) | 118,747 | 17 | 6,985 | 656,067 | **42.9%** |
-| **Annual Target** | **1,530,000** | - | - | - | - |
+| **Annual Target** | **1,230,000** | - | - | - | - |
 
 **Data Quality Status:** ⚠️ CSV last updated May 17, now 8 days stale - pending internal data sync
 
@@ -288,7 +288,7 @@ CSV file detected → Python parser reads wide format
   → Extract: Total tickets (Row 12), Turnstile (Row 14), Weather (Row 3)
   → Build: {date: {tickets, turnstile, weather}} dictionary
   → Calculate: Daily avg, WoW change, YoY comparison, YTD cumulative
-  → Compare: vs annual target (1,530,000), monthly benchmarks
+  → Compare: vs annual target (1,230,000), monthly benchmarks
   → Output: Structured data → Feishu card (weekly report)
             → Memory log (daily append)
             → Obsidian Wiki (data.md update)
@@ -319,7 +319,7 @@ CSV file detected → Python parser reads wide format
 |--------|------------|----------|
 | Daily total | Row 12, col N | Base data point |
 | Daily avg (month) | Monthly total ÷ days | Capacity planning |
-| YTD completion | Cumulative ÷ 1,530,000 | Target tracking |
+| YTD completion | Cumulative ÷ 1,230,000 | Target tracking |
 | WoW change | (This week - last week) ÷ last week | Trend detection |
 | YoY change | (2026 - 2023/2024) ÷ baseline | Growth analysis |
 | Channel breakdown | Rows 4-11 / total | Channel efficiency |
@@ -1285,7 +1285,7 @@ The system is under active development. The following capabilities are planned o
 
 **Scenic-Area-Marketing-CN** 是一个基于 [OpenClaw AI Agent框架](https://github.com/openclaw/openclaw) 构建的生产级全自动景区营销情报系统。系统 24/7 运行在 Mac Mini 上,自主完成从多平台数据采集、结构化竞争情报分析、决策级报告生成、飞书群推送,到 Obsidian 知识图谱归档的完整闭环。
 
-系统服务于**建业电影小镇**--位于河南郑州的文化旅游景区,2026年度目标客流153万人次、营收1.2亿元。
+系统服务于**建业电影小镇**--位于河南郑州的文化旅游景区,2026年度目标客流123万人次（2026-08-13下调，原153万）、营收1.2亿元。
 
 这不是一个演示版或原型。系统已**连续无人工干预运行30+天**,日均产出 **6-8份可执行决策简报**。
 
@@ -1529,7 +1529,7 @@ CSV是复杂的宽表格式(非标准的行-天结构),解析脚本 `sync_obsidi
   → 提取:门票合计(Row12)、闸机入园(Row14)、天气(Row3)
   → 构建:{日期: {门票, 闸机, 天气}} 字典
   → 计算:日均、周环比、同比、YTD累计
-  → 对比:年度目标(153万)、月度基准
+  → 对比:年度目标(123万)、月度基准
   → 输出:结构化数据 → 飞书卡片(周报)
             → 记忆追加(每日)
             → Obsidian Wiki(数据.md更新)
@@ -1560,7 +1560,7 @@ CSV是复杂的宽表格式(非标准的行-天结构),解析脚本 `sync_obsidi
 |------|---------|------|
 | 日总量 | Row 12, 第N列 | 基础数据点 |
 | 月日均 | 月度合计 ÷ 天数 | 容量规划 |
-| YTD完成率 | 累计 ÷ 1,530,000 | 目标追踪 |
+| YTD完成率 | 累计 ÷ 1,230,000 | 目标追踪 |
 | 周环比 | (本周-上周)÷上周 | 趋势检测 |
 | 同比 | (2026-2023/2024)÷基准 | 增长分析 |
 | 渠道占比 | Rows 4-11 ÷ 合计 | 渠道效率 |
@@ -1784,7 +1784,7 @@ KNOWLEDGE LAYER (wiki/)
 
 ```
 BUSINESS LAYER (wiki/电影小镇/)
-├── 基础档案.md        - 基本信息/年度目标(153万/1.2亿)
+├── 基础档案.md        - 基本信息/年度目标(123万/1.2亿)
 ├── 战略框架.md        - SWOT/竞争定位
 ├── 人群画像.md        - 抖音/小红书用户画像
 ├── 历史数据/          - 2023-2026历年客流

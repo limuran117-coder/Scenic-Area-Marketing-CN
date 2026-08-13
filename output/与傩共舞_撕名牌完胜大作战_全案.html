@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>与傩共舞 · 撕名牌完胜大作战 | 郑州电影小镇 2026 万圣全案</title>
+<style>
+
+  :root{
+    --bg:#f5f5f7; --card:#ffffff; --ink:#1d1d1f; --sub:#6e6e73;
+    --line:#e5e5ea; --red:#d64545; --gold:#b07f2a; --soft:#86868b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro SC","SF Pro Text","PingFang SC","Helvetica Neue",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 28px 90px;}
+
+  /* 封面 hero — 苹果式浅色毛玻璃 */
+  .hero{position:relative;padding:96px 28px 80px;text-align:center;
+    background:linear-gradient(180deg,#ffffff 0%,#f5f5f7 100%);
+    border-bottom:1px solid var(--line);overflow:hidden;}
+  .hero::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(ellipse 60% 50% at 50% 0%,#d6454508 0%,transparent 70%);}
+  .hero .inner{position:relative;z-index:2;}
+  .eyebrow{display:inline-block;letter-spacing:.3em;color:var(--gold);font-size:13px;font-weight:600;
+    padding:5px 16px;border:1px solid #b07f2a66;border-radius:30px;margin-bottom:26px;background:#fff;}
+  h1{font-size:54px;letter-spacing:.06em;color:var(--ink);font-weight:700;margin-bottom:6px;}
+  h1 .n{color:var(--red);}
+  .subtitle{font-size:19px;letter-spacing:.18em;color:var(--sub);margin-bottom:10px;font-weight:500;}
+  .tagline{font-size:17px;color:var(--gold);letter-spacing:.14em;margin:16px 0 4px;font-weight:600;}
+  .tagline-sub{font-size:14px;color:var(--sub);letter-spacing:.06em;}
+  .meta{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;font-size:13px;color:var(--soft);margin-top:26px;}
+  .meta span{border-left:1px solid var(--line);padding-left:14px;}
+  .meta span:first-child{border-left:none;}
+
+  /* 目录 */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 30px;margin:34px 0 10px;
+    box-shadow:0 1px 4px #0000000a;}
+  .toc h3{color:var(--ink);font-size:18px;margin-bottom:16px;text-align:center;letter-spacing:.12em;font-weight:650;}
+  .toc .cols{display:grid;grid-template-columns:1fr 1fr;gap:6px 30px;}
+  .toc a{color:var(--sub);text-decoration:none;font-size:14px;display:block;padding:7px 8px;border-radius:8px;
+    border-bottom:1px solid var(--line);}
+  .toc a:hover{color:var(--red);background:#f5f5f7;}
+  .toc .cols b{color:var(--gold);font-size:12px;letter-spacing:.16em;display:block;margin:8px 0 2px;}
+  @media(max-width:640px){.toc .cols{grid-template-columns:1fr;}}
+
+  /* 章节 */
+  section{margin-top:56px;}
+  .sec-head{display:flex;align-items:center;gap:16px;margin-bottom:22px;}
+  .sec-num{width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;
+    font-size:19px;font-weight:700;color:#fff;background:var(--ink);border-radius:12px;}
+  .sec-num.r{background:var(--red);}
+  h2{font-size:24px;letter-spacing:.02em;color:var(--ink);font-weight:650;}
+  .sec-sub{color:var(--soft);font-size:13px;letter-spacing:.05em;}
+
+  /* 卡片 — 苹果式白色扁平 */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:26px 28px;margin-bottom:18px;box-shadow:0 1px 3px #00000008;}
+  .card h3{color:var(--ink);font-size:18px;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-weight:650;}
+  .card h3::before{content:"";width:5px;height:18px;background:var(--red);border-radius:3px;display:inline-block;}
+  .card p,.card li{color:#3a3a3c;font-size:15px;}
+  ul{padding-left:22px;} li{margin-bottom:8px;}
+  .red{color:var(--red);font-weight:650;} .gold{color:var(--gold);font-weight:600;}
+
+  /* 表格 */
+  table{width:100%;border-collapse:collapse;margin:14px 0;background:#fff;}
+  th{background:#f5f5f7;color:var(--ink);padding:11px 14px;text-align:left;font-size:13px;font-weight:600;
+    border-bottom:1.5px solid var(--line);}
+  td{padding:11px 14px;border-bottom:1px solid var(--line);font-size:14px;color:#3a3a3c;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  tr:hover td{background:#fafafa;}
+
+  /* 口令气泡 — 苹果式 */
+  .speech{background:#f5f5f7;border:1px solid var(--line);border-radius:16px;padding:18px 22px;
+    margin-bottom:14px;position:relative;}
+  .speech .who{font-size:13px;color:var(--red);font-weight:650;letter-spacing:.06em;margin-bottom:8px;
+    display:flex;align-items:center;gap:8px;}
+  .speech .who::before{content:"🎙️";}
+  .speech .txt{font-size:16px;color:var(--ink);letter-spacing:.02em;}
+  .speech .txt b{color:var(--red);}
+  .speech .txt .act{display:block;font-size:13px;color:var(--soft);margin-left:18px;margin-top:4px;font-style:italic;}
+  .speech.stage{background:#fffded;border-color:#e8d9a9;}
+  .speech.stage .who::before{content:"🔊";}
+  .speech.crowd .who::before{content:"👥";}
+  .speech.npc .who::before{content:"🧑🎤";}
+
+  .note{border-left:4px solid var(--gold);background:#fdf6e8;padding:14px 18px;border-radius:0 12px 12px 0;
+    font-size:14px;color:#5a4a28;margin:18px 0;}
+  .note.alert{background:#fdeee9;border-left-color:var(--red);color:#6b2a22;}
+  .note.alert .gold{color:var(--red);}
+
+  .step{display:flex;gap:16px;margin-bottom:20px;align-items:flex-start;}
+  .step .n{flex:none;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:#fff;background:var(--ink);font-size:17px;border:2px solid #fff;box-shadow:0 0 0 1.5px var(--line);}
+  .step .n.r{background:var(--red);}
+  .step .b h4{color:var(--ink);font-size:17px;margin-bottom:5px;}
+  .step .b p,.step .b li{font-size:14px;color:#3a3a3c;}
+
+  /* 分部分隔 */
+  .part{margin:60px 0 6px;padding:18px 0;text-align:center;
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff;border-radius:18px;}
+  .part h2{font-size:24px;letter-spacing:.14em;color:var(--ink);font-weight:700;}
+  .part p{color:var(--soft);font-size:13px;letter-spacing:.24em;margin-top:4px;}
+
+  .big{font-size:20px;color:var(--ink);text-align:center;font-weight:700;letter-spacing:.06em;margin:26px 0 8px;}
+  .footer{text-align:center;margin-top:80px;padding-top:28px;border-top:1px solid var(--line);color:var(--soft);font-size:12px;letter-spacing:.08em;}
+  @media(max-width:600px){h1{font-size:36px;} h2{font-size:21px;} .subtitle{font-size:15px;} .wrap{padding:0 16px 70px;}}
+
+</style>
+</head>
+<body>
+
+
+<div class="hero">
+  <div class="inner">
+    <div class="eyebrow">郑州电影小镇 · 2026 万圣季全案</div>
+    <h1>与<span class="n">傩</span>共舞</h1>
+    <div class="subtitle">撕名牌 · 傩舞 · 万圣 三合一</div>
+    <div class="tagline">傩面一戴 · 请神开撕</div>
+    <div class="tagline-sub">傩神附体 · 撕就对了</div>
+    <div class="meta">
+      <span>玩法全案</span><span>开赛执行 SOP</span><span>营收测算三档</span><span>一份文件 · 全套齐</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<div class="toc">
+  <h3>📜 全案目录</h3>
+  <div class="cols">
+    <div>
+      <b>—— 第一部分 · 玩法方案 ——</b>
+      <a href="#s01">01 活动背景与档期定位</a>
+      <a href="#s02">02 「与傩共舞」历年回顾</a>
+      <a href="#s03">03 核心玩法：傩战撕名牌</a>
+      <a href="#s04">04 与傩共舞 · 夜场节目编排</a>
+      <a href="#s05">05 营销与传播引爆点</a>
+      <a href="#s06">06 玩法数值方案</a>
+      <a href="#s07">07 商业化与营收测算</a>
+      <a href="#s08">08 客流与目标</a>
+      <a href="#s09">09 落地执行总表</a>
+    </div>
+    <div>
+      <b>—— 第二部分 · 开赛执行 SOP ——</b>
+      <a href="#s10">10 开赛前 60 分钟准备</a>
+      <a href="#s11">11 标准开赛流程</a>
+      <a href="#s12">12 主持口令与报幕词</a>
+      <a href="#s13">13 裁判口令速查卡</a>
+      <a href="#s14">14 三大模式开赛差异</a>
+      <a href="#s15">15 应急预案</a>
+    </div>
+  </div>
+</div>
+
+<div class="part"><h2>第一部分 · 玩法方案</h2><p>从定位到执行的完整经营方案</p></div>
+
+<section id="s1">
+    <div class="sec-head"><div class="sec-num">01</div>
+      <div><h2>活动背景与档期定位</h2>
+      <div class="sec-sub">为什么是现在 · 为什么这样开</div></div>
+    </div>
+
+    <div class="card">
+      <h3>一、把「完胜」热情无缝接到中式万圣</h3>
+      <p><span class="gold">国庆完胜活动</span>（10 月 1 日—8 日，全年唯一客流翻盘窗口）收官后，游客的狂欢情绪要<span class="red">无缝承接、不断档</span>。为此我们定档：</p>
+      <div class="timeline" style="margin-top:18px;">
+        <div class="tl-item"><div class="tl-date">9 月中 · 预热</div>
+          <div class="tl-txt">「完胜」尾盘埋点：国庆夜场插入傩面 VR 体验、群舞打卡预告，为 10.8 万圣档蓄客。</div></div>
+        <div class="tl-item r"><div class="tl-date">10.1 — 10.8 · 国庆完胜档</div>
+          <div class="tl-txt">《穿越百年·一路有戏》+ 非遗绝活，拉满全月峰值；同步宣发「10.8 与傩共舞归来」。</div></div>
+        <div class="tl-item"><div class="tl-date">10.8 起 · 万圣主题活动开启</div>
+          <div class="tl-txt">「傩战·完胜大作战」正式上线——两大玩法核心：<span class="red">非遗傩舞演艺</span> + <span class="red">跑男式撕名牌大作战</span>，一直延续到 11 月上旬。</div></div>
+        <div class="tl-item"><div class="tl-date">10 月上旬 · 收官复盘</div>
+          <div class="tl-txt">数据复盘 + UGC 沉淀，衔接 12 月跨年档。</div></div>
+      </div>
+      <div class="note"><span class="gold">为什么敢把万圣提前到 10.8：</span>「与傩共舞」是全网唯一自研「中式万圣」品类，2024 东方奇遇夜 → 2025 东方迷离夜已占先机。2026 全国万圣全面转向「中式恐怖 / 国潮」，我们正好踩在风口上，<b>提前开档能抢在对手前封锁「中式万圣 = 电影小镇」的心智</b>。</div>
+    </div>
+
+    <div class="card">
+      <h3>二、两张王牌合体：非遗底蕴 + 强互动竞技</h3>
+      <div class="grid">
+        <div class="tile"><div class="ic">🛡️</div><h4>王牌一 · 傩舞</h4>
+          <p>国家级非遗，中式恐怖审美的"文化底气"。2025 即创 17.7 万赞爆款——戴面具入园、群魔乱舞蹦迪。</p></div>
+        <div class="tile"><div class="ic">🏃</div><h4>王牌二 · 撕名牌</h4>
+          <p>跑男国民级爆款玩法，天然自带"强对抗、强社交、强出片、万人参与"基因，最擅把游客变玩家。</p></div>
+        <div class="tile"><div class="ic">🎯</div><h4>结合点</h4>
+          <p>傩面 = 名牌位。撕下名牌的那一刻，就是"请神上身"的仪式感——古老的傩，用年轻人的玩法活着。</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>三、活动目标体系（三层）</h3>
+      <table>
+        <tr><th>层面</th><th>核心目标</th><th>量化指标</th></tr>
+        <tr><td>🎯 <b>客流</b></td><td>用强互动把 10 月拉成全年翻盘窗口</td><td>10 月整月客流 <b>14—17 万</b>，全年参考 <b>123 万</b></td></tr>
+        <tr><td>💡 <b>心智</b></td><td>锁定「中式万圣 = 电影小镇」心智</td><td>话题播放量破亿级，"/与傩共舞2026"关联搜索显著上升</td></tr>
+        <tr><td>💰 <b>营收</b></td><td>从"看景"升级"玩景"，拉高单人价值</td><td>万圣档门票基准 <b>560 万</b>（玩法入园即参与·不额外收费）</td></tr>
+      </table>
+      <div class="note"><span class="gold">行业依据：</span>2026 万圣全面转向「中式恐怖/国潮」，00 后占游客 61—62%，夜游消费占比达 32.9%——中式民俗审美 + 强互动夜游正是 2026 最大风口，本方案踩中双热点。</div>
+    </div>
+
+    <div class="card">
+      <h3>四、竞品同期态势与差异化定位</h3>
+      <table>
+        <tr><th>竞品</th><th>2026 万圣打法（行业趋势）</th><th>对齐机会 / 差异点</th></tr>
+        <tr><td>清明上河园</td><td>宋文化 + 国潮夜游，强演艺沉浸</td><td>它偏"看"，我们补"玩"——撕名牌是它没有的强对抗钩子</td></tr>
+        <tr><td>方特欢乐世界</td><td>主题乐园 + 互动项目，年轻客群</td><td>它以 IP 项目为主，我们以"非遗 + 人人参战"差异化</td></tr>
+        <tr><td>银基动物王国</td><td>亲子家庭刚需，万圣节儿童友好</td><td>我们兼容"秘境寻宝"亲子模式，不掉队不正面拼</td></tr>
+        <tr><td class="gold"><b>电影小镇</b></td><td class="gold"><b>全网唯一自研中式万圣「与傩共舞」</b></td><td class="gold"><b>打"原创非遗 IP + 万人撕名牌"，别人难复制</b></td></tr>
+      </table>
+      <div class="note alert">🔍 <span class="gold">定位一句话：</span>不去抢"谁的乐园更大"，只打一张别人抄不走的牌——<b>国风非遗傩 + 国民撕名牌 = 只此一家</b>。提前到 10.8 开档，就是要抢在竞品万圣铺开前封锁心智。</div>
+    </div>
+  </section>
+<section id="s2">
+    <div class="sec-head"><div class="sec-num r">02</div>
+      <div><h2>「与傩共舞」历年活动与节目回顾</h2>
+      <div class="sec-sub">我们站在自己打下的地基上迭代</div></div>
+    </div>
+
+    <div class="card">
+      <h3>历年演进时间线</h3>
+      <table>
+        <tr><th>年份</th><th>全称 / 主题</th><th>核心节目与互动形式</th><th>记忆点 / 数据</th></tr>
+        <tr><td>2022</td><td>东方惊魂夜</td><td>中式恐怖端倪，低票价走量</td><td>69 元史低价促转化</td></tr>
+        <tr><td>2023</td><td>东方迷离夜</td><td>中式恐怖成型，主题街区氛围</td><td>奠定"东方万圣"心智</td></tr>
+        <tr><td>2024</td><td>与傩共舞·东方奇遇夜</td><td>1 傩舞广场 · 2 大街区 · 3 尖叫盲盒 · 100+ NPC；傩舞广场定时列阵演艺</td><td>傩舞 IP 里程碑，尖叫盲盒成引爆点</td></tr>
+        <tr><td>2025</td><td>与傩共舞·东方迷离夜</td><td>戴面具入园仪式 · 群魔乱舞蹦迪 · 全场景沉浸</td><td><b>17.7 万赞爆款</b>，"戴面具蹦迪"破圈</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>被验证的互动形式盘点（本次要继承强化）</h3>
+      <div class="two">
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">🎭 演艺/氛围类</h3>
+          <ul>
+            <li>傩舞广场定时列阵演艺（开闭园大秀）</li>
+            <li>戴面具入园仪式（仪式感拉满，天然 UGC）</li>
+            <li>群魔乱舞夜间蹦迪趴（情绪出口）</li>
+            <li>非遗火类联动：傩舞 + 火壶 + 打铁花</li>
+            <li>国潮 NPC 巡游 + 傩面墙光影打卡区</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">🎮 互动/参与类</h3>
+          <ul>
+            <li>3 大尖叫盲盒（随机惊吓/惊喜开盒）</li>
+            <li>100+ NPC 全场景即兴互动、派发任务</li>
+            <li>非遗传承人现场教学（学打傩鼓 3 分钟）</li>
+            <li>傩面拓印 / 面具彩绘手作体验</li>
+            <li>VR 傩舞 / 数字傩舞互动装置（年轻化入口）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note alert">🔍 <span class="gold">本次创新落点：</span>历年强在「看」与「妆造互动」，弱在「让游客真的动起来、对抗起来」。2026 引入<b>跑男式撕名牌竞技</b>，正好把「强参与、强对抗、强传播」这块短板补上——傩面不再只用来戴，还可以用来撕。</div>
+    </div>
+
+    <div class="card">
+      <h3>历年演进主逻辑</h3>
+      <table>
+        <tr><th>维度</th><th>2022</th><th>2023</th><th>2024</th><th>2025</th></tr>
+        <tr><td><b>定位</b></td><td>低价试水</td><td>主题成型</td><td>IP 里程碑</td><td>破圈爆款</td></tr>
+        <tr><td><b>主打</b></td><td>价格驱动</td><td>氛围驱动</td><td>场景×人数</td><td>仪式×情绪</td></tr>
+        <tr><td><b>胜负手</b></td><td>69 元史低</td><td>街区氛围</td><td>尖叫盲盒 / 100+NPC</td><td>戴面具入园 / 群魔乱舞</td></tr>
+        <tr><td><b>短板</b></td><td>无 IP</td><td>缺爆点</td><td>互动浅</td><td>重看轻玩</td></tr>
+      </table>
+      <div class="note"><span class="gold">演进规律：</span>从"价格"→"氛围"→"场景规模"→"仪式情绪"，是一路向<b>深度体验</b>进化。2026 在"仪式/情绪"之上再加"<b>强对抗竞技</b>"，把体验从"沉浸看戏"推到"亲身入局"，符合 IP 逐年升级的内在规律。</div>
+    </div>
+
+    <div class="card">
+      <h3>历年经验 · 可复制与雷区</h3>
+      <div class="two">
+        <div>
+          <h3 style="font-size:16px;color:#6fbf73;">✅ 已验证可继承</h3>
+          <ul>
+            <li>戴面具入园的仪式感（天然 UGC，必保留）</li>
+            <li>傩舞广场定时列阵大秀（开闭园引爆点）</li>
+            <li>群魔乱舞蹦迪夜趴（情绪出口，返场率高）</li>
+            <li>尖叫盲盒类"随机惊喜"机制（2024 引爆点）</li>
+            <li>100+ NPC 全沉浸（氛围靠人堆起来）</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">⚠️ 雷区 / 要补强</h3>
+          <ul>
+            <li>历年"重看轻玩"——游客只是观众不是玩家（本次撕名牌主攻）</li>
+            <li>面具体验偏静态——只有"戴"没有"战"（加入对战）</li>
+            <li>互动多靠 NPC，游客主动性弱（三人成战、组队任务）</li>
+            <li>避免低俗恐吓——走正/稳的"中式仪式"而非血糖式惊悚</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note alert">⚠️ <span class="gold">内容导向把关：</span>中式万圣不做西方血腥、不做低俗恐吓，走<b>正能量的民俗仪式感</b>——"傩"本义是驱疫祈福、迎祥纳吉，克制用恐怖元素，守住非遗底色与合规底线。</div>
+    </div>
+  </section>
+<section id="s3">
+    <div class="sec-head"><div class="sec-num">03</div>
+      <div><h2>核心玩法：傩战撕名牌大作战</h2>
+      <div class="sec-sub">傩面一戴 · 请神上身</div></div>
+    </div>
+
+    <div class="card">
+      <h3>一句话玩法</h3>
+      <div class="big">每位游客入园即领「傩面名牌」，在电影小镇实景街区里组队对决——<br>撕下对手的傩面即"请神上身"得分，撑到最后即「完胜」！</div>
+    </div>
+
+    <div class="card">
+      <h3>道具与名牌设计</h3>
+      <div class="grid">
+        <div class="tile"><div class="ic">😈</div><h4>傩面名牌</h4>
+          <p>背贴式磁吸/魔术贴名牌，绘四大神祇脸谱（钟馗、判官、方相氏、雷神…），扫描可解锁该神职业技能。</p></div>
+        <div class="tile"><div class="ic">🖐️</div><h4>撕命判定</h4>
+          <p>腕带传感器 / 裁判 NPC 计数，撕下名牌=击落，需到「傩鼓复活点」击鼓 3 下复活。</p></div>
+        <div class="tile"><div class="ic">🗺️</div><h4>秘境地图</h4>
+          <p>电影小镇街区划成"秘境拼图"，每区域设任务点、复活点、神谕宝箱，扫码实时看战局。</p></div>
+        <div class="tile"><div class="ic">📿</div><h4>神谕道具</h4>
+          <p>随机刷出的符咒：定身符、护身符、召唤傩兵、"换神符"（可抢他人神脸谱）。</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>⛩️ 四大神祇职业设定（选择即人设）</h3>
+      <div class="grid">
+        <div class="tile"><div class="ic">⚔️</div><h4>钟馗 · 天师</h4>
+          <p>定位<b>攻击</b>型，撕牌判定力强（更易撕下名牌）。适合胆大想赢的玩家，初始分 +2。</p></div>
+        <div class="tile"><div class="ic">📖</div><h4>判官 · 裁判</h4>
+          <p>定位<b>策略</b>型，任务点双倍积分，适合探秘/解密客群。</p></div>
+        <div class="tile"><div class="ic">🛡️</div><h4>方相氏 · 先锋</h4>
+          <p>定位<b>防御</b>型，被撕判定慢 1 秒（抗拉扯），适合双人组队守护。</p></div>
+        <div class="tile"><div class="ic">⚡</div><h4>雷神 · 疾风</h4>
+          <p>定位<b>机动</b>型，移动/追击速度加成，适合跑酷玩家。</p></div>
+      </div>
+      <div class="note"><span class="gold">设计意图：</span>四神适配四类玩家性格（攻/策/守/速），扫码即解锁该神<b>专属职业技能</b>，让"选哪张傩面"成为社交谈资，天然催生"你是什么神"的传播话题。</div>
+    </div>
+
+    <div class="card">
+      <h3>🏟️ 公平竞技与防弊规则</h3>
+      <div class="two">
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">⚖️ 判定与边界</h3>
+          <ul>
+            <li><b>只撕名牌不撕人</b>：仅可抓名牌边缘，禁拉拽衣物/肢体，违者判违规</li>
+            <li><b>安全区不可撕</b>：补给站 / 洗手间 / 医疗点划为安全区</li>
+            <li><b>腕带传感器</b>：自动判定 + 裁判双重确认，避免口舌争议</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">🚫 防作弊</h3>
+          <ul>
+            <li><b>一人一牌实名</b>：扫码绑定，防代打、防多开小号刷分</li>
+            <li><b>名牌唯一码</b>：撕下需扫码登记，防"假撕"口头话术</li>
+            <li><b>反外挂熔断</b>：异常高频得分触发系统熔断复查</li>
+            <li><b>裁判监督</b>：每街区 1 名裁判 NPC，违规即扣分/暂停</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note alert">⚠️ 公平感决定复购。撕名牌是竞技，可输但不可"感觉被黑"。传感器判定 + 裁判监督 + 防弊熔断，三保险保证每个人"输得服气、赢得干净"。</div>
+    </div>
+
+    <div class="card">
+      <h3>三大玩法模式（分时段切换，满足不同客群）</h3>
+      <table>
+        <tr><th>模式</th><th>玩法</th><th>适合人群</th><th>时长</th></tr>
+        <tr><td><b>🔥 傩战·生存撕战</b></td><td>全员大乱斗，撕名牌淘汰，撑到最后的 3 人=「三大神祇」赢家</td><td>年轻玩家、跑男粉</td><td>20 分钟/场</td></tr>
+        <tr><td><b>🧩 秘境·组队寻宝</b></td><td>4 人小队做"傩祭任务"+ 抢名牌积分，可撕可不撕，重探秘</td><td>亲子家庭、团建</td><td>40 分钟/场</td></tr>
+        <tr><td><b>🕵️ 内奸·傩面疑云</b></td><td>阵营战 + 隐藏卧底（狼人杀式），撕名牌揪内奸</td><td>重社交、剧本杀玩家</td><td>30 分钟/场</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>完整对战流程（生存撕战为例）</h3>
+      <table>
+        <tr><th>环节</th><th>内容</th></tr>
+        <tr><td><b>① 开场请神</b></td><td>傩舞广场列阵大秀开场，主持人请神、发放傩面名牌与初始神谕道具</td></tr>
+        <tr><td><b>② 入场列阵</b></td><td>游客戴傩面分阵营入场，扫二维码识别所属神祇与当前积分</td></tr>
+        <tr><td><b>③ 追逐撕战</b></td><td>限时倒计时撕名牌；触发任务点（学傩舞动作、拓印傩面、对暗号）额外加分</td></tr>
+        <tr><td><b>④ 复活与神谕</b></td><td>被撕后回傩鼓点击鼓 3 下复活；捡神谕宝箱开符咒扭转战局</td></tr>
+        <tr><td><b>⑤ 完胜结算</b></td><td>倒计时结束，存活「三大神祇」登台，傩舞夜光大秀为其加冕</td></tr>
+      </table>
+    </div>
+  </section>
+<section id="s4">
+    <div class="sec-head"><div class="sec-num r">04</div>
+      <div><h2>与傩共舞 · 夜场节目全编排</h2>
+      <div class="sec-sub">从「看傩」到「玩傩」到「神祇加冕」</div></div>
+    </div>
+
+    <div class="card">
+      <h3>每晚节目时间轴（建议）</h3>
+      <table>
+        <tr><th>时段</th><th>节目</th><th>说明</th></tr>
+        <tr><td>18:00 — 18:40</td><td><b>开傩大秀 · 请神列阵</b></td><td>傩舞广场非遗演艺开园，傩兵巡游 + 火焰傩舞，预热开场</td></tr>
+        <tr><td>18:40 — 19:00</td><td><b>撕战集结 + 傩面手作</b></td><td>游客领取傩面名牌、扫码入战；同步面具彩绘/拓印体验区开放</td></tr>
+        <tr><td>19:00 — 21:30</td><td><b>傩战·撕名牌大作战</b></td><td>三大模式轮换开赛，街区 NPC 全程"搅局"、派发神谕任务</td></tr>
+        <tr><td>21:30 — 21:45</td><td><b>神祇加冕 · 完胜颁发</b></td><td>赢家登傩舞高台，傩鼓擂响加冕，颁发"完胜神符"纪念品</td></tr>
+        <tr><td>21:45 — 22:30</td><td><b>群魔乱舞 · 傩面蹦迪趴</b></td><td>非遗火壶 + 电音狂欢，全员戴面具蹦迪，二次引爆 UGC</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>非遗增量演艺（强化"中式万圣"底蕴）</h3>
+      <ul>
+        <li><b>傩舞 × 火壶 / 打铁花联动</b>：非遗火类三合一，中式审美下的情绪高潮</li>
+        <li><b>傩面光影墙</b>：网红打卡区，投影傩面 + 游客剪影，霸屏小红书</li>
+        <li><b>剧情 NPC 深度互动</b>：傩仙 NPC 街头即兴派任务、对暗号、讲傩故事</li>
+        <li><b>数字傩舞 VR 体验</b>：年轻客群零门槛入口，学傩舞动作打卡</li>
+        <li><b>傩祭任务线</b>：串联街区寻宝 + 手作 + 撕名牌，一站式沉浸</li>
+      </ul>
+    </div>
+  </section>
+<section id="s5">
+    <div class="sec-head"><div class="sec-num">05</div>
+      <div><h2>营销与传播引爆点</h2>
+      <div class="sec-sub">让每一撕都成为一条短视频</div></div>
+    </div>
+
+    <div class="card">
+      <h3>传播主打话术</h3>
+      <div class="grid">
+        <div class="tile"><div class="ic">🎬</div><h4>话题钩子</h4><p>#傩战完胜大作战 #与傩共舞2026 #以傩面名义发起的撕名牌</p></div>
+        <div class="tile"><div class="ic">💥</div><h4>金句</h4><p>"专属于东方的万圣节""戴上面具，是人亦是神""撕名牌，也是请神"</p></div>
+        <div class="tile"><div class="ic">🏆</div><h4>冠军激励</h4><p>"完胜神祇"可获全年年卡 / 定制金傩面，制造二次传播素材</p></div>
+        <div class="tile"><div class="ic">📸</div><h4>出片引擎</h4><p>傩面写真棚 + 撕战高光抓拍，AI 一键出片 UGC</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>分阶段节奏</h3>
+      <div class="timeline">
+        <div class="tl-item"><div class="tl-date">9 月中</div>
+          <div class="tl-txt">预热期：早鸟票（39.9 / 49.9）+ 大学生双人特惠预售 + 傩舞夜场彩排视频预告片</div></div>
+        <div class="tl-item r"><div class="tl-date">9 月下旬</div>
+          <div class="tl-txt">种草蓄水：本地 KOL（郑州樱桃妹等）+ 全国腰部达人分批探店，国庆档期借势发酵</div></div>
+        <div class="tl-item"><div class="tl-date">10.8 起</div>
+          <div class="tl-txt">开档即引爆：KOL 密集投放撕战高光视频 + 万元 UGC 悬赏计划 + 抖音团购限量票</div></div>
+        <div class="tl-item r"><div class="tl-date">10 月中</div>
+          <div class="tl-txt">话题冲量：#与傩共舞2026 冲榜，发起傩面变装挑战赛 + 头部国漫 / 影视 IP 联名洽谈</div></div>
+        <div class="tl-item"><div class="tl-date">11 月上</div>
+          <div class="tl-txt">收官复盘 + 数据沉淀 + 长尾内容分发，衔接 12 月跨年档</div></div>
+      </div>
+    </div>
+
+    <div class="note">📌 <span class="gold">落地前核对：</span>以上节目与数据来自公开调研与历年「与傩共舞」档案，正式落地前须与景区运营团队核实当前演艺档期、剧场状态（含《穿越德化街》恢复情况）与傩舞团队档期，确保人不缺席、场不空转。</div>
+
+    <div class="card">
+      <h3>达人矩阵分级（三层种草）</h3>
+      <table>
+        <tr><th>层级</th><th>配置</th><th>任务</th><th>预算占比</th></tr>
+        <tr><td class="gold"><b>头部引爆</b></td><td>2-3 位全网头部（国风 / 游戏 / 搞笑向）</td><td>首发傩面变装 + 撕战名场面，单条百万级曝光定调</td><td>45%</td></tr>
+        <tr><td><b>腰部种草</b></td><td>15-20 位中部达人（本地生活 + 郑州 / 河南文旅）</td><td>真实体验 vlog + 团购挂载，带转化</td><td>35%</td></tr>
+        <tr><td><b>素人铺量</b></td><td>UGC 悬赏 + 现场快剪模板分发</td><td>万条真实内容铺量，撑话题热度与搜索</td><td>20%</td></tr>
+      </table>
+      <div class="note">🎯 <span class="gold">本地资源优先：</span>郑州樱桃妹等河南本地达人性价比高、粉丝地域精准（1h 车程客群），首周先密集铺本地腰部，再上头部引爆。</div>
+    </div>
+
+    <div class="card">
+      <h3>话题词包（主话题 × 子话题 × 挑战赛）</h3>
+      <table>
+        <tr><th>层级</th><th>话题</th><th>用途</th></tr>
+        <tr><td><b>主话题</b></td><td>#与傩共舞2026</td><td>全案唯一官方话题，所有内容统一挂载沉淀</td></tr>
+        <tr><td><b>子话题 1</b></td><td>#傩战完胜大作战</td><td>玩法名场面聚合（撕牌瞬间 / 神祇对决）</td></tr>
+        <tr><td><b>子话题 2</b></td><td>#以傩面名义发起的撕名牌</td><td>悬念向内容（预告 / 规则揭秘 / 规则挑战）</td></tr>
+        <tr><td><b>子话题 3</b></td><td>#东方万圣在郑州</td><td>区域心智抢占，对标「中式万圣」搜索词</td></tr>
+        <tr><td><b>挑战赛</b></td><td>#傩面变装挑战（10 月中发起）</td><td>用户自拍变装 + 撕牌动作，DOU+ 助推爆款</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>短视频内容示例（5 类模板）</h3>
+      <div class="grid">
+        <div class="tile"><div class="ic">⚔️</div><h4>名场面</h4><p>撕牌瞬间慢动作 + 傩面特写 + 胜利者举牌，15s 高燃切片，投放量最大</p></div>
+        <div class="tile"><div class="ic">🎭</div><h4>玩家视角</h4><p>第一人称跑酷 + 躲藏 + 反杀，脚本感强，素人 UGC 主推方向</p></div>
+        <div class="tile"><div class="ic">🏮</div><h4>非遗美学</h4><p>傩舞夜场 + 打铁花同框，国风大片向，承接「东方万圣」心智</p></div>
+        <div class="tile"><div class="ic">✨</div><h4>变装</h4><p>普通游客 → 傩面神祇，妆造过程 + 出片写真，挑战赛核心素材</p></div>
+        <div class="tile"><div class="ic">🎬</div><h4>幕后花絮</h4><p>傩舞团队排练 / 道具制作 / 裁判培训，故事性内容做信任背书</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>渠道投放配比（开档首月）</h3>
+      <table>
+        <tr><th>渠道</th><th>占比</th><th>打法</th></tr>
+        <tr><td><b>抖音</b></td><td>55%</td><td>信息流 + 本地推 + 团购卡位，主攻 18-35 岁年轻客群，转化主力</td></tr>
+        <tr><td><b>小红书</b></td><td>20%</td><td>种草笔记 + 攻略合集 + 出片点位盘点，承接女性决策与周末出游</td></tr>
+        <tr><td><b>OTA / 私域</b></td><td>15%</td><td>美团 / 携程团购 + 公众号推文 + 会员短信，锁存量</td></tr>
+        <tr><td><b>线下 / 异业</b></td><td>10%</td><td>地铁 / 商圈 LED + 电影院票根联动 + 高校社团合作</td></tr>
+      </table>
+    </div>
+  </section>
+<section id="s6">
+    <div class="sec-head"><div class="sec-num">06</div>
+      <div><h2>玩法数值方案（可落地执行版）</h2>
+      <div class="sec-sub">让每一场对战都有清晰的胜负与反馈</div></div>
+    </div>
+
+    <div class="card">
+      <h3>一、积分体系（三大模式通用底表）</h3>
+      <table>
+        <tr><th>行为</th><th>分值</th><th>说明</th></tr>
+        <tr><td>成功撕下对手傩面</td><td class="red">+5</td><td>基础击杀分，当场广播「某某请神成功」</td></tr>
+        <tr><td>完成秘境任务点</td><td>+3</td><td>学傩舞动作 / 拓印傩面 / 对暗号 / 举鼓打卡</td></tr>
+        <tr><td>阵营胜利 / 最后存活</td><td>+10</td><td>「三大神祇」额外加成</td></tr>
+        <tr><td>使用神谕道具成功</td><td>按道具</td><td>见道具表（定身/护身/召唤/换神各有分值）</td></tr>
+        <tr><td>被撕淘汰</td><td>−0（不扣）</td><td>鼓励再战，防止挫败感毁体验</td></tr>
+        <tr><td>违规（跑出安全区/拉扯）</td><td class="red">−2</td><td>裁判警示，扣分并有 30 秒禁赛冷静期</td></tr>
+      </table>
+      <div class="note"><span class="gold">设计原则：</span>击杀给足爽感、任务给足参与、被撕不扣分给足安全。总分=击杀+任务+道具，最后结算「完胜榜」。</div>
+    </div>
+
+    <div class="card">
+      <h3>二、傩面种族 &amp; 职业技能数值</h3>
+      <table>
+        <tr><th>傩面神祇</th><th>定位</th><th>职业技能（CD）</th><th>初始属性</th></tr>
+        <tr><td>钟馗（攻）</td><td>输出型</td><td>【破煞】：30 秒内撕名牌力量判定 +1（CD 60s）</td><td>攻 5 / 速 3 / 防 2</td></tr>
+        <tr><td>判官（策）</td><td>辅助型</td><td>【判罪】：标记对手 10 秒，全队对其伤害/撕名牌成功率 +20%（CD 90s）</td><td>攻 3 / 速 3 / 防 4</td></tr>
+        <tr><td>方相氏（御）</td><td>坦克型</td><td>【镇四方】：自身 15 秒免疫撕名牌（CD 120s）</td><td>攻 2 / 速 2 / 防 6</td></tr>
+        <tr><td>雷神（速）</td><td>刺客型</td><td>【迅雷】：移动速度 +40% 持续 12 秒（CD 75s）</td><td>攻 3 / 速 6 / 防 1</td></tr>
+      </table>
+      <p style="font-size:13px;color:#c9a86a;">* 属性为角色轻度差异化，营造"选了神祇就有故事"的记忆点，不追求数值压制；撕名牌结果主要由操作与团队配合决定。</p>
+    </div>
+
+    <div class="card">
+      <h3>三、神谕道具数值（随机秘境宝箱 / 任务奖励）</h3>
+      <table>
+        <tr><th>道具</th><th>效果</th><th>稀有度</th><th>兑换/获取</th></tr>
+        <tr><td>📿 定身符</td><td>定住目标 3 秒无法移动/撕牌</td><td>普通</td><td>任务点 / 宝箱</td></tr>
+        <tr><td>🛡️ 护身符</td><td>本次被撕可免死一次（立即触发）</td><td>普通</td><td>现场互动 / 宝箱</td></tr>
+        <tr><td>🧟 召唤傩兵</td><td>召唤 1 名 NPC 傩兵协助 30 秒</td><td>稀有</td><td>阵营战胜利 / 隐藏任务</td></tr>
+        <tr><td>🔀 换神符</td><td>与任意对手交换傩面（职业/属性互换）</td><td>稀有</td><td>宝箱概率掉落</td></tr>
+        <tr><td>👑 完胜神符</td><td>结算时总分 ×1.5（仅当天有效）</td><td>传说</td><td>「神祇加冕」冠军奖励</td></tr>
+      </table>
+      <p style="font-size:13px;color:#c9a86a;">道具总量每日配额，宝箱定时刷新（每 15 分钟一批），空手开箱概率低，保证人人有参与感。</p>
+    </div>
+
+    <div class="card">
+      <h3>四、复活与对战节奏数值</h3>
+      <div class="two">
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">⏱️ 节奏参数</h3>
+          <ul>
+            <li>每场标准时长：<b>20 分钟</b>（生存撕战）</li>
+            <li>开局倒计时：3 分钟"和平期"（只热身，不可撕）</li>
+            <li>撕战窗口：15 分钟极限对战</li>
+            <li>加时赛：末 2 分钟"神战时刻"（双倍积分 + 傩兵暴走）</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">🧟 复活规则</h3>
+          <ul>
+            <li>被撕→回<b>傩鼓复活点</b>击鼓 3 下复活（约 20 秒）</li>
+            <li>同场每人<b>复活上限 3 次</b>，超限出局观战</li>
+            <li>复活后 10 秒"神光护体"（不可被立即再撕）</li>
+            <li>阵营战：全队复活次数共享，团灭阶段进入"绝地反杀"</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>五、完胜段位 &amp; 荣誉体系</h3>
+      <table>
+        <tr><th>段位</th><th>条件</th><th>奖励</th></tr>
+        <tr><td>🐉 神祇·完胜</td><td>单场存活且总分前 3</td><td>完胜神符 + 定制金傩面 + 官方高光剪辑</td></tr>
+        <tr><td>🦅 傩将</td><td>累计击杀 ≥10 或总分榜前 20</td><td>完胜贴纸 + 优先入围次日决赛权</td></tr>
+        <tr><td>📿 傩士</td><td>完成 ≥3 个任务点</td><td>傩面纪念徽章</td></tr>
+        <tr><td>🎭 入傩者</td><td>完成 1 次完整对战</td><td>电子完胜证书（分享裂变图）</td></tr>
+      </table>
+      <p style="font-size:13px;color:#c9a86a;">每日生成「完胜榜」大屏展示 + 每周「傩战之巅」周末决赛，形成复购钩子。</p>
+    </div>
+
+    <div class="card">
+      <h3>六、NPC 调度与安全边界</h3>
+      <div class="two">
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">🧑‍🎤 NPC / 裁判配置</h3>
+          <ul>
+            <li><b>每街区 1 名裁判 NPC</b>：判定撕牌、发任务、喊"神光护体"</li>
+            <li><b>傩仙 NPC 巡回</b>：即兴派神谕、对暗号、讲傩故事</li>
+            <li><b>调度台 1 个</b>：实时监控战局、广播战况、处理突发</li>
+            <li><b>单场人数上限</b>：生存 60 人 / 寻宝 40 人 / 阵营 30 人（分批次）</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">🛡️ 安全红线</h3>
+          <ul>
+            <li><b>撕名牌只允许手抓名牌边缘</b>，严禁拉衣服/推搡</li>
+            <li>设<b>安全区</b>（补给站/洗手间）内不可撕</li>
+            <li><b>儿童专属模式</b>：6-12 岁用"软撕"（声控淘汰）防碰撞</li>
+            <li>夜场硬地面区域铺防滑垫 + 每 100㎡ 配急救点</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note alert">⚠️ <span class="gold">合规提示：</span>涉奔跑/对抗类活动须为参与游客投保<b>意外险</b>，入园/参与时签署《免责与安全须知》，并在入口公示安全规则，避免体验升级带来的责任风险。</div>
+    </div>
+  </section>
+<section id="s7">
+    <div class="sec-head"><div class="sec-num r">07</div>
+      <div><h2>商业化与营收测算</h2>
+      <div class="sec-sub">从「会玩」到「能赚钱」</div></div>
+    </div>
+
+    <div class="note alert">📐 <span class="gold">测算前提：</span>以下均为<b>测算假设区间</b>，非承诺目标。落地前须结合运营团队的票价结构、参与率假设校准。数据未虚构，仅做量级参考。</div>
+
+    <div class="card">
+      <h3>一、营收构成（纯门票口径）</h3>
+      <table>
+        <tr><th>来源</th><th>模式</th><th>参考定价</th><th>说明</th></tr>
+        <tr><td><b>门票（主收入）</b></td><td>早鸟 / 夜场 / 套票</td><td>39.9 / 49.9 早鸟，69 史低促转</td><td>对标历年「与傩共舞」走量策略</td></tr>
+        <tr><td><b>联名赞助</b></td><td>国漫 / 影视 / 快消 IP</td><td>商务洽谈</td><td>对标长隆 ×《天官赐福》借势拆账</td></tr>
+      </table>
+      <div class="note"><span class="gold">口径说明：</span>傩战撕名牌为<b>入园即参与、不额外收费</b>的引流玩法，收入全部来自门票。玩法价值在于拉升客流与口碑，不设单独付费项。</div>
+    </div>
+
+    <div class="card">
+      <h3>二、门票收入测算（基准档）</h3>
+      <table>
+        <tr><th>情景</th><th>万圣档客流</th><th>参考票价口径</th><th>预估门票收入</th></tr>
+        <tr><td>保守</td><td>6 万人次</td><td>早鸟 39.9—49.9 / 夜场溢价</td><td><b>≈ 420 万</b></td></tr>
+        <tr><td class="gold"><b>基准</b></td><td class="gold">8 万人次</td><td class="gold">综合均价 ≈ 69.8 元</td><td class="gold"><b>≈ 560 万</b></td></tr>
+        <tr><td>冲刺</td><td>10 万人次</td><td>旺季上浮 + 套票带动</td><td><b>≈ 698 万</b></td></tr>
+      </table>
+      <div class="note"><span class="gold">含义：</span>玩法不收费反而放大引流——「撕名牌对战 + 傩舞夜场」构成完整体验闭环，把万圣档从「看景」升级成「玩景」，用客流带动门票基本盘。此为<b>量级测算</b>，落地前须按实际票价结构校准。</div>
+    </div>
+  </section>
+<section id="s8">
+    <div class="sec-head"><div class="sec-num">08</div>
+      <div><h2>客流与目标</h2>
+      <div class="sec-sub">把玩法变成 KPI</div></div>
+    </div>
+
+    <div class="card">
+      <h3>目标客流结构（10 月—11 月上旬）</h3>
+      <table>
+        <tr><th>阶段</th><th>窗口</th><th>目标定位</th><th>客流目标（区间）</th></tr>
+        <tr><td>国庆完胜档</td><td>10.1—10.8</td><td>全年唯一翻盘窗口</td><td><b>8—10 万</b>（历年 8.3—16.7 万保守段）</td></tr>
+        <tr><td>万圣开档</td><td>10.8—10.31</td><td>承接完胜热度，中式万圣主战场</td><td>6—8 万</td></tr>
+        <tr><td>万圣收尾</td><td>11.1—11 上旬</td><td>周末收割 + 收官复盘</td><td>1—2 万</td></tr>
+        <tr><td class="gold"><b>合计参考</b></td><td class="gold" colspan="2">10 月整月目标</td><td class="gold"><b>14—17 万</b>（力争 18 万+ 冲全年 132 万）</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>关键里程碑（可验证目标）</h3>
+      <ul>
+        <li>📅 <b>开档 3 天（10.8—10.10）</b>：抖音「#与傩共舞2026」话题播放量破 500 万</li>
+        <li>📅 <b>开档首周</b>：撕名牌对战参与人次 ≥ 8,000（日均 ≥ 1,100，对标历年 10 月平日客流）</li>
+        <li>📅 <b>10 月 20 日</b>：档期累计客流破 5 万，达到基准线 50%</li>
+        <li>📅 <b>10 月底</b>：UGC 短视频产出 ≥ 5000 条，全民伞面出片率 ≥ 60%</li>
+        <li>📅 <b>10 月上旬</b>：完成整档复盘，输出「中式万圣=电影小镇」心智落地评估</li>
+      </ul>
+      <div class="note"><span class="gold">对照锚点：</span>2025「与傩共舞·东方迷离夜」曾创 17.7 万赞爆款；2024 国庆高峰日 4 万、省外 8 成。本次「撕名牌」竞技是新增引流钩子，目标是用强互动把「万圣季」从「看景」拉高到「玩景」。</div>
+    </div>
+
+    <div class="card">
+      <h3>客流峰值分级响应（大客流预案）</h3>
+      <table>
+        <tr><th>等级</th><th>触发条件</th><th>响应动作</th></tr>
+        <tr><td class="gold"><b>🟡 橙级</b></td><td>实时在园 &gt; 1.2 万（平日 70%）</td><td>撕战场次加密至 15 分钟/场；增开第二竞技区；NPC/裁判人力 +30%</td></tr>
+        <tr><td class="red"><b>🟠 红级</b></td><td>实时在园 &gt; 1.8 万（平日上限）</td><td>撕战改为预约制（小程序取号）；演艺加场错峰；开启单向动线引导</td></tr>
+        <tr><td><b>🔴 紫级</b></td><td>实时在园 &gt; 2.5 万（峰值）</td><td>启动限流（线上停售 + 现场只出不进）；重点区域（傩舞舞台/竞技区）人员管控；广播引导疏散</td></tr>
+      </table>
+      <ul>
+        <li>📡 <b>数据来源：</b>闸机实时数据 + 撕战报名小程序在线人数，10 分钟刷新一次</li>
+        <li>🛡️ <b>体验红线：</b>任何等级下，撕名牌对战排队时长 ≤ 40 分钟（超时自动增开场次），保证「来了能玩到」</li>
+        <li>📣 <b>信息透明：</b>红级以上启动园区广播 + 公众号实时推送，避免游客因排队怨气差评</li>
+        <li>🧯 <b>安全联动：</b>紫级同步通知属地消防/公安备勤，夜场疏散通道保持 2m 净宽</li>
+      </ul>
+    </div>
+  </section>
+<section id="s09">
+    <div class="sec-head"><div class="sec-num r">09</div>
+      <div><h2>落地执行总表（全案收口）</h2>
+      <div class="sec-sub">从方案到能开干的最后一张图</div></div>
+    </div>
+
+    <div class="card">
+      <h3>开档前 30 天执行清单</h3>
+      <table>
+        <tr><th>时间</th><th>事项</th><th>责任口</th></tr>
+        <tr><td><b>T-30</b></td><td>锁定傩舞团队档期 + 本地传承人备份；首批傩面名牌/道具打样 ×120% 库存</td><td>演艺 / 采购</td></tr>
+        <tr><td><b>T-21</b></td><td>完成撕战系统（腕带/扫码/计分）联调；投保意外险 + 拟定《免责与安全须知》</td><td>IT / 法务</td></tr>
+        <tr><td><b>T-14</b></td><td>早鸟票上线 + 头部 KOL 预约；安全区/急救点/防滑垫点位确认</td><td>营销 / 安全</td></tr>
+        <tr><td><b>T-7</b></td><td>裁判 NPC 培训 + 压力测试（模拟 300 人满场）；雨天预案演练</td><td>运营 / 培训</td></tr>
+        <tr><td><b>T-3</b></td><td>全要素彩排：开傩大秀 + 撕战 + 加冕 + 蹦迪趴完整走一遍</td><td>全员</td></tr>
+        <tr><td><b>T-1</b></td><td>道具清点 / 安全巡检 / 各岗位到岗确认，静待开档</td><td>运营</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>开档首周每日运营节奏（10.8—10.14）</h3>
+      <table>
+        <tr><th>日期</th><th>当日重点</th><th>必做动作</th></tr>
+        <tr><td><b>10.8 周三</b></td><td>开档引爆日</td><td>全要素首演；头部 KOL 现场拍摄；抖音团购开售；首晚复盘会（数据基线采集）</td></tr>
+        <tr><td><b>10.9 周四</b></td><td>口碑定调</td><td>首日 UGC 精选置顶；腰部达人探店团进场；撕战高光快剪 24h 内发布</td></tr>
+        <tr><td><b>10.10 周五</b></td><td>周末预热</td><td>周五晚场加开「神祇对决」表演赛；抖音话题冲量投流；次日预约提示</td></tr>
+        <tr><td><b>10.11 周六</b></td><td>首个大客流日</td><td>启动橙级预案观察；加场动态调度；现场 UGC 引导员加派；当日数据重点复盘</td></tr>
+        <tr><td><b>10.12 周日</b></td><td>峰值复盘</td><td>周末两日数据复盘会：参与率/排队时长/差评点逐项过；次周动作调整</td></tr>
+        <tr><td><b>10.13 周一</b></td><td>淡日补强</td><td>周一大客流回落，转做内容补仓：拍摄非遗幕后素材 + 筹备变装挑战赛</td></tr>
+        <tr><td><b>10.14 周二</b></td><td>首周小结</td><td>开档 7 天经营会议：达成率 vs 里程碑（话题 500 万 / 参与 8,000）；发布首周战报</td></tr>
+      </table>
+      <div class="note">📌 <span class="gold">节奏铁律：</span>首周每晚 22:00 固定 15 分钟复盘（到场人次 / 撕战参与 / UGC 产出 / 差评点），当日问题当日决策，不留到次周。</div>
+    </div>
+
+    <div class="card">
+      <h3>投入产出速算卡（基准口径）</h3>
+      <table>
+        <tr><th>项目</th><th>基准值</th></tr>
+        <tr><td>万圣档客流</td><td>08 万人次</td></tr>
+        <tr><td>预期营收</td><td class="gold"><b>≈ 560 万</b>（纯门票口径）</td></tr>
+        <tr><td>参考成本</td><td>人力 60 + 道具 25 + 营销搭建 40 + 保险 8 ≈ <b>133 万</b></td></tr>
+        <tr><td>参考毛利</td><td class="gold"><b>≈ 427 万</b>（毛利率 ≈ 76%）</td></tr>
+        <tr><td>回本逻辑</td><td>玩法入园即参与不额外收费，门票收入覆盖成本后即为毛利</td></tr>
+      </table>
+      <div class="note alert">⚠️ 成本为<b>增量口径</b>（只算活动新增可变成本），不含景区日常固定运营。正式立项时由财务按实际核算。</div>
+    </div>
+
+    <div class="card">
+      <h3>三线责任分工</h3>
+      <div class="two">
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">🫂 现场线</h3>
+          <ul>
+            <li>导演/演艺负责人：节目编排、傩舞团队</li>
+            <li>运营主管：场次调度、扫码入战管理、NPC 管理</li>
+            <li>安全负责人：急救、防滑、儿童看护、舆情</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">📣 市场线</h3>
+          <ul>
+            <li>内容运营：UGC 悬赏、数据监测闭环</li>
+            <li>商务：联名赞助洽谈、OTA 渠道</li>
+          </ul>
+        </div>
+      </div>
+      <div class="two" style="margin-top:10px;">
+        <div>
+          <h3 style="font-size:16px;color:#ff7a6b;">📊 数据/决策线</h3>
+          <ul>
+            <li>数据运营：客流、营收、转化日报</li>
+            <li>复盘负责人：开档 7 天经营会议 + 触发式决策</li>
+          </ul>
+        </div>
+        <div>
+          <h3 style="font-size:16px;color:#6fbf73;">⚖️ 合规底线</h3>
+          <ul>
+            <li>意外险 + 免责书 + 安全公示（不可省略）</li>
+            <li>内容导向把关：正值民俗，不做血腥低俗</li>
+            <li>一人一牌实名，防弊三保险随时生效</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="text-align:center;font-size:15px;margin-top:8px;">🎉 <span class="gold">一张图收口：</span>提前 10.8 开档 → 非遗傩 + 撕名牌双王牌 → 8 万人次 → 560 万门票营收 → 133 万成本 → 427 万增量毛利。<b>「中式万圣 = 电影小镇」的牌子，就靠这一仗立起来。</b></div>
+  </section>
+<div class="part"><h2>第二部分 · 开赛执行 SOP</h2><p>现场即用 · 裁判 / 主持 / 运营手册</p></div>
+<section id="s10">
+    <div class="sec-head"><div class="sec-num">10</div>
+      <div><h2>开赛前 60 分钟准备</h2>
+      <div class="sec-sub">两次巡检 · 两次点名</div></div>
+    </div>
+    <div class="card">
+      <h3>岗前检查表（值班主管逐项打勾）</h3>
+      <table>
+        <tr><th>类别</th><th>项目</th><th>标准</th></tr>
+        <tr><td>场地</td><td>撕战主街区 / 安全区 / 复活点</td><td>无杂物、防滑垫铺设、隔离带到位</td></tr>
+        <tr><td>道具</td><td>傩面名牌 ×N、腕带传感器、神谕道具</td><td>逐个测电、磁吸/魔术贴完好、数量清点</td></tr>
+        <tr><td>系统</td><td>扫码进组、大屏战局、广播调度台</td><td>Wi-Fi 联通、二维码可扫、广播试音</td></tr>
+        <tr><td>人员</td><td>裁判 NPC ×每街区1、傩仙、调度台</td><td>着傩戏服、佩戴对讲、熟读口令卡</td></tr>
+        <tr><td>安全</td><td>急救点 / 急救箱 / 意外险名单</td><td>急救员在岗、保险单核对、免责书备齐</td></tr>
+      </table>
+      <div class="note">⏱️ <span class="gold">两次巡检：</span>开赛前 60 分钟一次初检 + 开赛前 15 分钟一次复检；复检发现异常当场处置，不延误准点开赛。</div>
+    </div>
+  </section>
+<section id="s11">
+    <div class="sec-head"><div class="sec-num r">11</div>
+      <div><h2>标准开赛流程（20 分钟生存撕战）</h2>
+      <div class="sec-sub">主持口令 + 裁判执行 同步推进</div></div>
+    </div>
+    <div class="card">
+      <div class="step"><div class="n">1</div><div class="b">
+        <h4>T-5 分钟 · 列阵点名</h4>
+        <p>游客入场戴傩面、扫码进组，裁判核对人数与人数上限（生存 60 人），发放初始神谕道具。</p>
+      </div></div>
+      <div class="step"><div class="n">2</div><div class="b">
+        <h4>T-1 分钟 · 和平期提醒</h4>
+        <p>主持提示开场 3 分钟为和平期，只热身站位、不可撕牌，避免开赛即乱。</p>
+      </div></div>
+      <div class="step"><div class="n">3</div><div class="b">
+        <h4>T+0 · 请神开战</h4>
+        <p>傩舞广场开傩大秀短版（1 分钟），裁判齐喊「请神」，倒计时归零，撕战开始。</p>
+      </div></div>
+      <div class="step"><div class="n">4</div><div class="b">
+        <h4>T+15' · 神战时刻</h4>
+        <p>末 2 分钟进入双倍积分 + 傩兵暴走加成，主持高能播报点燃全场。</p>
+      </div></div>
+      <div class="step"><div class="n">5</div><div class="b">
+        <h4>T+20' · 完胜结算</h4>
+        <p>倒计时结束，存活「三大神祇」登台加冕，颁奖、合影、引导 UGC 传播。</p>
+      </div></div>
+    </div>
+  </section>
+<section id="s12">
+    <div class="sec-head"><div class="sec-num">12</div>
+      <div><h2>主持口令与报幕词（傩文化台词）</h2>
+      <div class="sec-sub">可直接照读 · 现场即用</div></div>
+    </div>
+
+    <div class="speech stage"><div class="who">开傩请神（开场）</div>
+      <div class="txt">「四海英豪，各就其位——今日以傩面之名，请神入阵！」<span class="act">（全场傩鼓擂响，傩舞开场）</span><br>
+      <b>「一分钟列阵，三分钟和平，倒计时起——请神！」</b><span class="act">（裁判齐喊"请神"，撕战开启）</span></div>
+    </div>
+
+    <div class="speech stage"><div class="who">和平期提示（开场 3 分钟内）</div>
+      <div class="txt">「诸神安位，未成战事——此刻只热身，不动牌。三分钟一过，刀兵相见！」<span class="act">（引导站位，防碰撞）</span></div>
+    </div>
+
+    <div class="speech crowd"><div class="who">判罚播报（有人被撕）</div>
+      <div class="txt">「钟馗神——请神成功！某某已归位，速往傩鼓处击鼓三下，候君再战！」<span class="act">（广播腔，带入感拉满）</span></div>
+    </div>
+
+    <div class="speech stage"><div class="who">神战时刻（末 2 分钟）</div>
+      <div class="txt">「傩兵暴走！双倍神威时刻——此刻一撕，功加双成！前方高能，燃战！」<span class="act">（背景乐拉满，灯光频闪）</span></div>
+    </div>
+
+    <div class="speech stage"><div class="who">完胜加冕（结算）</div>
+      <div class="txt">「战毕！存者三人，神位既定——我等且擂响傩鼓，为<b>三大神祇</b>加冕！」<span class="act">（颁奖 + 合影 + 喊出纪念口号）</span></div>
+    </div>
+
+    <div class="speech stage"><div class="who">收官口号（每场末）</div>
+      <div class="txt">「以傩面之名，发起快乐冲锋——我们，下阵再见！」<span class="act">（引导扫码看成绩、分享战绩图）</span></div>
+    </div>
+
+    <div class="note">🎙️ <span class="gold">主持节奏：</span>喊话带傩文化台词，但不追求咬文嚼字，重点是<b>情绪点燃</b>。宁可白话带劲，不装腔掉粉——00 后主力吃"燃"不吃"端"。</div>
+  </section>
+<section id="s13">
+    <div class="sec-head"><div class="sec-num r">13</div>
+      <div><h2>裁判口令速查卡（对讲 / 随身卡）</h2>
+      <div class="sec-sub">一指令一动作</div></div>
+    </div>
+    <div class="card">
+      <table>
+        <tr><th>时机</th><th>裁判口令</th><th>动作</th></tr>
+        <tr><td>入场</td><td>「报神籍！」</td><td>游客报所属傩面，裁判核对名牌</td></tr>
+        <tr><td>开撕</td><td>「请神！」</td><td>全场开始撕战</td></tr>
+        <tr><td>判定</td><td>「撕成 / 无效！」</td><td>有效则记分广播，无效(抓衣)警示</td></tr>
+        <tr><td>复活</td><td>「击鼓归位！」</td><td>被撕者回傩鼓点击鼓3下复活</td></tr>
+        <tr><td>违规</td><td>「犯规，扣两巫！」</td><td>违规者-2分 + 30秒冷静期</td></tr>
+        <tr><td>召唤</td><td>「傩兵听令！」</td><td>NPC 傩兵被召唤入场助战</td></tr>
+        <tr><td>结算</td><td>「战毕！神位已定！」</td><td>停止对抗，进入加冕流程</td></tr>
+      </table>
+    </div>
+  </section>
+<section id="s14">
+    <div class="sec-head"><div class="sec-num">14</div>
+      <div><h2>三大模式开赛差异速查</h2>
+      <div class="sec-sub">不同客群 · 不同口令节奏</div></div>
+    </div>
+    <div class="card">
+      <table>
+        <tr><th>模式</th><th>开场口令</th><th>关键规则</th><th>主持语气</th></tr>
+        <tr><td>🔥 生存撕战</td><td>「请神！」</td><td>20 分钟大乱斗，复活 3 次上限</td><td>燃、快、高压</td></tr>
+        <tr><td>🧩 秘境寻宝</td><td>「启阵探秘！」</td><td>40 分钟任务导向，可撕可不撕</td><td>轻松、引导、亲子向</td></tr>
+        <tr><td>🕵️ 傩面疑云</td><td>「众神聚议，内奸在列！」</td><td>30 分钟阵营 + 卧底推理</td><td>悬疑、节奏稍慢</td></tr>
+      </table>
+    </div>
+  </section>
+<section id="s15">
+    <div class="sec-head"><div class="sec-num r">15</div>
+      <div><h2>应急预案（现场突发处置）</h2>
+      <div class="sec-sub">先安全 · 后秩序 · 再体验</div></div>
+    </div>
+    <div class="card">
+      <h3>分级处置表</h3>
+      <table>
+        <tr><th>级别</th><th>突发情况</th><th>处置动作</th></tr>
+        <tr><td>🟡 低级</td><td>道具故障、扫码失败</td><td>现场补发/换卡，不影响进行；记录报修</td></tr>
+        <tr><td>🟡 低级</td><td>轻微口角</td><td>裁判分开，30 秒冷静期 + 安抚</td></tr>
+        <tr><td>🟠 中级</td><td>推搡 / 拉扯过激</td><td>立即停牌该玩家，扣分，交主管调解</td></tr>
+        <tr><td>🟠 中级</td><td>设备/系统中断</td><td>调度台播报"暂停仪式"，就地休整，恢复后续开</td></tr>
+        <tr><td>🔴 高级</td><td>游客摔倒受伤</td><td>急救员第一时间到场，暂停该区域，保险报案流程启动</td></tr>
+        <tr><td>🔴 高级</td><td>人群拥挤/踩踏隐患</td><td>调度台全区域广播疏散，裁判引导分流，启动限流</td></tr>
+      </table>
+      <div class="note alert">🚨 <span class="gold">最高原则：</span>任何对抗性活动，<b>人身安全永远优先于活动体验</b>。一旦出现无法当场控制的情况，宁停一场，不赌风险。所有受伤均按「意外险 + 免责书」流程处理，急救点名单每场前复核。</div>
+    </div>
+
+    <div class="card">
+      <h3>应急口令（调度台对全区域广播）</h3>
+      <div class="speech"><div class="who">暂停仪式</div>
+        <div class="txt">「诸神暂歇，各归本位——临时转场，请勿移动，稍候片刻，仪式再启！」<span class="act">（设备/系统中断时使用）</span></div></div>
+      <div class="speech"><div class="who">疏散指令（最高级）</div>
+        <div class="txt">「全员听令——即刻原地停战，跟随最近举旗傩兵有序退场，安全第一，请勿推挤！」<span class="act">（紧急情况，声音务必沉稳有力）</span></div></div>
+    </div>
+
+    <div class="card">
+      <h3>报备与复盘</h3>
+      <p>每场结束后，值班主管填写《场次执行记录》（开赛时间 / 人数 / 事故 / 道具损耗 / UGC 产出），异常事项当晚汇总上报。每周「傩战之巅」决赛后做一次整体复盘，迭代口令与流程。</p>
+    </div>
+
+    <div class="card">
+      <h3>活动复盘量化框架（成败指标卡）</h3>
+      <table>
+        <tr><th>维度</th><th>核心指标</th><th>目标值</th><th>止损 / 预警线</th></tr>
+        <tr><td><b>客流</b></td><td>万圣档累计客流 / 参与人次</td><td>6—8 万 / 参与 ≥ 8,000</td><td>开档 3 天日均 &lt; 2,000 → 紧急加大投放</td></tr>
+        <tr><td><b>互动</b></td><td>撕战参与率（参与 ÷ 入园）</td><td>≥ 15%</td><td>&lt; 8% → 简化规则 / 增开免费场次</td></tr>
+        <tr><td><b>传播</b></td><td>话题播放量 / UGC 条数</td><td>500 万 / ≥ 5,000 条</td><td>首周 &lt; 100 万播放 → 追加 DOU+ 预算</td></tr>
+        <tr><td><b>口碑</b></td><td>差评率 / 排队时长</td><td>差评率 &lt; 5% / 排队 ≤ 40 分钟</td><td>差评集中「排队」「秩序」→ 当日调整场次</td></tr>
+        <tr><td><b>安全</b></td><td>安全事故数</td><td>0 起（红线）</td><td>任何 1 起 → 全流程复盘 + 停该项排查</td></tr>
+        <tr><td><b>财务</b></td><td>门票营收 / 毛利</td><td>560 万 / 427 万（基准）</td><td>进度 &lt; 70% → 启动冲刺场次与二销补强</td></tr>
+      </table>
+      <div class="note">🎯 <span class="gold">复盘节奏：</span>开档首周每晚复盘（节奏铁律）→ 每周五周度复盘 → 10.31 档期中点复盘（决策是否加场/续档）→ 11 月上旬总复盘（输出「中式万圣=电影小镇」心智评估与 2027 复用建议）。</div>
+    </div>
+  </section>
+  <div class="footer">
+    郑州电影小镇 · 2026 万圣季「与傩共舞 · 撕名牌完胜大作战」合并全案 | 李涯 拟<br>
+    营收数据为测算假设 · 落地前须与运营团队校准 · 安全与合规优先
+  </div>
+</div>
+</body>
+</html>

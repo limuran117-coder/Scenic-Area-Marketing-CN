@@ -539,7 +539,7 @@ SEED_SCENIC_SPOTS = [
     {
         "id": "movie_town", "name": "建业电影小镇", "short_name": "电影小镇",
         "category": "theme_park", "city": "郑州", "province": "河南",
-        "tier": "primary", "annual_capacity": 153,
+        "tier": "primary", "annual_capacity": 123,
         "is_core_competitor": False,
         "competitors": ["only_henan", "yinji", "wansui_mountain", "qingming_riverside", "fangte"],
         "tags": ["沉浸式", "民国风", "电影文化"]
