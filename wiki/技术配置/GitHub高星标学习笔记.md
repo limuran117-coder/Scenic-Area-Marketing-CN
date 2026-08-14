@@ -1041,3 +1041,145 @@ AI 倾向于走"最短路径"——跳过规格、跳过测试、直接生成"�
 | **P2** | 调研 agent-skills 的 frontmatter 格式，看能否迁移到现有 SKILL.md | frontmatter 比纯 Markdown 更结构化 | H2 |
 | **P2** | 评估 anthropics/financial-services 的 Skill 包商业模式 | 为本系统文旅 Skill 包商业化做参考 | H2 |
 | **P3** | AgentENV 架构调研（多景区并行采集场景）| Rust 分布式架构适合大规模采集 | H2 |
+
+---
+
+## W33（2026-08-15 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：addyosmani/agent-skills 暴涨至 87.2K —— W31 P0 判断被市场验证，quality gate 成 Skills 3.0 事实标准
+
+**仓库：** https://github.com/addyosmani/agent-skills
+**作者：** Addy Osmani（Google Cloud AI 工程总监）
+**Stars：** **87,234**（2026-08-15 03:00 UTC gh API 实测）| 最近更新 8/14（持续活跃）
+
+**数据轨迹（关键变化）：**
+| 时间节点 | Stars | 变化 |
+|---------|:-----:|:----:|
+| W31（8/1） | ~26-27K | 基准 |
+| **W33（8/15）** | **87,234** | **+60K / 2周，日增 ~4,300⭐** |
+
+**W31 记录"日增 405⭐" → 本期实测日增 4,300⭐，增速放大 10 倍。**
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 倾向于走"最短路径"——跳过规格、跳过测试、直接生成"能跑就行"的玩具代码；agent-skills 把 Google 工程纪律（先规格再代码、测试即证明、质量门拦截）编码成 AI 可强制执行的 Skill 工作流，让 AI 从"能跑"进化到"可合并 PR"。
+
+**2. 我们的系统能怎么用？**
+- **上期（W31）已立 P0 行动：升级 SKILL.md 引入"质量门"机制** —— 本期 +60K 星证实方向正确，应立即落地
+- **质量门直接套用到日报流程**：生成报告前自动检查"数据完整性 + schema 2.0 格式校验 + 来源标注"，不符合则自动修正再发布 —— 解决 W28-W32 反复出现的"飞书卡片格式漂移靠站长人肉发现"痛点
+- **frontmatter 结构借鉴**：
+  ```yaml
+  ---
+  name: daily-report-check
+  quality_gate:
+    - "data file exists"
+    - "schema: 2.0 present"
+    - "sources cited"
+  ---
+  ```
+- **7 个 slash command 模式**（/test /review /spec /perf /security /debug /measure）可映射到飞书日报 `/report` `/competitor` `/客流` 指令体系
+
+**3. 不跟进的代价是什么？**
+- 日报质量继续依赖 AI 自觉，格式漂移/数据缺失只能等站长人肉发现——**这是本系统过去 2 个月反复踩的坑**（6/22 结论索引事故、飞书卡片 schema 漂移）
+- 竞品若用上 quality gate 级系统，报告产出稳定性远超我们；我们在 Skills 体系投入将落后 1 个时代
+
+#### 技术架构亮点
+
+| 维度 | agent-skills | 本系统现状 | 差距 |
+|------|------------|-----------|------|
+| Skill 定位 | 强制执行的工作流（quality gate）| 给人读的 Markdown 建议 | **核心差距** |
+| 质量门 | ✅ frontmatter quality_gate | ❌ 无自动校验 | **核心差距** |
+| 路由机制 | meta-skill 三步路由 | 无 | **核心差距** |
+| 斜杠命令 | 7 个 | 0 个 | 中 |
+| 增速 | **日增 4,300⭐** | — | — |
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P0（上期 P0 升级确认）** | 给日报 SOP 引入 quality gate（数据完整性 + schema 校验 + 来源标注）| 87K 星 + 日增 4,300⭐ = 市场终极验证 | **W34 落地** |
+| **P1** | SKILL.md 引入 frontmatter 结构化（name/trigger/quality_gate）| agent-skills 已是 Skills 3.0 事实标准 | W34 |
+| **P2** | 斜杠命令映射到飞书日报指令 | /report /competitor /客流 | H2 |
+
+---
+
+### 发现二（⭐⭐⭐⭐）：yc-software/qm — Multiplayer Agent Harness，多 Agent 协作新爆发点（13.5K / 17 天）
+
+**仓库：** https://github.com/yc-software/qm
+**Stars：** **13,541**（2026-08-15 实测）| **创建：** 2026-07-29（17 天）| **语言：** TypeScript
+**最近更新：** 8/14（活跃）
+**定位：** "Multiplayer agent harness for work" — 多人多 Agent 在同一工作空间协作的 harness
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+现有 Agent harness 都是"单 Agent 对单用户"；qm 把多个 Agent + 多个人类放在同一工作空间实时协作——**填补了"Agent 团队化协作"的空白**（不是多 Agent 编排框架如 CrewAI，而是"真人 + 多个 Agent 同屏共事"的工作模式）。
+
+**2. 我们的系统能怎么用？**
+- **远期架构参考**：如果未来需要"站长 + 日报 Agent + 竞品分析 Agent + 复盘 Agent 同工作空间协作"，qm 的 multiplayer 模式是参考方向
+- **vs 本系统现状**：本系统是 32 个 cron 串行/并行独立执行，Agent 之间不实时通信；qm 是同一空间实时协作——差异大，短期不迁移
+- **17 天 13.5K 的增速**证明"Agent 协作工作模式"需求真实存在，值得季度跟踪
+
+**3. 不跟进的代价是什么？**
+- 短期无影响（本系统 cron 串行模式够用）
+- 长期：若"多 Agent 同空间协作"成为行业标配，本系统"各自独立跑 cron + 各自读 memory"的架构需要重构
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P3** | 季度跟踪 qm（multiplayer harness 赛道）| 17 天 13.5K，新范式 | Q4 审视 |
+| **P3** | 若未来多 Agent 协作需求出现，先看 qm 架构 | 避免重复造轮子 | 需求出现时 |
+
+---
+
+### 📊 本期（W33）vs 上期（W31）数据对比（gh API 实测）
+
+| 项目 | W31 (8/1) | W33 (8/15) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| **addyosmani/agent-skills** | ~26-27K | **87,234** | **+60K / 2周** | 🔥🔥🔥 **爆炸式增长，本期最大发现** |
+| hermes-agent | 340K（进入维护模式）| **230,586** | **-110K（修正）** | ⚠️ **实测缩水，W31 记录需修正** |
+| Superpowers (obra) | ~280K | **272,129** | 趋稳 | ➡️ |
+| affaan-m/ECC | ~250K | **240,140** | 趋稳 | ➡️ |
+| mattpocock/skills | ~155K | **217,415** | +62K | 📈 显著增长 |
+| thedotmack/claude-mem | ~90K | **90,752** | ~0 | ➡️ 趋稳 |
+| ChromeDevTools/chrome-devtools-mcp | ~52K | **49,170** | 微降 | ➡️ |
+| anthropics/financial-services | ~10.5K | **34,271** | +23.8K | 📈 垂直 Skill 包持续爆发 |
+| **yc-software/qm** | **未追踪** | **13,541** | 🆕 新发现（17 天）| 🔥 多 Agent 协作 harness |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **hermes-agent 340K 记录错误**：W30 记录 ~340K、W31 记录"进入维护模式"，本期 gh API 实测 **230,586**——W31 的 340K 可能是 star 迁移/改名/统计口径问题，**修正为 230K**，并降级其关注度（维护模式 + 缩水双重信号）
+2. **W31 低估 agent-skills 增速**：记录"日增 405⭐"，实测日增 4,300⭐——**10 倍误差**，quality gate 是本期最确定的行业方向
+3. **mattpocock/skills 反超预期**：W31 记录 155K 趋稳，本期实测 217K（+62K）——Skills 生态整体仍在扩张，不是趋稳
+
+### 📈 本期新趋势识别
+
+1. **"工程纪律/质量门"成为 Skills 赛道终局方向**：agent-skills（87K）+ ECC（240K）+ Superpowers（272K）三大项目都内含 quality gate/流程纪律理念——**Skills 竞争从"数量"（268 skills）转向"质量门"（强制校验）**，W31 P0 方向获市场终极验证
+2. **垂直 Skill 包持续爆发**：anthropics/financial-services 从 10.5K → 34.3K（+23.8K）——垂直行业 Skill 包（含文旅）商业化路径进一步验证
+3. **多 Agent 协作新范式萌芽**：qm 17 天 13.5K——"真人 + 多 Agent 同空间协作"可能是下一波范式，季度跟踪
+4. **自我进化 Agent 退潮**：hermes-agent 缩水至 230K + 维护模式——W30 的"340K 爆发"被证伪/修正，行业焦点已从"会不会学习"转向"学得专不专业"（quality gate）
+
+### 🎯 上期（W31）行动项更新状态
+
+| W31 行动项 | W33 跟踪 | 结论 |
+|-----------|----------|------|
+| 🆕 **P0 升级 SKILL.md 引入质量门** | **本期 87K 验证，升级为必做** | ✅ 方向正确，W34 落地 |
+| **P1 整理文旅日报 Skill 包** | financial-services 34.3K 再验证 | ✅ 持续有效 |
+| **P1 评估 hermes-agent 维护模式影响** | 实测 230K 缩水 | ✅ 已完成，降级关注 |
+| **P2 调研 agent-skills frontmatter** | 87K 星验证 | ✅ 升级为 P1 |
+| **P3 AgentENV 分布式架构** | 未获新数据 | ⏸ 保持 |
+
+---
+
+## W33 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 给日报 SOP 引入 quality gate（数据完整性 + schema 2.0 校验 + 来源标注）| agent-skills 87K + 日增 4,300⭐，市场终极验证 | **W34 落地** |
+| 🆕 **P1** | SKILL.md 引入 frontmatter 结构化（name/trigger/quality_gate）| agent-skills 已是 Skills 3.0 事实标准 | W34 |
+| **P1** | 修正 hermes-agent 记录（340K → 230.6K），降级关注 | 维护模式 + 缩水双重信号 | 本期完成 |
+| **P1** | 文旅日报 Skill 包整理（Agent + Skill + Connector）| financial-services 34.3K 持续验证 | W34 |
+| **P2** | 斜杠命令映射到飞书日报指令 | /report /competitor /客流 | H2 |
+| **P3** | 季度跟踪 yc-software/qm（多 Agent 协作 harness）| 17 天 13.5K 新范式 | Q4 |
