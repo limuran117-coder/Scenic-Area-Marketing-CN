@@ -527,3 +527,18 @@ npx skills remove <name> -a openclaw -g
 - model-usage：token 消耗显著增长
 - sag：站长说"配音"/"语音" → 需 ELEVENLABS_API_KEY
 - summarize：需 OPENAI_API_KEY | 缺 key，暂搁置
+
+## 周度技能探索 #9（2026-08-15）
+
+**扫描范围：** 54+个scripts + 52个系统skills + brew CLI
+**CLI就绪：** gh✅ curl✅ jq✅ ffmpeg✅
+
+与 #8（8/10）清单一致，无新工具/新 skill 出现。低ROI工具均已有触发条件记录。
+**结论：** 本周无值得立即试点的工具，无需变更。
+
+**仍待触发条件：**
+- node-connect：未来需要手机配对/移动端集成
+- gog：站长切换到 Google Workspace
+- model-usage：token 消耗显著增长
+- sag：站长说"配音"/"语音" → 需 ELEVENLABS_API_KEY
+- summarize：需 OPENAI_API_KEY | 缺 key，暂搁置
