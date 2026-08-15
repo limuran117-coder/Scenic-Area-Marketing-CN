@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-14 10:45",
+  "generated_at": "2026-08-15 07:30",
   "window_days": 14,
   "task_count": 33,
   "hourly_errors": {
@@ -9,12 +9,12 @@
     "7": 4,
     "8": 14,
     "9": 14,
-    "10": 9,
+    "10": 10,
     "11": 2,
     "12": 1,
     "14": 4,
     "16": 3,
-    "19": 7,
+    "19": 6,
     "21": 6,
     "23": 6
   },
@@ -26,7 +26,7 @@
     21,
     23
   ],
-  "daily_records": 208,
+  "daily_records": 207,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -57,57 +57,82 @@
     {
       "job_id": "9bf47f42-0f9f-4b49-a73c-97482426498f",
       "name": "竞品关键词深度分析",
-      "schedule": "30 19 * * 1-5",
+      "schedule": "30 8 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 13,
-      "ok": 7,
-      "error": 6,
-      "error_rate": 0.46,
+      "runs": 11,
+      "ok": 6,
+      "error": 5,
+      "error_rate": 0.45,
       "consecutive_errors": 0,
-      "avg_duration_ms": 513567,
+      "avg_duration_ms": 498296,
       "error_types": {
-        "other": 3,
+        "other": 2,
         "exec": 1,
         "rate_limit": 1,
         "process": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率46%"
+        "近14天错误率45%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 19:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+      ]
+    },
+    {
+      "job_id": "99dde0b3-ced3-457a-8f7c-2c2837687e50",
+      "name": "竞品内容动态",
+      "schedule": "0 8 * * 1-5",
+      "kind": "agentTurn",
+      "timeout": 900,
+      "runs": 10,
+      "ok": 6,
+      "error": 4,
+      "error_rate": 0.4,
+      "consecutive_errors": 1,
+      "avg_duration_ms": 387380,
+      "error_types": {
+        "exec": 2,
+        "rate_limit": 1,
+        "other": 1
+      },
+      "timeout_hits": 0,
+      "issues": [
+        "近14天错误率40%"
+      ],
+      "suggestions": [
+        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
       "job_id": "b8fb57da-faae-429f-91e0-9f8af3db927b",
       "name": "竞品爆款拆解",
-      "schedule": "30 21 * * 1-5",
+      "schedule": "30 8 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 10,
-      "ok": 4,
+      "runs": 9,
+      "ok": 3,
       "error": 6,
-      "error_rate": 0.6,
+      "error_rate": 0.67,
       "consecutive_errors": 1,
-      "avg_duration_ms": 367726,
+      "avg_duration_ms": 372019,
       "error_types": {
         "exec": 5,
         "rate_limit": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率60%"
+        "近14天错误率67%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 21:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
       "job_id": "553f1d57-61ba-4439-b4bf-eb725a36090c",
       "name": "文旅营销案例",
-      "schedule": "30 10 * * 4",
+      "schedule": "0 5 * * 4",
       "kind": "agentTurn",
       "timeout": 900,
       "runs": 4,
@@ -122,15 +147,37 @@
       "timeout_hits": 1,
       "issues": [
         "近14天错误率50%"
+      ]
+    },
+    {
+      "job_id": "25874954-ada3-4179-b541-c3b8b792b571",
+      "name": "舆情监控",
+      "schedule": "30 7 * * 1-5",
+      "kind": "agentTurn",
+      "timeout": 900,
+      "runs": 11,
+      "ok": 7,
+      "error": 4,
+      "error_rate": 0.36,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 486592,
+      "error_types": {
+        "rate_limit": 1,
+        "restart": 1,
+        "other": 2
+      },
+      "timeout_hits": 1,
+      "issues": [
+        "连续2次失败"
       ],
       "suggestions": [
-        "⚠️ 任务时段 10:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
       ]
     },
     {
       "job_id": "26a9aac6-4165-421c-8290-f6a8f2290c92",
       "name": "周度记忆提炼",
-      "schedule": "0 14 * * 0",
+      "schedule": "30 6 * * 0",
       "kind": "agentTurn",
       "timeout": 1200,
       "runs": 2,
@@ -154,27 +201,22 @@
     {
       "job_id": "956f3659-97c1-4d17-a5c4-ad7852f05f35",
       "name": "周末市场观察",
-      "schedule": "0 10 * * 6,0",
+      "schedule": "0 6 * * 6,0",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 5,
-      "ok": 2,
+      "runs": 6,
+      "ok": 3,
       "error": 3,
-      "error_rate": 0.6,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 80557,
+      "error_rate": 0.5,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 96203,
       "error_types": {
         "exec": 1,
         "rate_limit": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "连续2次失败",
-        "近14天错误率60%"
-      ],
-      "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "⚠️ 任务时段 10:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "近14天错误率50%"
       ]
     }
   ],
