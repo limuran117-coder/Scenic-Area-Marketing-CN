@@ -1,14 +1,16 @@
 # MEMORY.md - Long-Term Memory
-role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，原153万）、营收1.2亿 | update: 2026-08-13
+role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，原153万）、营收1.2亿 | update: 2026-08-16
 
 ---
 
 # ⭐ 铁律（违反必纠）
 
 **客流日报** 密码912530 | 5章: YTD→月度→近7日→德化街→建议 | ≤5表/卡
+**改cron必用 cron action=update 工具**，禁直接UPDATE SQLite（8/10踩坑：Gateway内存态会覆盖）
+**image工具读/tmp受限**：截图先 cp 到 workspace 再读（8/13）
 **飞书卡片** schema=2.0走 `scripts/send_feishu_card.py` | 表格外 `
 `，表内 `
-`，表头可用`⚠️` | **单卡markdown表≤5张**（超限ErrCode11310，8/13踩坑）| header.title须`{tag:plain_text,content}` | 表内不加粗/不用`>`引用（8/13实测）
+`，表头可用`⚠️` | **单卡markdown表≤5张**（超限ErrCode11310，8/13踩坑）| header.title须`{tag:plain_text,content}` | 表内不加粗/不用`>`引用（8/13实测）| 表多时拆多卡（日报拆3卡）
 **【7/2 站长纠错】数据类报告必须用 markdown 表格**：搜索指数/综合指数/同比环比/分项分解/区域TOP5/关联词等任何多列数据，禁止用 emoji+加粗列表+内联文字罗列；必须 `| 列1 | 列2 | ... |` 格式
 **双通道采集** 抖音脚本+CDP交替验证
 **CDP必须用Playwright** urllib/websockets连18800会超时
@@ -45,9 +47,13 @@ role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，�
 
 # 🚨 当前系统状态（2026-08-14 W33 更新）
 
-**模型**: M3 | 基础设施 all ✅ | **8/14 全量 cron 错峰到 DeepSeek 低谷（00:30-08:30）**——22 个 AI cron 从高峰段（9:00-23:00）挪入低谷，解决连续 rate-limited/超时（抖音指数日报曾连挂 7 次）| cron: 30 ok / 3 err（小红书日报+竞品关键词+周二客流深度报告）
-🚨 小红书采集 49 天断档（站长决策不修）| 近期工作 → `memory/2026-08-14.md`
-✅ **image工具MiniMax残留已清除(8/13)**：`service-env/ai.openclaw.gateway.env` 删2行MINIMAX key + managed keys精简，gateway已restart(17809→81071)，进程/launchctl/shell全无MINIMAX。⚠️残留仅存于历史会话进程内存，新会话即干净；deepseek-v4-flash无视觉能力，截图解读仍需可用的VLM模型（待定）
+**模型**: 全系统唯一 `deepseek/deepseek-v4-flash`（8/10 彻底清除 MiniMax，0残留；fallback=[]，8/7-8/9全失败实为MiniMax fallback耗尽非deepseek）| fallback链已清空：失败要让站长知道，不静默降级
+**web_search**: searxng自托管（8/10落地，docker :8888，bing/baidu引擎）替代弃用的minimax搜索
+**视觉VLM**: Ollama本地 qwen3-vl:8b（8/13落地，免费，替代坏key的MiniMax image工具）
+**Ontology图谱**: 486实体/507关系（8/10打通双库，生产库.mprofile/ontology + 图谱graph.jsonl，entity用业务ID非随机ID）| 全链路：采集→SQLite→图谱→NL查询
+**cron错峰基线（8/14铁律）**: DeepSeek低谷=00:30-08:30，22个AI cron已全量错峰入低谷；**禁止新cron排9:00-23:00**；晚间语义任务排5:00-8:30
+🖥 2026-08-16 宿主Mac重启过：/tmp被清空，cookie需从CDP重同步（cdp_cookie_hub.py）
+🚨 小红书采集 49 天断档（站长决策不修）| 抖音竞品采集断档19天（07-22后），采集成功率问题非代码bug | 近期工作 → `memory/2026-08-14.md`
 
 **⚠️ cron 错峰基线（2026-08-14 站长决策）**：DeepSeek 低谷 = 北京时间 00:30-08:30。所有 AI cron 应排在此窗口内；晚间语义任务（竞品爆款/每日复盘）用 5:00-8:30 执行（当天凌晨数据已出）。**禁止把 cron 排在 9:00-23:00**（高峰撞限）。详细映射 → `memory/2026-08-14.md`
 
@@ -59,7 +65,7 @@ role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，�
 
 | 类别 | 路径 |
 |------|------|
-| 客流 SSOT（2026） | ~/Downloads/2026游客量统计 (16).csv（7/21）+ dbt(3).xlsx（6/23）|
+| 客流 SSOT（2026） | ~/Downloads/2026游客量统计 (N).csv（最新(17).csv 至8/4，YTD 786,658）+ dbt(N).xlsx（6/23迁移；文件名含()禁裸find）|
 | 历年客流 | ~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx |
 | 内部运营 | `wiki/sources/建业电影小镇阶段性数据表.md` |
 | Cookies | /tmp/juLiang_cookies.json（抖音）/ xiaohongshu_cookies.json |
@@ -72,8 +78,9 @@ role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，�
 **Ontology 进度**：W1-4 已完（v1.5.0发布，Agent集成架构确定）；W5实施：QueryHandler+LLM Translator+ActionDispatcher+Schema注入
 **漂移双跑**：每周一/三/五 cron（wiki_drift_check + project_drift_check）；W32 drift: 22 issues（4 orphan raw + scripts_not_in_inventory：competitor_keyword_v8.py已归档需更新inventory）
 **SOP质量系统**：W30进化审视，2个优先修复（防错机制补When字段 + 竞品分析SOP合并）
-**郑州电影小镇易主**（7/23 港交所公告）：建业30亿出售，国资（中信资本旗下信宸资本）90%控股 → 运营策略需重新评估
-**W33 GitHub学习（8/15）**：
+**郑州电影小镇易主**（7/23 港交所公告）：建业30亿出售，国资（中信资本旗下信宸资本）90%控股 → 运营策略需重新评估（方案中不写易主背景，站长8/13指示）
+**年度目标 153万→123万（8/13站长拍板）**：进度YTD 786,658(至8/4,64.0%)，H2缺口443,342(日均2,976)；预测保守114/中性123/乐观132万——10月国庆是全年唯一翻盘窗口（历史单月20万+）
+**W33 GitHub学习（8/10）**：
 - 项目名：addyosmani/agent-skills（Google工程总监，87.2K⭐，2周+60K）
 - 它解决了什么：AI爱走最短路径跳过测试/规格；它把Google工程纪律编码成带quality_gate的强制Skill工作流，让AI从"能跑"到"可合并PR"
 - 我们怎么用：给日报SOP加质量门（数据完整性+schema 2.0校验+来源标注），不符合自动修正再发布；SKILL.md引入frontmatter结构化
@@ -106,6 +113,22 @@ DeepSeek→M3切换 | 5/27系统重构 | M3-only配置 | DDG修复 | cron冲突�
 
 **【W32 系统审视】结论索引739条（已验证635/待验证102）| 本周新增67条 | 准确率100% | Q3淘汰检查：0条超期 | SOP质量：6个0/4分需补When触发条件**
 
+---
+
+# 🧬 W33 记忆提炼（8/10-8/14）
+
+**[project] 系统级重构（8/10）**：MiniMax彻底清除0残留→全deepseek | web_search searxng恢复 | Ontology双库打通（生产库465指标+图谱486实体/507关系）| 全链路采集→SQLite→图谱→NL查询闭环 | 新增cron：图谱自检(周一09:00)、知识进化引擎(周日11:00)、周度竞品周报已接图谱快照
+
+**[project] cron治理机制（8/12）**：`scripts/cron_governor.py` 每日哨兵(10:30静默)+每周治理(周日08:15自动apply,≤1卡) | 轻量探针白名单不参与提超时 | 教训：测试新脚本前确保无发卡逻辑（8/12误发2张测试卡已撤回）
+
+**视觉模型（8/13）**：MiniMax VLM坏key→站长否决付费阿里云→Ollama本地 qwen3-vl:8b（6.1GB免费）替代image工具截图解读。遗留：deepseek-v4-flash无视觉，三分解读/年龄分布仍"采集中"待VLM
+
+**⚠️ 抖音指数日报cron连续失败链（8/11-8/14）**：采集脚本正常（9/9有效），LLM生成阶段超时/abort；8/14错峰07:00入低谷窗口（DeepSeek低谷00:30-08:30）——8/15观察验证，若仍失败需换模型/加超时
+
+**[validation] 清明上河园 search_index 32万非脏数据**：抖音指数量级真实差异（全国知名vs电影小镇3千），已核实
+
+**8/13全案迭代踩坑**：链式replace编号导致多米诺错乱→用占位符单遍替换；删卡残留div不平衡→栈扫描定位；Apple扁平化重做+dom数验证（section/table/div闭合）。**营收口径涉及收费先问站长是否额外收费**（818→去参赛费→纯门票698/560万）
+
 **【周末市场观察cron偶发故障】**：12次中2次error，均非脚本本身，不修；failureAlert.after=2已配
 
-**【万圣立项「傩战·完胜大作战」基准口径（8/13）】**：傩舞非遗×撕名牌玩法，10.8无缝接国庆完胜档。营收基准=**898万**（10万客流：门票698+参赛120+二销80），保底584/冲刺1313。源码：`output/与傩共舞_撕名牌完胜大作战_全案.html`（16章合并全案，Apple扁平化，HTML+PDF）+`营收计算器.html`（三档可复现）。易主背景不写入方案。
+**【万圣立项「与傩共舞·撕名牌大作战」最终口径（8/13）】**：傩舞非遗×撕名牌，10.8国庆后无缝隙接完胜档至10月底。**入园即参与不额外收费，收入只有门票**。副标题「傩面一戴·请神开撕」/「傩神附体·撕就对了」。**营收基准=560万**（万圣档8万客流×69.8；纯门票，中标10万→698万）。**目标体系：10月整月14-17万（力争18万冲132）| 国庆档8-10万 | 万圣档6-8万 | 全年123万**。**玩法=NPC阵营资格制**（四营：钟馗/判官/方相氏/雷神；男可撕/女授印；营主点将≤80人；千人面具共舞）。源码：`~/Desktop/傩战万圣方案/终版.html`(80K,15章,Apple扁平) + `output/...全案.html/pdf`。营收演进898→818→698→560万（删二销/去参赛费）。KPI：开档首周参与≥8,000（对标历年10月平日客流，勿用1.5万）
