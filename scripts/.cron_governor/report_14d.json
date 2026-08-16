@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-08-16 08:21",
+  "generated_at": "2026-08-17 07:32",
   "window_days": 14,
   "task_count": 33,
   "hourly_errors": {
     "0": 2,
     "3": 1,
     "4": 4,
-    "6": 1,
+    "6": 2,
     "7": 4,
-    "8": 16,
+    "8": 17,
     "9": 14,
     "10": 9,
     "11": 2,
     "12": 1,
-    "14": 4,
+    "14": 3,
     "16": 3,
     "19": 6,
     "21": 6,
@@ -35,12 +35,12 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 16,
-      "ok": 5,
+      "runs": 17,
+      "ok": 6,
       "error": 11,
-      "error_rate": 0.69,
-      "consecutive_errors": 7,
-      "avg_duration_ms": 686791,
+      "error_rate": 0.65,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 712038,
       "error_types": {
         "other": 8,
         "rate_limit": 2,
@@ -48,11 +48,7 @@
       },
       "timeout_hits": 0,
       "issues": [
-        "连续7次失败",
-        "近14天错误率69%"
-      ],
-      "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+        "近14天错误率65%"
       ]
     },
     {
@@ -131,6 +127,31 @@
       ]
     },
     {
+      "job_id": "24cc418d-5c65-4c1f-a66d-6b4416241f2c",
+      "name": "电影小镇营销日历",
+      "schedule": "30 6 * * 1",
+      "kind": "agentTurn",
+      "timeout": 900,
+      "runs": 3,
+      "ok": 1,
+      "error": 2,
+      "error_rate": 0.67,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 234726,
+      "error_types": {
+        "rate_limit": 1,
+        "exec": 1
+      },
+      "timeout_hits": 0,
+      "issues": [
+        "连续2次失败",
+        "近14天错误率67%"
+      ],
+      "suggestions": [
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+      ]
+    },
+    {
       "job_id": "553f1d57-61ba-4439-b4bf-eb725a36090c",
       "name": "文旅营销案例",
       "schedule": "0 5 * * 4",
@@ -176,45 +197,24 @@
       ]
     },
     {
-      "job_id": "26a9aac6-4165-421c-8290-f6a8f2290c92",
-      "name": "周度记忆提炼",
-      "schedule": "30 6 * * 0",
-      "kind": "agentTurn",
-      "timeout": 1200,
-      "runs": 3,
-      "ok": 1,
-      "error": 2,
-      "error_rate": 0.67,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 198926,
-      "error_types": {
-        "process": 1,
-        "rate_limit": 1
-      },
-      "timeout_hits": 0,
-      "issues": [
-        "近14天错误率67%"
-      ]
-    },
-    {
       "job_id": "956f3659-97c1-4d17-a5c4-ad7852f05f35",
       "name": "周末市场观察",
       "schedule": "0 6 * * 6,0",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 5,
-      "ok": 2,
+      "runs": 4,
+      "ok": 1,
       "error": 3,
-      "error_rate": 0.6,
+      "error_rate": 0.75,
       "consecutive_errors": 1,
-      "avg_duration_ms": 149143,
+      "avg_duration_ms": 133529,
       "error_types": {
         "rate_limit": 2,
         "exec": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率60%"
+        "近14天错误率75%"
       ]
     },
     {
@@ -223,22 +223,21 @@
       "schedule": "0 8 * * 0",
       "kind": "agentTurn",
       "timeout": 600,
-      "runs": 2,
-      "ok": 0,
+      "runs": 3,
+      "ok": 1,
       "error": 2,
-      "error_rate": 1.0,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 600349,
+      "error_rate": 0.67,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 440002,
       "error_types": {
         "other": 2
       },
       "timeout_hits": 2,
       "issues": [
-        "连续2次失败",
+        "近14天错误率67%",
         "2次撞超时顶"
       ],
       "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
         "建议提高 timeout 600→1500",
         "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
