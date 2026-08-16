@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-10T10:54:32.961227",
-  "issues_count": 60,
+  "timestamp": "2026-08-16T08:33:34.516446",
+  "issues_count": 70,
   "issues": [
     {
       "type": "orphan",
@@ -54,6 +54,11 @@
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/海南长影奇幻乐园免票二消经济-2026W33.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/老君山月薪6万云海观察员：UGC众包+长期驻场创作模式-2026W31.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
@@ -65,6 +70,16 @@
     {
       "type": "orphan",
       "file": "全国景区案例库/贵州×阅文「一人之下」IP联动-2个月长效打卡-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/黄姚古镇「空间即剧场」沉浸式演艺（定点+流动双模式）-2026W33.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/2026-08-12_家业剧集影视非遗全链路联动-2026W34.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -119,7 +134,27 @@
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/武汉花博汇古风演艺×泼水错峰全时段夜游-2026W33.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "全国景区案例库/贵州《四渡》电影票根影旅联动-2026W26.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "全国景区案例库/凉山彝族火把节·全民篝火狂欢-2026W33.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "运营规划/2026国庆+万圣双档策略.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "运营规划/2026年8-12月客流预测.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -154,12 +189,27 @@
     },
     {
       "type": "orphan",
+      "file": "竞品分析/竞品动态追踪/2026-W28-W33-竞品格局积压回顾.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "竞品分析/竞品动态追踪/2026-W27-周度竞争格局.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
       "type": "orphan",
       "file": "竞品分析/竞品动态追踪/2026-W26-周度竞争格局.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/ADR-001-ontology-架构融合路径.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "技术配置/Ontology架构设计/运行机制-生命周期治理.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -267,22 +317,10 @@
       "concept": "年度目标",
       "files": [
         "overview.md",
-        "WIKI_HEALTH_REPORT_20260802.md"
-      ],
-      "values": [
-        "153"
-      ],
-      "suggestion": "年度目标在多个文件中存在，需确认最新值"
-    },
-    {
-      "type": "contradiction",
-      "concept": "年度目标",
-      "files": [
-        "overview.md",
         "overview.md"
       ],
       "values": [
-        "153"
+        "123"
       ],
       "suggestion": "年度目标在多个文件中存在，需确认最新值"
     },
@@ -290,7 +328,7 @@
       "type": "contradiction",
       "concept": "年度目标",
       "files": [
-        "overview.md",
+        "WIKI_HEALTH_REPORT_20260802.md",
         "WIKI_HEALTH_REPORT_20260802.md"
       ],
       "values": [
@@ -306,7 +344,7 @@
         "系统/overview.md"
       ],
       "values": [
-        "153"
+        "123"
       ],
       "suggestion": "年度目标在多个文件中存在，需确认最新值"
     },
@@ -318,7 +356,7 @@
         "sources/客流营收历年分析.md"
       ],
       "values": [
-        "153"
+        "123"
       ],
       "suggestion": "年度目标在多个文件中存在，需确认最新值"
     },
@@ -326,7 +364,7 @@
       "type": "contradiction",
       "concept": "年度目标",
       "files": [
-        "overview.md",
+        "WIKI_HEALTH_REPORT_20260802.md",
         "行业知识/结论索引.md"
       ],
       "values": [
@@ -342,7 +380,7 @@
         "电影小镇/基础档案.md"
       ],
       "values": [
-        "153"
+        "123"
       ],
       "suggestion": "年度目标在多个文件中存在，需确认最新值"
     },
@@ -352,6 +390,18 @@
       "files": [
         "overview.md",
         "entities/建业电影小镇.md"
+      ],
+      "values": [
+        "123"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "WIKI_HEALTH_REPORT_20260802.md",
+        "电影小镇/演出节目/穿越德化街.md"
       ],
       "values": [
         "153"

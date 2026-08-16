@@ -1,15 +1,16 @@
 {
-  "generated_at": "2026-08-15 07:30",
+  "generated_at": "2026-08-16 08:21",
   "window_days": 14,
   "task_count": 33,
   "hourly_errors": {
     "0": 2,
     "3": 1,
     "4": 4,
+    "6": 1,
     "7": 4,
-    "8": 14,
+    "8": 16,
     "9": 14,
-    "10": 10,
+    "10": 9,
     "11": 2,
     "12": 1,
     "14": 4,
@@ -26,7 +27,7 @@
     21,
     23
   ],
-  "daily_records": 207,
+  "daily_records": 210,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -180,22 +181,19 @@
       "schedule": "30 6 * * 0",
       "kind": "agentTurn",
       "timeout": 1200,
-      "runs": 2,
-      "ok": 0,
+      "runs": 3,
+      "ok": 1,
       "error": 2,
-      "error_rate": 1.0,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 198147,
+      "error_rate": 0.67,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 198926,
       "error_types": {
         "process": 1,
         "rate_limit": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "连续2次失败"
-      ],
-      "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+        "近14天错误率67%"
       ]
     },
     {
@@ -204,29 +202,47 @@
       "schedule": "0 6 * * 6,0",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 6,
-      "ok": 3,
+      "runs": 5,
+      "ok": 2,
       "error": 3,
-      "error_rate": 0.5,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 96203,
+      "error_rate": 0.6,
+      "consecutive_errors": 1,
+      "avg_duration_ms": 149143,
       "error_types": {
-        "exec": 1,
-        "rate_limit": 2
+        "rate_limit": 2,
+        "exec": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率50%"
+        "近14天错误率60%"
+      ]
+    },
+    {
+      "job_id": "824a26e3-7536-4bf8-8ebb-e2651f147e07",
+      "name": "知识进化引擎_每周自学习",
+      "schedule": "0 8 * * 0",
+      "kind": "agentTurn",
+      "timeout": 600,
+      "runs": 2,
+      "ok": 0,
+      "error": 2,
+      "error_rate": 1.0,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 600349,
+      "error_types": {
+        "other": 2
+      },
+      "timeout_hits": 2,
+      "issues": [
+        "连续2次失败",
+        "2次撞超时顶"
+      ],
+      "suggestions": [
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
+        "建议提高 timeout 600→1500",
+        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     }
   ],
-  "recommendations": [
-    {
-      "type": "bump_timeout",
-      "job": "0c6f51f7-1557-4f42-82a6-4f8075eae25d",
-      "name": "cron自进化-每日哨兵",
-      "from": 300,
-      "to": 1500
-    }
-  ]
+  "recommendations": []
 }
