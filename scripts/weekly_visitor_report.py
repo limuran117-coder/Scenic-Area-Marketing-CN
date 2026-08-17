@@ -21,7 +21,7 @@ from datetime import datetime
 # === 路径 SSOT (2026-06-23 迁移后) ===
 SSOT_CSV_DIR = os.path.expanduser("~/Downloads")
 SSOT_XLSX_DIR = os.path.expanduser("~/Downloads")
-HISTORICAL_XLSX = os.path.expanduser("~/Desktop/2023-2025年门票销售及客流统计数据表.xlsx")
+HISTORICAL_XLSX = os.path.expanduser("~/Desktop/04-数据报表/2023-2025年门票销售及客流统计数据表.xlsx")
 FEISHU_CHAT_ID = "oc_2581c03b79e4893cc3616b253d60f34e"
 
 # === Python 环境(避开 system 包冲突) ===
