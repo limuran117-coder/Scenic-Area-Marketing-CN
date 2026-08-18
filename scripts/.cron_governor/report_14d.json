@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17 07:32",
+  "generated_at": "2026-08-18 07:37",
   "window_days": 14,
   "task_count": 33,
   "hourly_errors": {
@@ -7,19 +7,20 @@
     "3": 1,
     "4": 4,
     "6": 2,
-    "7": 4,
-    "8": 17,
+    "7": 5,
+    "8": 20,
     "9": 14,
     "10": 9,
     "11": 2,
     "12": 1,
     "14": 3,
-    "16": 3,
-    "19": 6,
+    "16": 2,
+    "19": 5,
     "21": 6,
     "23": 6
   },
   "peak_hours": [
+    7,
     8,
     9,
     10,
@@ -27,7 +28,7 @@
     21,
     23
   ],
-  "daily_records": 210,
+  "daily_records": 213,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -40,7 +41,7 @@
       "error": 11,
       "error_rate": 0.65,
       "consecutive_errors": 0,
-      "avg_duration_ms": 712038,
+      "avg_duration_ms": 725630,
       "error_types": {
         "other": 8,
         "rate_limit": 2,
@@ -49,6 +50,9 @@
       "timeout_hits": 0,
       "issues": [
         "近14天错误率65%"
+      ],
+      "suggestions": [
+        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -57,24 +61,24 @@
       "schedule": "30 8 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 11,
+      "runs": 10,
       "ok": 6,
-      "error": 5,
-      "error_rate": 0.45,
+      "error": 4,
+      "error_rate": 0.4,
       "consecutive_errors": 0,
-      "avg_duration_ms": 498296,
+      "avg_duration_ms": 543582,
       "error_types": {
-        "other": 2,
+        "other": 1,
         "exec": 1,
         "rate_limit": 1,
         "process": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率45%"
+        "近14天错误率40%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -83,23 +87,25 @@
       "schedule": "0 8 * * 1-5",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 10,
+      "runs": 11,
       "ok": 6,
-      "error": 4,
-      "error_rate": 0.4,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 387380,
+      "error": 5,
+      "error_rate": 0.45,
+      "consecutive_errors": 3,
+      "avg_duration_ms": 442628,
       "error_types": {
-        "exec": 2,
         "rate_limit": 1,
-        "other": 1
+        "other": 3,
+        "exec": 1
       },
-      "timeout_hits": 0,
+      "timeout_hits": 1,
       "issues": [
-        "近14天错误率40%"
+        "连续3次失败",
+        "近14天错误率45%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
+        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -112,8 +118,8 @@
       "ok": 3,
       "error": 6,
       "error_rate": 0.67,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 372019,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 404706,
       "error_types": {
         "exec": 5,
         "rate_limit": 1
@@ -123,7 +129,7 @@
         "近14天错误率67%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -132,20 +138,19 @@
       "schedule": "30 6 * * 1",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 3,
-      "ok": 1,
+      "runs": 2,
+      "ok": 0,
       "error": 2,
-      "error_rate": 0.67,
+      "error_rate": 1.0,
       "consecutive_errors": 2,
-      "avg_duration_ms": 234726,
+      "avg_duration_ms": 235749,
       "error_types": {
         "rate_limit": 1,
         "exec": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "连续2次失败",
-        "近14天错误率67%"
+        "连续2次失败"
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
@@ -178,22 +183,24 @@
       "kind": "agentTurn",
       "timeout": 900,
       "runs": 11,
-      "ok": 7,
-      "error": 4,
-      "error_rate": 0.36,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 486592,
+      "ok": 6,
+      "error": 5,
+      "error_rate": 0.45,
+      "consecutive_errors": 3,
+      "avg_duration_ms": 508229,
       "error_types": {
         "rate_limit": 1,
         "restart": 1,
-        "other": 2
+        "other": 3
       },
       "timeout_hits": 1,
       "issues": [
-        "连续2次失败"
+        "连续3次失败",
+        "近14天错误率45%"
       ],
       "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
+        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -239,7 +246,7 @@
       ],
       "suggestions": [
         "建议提高 timeout 600→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10, 19, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 19, 21, 23]，可人工考虑错峰"
       ]
     }
   ],
