@@ -1,0 +1,8 @@
+[2026-08-19T13:08:57.993147] adapter-xiaohongshu status=success added=8 updated=0 err=
+[2026-08-19T13:08:58.000442] adapter-xiaohongshu status=success added=16 updated=0 err=
+[2026-08-19T13:22:40.531678] adapter-xiaohongshu status=success added=0 updated=8 err=
+[2026-08-19T13:22:40.533218] adapter-xiaohongshu status=failed added=0 updated=0 err=UNIQUE constraint failed: metric_snapshots.spot_id, metric_snapshots.source, metric_snapshots.date, metric_snapshots.metric_type
+[2026-08-19T13:22:51.484267] adapter-xiaohongshu status=success added=0 updated=8 err=
+[2026-08-19T13:22:51.485502] adapter-xiaohongshu status=failed added=0 updated=0 err=UNIQUE constraint failed: metric_snapshots.spot_id, metric_snapshots.source, metric_snapshots.date, metric_snapshots.metric_type
+[2026-08-19T13:23:26.562959] adapter-xiaohongshu status=success added=0 updated=8 err=
+[2026-08-19T13:23:26.569647] adapter-xiaohongshu status=success added=3 updated=16 err=

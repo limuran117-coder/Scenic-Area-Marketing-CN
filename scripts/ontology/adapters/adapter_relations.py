@@ -70,11 +70,12 @@ def pearson(a, b):
     return cov / (vx ** 0.5 * vy ** 0.5)
 
 def overlap_ratio(a, b):
-    """搜索指数重叠度：两序列值接近程度（0-1）"""
+    """搜索指数重叠度：两序列值接近程度（0-1）
+    支持少数据点（1-2 天），直接比较归一化值
+    """
     common = [d for d in a if d in b]
-    if len(common) < 3:
+    if not common:
         return 0.0
-    # 用归一化后的绝对差衡量（避免量级差异）
     xs = [a[d] for d in common]
     ys = [b[d] for d in common]
     xmax, ymax = max(xs), max(ys)
@@ -85,24 +86,37 @@ def overlap_ratio(a, b):
     return max(0.0, 1.0 - sum(diffs)/len(diffs))
 
 def compute_competition(conn, spot_a, spot_b, days=30):
-    """计算两个景区的竞争强度（0-1）"""
+    """计算两个景区的竞争强度（0-1）
+    搜索指数重叠 0.5 + 客流相关性 0.3 + 内容量对比 0.2
+    任一维度无数据则跳过该维度并重新归一化权重
+    """
     # 搜索指数重叠（权重 0.5）
     sa = search_index_series(conn, spot_a, days)
     sb = search_index_series(conn, spot_b, days)
-    overlap = overlap_ratio(sa, sb)
+    overlap = overlap_ratio(sa, sb) if sa and sb else None
 
     # 客流相关性（权重 0.3）
     va = get_metric_series(conn, spot_a, "visitors", days)
     vb = get_metric_series(conn, spot_b, "visitors", days)
-    corr = pearson(va, vb)
+    corr = pearson(va, vb) if va and vb else None
 
     # 内容量对比（权重 0.2）
     ca = get_metric_series(conn, spot_a, "content_count", days)
     cb = get_metric_series(conn, spot_b, "content_count", days)
-    content_sim = overlap_ratio(ca, cb)
+    content_sim = overlap_ratio(ca, cb) if ca and cb else None
 
-    # 加权
-    score = 0.5 * overlap + 0.3 * max(0, corr) + 0.2 * content_sim
+    # 收集可用维度并重新归一化权重
+    dims = []
+    if overlap is not None:
+        dims.append(("overlap", overlap, 0.5))
+    if corr is not None:
+        dims.append(("corr", max(0, corr), 0.3))
+    if content_sim is not None:
+        dims.append(("content", content_sim, 0.2))
+    if not dims:
+        return 0.0
+    total_w = sum(w for _, _, w in dims)
+    score = sum(v * w for _, v, w in dims) / total_w
     return round(score, 3)
 
 def main():

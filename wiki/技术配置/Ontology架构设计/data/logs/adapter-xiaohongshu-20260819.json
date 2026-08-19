@@ -1,0 +1,23 @@
+{
+  "date": "2026-08-19",
+  "adapter": "adapter-xiaohongshu.py",
+  "transformedCount": 27,
+  "contentAssetCount": 8,
+  "metricSnapshotCount": 19,
+  "sourceDir": "/tmp/xhs_daily_data.json",
+  "status": "success",
+  "log": [
+    "批量格式 xhs_daily_data.json: 8 成功, 0 失败",
+    "  [✅] 建业电影小镇: content_count=20, engagement_rate=0.0, likes_est=0",
+    "  [✅] 只有河南: content_count=56, engagement_rate=0.0, likes_est=0",
+    "  [✅] 银基动物王国: content_count=57, engagement_rate=0.0, likes_est=0",
+    "  [✅] 万岁山武侠城: content_count=57, engagement_rate=0.0, likes_est=0",
+    "  [✅] 清明上河园: content_count=31, engagement_rate=0.0, likes_est=0",
+    "  [✅] 方特欢乐世界: content_count=42, engagement_rate=0.0, likes_est=0",
+    "  [✅] 海昌海洋公园: content_count=46, engagement_rate=0.0, likes_est=0",
+    "  [✅] 只有红楼梦戏剧幻城: content_count=49, engagement_rate=0.0, likes_est=0",
+    "  [✅] 灵犀 人群资产总数: 16965095.0",
+    "  [✅] 灵犀 搜索量: 73449.0",
+    "  [✅] 灵犀 阅读渗透率: 0.0008"
+  ]
+}

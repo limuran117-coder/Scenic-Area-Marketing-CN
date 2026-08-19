@@ -105,16 +105,18 @@ def build_content_asset(scenic_spot_id: str, date_str: str,
 
 def build_metric_snapshot(scenic_spot_id: str, date_str: str,
                           metric_type: str, value, collected_at: str,
-                          content_asset_ids: list) -> dict:
+                          content_asset_ids: list, source: str = "xiaohongshu") -> dict:
     """构建 MetricSnapshot（关联到 ContentAsset）"""
-    snap_id = f"{scenic_spot_id}::{date_str}::{metric_type}::xhs"
+    # id 后缀与历史保持一致：xhs（小红书）/ lingxi（灵犀）
+    id_suffix = "lingxi" if source == "lingxi" else "xhs"
+    snap_id = f"{scenic_spot_id}::{date_str}::{metric_type}::{id_suffix}"
     return {
         "schema": "MetricSnapshot",
         "version": "1.0.0",
         "id": snap_id,
         "scenicSpotId": scenic_spot_id,
         "date": date_str,
-        "source": "xiaohongshu",
+        "source": source,
         "metricType": metric_type,
         "value": value,
         "dailyChange": 0.0,  # 小红书暂不支持日环比较
@@ -127,6 +129,65 @@ def build_metric_snapshot(scenic_spot_id: str, date_str: str,
     }
 
 # ─── 核心转换逻辑 ──────────────────────────────
+
+def _parse_lingxi_value(text: str) -> Optional[float]:
+    """解析灵犀文本值: '人群资产总数\n16,965,095' → 16965095.0
+    '阅读渗透率\n0.08%' → 0.0008
+    """
+    if not text or "\n" not in text:
+        return None
+    val = text.split("\n")[-1].strip()
+    if not val:
+        return None
+    is_pct = "%" in val
+    val = val.replace("%", "").replace(",", "").strip()
+    try:
+        num = float(val)
+    except ValueError:
+        return None
+    if is_pct:
+        return round(num / 100.0, 6)
+    return num
+
+
+def _process_lingxi(lingxi_data: dict, date_str: str) -> tuple:
+    """处理灵犀后台独家指标 → MetricSnapshot
+    人群资产(crowd_assets) / 搜索量(search_volume) / 阅读渗透率(read_rate)
+    """
+    collected_at = datetime.datetime.now().isoformat()
+    metrics = []
+    log_lines = []
+
+    lingxi_map = [
+        ("crowd_assets", "crowd_assets", "人群资产总数"),
+        ("search_volume", "search_volume", "搜索量"),
+        ("read_rate", "read_rate", "阅读渗透率"),
+    ]
+    # 电影小镇 spot_id（灵犀仅查本品牌）
+    scenic_id = SCENIC_SPOT_MAP.get("建业电影小镇") or SCENIC_SPOT_MAP.get("郑州电影小镇")
+    if not scenic_id:
+        log_lines.append("  [❌] 灵犀: 无法解析电影小镇 spot_id")
+        return [], log_lines
+
+    for key, metric_type, label in lingxi_map:
+        val = _parse_lingxi_value(lingxi_data.get(key))
+        if val is None:
+            log_lines.append(f"  [⚠️] 灵犀 {label}: 无法解析 ({lingxi_data.get(key)})")
+            continue
+        snap = build_metric_snapshot(
+            scenic_spot_id=scenic_id,
+            date_str=date_str,
+            metric_type=metric_type,
+            value=val,
+            collected_at=collected_at,
+            content_asset_ids=[],
+            source="lingxi",
+        )
+        metrics.append(snap)
+        log_lines.append(f"  [✅] 灵犀 {label}: {val}")
+
+    return metrics, log_lines
+
 
 def _process_one_result(result: dict) -> tuple:
     """处理单条小红书结果（来自批量或单文件格式）
@@ -255,6 +316,17 @@ def transform_xiaohongshu_to_ontology(input_dir: str):
                 all_metric_snapshots.extend(snapshots)
                 transform_log.append(log_line)
                 success_count += 1
+
+        # ── 灵犀后台数据（独家指标：人群资产/搜索量/渗透率）───
+        lingxi = batch_data.get("lingxi", {})
+        if lingxi.get("success") and lingxi.get("data"):
+            lx_metrics, lx_log = _process_lingxi(lingxi["data"], date_str)
+            all_metric_snapshots.extend(lx_metrics)
+            transform_log.extend(lx_log)
+        elif lingxi.get("data") is None and lingxi.get("success"):
+            transform_log.append("  [⚠️] 灵犀数据为空（可能未登录）")
+        elif lingxi:
+            transform_log.append(f"  [⚠️] 灵犀采集未成功: {lingxi.get('note', '')}")
 
         transform_log.insert(0, f"批量格式 xhs_daily_data.json: {success_count} 成功, {fail_count} 失败")
         return all_content_assets, all_metric_snapshots, transform_log, date_str
