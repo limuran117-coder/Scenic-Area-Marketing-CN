@@ -11,6 +11,8 @@ role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，�
 **飞书卡片** schema=2.0走 `scripts/send_feishu_card.py` | 表格外 `
 `，表内 `
 `，表头可用`⚠️` | **单卡markdown表≤5张**（超限ErrCode11310，8/13踩坑）| header.title须`{tag:plain_text,content}` | 表内不加粗/不用`>`引用（8/13实测）| 表多时拆多卡（日报拆3卡）
+**【8/19 Graphiti 本地化落地+进化方向】**：唯一闭环可行（AutoResearch需GPU/RAGFlow太重/Unsloth仅N卡/Milvus重复）| 架构=DeepSeek(json_object)+Ollama bge-m3 embedding+FalkorDB+graphiti-core 0.29.3 | 脚本 `scripts/graphiti_local/` | **本机Python HTTP客户端连localhost必须 trust_env=False 禁用系统代理(7897抓站代理劫持返回502)** | 官方docker-compose服务端硬编码OpenAI不可用，须Python SDK直连 | group_id即FalkorDB库名 | **FalkorDB volume挂 `/var/lib/falkordb/data`**（非/data软链）| **reranker=OllamaReranker**（bge-m3余弦重排，零新依赖，不装2GB bge-reranker）| **Ontology→Graphiti已打通**（sync_ontology.py，检索「行业对标对象」返回竞品清单）| 动态进化路线图：wiki/行业知识/Ontology动态进化路线图.md | **P0 adapter_relations.py 就绪但依赖竞品数据恢复**（抖音断档19天/小红书49天）| cron「Graphiti-Ontology同步」每周二06:30 | 详见 memory/2026-08-19.md
+
 **【7/2 站长纠错】数据类报告必须用 markdown 表格**：搜索指数/综合指数/同比环比/分项分解/区域TOP5/关联词等任何多列数据，禁止用 emoji+加粗列表+内联文字罗列；必须 `| 列1 | 列2 | ... |` 格式
 **双通道采集** 抖音脚本+CDP交替验证
 **CDP必须用Playwright** urllib/websockets连18800会超时
