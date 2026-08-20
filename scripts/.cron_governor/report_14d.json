@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-08-20 07:30",
+  "generated_at": "2026-08-21 07:36",
   "window_days": 14,
   "task_count": 34,
   "hourly_errors": {
-    "0": 2,
+    "0": 1,
     "3": 1,
-    "4": 4,
+    "4": 3,
     "5": 2,
     "6": 2,
-    "7": 6,
-    "8": 23,
+    "7": 5,
+    "8": 24,
     "9": 14,
     "10": 9,
     "11": 2,
@@ -17,7 +17,7 @@
     "14": 3,
     "16": 2,
     "19": 3,
-    "21": 5,
+    "21": 4,
     "23": 5
   },
   "peak_hours": [
@@ -25,10 +25,9 @@
     8,
     9,
     10,
-    21,
     23
   ],
-  "daily_records": 213,
+  "daily_records": 212,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -41,7 +40,7 @@
       "error": 11,
       "error_rate": 0.65,
       "consecutive_errors": 0,
-      "avg_duration_ms": 798961,
+      "avg_duration_ms": 819446,
       "error_types": {
         "rate_limit": 2,
         "restart": 1,
@@ -52,36 +51,34 @@
         "近14天错误率65%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8, 9, 10, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8, 9, 10, 23]，可人工考虑错峰"
       ]
     },
     {
       "job_id": "99dde0b3-ced3-457a-8f7c-2c2837687e50",
       "name": "竞品内容动态",
-      "schedule": "0 8 * * 1-5",
+      "schedule": "30 7 * * 1-5",
       "kind": "agentTurn",
-      "timeout": 900,
+      "timeout": 1500,
       "runs": 11,
-      "ok": 4,
-      "error": 7,
-      "error_rate": 0.64,
-      "consecutive_errors": 5,
-      "avg_duration_ms": 551281,
+      "ok": 3,
+      "error": 8,
+      "error_rate": 0.73,
+      "consecutive_errors": 6,
+      "avg_duration_ms": 606602,
       "error_types": {
         "rate_limit": 1,
-        "other": 5,
+        "other": 6,
         "exec": 1
       },
-      "timeout_hits": 3,
+      "timeout_hits": 0,
       "issues": [
-        "连续5次失败",
-        "近14天错误率64%",
-        "3次撞超时顶"
+        "连续6次失败",
+        "近14天错误率73%"
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "建议提高 timeout 900→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8, 9, 10, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -91,22 +88,22 @@
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 9,
-      "ok": 3,
-      "error": 6,
-      "error_rate": 0.67,
+      "ok": 4,
+      "error": 5,
+      "error_rate": 0.56,
       "consecutive_errors": 0,
-      "avg_duration_ms": 522577,
+      "avg_duration_ms": 582341,
       "error_types": {
-        "exec": 4,
         "rate_limit": 1,
+        "exec": 3,
         "other": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率67%"
+        "近14天错误率56%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -139,19 +136,19 @@
       "schedule": "0 5 * * 4",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 5,
-      "ok": 2,
+      "runs": 4,
+      "ok": 1,
       "error": 3,
-      "error_rate": 0.6,
+      "error_rate": 0.75,
       "consecutive_errors": 1,
-      "avg_duration_ms": 548683,
+      "avg_duration_ms": 611770,
       "error_types": {
         "other": 2,
         "exec": 1
       },
       "timeout_hits": 1,
       "issues": [
-        "近14天错误率60%"
+        "近14天错误率75%"
       ]
     },
     {
@@ -165,7 +162,7 @@
       "error": 5,
       "error_rate": 0.45,
       "consecutive_errors": 0,
-      "avg_duration_ms": 507413,
+      "avg_duration_ms": 502491,
       "error_types": {
         "rate_limit": 1,
         "restart": 1,
@@ -176,7 +173,7 @@
         "近14天错误率45%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8, 9, 10, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8, 9, 10, 23]，可人工考虑错峰"
       ]
     },
     {
@@ -222,7 +219,7 @@
       ],
       "suggestions": [
         "建议提高 timeout 600→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 21, 23]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8, 9, 10, 23]，可人工考虑错峰"
       ]
     }
   ],
