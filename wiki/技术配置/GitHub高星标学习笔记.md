@@ -1187,3 +1187,120 @@ AI 倾向于走"最短路径"——跳过规格、跳过测试、直接生成"�
 | **P1** | 文旅日报 Skill 包整理（Agent + Skill + Connector）| financial-services 34.3K 持续验证 | W34 |
 | **P2** | 斜杠命令映射到飞书日报指令 | /report /competitor /客流 | H2 |
 | **P3** | 季度跟踪 yc-software/qm（多 Agent 协作 harness）| 17 天 13.5K 新范式 | Q4 |
+
+---
+
+## W34 期（2026-08-22 · 周六 03:00）
+
+> **本期焦点：从"质量门"（W33）转向"token 效率路由"与"Agent 原生业务系统"**。上期 P0（日报 quality gate）市场已验证；本期两个新项目直指本系统两大真实痛点：DeepSeek 撞限/超时、以及"Agent 时代业务数据该存哪"。
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：opensquilla/opensquilla — Token 高效路由 Agent，arXiv 论文背书（6.6K / 3.5 个月）
+
+**仓库：** https://github.com/opensquilla/opensquilla
+**Stars：** **6,631**（2026-08-22 gh API 实测）| **创建：** 2026-05-06 | **语言：** Python | **License：** Apache 2.0
+**最近更新：** 8/21（昨日仍在提交，活跃）
+**关键 tags：** `agent` `mcp` `memory` **`openclaw`** `skills` `deep-learning`
+**核心：** "Same budget, more capability, better results" — 微内核 AI Agent + **本地模型路由器**，每回合把任务路由到能处理它的最便宜模型；持久记忆 + 分层沙箱 + 内置 web search + 本地 embedding 共享同一 turn loop
+**权威背书：** 2026-07-14 arXiv 技术报告《Agentic Routing: The Harness-Native Data Flywheel》(2607.11399) —— 论证 **multi-model ensemble routing 超越 Fable 5**
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+单一大模型（如当前全链路 deepseek-v4-flash）处理所有任务，简单任务也付高模型成本、复杂任务又超时失败；OpenSquilla 用 **harness-native 路由器按任务难度动态选模型**，把"一个模型打天下"变成"最便宜的模型干最合适的活"——直接对位本系统"日报 LLM 生成阶段超时/abort"与 M3 限额痛点的同源问题。
+
+**2. 我们的系统能怎么用？**
+- **错峰/路由替代方案**：本系统 8/14 刚把抖音日报 cron 错峰到 07:00 低谷窗口（DeepSeek 低谷 00:30-08:30）——OpenSquilla 的"简单任务走便宜模型、复杂任务走强模型"路由策略是**比错峰更治本**的解法：日报格式化（简单）走 flash，深度洞察/竞品分析（复杂）走强模型，不用全挤在低谷窗口
+- **arXiv 论文可作决策依据**：2607.11399 论证 ensemble routing 优于单一旗舰模型，若站长将来允许引入第二模型，这份论文是现成的立项论据
+- **原生 openclaw tag**：README 明确支持 OpenClaw——若未来接入，spike 成本低
+- **本系统已有同类雏形**：TOOLS.md 记录了"简单脚本用 Python 处理、复杂才调 LLM"的原则，OpenSquilla 是把这套原则**系统化、自动化**的参考实现
+
+**3. 不跟进的代价是什么？**
+- 继续"全链路单一模型"，日报生成阶段超时/abort 问题只能靠错峰缓解，**治标不治本**——复杂任务与简单任务混跑，低谷窗口内也会互相挤占
+- 若未来站长允许多模型，没有路由框架就要手动在 32 个 cron 里逐个配模型，运维成本高
+- 竞品若用 ensemble routing，复杂洞察质量与成本比都会优于我们
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P1** | 精读 arXiv 2607.11399（Agentic Routing），评估本系统 32 个 cron 中哪些任务可走"便宜模型" | 论文背书 + 直接对位超时/撞限痛点 | W35 |
+| 🆕 **P2** | 调研 OpenSquilla 路由策略（规则 vs 模型评分），看能否借鉴到 douyin_index.py 的 LLM 生成阶段 | 6.6K⭐ + 3.5个月 + openclaw tag | W35 |
+| **P3** | 若站长允许第二模型，用 OpenSquilla/arXiv 做多模型路由立项依据 | 论文现成论据 | 站长决策时 |
+
+### 发现二（⭐⭐⭐⭐）：trycompai/crm — Agent 原生 CRM，业务数据层新范式（8.8K / 21 天）
+
+**仓库：** https://github.com/trycompai/crm
+**Stars：** **8,769**（2026-08-22 gh API 实测）| **创建：** 2026-07-31（**仅 21 天**）| **语言：** TypeScript
+**最近更新：** 8/21（活跃）
+**定位：** "Comp AI CRM is an open source, CRM designed for AI agents. Agentic-first CRM."
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+传统 CRM 是给人用的（填表/管道/看板），Agent 用起来要 API 适配；Comp AI 把 CRM 设计成 **Agent 第一公民**——数据模型、权限、工作流都从"Agent 是主要用户"出发，填补了"AI Agent 时代的业务数据承载层"空白。
+
+**2. 我们的系统能怎么用？**
+- **远期架构参考**：本系统游客/客流/营收数据散落在 Excel/CSV/SQLite（`~/Downloads/2026游客量统计(N).csv` + ontology_store.db），若未来要做"Agent 直接查询/更新客流数据"，agentic CRM 的数据模型值得参考
+- **与 Ontology 图谱的关系**：本系统已有 486 实体/507 关系的知识图谱，agentic CRM 是**另一个补位**——图谱管"知识关系"，CRM 管"业务操作数据"，二者可互补
+- **21 天 8.8K 增速**证明"Agent 原生业务系统"需求真实存在，值得季度跟踪
+
+**3. 不跟进的代价是什么？**
+- 短期无影响（本系统 Excel/SQLite 方案够用）
+- 长期：若"Agent 直接操作业务数据"成为行业标配，本系统数据层（Excel+SQLite）的 Agent 友好度不足，未来迁移成本高
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 季度跟踪 agentic CRM 赛道（Comp AI 8.8K 领跑） | 21天8.8K，新范式 | Q4 审视 |
+| **P3** | 若未来需"Agent 直接读写客流/营收"，参考其数据模型 | 避免重复造轮子 | 需求出现时 |
+
+### 📊 本期（W34）vs 上期（W33）数据对比（gh API 实测）
+
+| 项目 | W33 (8/15) | W34 (8/22) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| addyosmani/agent-skills | 87,234 | **88,924** | +1,690 | 📈 增速回落（日增4300→~240），但仍增长 |
+| thedotmack/claude-mem | 90,752 | **91,436** | +684 | ➡️ 趋稳 |
+| obra/superpowers | 272,129 | **275,548** | +3,419 | 📈 稳定增长 |
+| affaan-m/ECC | 240,140 | **241,711** | +1,571 | ➡️ 趋稳 |
+| mattpocock/skills | 217,415 | **229,050** | +11,635 | 📈 **显著增长**（Skills 生态持续扩张） |
+| NousResearch/hermes-agent | 230,586 | **233,920** | +3,334 | 📈 稳定（非维护模式，仍在增长） |
+| ChromeDevTools/chrome-devtools-mcp | 49,170 | **49,542** | +372 | ➡️ 趋稳 |
+| anthropics/financial-services | 34,271 | **34,445** | +174 | ➡️ 趋稳 |
+| yc-software/qm | 13,541 | **14,040** | +499 | 📈 持续增长 |
+| **opensquilla/opensquilla** | **未追踪** | **6,631** | 🆕 新发现 | 🔥 Token 效率路由 |
+| **trycompai/crm** | **未追踪** | **8,769** | 🆕 新发现（21天）| 🔥 Agent 原生 CRM |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期无重大误判**——W33 核心发现（quality gate）本期继续验证（agent-skills 仍增长，ECC/Superpowers 均含 quality gate 理念）
+2. **mattpocock/skills 增速被低估**：W33 记录 +62K 已显著，本期又 +11.6K——Skills 生态整体仍在高速扩张，未进入平台期
+
+### 📈 本期新趋势识别
+
+1. **Token 效率成为 Agent 基础设施新赛道**：opensquilla（arXiv 论文背书）专注"同预算更高智能密度"——与 W29 claude-mem（token 压缩）同源，但方向从"记忆压缩"转向"**运行时路由**"，是本系统超时/撞限痛点的直接参考
+2. **Agent 原生业务系统萌芽**：Comp AI（agentic CRM）+ 上期 qm（multiplayer harness）→ Agent 不再只"用工具"，开始"住进业务系统"——季度跟踪
+3. **质量门方向持续验证**：agent-skills 87K→89K + ECC/Superpowers 均含 quality gate → W33 P0 方向正确，W34 应落地
+
+### 🎯 上期（W33）行动项更新状态
+
+| W33 行动项 | W34 跟踪 | 结论 |
+|-----------|----------|------|
+| 🆕 **P0 日报 SOP quality gate** | agent-skills 88.9K 持续验证 | ✅ 方向正确，**本周落地** |
+| **P1 SKILL.md frontmatter 结构化** | 未新增数据 | ⏸ 保持 |
+| **P1 修正 hermes-agent 记录** | 本期实测 233.9K（+3.3K）| ✅ 完成，稳定增长非维护模式 |
+| **P1 文旅日报 Skill 包整理** | financial-services 34.4K 趋稳 | ⏸ 保持 |
+| **P2 斜杠命令映射** | 未新增数据 | ⏸ H2 |
+| **P3 季度跟踪 qm** | 14.0K（+499）| ✅ 持续跟踪 |
+
+## W34 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | **落地日报 SOP quality gate**（数据完整性 + schema 2.0 校验 + 来源标注）| agent-skills 88.9K + 连续两周验证 | **本周 W34** |
+| 🆕 **P1** | 精读 arXiv 2607.11399（Agentic Routing），评估 32 cron 中可走"便宜模型"的任务 | 论文背书 + 直接对位超时/撞限痛点 | W35 |
+| 🆕 **P2** | 调研 OpenSquilla 路由策略借鉴到 douyin_index.py LLM 生成阶段 | 6.6K⭐ + openclaw tag | W35 |
+| **P1** | SKILL.md 引入 frontmatter 结构化（name/trigger/quality_gate）| agent-skills 事实标准 | W34 |
+| **P1** | 文旅日报 Skill 包整理（Agent + Skill + Connector）| financial-services 持续验证 | W34 |
+| **P2** | 季度跟踪 agentic CRM（Comp AI）+ qm（multiplayer）| 双新范式萌芽 | Q4 |
+| **P3** | 若站长允许第二模型，用 arXiv 论文做多模型路由立项依据 | 论文现成论据 | 站长决策时 |
