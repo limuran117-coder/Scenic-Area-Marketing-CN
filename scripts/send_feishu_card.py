@@ -137,6 +137,19 @@ if __name__ == "__main__":
         print(__doc__)
         sys.exit(1)
     chat_id = sys.argv[1]
-    card = json.loads(sys.argv[2])
     skip_validation = "--force" in sys.argv
+
+    # 支持 --file <path>：直接从文件读取卡片 JSON，绕开 shell 传参分词/转义问题
+    # 用法: python3 send_feishu_card.py oc_xxx --file /tmp/card.json [--force]
+    if "--file" in sys.argv:
+        fi = sys.argv.index("--file")
+        if fi + 1 >= len(sys.argv):
+            print("❌ --file 需要文件路径参数")
+            sys.exit(1)
+        path = sys.argv[fi + 1]
+        with open(path, encoding="utf-8") as f:
+            card = json.load(f)
+        print(f"📂 已从文件读取卡片: {path}")
+    else:
+        card = json.loads(sys.argv[2])
     send_card(chat_id, card, skip_validation=skip_validation)
