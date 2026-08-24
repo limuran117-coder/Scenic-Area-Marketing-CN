@@ -1,29 +1,25 @@
 {
-  "generated_at": "2026-08-23 08:17",
+  "generated_at": "2026-08-24 07:49",
   "window_days": 14,
   "task_count": 34,
   "hourly_errors": {
-    "4": 1,
     "5": 2,
-    "6": 3,
+    "6": 4,
     "7": 3,
     "8": 23,
-    "9": 12,
-    "10": 6,
-    "11": 2,
-    "12": 1,
-    "14": 2,
+    "9": 10,
+    "10": 5,
+    "14": 1,
     "16": 1,
     "19": 2,
-    "21": 3,
-    "23": 1
+    "21": 3
   },
   "peak_hours": [
     8,
     9,
     10
   ],
-  "daily_records": 218,
+  "daily_records": 217,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -31,20 +27,24 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 16,
-      "ok": 6,
-      "error": 10,
-      "error_rate": 0.62,
+      "runs": 18,
+      "ok": 7,
+      "error": 11,
+      "error_rate": 0.61,
       "consecutive_errors": 0,
-      "avg_duration_ms": 870458,
+      "avg_duration_ms": 934926,
       "error_types": {
         "restart": 1,
-        "other": 8,
+        "other": 9,
         "rate_limit": 1
       },
-      "timeout_hits": 1,
+      "timeout_hits": 2,
       "issues": [
-        "近14天错误率62%"
+        "近14天错误率61%",
+        "2次撞超时顶"
+      ],
+      "suggestions": [
+        "建议提高 timeout 1500→1800"
       ]
     },
     {
@@ -98,19 +98,20 @@
       "schedule": "30 6 * * 1",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 2,
+      "runs": 3,
       "ok": 0,
-      "error": 2,
+      "error": 3,
       "error_rate": 1.0,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 235749,
+      "consecutive_errors": 3,
+      "avg_duration_ms": 197134,
       "error_types": {
         "rate_limit": 1,
-        "exec": 1
+        "exec": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "连续2次失败"
+        "连续3次失败",
+        "近14天错误率100%"
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
@@ -143,19 +144,18 @@
       "schedule": "0 6 * * 6,0",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 5,
+      "runs": 4,
       "ok": 2,
-      "error": 3,
-      "error_rate": 0.6,
+      "error": 2,
+      "error_rate": 0.5,
       "consecutive_errors": 1,
-      "avg_duration_ms": 194072,
+      "avg_duration_ms": 241795,
       "error_types": {
-        "rate_limit": 1,
         "exec": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率60%"
+        "近14天错误率50%"
       ]
     },
     {
