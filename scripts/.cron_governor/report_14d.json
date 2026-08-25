@@ -1,25 +1,24 @@
 {
-  "generated_at": "2026-08-24 07:49",
+  "generated_at": "2026-08-25 07:43",
   "window_days": 14,
-  "task_count": 34,
+  "task_count": 32,
   "hourly_errors": {
     "5": 2,
-    "6": 4,
-    "7": 3,
+    "6": 5,
+    "7": 4,
     "8": 23,
-    "9": 10,
-    "10": 5,
-    "14": 1,
+    "9": 9,
+    "10": 4,
     "16": 1,
     "19": 2,
-    "21": 3
+    "21": 2
   },
   "peak_hours": [
+    6,
     8,
-    9,
-    10
+    9
   ],
-  "daily_records": 217,
+  "daily_records": 216,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -27,24 +26,49 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 18,
-      "ok": 7,
+      "runs": 19,
+      "ok": 8,
       "error": 11,
-      "error_rate": 0.61,
+      "error_rate": 0.58,
       "consecutive_errors": 0,
-      "avg_duration_ms": 934926,
+      "avg_duration_ms": 1002619,
       "error_types": {
-        "restart": 1,
-        "other": 9,
+        "other": 10,
         "rate_limit": 1
       },
-      "timeout_hits": 2,
+      "timeout_hits": 3,
       "issues": [
-        "近14天错误率61%",
-        "2次撞超时顶"
+        "近14天错误率58%",
+        "3次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 1500→1800"
+      ]
+    },
+    {
+      "job_id": "9bf47f42-0f9f-4b49-a73c-97482426498f",
+      "name": "竞品关键词深度分析",
+      "schedule": "30 7 * * 1-5",
+      "kind": "agentTurn",
+      "timeout": 1500,
+      "runs": 9,
+      "ok": 5,
+      "error": 4,
+      "error_rate": 0.44,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 817354,
+      "error_types": {
+        "process": 1,
+        "other": 2,
+        "exec": 1
+      },
+      "timeout_hits": 0,
+      "issues": [
+        "连续2次失败",
+        "近14天错误率44%"
+      ],
+      "suggestions": [
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
       ]
     },
     {
@@ -58,7 +82,7 @@
       "error": 7,
       "error_rate": 0.64,
       "consecutive_errors": 0,
-      "avg_duration_ms": 649505,
+      "avg_duration_ms": 632514,
       "error_types": {
         "other": 6,
         "exec": 1
@@ -71,25 +95,26 @@
     {
       "job_id": "b8fb57da-faae-429f-91e0-9f8af3db927b",
       "name": "竞品爆款拆解",
-      "schedule": "30 8 * * 1-5",
+      "schedule": "30 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 9,
       "ok": 4,
       "error": 5,
       "error_rate": 0.56,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 623258,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 638787,
       "error_types": {
         "exec": 3,
         "other": 2
       },
       "timeout_hits": 0,
       "issues": [
+        "连续2次失败",
         "近14天错误率56%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10]，可人工考虑错峰"
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
       ]
     },
     {
@@ -98,23 +123,22 @@
       "schedule": "30 6 * * 1",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 3,
+      "runs": 2,
       "ok": 0,
-      "error": 3,
+      "error": 2,
       "error_rate": 1.0,
-      "consecutive_errors": 3,
-      "avg_duration_ms": 197134,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 213002,
       "error_types": {
-        "rate_limit": 1,
         "exec": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "连续3次失败",
-        "近14天错误率100%"
+        "连续2次失败"
       ],
       "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
+        "⚠️ 任务时段 6:00 撞限流高峰 [6, 8, 9]，可人工考虑错峰"
       ]
     },
     {
@@ -156,12 +180,40 @@
       "timeout_hits": 0,
       "issues": [
         "近14天错误率50%"
+      ],
+      "suggestions": [
+        "⚠️ 任务时段 6:00 撞限流高峰 [6, 8, 9]，可人工考虑错峰"
+      ]
+    },
+    {
+      "job_id": "c81ea2fa-1105-4c88-97ac-47b90d90b04d",
+      "name": "Ontology图谱自检",
+      "schedule": "0 8 * * 1",
+      "kind": "agentTurn",
+      "timeout": 300,
+      "runs": 5,
+      "ok": 2,
+      "error": 3,
+      "error_rate": 0.6,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 256281,
+      "error_types": {
+        "other": 3
+      },
+      "timeout_hits": 3,
+      "issues": [
+        "近14天错误率60%",
+        "3次撞超时顶"
+      ],
+      "suggestions": [
+        "建议提高 timeout 300→1500",
+        "⚠️ 任务时段 8:00 撞限流高峰 [6, 8, 9]，可人工考虑错峰"
       ]
     },
     {
       "job_id": "824a26e3-7536-4bf8-8ebb-e2651f147e07",
       "name": "知识进化引擎_每周自学习",
-      "schedule": "0 8 * * 0",
+      "schedule": "30 7 * * 0",
       "kind": "agentTurn",
       "timeout": 600,
       "runs": 5,
@@ -181,8 +233,7 @@
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "建议提高 timeout 600→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [8, 9, 10]，可人工考虑错峰"
+        "建议提高 timeout 600→1500"
       ]
     }
   ],
