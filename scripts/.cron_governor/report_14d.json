@@ -1,24 +1,25 @@
 {
-  "generated_at": "2026-08-25 07:43",
+  "generated_at": "2026-08-26 07:38",
   "window_days": 14,
   "task_count": 32,
   "hourly_errors": {
     "5": 2,
     "6": 5,
-    "7": 4,
-    "8": 23,
-    "9": 9,
-    "10": 4,
+    "7": 5,
+    "8": 22,
+    "9": 7,
+    "10": 3,
     "16": 1,
-    "19": 2,
-    "21": 2
+    "19": 1,
+    "21": 1
   },
   "peak_hours": [
     6,
+    7,
     8,
     9
   ],
-  "daily_records": 216,
+  "daily_records": 210,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -26,49 +27,24 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 19,
+      "runs": 18,
       "ok": 8,
-      "error": 11,
-      "error_rate": 0.58,
+      "error": 10,
+      "error_rate": 0.56,
       "consecutive_errors": 0,
-      "avg_duration_ms": 1002619,
+      "avg_duration_ms": 1035591,
       "error_types": {
-        "other": 10,
+        "other": 9,
         "rate_limit": 1
       },
       "timeout_hits": 3,
       "issues": [
-        "近14天错误率58%",
+        "近14天错误率56%",
         "3次撞超时顶"
       ],
       "suggestions": [
-        "建议提高 timeout 1500→1800"
-      ]
-    },
-    {
-      "job_id": "9bf47f42-0f9f-4b49-a73c-97482426498f",
-      "name": "竞品关键词深度分析",
-      "schedule": "30 7 * * 1-5",
-      "kind": "agentTurn",
-      "timeout": 1500,
-      "runs": 9,
-      "ok": 5,
-      "error": 4,
-      "error_rate": 0.44,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 817354,
-      "error_types": {
-        "process": 1,
-        "other": 2,
-        "exec": 1
-      },
-      "timeout_hits": 0,
-      "issues": [
-        "连续2次失败",
-        "近14天错误率44%"
-      ],
-      "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+        "建议提高 timeout 1500→1800",
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
     },
     {
@@ -78,18 +54,21 @@
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 11,
-      "ok": 4,
-      "error": 7,
-      "error_rate": 0.64,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 632514,
+      "ok": 3,
+      "error": 8,
+      "error_rate": 0.73,
+      "consecutive_errors": 1,
+      "avg_duration_ms": 615329,
       "error_types": {
         "other": 6,
-        "exec": 1
+        "exec": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率64%"
+        "近14天错误率73%"
+      ],
+      "suggestions": [
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
     },
     {
@@ -99,22 +78,21 @@
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 9,
-      "ok": 4,
-      "error": 5,
-      "error_rate": 0.56,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 638787,
+      "ok": 5,
+      "error": 4,
+      "error_rate": 0.44,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 614402,
       "error_types": {
-        "exec": 3,
+        "exec": 2,
         "other": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "连续2次失败",
-        "近14天错误率56%"
+        "近14天错误率44%"
       ],
       "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
     },
     {
@@ -138,7 +116,7 @@
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "⚠️ 任务时段 6:00 撞限流高峰 [6, 8, 9]，可人工考虑错峰"
+        "⚠️ 任务时段 6:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
     },
     {
@@ -182,7 +160,7 @@
         "近14天错误率50%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 6:00 撞限流高峰 [6, 8, 9]，可人工考虑错峰"
+        "⚠️ 任务时段 6:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
     },
     {
@@ -207,7 +185,7 @@
       ],
       "suggestions": [
         "建议提高 timeout 300→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [6, 8, 9]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
     },
     {
@@ -233,7 +211,8 @@
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "建议提高 timeout 600→1500"
+        "建议提高 timeout 600→1500",
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
     }
   ],
