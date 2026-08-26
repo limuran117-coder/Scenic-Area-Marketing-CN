@@ -1,15 +1,14 @@
 {
-  "generated_at": "2026-08-26 07:38",
+  "generated_at": "2026-08-27 07:34",
   "window_days": 14,
   "task_count": 32,
   "hourly_errors": {
-    "5": 2,
+    "5": 3,
     "6": 5,
-    "7": 5,
-    "8": 22,
-    "9": 7,
+    "7": 8,
+    "8": 20,
+    "9": 5,
     "10": 3,
-    "16": 1,
     "19": 1,
     "21": 1
   },
@@ -19,7 +18,7 @@
     8,
     9
   ],
-  "daily_records": 210,
+  "daily_records": 209,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -27,22 +26,25 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 18,
+      "runs": 16,
       "ok": 8,
-      "error": 10,
-      "error_rate": 0.56,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 1035591,
+      "error": 8,
+      "error_rate": 0.5,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 1018201,
       "error_types": {
-        "other": 9,
-        "rate_limit": 1
+        "other": 5,
+        "rate_limit": 2,
+        "exec": 1
       },
       "timeout_hits": 3,
       "issues": [
-        "近14天错误率56%",
+        "连续2次失败",
+        "近14天错误率50%",
         "3次撞超时顶"
       ],
       "suggestions": [
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
         "建议提高 timeout 1500→1800",
         "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
       ]
@@ -54,18 +56,18 @@
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 11,
-      "ok": 3,
-      "error": 8,
-      "error_rate": 0.73,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 615329,
+      "ok": 4,
+      "error": 7,
+      "error_rate": 0.64,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 578655,
       "error_types": {
-        "other": 6,
-        "exec": 2
+        "exec": 2,
+        "other": 5
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率73%"
+        "近14天错误率64%"
       ],
       "suggestions": [
         "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
@@ -78,18 +80,18 @@
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 9,
-      "ok": 5,
-      "error": 4,
-      "error_rate": 0.44,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 614402,
+      "ok": 4,
+      "error": 5,
+      "error_rate": 0.56,
+      "consecutive_errors": 1,
+      "avg_duration_ms": 572124,
       "error_types": {
-        "exec": 2,
+        "exec": 3,
         "other": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率44%"
+        "近14天错误率56%"
       ],
       "suggestions": [
         "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8, 9]，可人工考虑错峰"
@@ -125,19 +127,23 @@
       "schedule": "0 5 * * 4",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 4,
+      "runs": 5,
       "ok": 1,
-      "error": 3,
-      "error_rate": 0.75,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 611770,
+      "error": 4,
+      "error_rate": 0.8,
+      "consecutive_errors": 2,
+      "avg_duration_ms": 594216,
       "error_types": {
         "other": 2,
-        "exec": 1
+        "exec": 2
       },
       "timeout_hits": 1,
       "issues": [
-        "近14天错误率75%"
+        "连续2次失败",
+        "近14天错误率80%"
+      ],
+      "suggestions": [
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
       ]
     },
     {
