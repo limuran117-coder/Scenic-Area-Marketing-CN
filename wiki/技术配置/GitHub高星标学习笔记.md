@@ -1304,3 +1304,150 @@ AI 倾向于走"最短路径"——跳过规格、跳过测试、直接生成"�
 | **P1** | 文旅日报 Skill 包整理（Agent + Skill + Connector）| financial-services 持续验证 | W34 |
 | **P2** | 季度跟踪 agentic CRM（Comp AI）+ qm（multiplayer）| 双新范式萌芽 | Q4 |
 | **P3** | 若站长允许第二模型，用 arXiv 论文做多模型路由立项依据 | 论文现成论据 | 站长决策时 |
+
+---
+
+## W35 期（2026-08-29 · 周六 03:00）
+
+> **本期焦点：从"质量门"（W33/W34）转向"极简主义"与"自主研究"两极**。上期 P0（日报 quality gate）持续验证中；本期两个新项目直指本系统另两大痛点：脚本过度膨胀（56 个脚本维护成本）与"研究/分析自主化"。
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：karpathy/autoresearch — Agent 自主科研实验框架（94.8K stars）
+
+**仓库：** https://github.com/karpathy/autoresearch
+**Stars：** **94,856**（2026-08-29 gh API 实测）| **创建：** 2026-03-06 | **语言：** Python
+**最近更新：** 8/28（持续活跃）
+**作者：** Andrej Karpathy 本尊
+**定位：** "AI agents running research on single-GPU nanochat training automatically" — 给 AI Agent 一个小而真实的 LLM 训练环境，让它自主做实验：改代码→训练 5 分钟→检查是否提升→保留/丢弃→重复。人只写 `program.md`（Agent 指令/研究组织代码），不碰任何 Python。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+之前 Agent 只能按人写的指令"执行任务"，无法自主"做实验找最优解"；autoresearch 把"实验→评估→保留/丢弃"循环变成 Agent 的日常，**填补了"AI 自主科研/自主优化"的空白**——人从"写代码"退到"写研究组织文化"（program.md），Agent 从"执行者"变"研究员"。
+
+**2. 我们的系统能怎么用？**
+- **program.md 模式 = 轻量 Skill 的极致形态**：autoresearch 的核心是"一个 Markdown 文件定义 Agent 的自主行为"，与我们的 SKILL.md 同构——但它把"验证循环"内置（训练→检查→保留/丢弃），正是 W33 以来"quality gate"理念的科研版实证
+- **可借鉴的"实验循环"到日报质量门**：`改→验证→保留/丢弃` 循环可直接映射到日报流程：`生成→schema校验→通过发布/不通过修正`。W34 P0（quality gate 落地）可参考 autoresearch 的"固定时间预算 + 单一评估指标（val_bpb）"设计——日报的单一指标就是"schema 2.0 校验 + 数据完整性"
+- **固定时间预算理念**：5 分钟 wall-clock 预算 + 单一指标评估，防止 Agent 无限实验。本系统 32 个 cron 同样需要"固定预算 + 单一成功指标"（如"日报在 10:30 前发出且 schema 合规"）
+- **验证循环可迁移到脚本自愈**：douyin_index.py 采集失败时，可套用"改→试→保留/丢弃"循环做元素选择器自愈（参考 W25 Agent Zero Annotate Mode 思路）
+
+**3. 不跟进的代价是什么？**
+- 本系统继续"人工调教"模式：日报格式漂移靠站长人肉发现（W28-W34 反复踩坑），无法让 Agent 自主"实验→校验→改进"
+- Karpathy 亲自验证的"program.md 驱动自主优化"范式是行业风向标，错过则我们的 SKILL.md 体系停在"静态指令"阶段，无法进化到"自主验证"阶段
+- 竞品若用 autoresearch 范式做"营销实验自动优化"（如自动测试 10 种标题→保留 CTR 最高的），我们的内容策略优化效率差 1-2 个量级
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P1** | 精读 autoresearch 的 program.md + 验证循环设计，映射到日报 quality gate 落地 | Karpathy 本尊 + 94.8K + 与 W33/W34 P0 同源 | W36 |
+| 🆕 **P2** | 借鉴"固定时间预算 + 单一指标"到日报 cron（成功指标 = 按时发出 + schema 合规）| 防止无限重试/无标准成功 | W36 |
+| **P3** | 研究"实验循环"用于竞品内容测试（自动 A/B 标题/封面→保留最优）| 长期内容策略优化 | H2 |
+
+### 发现二（⭐⭐⭐⭐）：DietrichGebert/ponytail — 极简主义技能：让 Agent 写最少代码（115K stars）
+
+**仓库：** https://github.com/DietrichGebert/ponytail
+**Stars：** **115,157**（2026-08-29 gh API 实测）| **创建：** 2026-06-12（**仅 2.5 个月爆发**）| **语言：** JavaScript
+**最近更新：** 8/28（活跃）
+**定位：** "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote." — 让 Agent 像"最懒的资深工程师"一样思考：写最少代码（-54% 均值，最高 -94%）、~20% 更便宜、~27% 更快、100% 安全。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 生成代码天然倾向"过度工程"（装库、写封装、加注释、讨论时区）；ponytail 用一条核心纪律"浏览器有原生 `<input type="date">` 就不用 flatpickr"压制过度构建，**填补了"AI 写代码缺极简主义护栏"的空白**——与 Superpowers 的 YAGNI/DRY 同源，但落成了可量化指标（代码量/成本/速度）。
+
+**2. 我们的系统能怎么用？**
+- **直接对位本系统脚本膨胀痛点**：56 个脚本风格不统一（Playwright/requests/subprocess 混用），维护成本高。ponytail 的"最懒工程师"纪律可作为脚本重写/新增时的代码审查标准：新脚本必须回答"这 50 行能不能用 5 行替代？"
+- **Karpathy 准则（SOUL.md 已内嵌）再强化**：SOUL.md 已有"Simplicity First / Surgical Changes"，ponytail 提供了量化版（-54% 代码、-20% 成本）——可把"每行代码可追溯用户请求"升级为"每行代码都要通过最简替代审查"
+- **-20% 成本**：与 W34 OpenSquilla（token 路由）同方向——代码少 = token 少 = M3 限额压力小
+
+**3. 不跟进的代价是什么？**
+- 脚本继续膨胀，56 个脚本 2 年后可能变 100+ 个，维护/迁移成本指数级上升
+- 竞品 Agent 写代码更快更省，我们的采集脚本开发效率落后（每次新采集需求都要写一整套 Playwright 样板）
+- 错过"极简即效率"的行业共识——TOOLS.md 周度探索已多次记录"工具够用就不装"原则，ponytail 是把这套原则落到代码层的参考实现
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P2** | 引入"最简替代审查"到脚本新增/重构流程（新脚本先问"能否 5 行替代"）| 115K + 2.5 个月爆发 + 直接对位脚本膨胀痛点 | W36 |
+| **P3** | 评估 ponytail 的 skill 是否能直接装到 OpenClaw（works with 20 agents）| 若兼容，成本立降 | 需求出现时 |
+
+### 发现三（⭐⭐⭐）：mvanhorn/last30days-skill — 跨平台 30 天研究技能（59.9K stars）
+
+**仓库：** https://github.com/mvanhorn/last30days-skill
+**Stars：** **59,891**（2026-08-29 实测）| **语言：** Skill（Markdown）
+**定位：** "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary" — 跨平台搜集某话题最近 30 天数据并综合成有据摘要。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 研究常依赖单一来源或过时数据；last30days-skill 规定"只看最近 30 天 + 跨平台交叉验证 + 带来源的综合摘要"，**填补了"AI 研究缺时间边界与来源纪律"的空白**。
+
+**2. 我们的系统能怎么用？**
+- **直接呼应站长"抖音数据最近 30 天"原则**（SOUL.md 已内嵌"数据采集：最近30天不是7天"）——last30days-skill 把这条原则固化成 Skill 结构（时间边界 + 多源 + 带引用的综合），可参考设计"文旅情报 30 天研究 Skill"
+- **竞品监测时间窗口标准化**：竞品内容动态/爆款拆解可统一"近 30 天窗口 + 多平台交叉（抖音+小红书+微博）"规范
+
+**3. 不跟进的代价是什么？**
+- 竞品分析继续依赖单平台单次采集，跨平台趋势（如小红书爆款→抖音跟进）容易漏掉
+- 错过"时间边界+来源纪律"的行业标准化，本系统的研究类任务输出质量不稳定
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 参考其结构设计"文旅 30 天研究"规范（时间窗口+多源+带引用）| 59.9K + 直接呼应站长 30 天原则 | W36 |
+| **P3** | 竞品爆款拆解统一 30 天窗口 | 跨平台趋势捕捉 | H2 |
+
+### 📊 本期（W35）vs 上期（W34）数据对比（gh API 实测）
+
+| 项目 | W34 (8/22) | W35 (8/29) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| **karpathy/autoresearch** | **未追踪** | **94,856** | 🆕 新发现 | 🔥🔥 Karpathy 本尊 + 自主科研范式 |
+| **DietrichGebert/ponytail** | **未追踪** | **115,157** | 🆕 新发现（2.5个月）| 🔥 极简主义技能爆发 |
+| **mvanhorn/last30days-skill** | **未追踪** | **59,891** | 🆕 新发现 | 🔥 30天研究纪律 |
+| addyosmani/agent-skills | 88,924 | 90,474 | +1,550 | 📈 持续（质量门验证） |
+| thedotmack/claude-mem | 91,436 | 92,497 | +1,061 | ➡️ 趋稳 |
+| obra/superpowers | 275,548 | 278,994 | +3,446 | 📈 稳定增长 |
+| affaan-m/ECC | 241,711 | 243,933 | +2,222 | ➡️ 趋稳 |
+| mattpocock/skills | 229,050 | 240,084 | +11,034 | 📈 **持续显著增长** |
+| NousResearch/hermes-agent | 233,920 | 237,697 | +3,777 | 📈 稳定增长 |
+| ChromeDevTools/chrome-devtools-mcp | 49,542 | 49,929 | +387 | ➡️ 趋稳 |
+| anthropics/financial-services | 34,445 | 34,561 | +116 | ➡️ 趋稳 |
+| yc-software/qm | 14,040 | 14,306 | +266 | ➡️ 持续 |
+| opensquilla/opensquilla | 6,631 | 6,745 | +114 | ➡️ 趋稳 |
+| trycompai/crm | 8,769 | 9,054 | +285 | 📈 持续 |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期无重大误判**——W34 核心发现（token 路由 OpenSquilla / Agent 原生 CRM）本期均小幅增长验证；W33 P0（quality gate）持续验证（agent-skills +1.5K）
+2. **发现新赛道盲区**：上期完全遗漏"极简主义技能"（ponytail 115K）与"自主科研"（autoresearch 94.8K）两条新赛道——极简主义（写更少代码）是本期最值得关注的新方向
+
+### 📈 本期新趋势识别
+
+1. **"极简主义"成为 AI 编码新共识**：ponytail（115K，2.5 个月）证明"让 AI 写更少代码"是巨大真实需求——与 SOUL.md Karpathy 准则（Simplicity First）同源，行业正在把"简洁"量化成指标（-54% 代码 / -20% 成本）
+2. **自主科研/自主优化范式崛起**：karpathy/autoresearch（94.8K）把"实验→验证→保留/丢弃"循环产品化——AI 从"执行指令"进化到"自主做实验找最优解"，本系统日报质量门可借鉴其"固定时间预算 + 单一指标"设计
+3. **质量门方向持续验证**：agent-skills 90.5K（+1.5K）连续三周验证 → W34 P0（日报 quality gate 落地）应优先执行
+4. **Skills 生态持续扩张**：mattpocock/skills 240K（+11K）——Skills 整体未进入平台期，垂直 Skill（last30days-skill 59.9K）仍有爆发空间
+
+### 🎯 上期（W34）行动项更新状态
+
+| W34 行动项 | W35 跟踪 | 结论 |
+|-----------|----------|------|
+| 🆕 **P0 落地日报 SOP quality gate** | agent-skills 90.5K 持续验证 | ✅ 方向正确，**应尽快落地** |
+| **P1 精读 arXiv 2607.11399（Agentic Routing）** | 未新增数据 | ⏸ 保持 |
+| **P1 SKILL.md frontmatter 结构化** | 未新增数据 | ⏸ 保持 |
+| **P2 调研 OpenSquilla 路由策略** | 6.7K（+114）| ⏸ 保持 |
+| **P2 季度跟踪 agentic CRM + qm** | CRM 9.1K / qm 14.3K | ✅ 持续跟踪 |
+
+## W35 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0（延续）** | **落地日报 SOP quality gate**（数据完整性 + schema 2.0 校验 + 来源标注），参考 autoresearch"固定预算+单一指标"设计 | agent-skills 90.5K 三周验证 + autoresearch 94.8K 同源范式 | **本周 W35/W36** |
+| 🆕 **P1** | 精读 autoresearch 的 program.md + 验证循环，映射到日报质量门 | Karpathy 本尊 + 94.8K | W36 |
+| 🆕 **P2** | 引入"最简替代审查"到脚本新增/重构流程 | ponytail 115K + 直接对位 56 脚本膨胀痛点 | W36 |
+| 🆕 **P2** | 参考 last30days-skill 设计"文旅 30 天研究"规范 | 59.9K + 呼应站长 30 天原则 | W36 |
+| **P1** | 精读 arXiv 2607.11399（Agentic Routing）| 论文背书 | 保持 |
+| **P1** | SKILL.md 引入 frontmatter 结构化 | agent-skills 事实标准 | 保持 |
+| **P2** | 调研 OpenSquilla 路由策略借鉴到 douyin_index.py | token 路由 | 保持 |
+| **P3** | 评估 ponytail skill 是否兼容 OpenClaw（works with 20 agents）| 若兼容成本立降 | 需求出现时 |
