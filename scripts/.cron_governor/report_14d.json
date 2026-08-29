@@ -1,21 +1,19 @@
 {
-  "generated_at": "2026-08-28 07:34",
+  "generated_at": "2026-08-29 07:30",
   "window_days": 14,
   "task_count": 32,
   "hourly_errors": {
     "5": 3,
     "6": 5,
     "7": 8,
-    "8": 19,
-    "9": 1,
-    "10": 3
+    "8": 19
   },
   "peak_hours": [
     6,
     7,
     8
   ],
-  "daily_records": 200,
+  "daily_records": 197,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -23,25 +21,23 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 15,
+      "runs": 14,
       "ok": 9,
-      "error": 6,
-      "error_rate": 0.4,
+      "error": 5,
+      "error_rate": 0.36,
       "consecutive_errors": 0,
-      "avg_duration_ms": 1018750,
+      "avg_duration_ms": 1064361,
       "error_types": {
-        "other": 4,
+        "other": 3,
         "rate_limit": 1,
         "exec": 1
       },
       "timeout_hits": 3,
       "issues": [
-        "近14天错误率40%",
         "3次撞超时顶"
       ],
       "suggestions": [
-        "建议提高 timeout 1500→1800",
-        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
+        "建议提高 timeout 1500→1800"
       ]
     },
     {
@@ -50,19 +46,19 @@
       "schedule": "30 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 10,
-      "ok": 4,
+      "runs": 11,
+      "ok": 5,
       "error": 6,
-      "error_rate": 0.6,
+      "error_rate": 0.55,
       "consecutive_errors": 0,
-      "avg_duration_ms": 573499,
+      "avg_duration_ms": 543375,
       "error_types": {
         "other": 5,
         "exec": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率60%"
+        "近14天错误率55%"
       ],
       "suggestions": [
         "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
@@ -74,19 +70,19 @@
       "schedule": "30 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 9,
-      "ok": 5,
+      "runs": 10,
+      "ok": 6,
       "error": 4,
-      "error_rate": 0.44,
+      "error_rate": 0.4,
       "consecutive_errors": 0,
-      "avg_duration_ms": 552875,
+      "avg_duration_ms": 511505,
       "error_types": {
         "other": 2,
         "exec": 2
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率44%"
+        "近14天错误率40%"
       ],
       "suggestions": [
         "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
@@ -149,8 +145,8 @@
       "ok": 2,
       "error": 2,
       "error_rate": 0.5,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 241795,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 238738,
       "error_types": {
         "exec": 2
       },
