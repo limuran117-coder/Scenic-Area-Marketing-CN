@@ -1,18 +1,18 @@
 {
-  "generated_at": "2026-08-30 08:15",
+  "generated_at": "2026-08-31 07:34",
   "window_days": 14,
   "task_count": 32,
   "hourly_errors": {
     "5": 3,
     "6": 4,
-    "7": 8,
-    "8": 17
+    "7": 7,
+    "8": 16
   },
   "peak_hours": [
     7,
     8
   ],
-  "daily_records": 197,
+  "daily_records": 191,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -25,7 +25,7 @@
       "error": 5,
       "error_rate": 0.36,
       "consecutive_errors": 0,
-      "avg_duration_ms": 1064361,
+      "avg_duration_ms": 1072683,
       "error_types": {
         "other": 3,
         "rate_limit": 1,
@@ -98,7 +98,7 @@
       "error": 2,
       "error_rate": 1.0,
       "consecutive_errors": 2,
-      "avg_duration_ms": 213002,
+      "avg_duration_ms": 128939,
       "error_types": {
         "exec": 2
       },
@@ -164,18 +164,18 @@
       "schedule": "30 7 * * 0",
       "kind": "agentTurn",
       "timeout": 600,
-      "runs": 4,
-      "ok": 2,
+      "runs": 3,
+      "ok": 1,
       "error": 2,
-      "error_rate": 0.5,
+      "error_rate": 0.67,
       "consecutive_errors": 0,
-      "avg_duration_ms": 331700,
+      "avg_duration_ms": 402497,
       "error_types": {
         "other": 2
       },
       "timeout_hits": 1,
       "issues": [
-        "近14天错误率50%"
+        "近14天错误率67%"
       ],
       "suggestions": [
         "⚠️ 任务时段 7:00 撞限流高峰 [7, 8]，可人工考虑错峰"
