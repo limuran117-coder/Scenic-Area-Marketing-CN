@@ -1,18 +1,19 @@
 {
-  "generated_at": "2026-08-31 07:34",
+  "generated_at": "2026-09-01 07:35",
   "window_days": 14,
   "task_count": 32,
   "hourly_errors": {
     "5": 3,
-    "6": 4,
-    "7": 7,
+    "6": 5,
+    "7": 9,
     "8": 16
   },
   "peak_hours": [
+    6,
     7,
     8
   ],
-  "daily_records": 191,
+  "daily_records": 193,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -21,22 +22,24 @@
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 14,
-      "ok": 9,
-      "error": 5,
-      "error_rate": 0.36,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 1072683,
+      "ok": 8,
+      "error": 6,
+      "error_rate": 0.43,
+      "consecutive_errors": 1,
+      "avg_duration_ms": 1100900,
       "error_types": {
         "other": 3,
         "rate_limit": 1,
-        "exec": 1
+        "exec": 2
       },
       "timeout_hits": 3,
       "issues": [
+        "近14天错误率43%",
         "3次撞超时顶"
       ],
       "suggestions": [
-        "建议提高 timeout 1500→1800"
+        "建议提高 timeout 1500→1800",
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
       ]
     },
     {
@@ -45,22 +48,22 @@
       "schedule": "30 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 11,
+      "runs": 10,
       "ok": 5,
-      "error": 6,
-      "error_rate": 0.55,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 543375,
+      "error": 5,
+      "error_rate": 0.5,
+      "consecutive_errors": 1,
+      "avg_duration_ms": 476925,
       "error_types": {
-        "other": 5,
+        "other": 4,
         "exec": 1
       },
       "timeout_hits": 0,
       "issues": [
-        "近14天错误率55%"
+        "近14天错误率50%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
       ]
     },
     {
@@ -74,7 +77,7 @@
       "error": 4,
       "error_rate": 0.4,
       "consecutive_errors": 0,
-      "avg_duration_ms": 511505,
+      "avg_duration_ms": 450730,
       "error_types": {
         "other": 2,
         "exec": 2
@@ -84,7 +87,7 @@
         "近14天错误率40%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
       ]
     },
     {
@@ -107,7 +110,8 @@
         "连续2次失败"
       ],
       "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
+        "⚠️ 任务时段 6:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
       ]
     },
     {
@@ -139,23 +143,23 @@
       "schedule": "0 8 * * 1",
       "kind": "agentTurn",
       "timeout": 300,
-      "runs": 5,
+      "runs": 7,
       "ok": 2,
-      "error": 3,
-      "error_rate": 0.6,
+      "error": 5,
+      "error_rate": 0.71,
       "consecutive_errors": 0,
-      "avg_duration_ms": 256281,
+      "avg_duration_ms": 243124,
       "error_types": {
-        "other": 3
+        "other": 5
       },
-      "timeout_hits": 3,
+      "timeout_hits": 5,
       "issues": [
-        "近14天错误率60%",
-        "3次撞超时顶"
+        "近14天错误率71%",
+        "5次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 300→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
       ]
     },
     {
@@ -178,7 +182,30 @@
         "近14天错误率67%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
+      ]
+    },
+    {
+      "job_id": "cfb095fc-0c7c-4822-a470-e261f8c20555",
+      "name": "Graphiti-Ontology同步",
+      "schedule": "30 6 * * 2",
+      "kind": "agentTurn",
+      "timeout": 900,
+      "runs": 3,
+      "ok": 1,
+      "error": 2,
+      "error_rate": 0.67,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 727621,
+      "error_types": {
+        "other": 2
+      },
+      "timeout_hits": 1,
+      "issues": [
+        "近14天错误率67%"
+      ],
+      "suggestions": [
+        "⚠️ 任务时段 6:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
       ]
     }
   ],

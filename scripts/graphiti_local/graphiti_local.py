@@ -6,8 +6,56 @@ Embedding: Ollama bge-m3 (OpenAI 兼容端点)
 Reranker: 无 (stub, 保留 BM25/图遍历顺序)
 存储: FalkorDB (Docker, localhost:6379)
 """
-import asyncio, json, os, sys
+import asyncio, json, os, sys, pathlib
 from datetime import datetime, timezone
+
+# ═══ 自动补丁：修复 DeepSeek json_object 模式偶发回显 schema 的问题（2026-09-01）═══
+# 背景：graphiti-core 在 json_object 模式下把完整 JSON Schema 注入 prompt，
+#       DeepSeek 有时会直接回显 schema 定义（$defs/properties/required）而非实际数据。
+# 修复：给 openai_generic_client.py 打补丁，明确要求只输出实际数据。
+# 幂等：venv 被 /tmp 清理重建后自动重新打补丁。
+_PATCH_TARGET = pathlib.Path(
+    sys.prefix, "lib", f"python{sys.version_info.major}.{sys.version_info.minor}",
+    "site-packages", "graphiti_core", "llm_client", "openai_generic_client.py",
+)
+_PATCH_MARK = 'Do NOT echo the schema definition itself'
+_PATCH_OLD = """        if response_model is not None and self.structured_output_mode == 'json_object':
+            serialized_model = json.dumps(response_model.model_json_schema())
+            messages[
+                -1
+            ].content += (
+                f'\\n\\nRespond with a JSON object in the following format:\\n\\n{serialized_model}'
+            )"""
+_PATCH_NEW = """        if response_model is not None and self.structured_output_mode == 'json_object':
+            serialized_model = json.dumps(response_model.model_json_schema())
+            messages[
+                -1
+            ].content += (
+                f'\\n\\nRespond with a JSON object in the following format. '
+                f'IMPORTANT: Output ONLY the actual data as a JSON object conforming to the schema. '
+                f'Do NOT echo the schema definition itself — do NOT include any of the following keys in your response: '
+                f'\"$defs\", \"properties\", \"required\", \"title\", \"type\", \"additionalProperties\". '
+                f'Output the concrete data object only, e.g. {{\"edges\": [...]}} or whatever the top-level key of the data is.\\n\\n'
+                f'Schema reference (do not output this, use it only to know the field names):\\n\\n{serialized_model}'
+            )"""
+
+def _ensure_patch():
+    try:
+        if not _PATCH_TARGET.exists():
+            return
+        src = _PATCH_TARGET.read_text(encoding="utf-8")
+        if _PATCH_MARK in src:
+            return  # 已打补丁
+        if _PATCH_OLD not in src:
+            print("⚠️ 补丁源不匹配（graphiti-core 版本可能已变），跳过自动打补丁")
+            return
+        _PATCH_TARGET.write_text(src.replace(_PATCH_OLD, _PATCH_NEW), encoding="utf-8")
+        print("🔧 已自动打补丁：修复 DeepSeek json_object schema 回显问题")
+    except Exception as e:
+        print(f"⚠️ 自动打补丁失败: {e}")
+
+_ensure_patch()
+
 from graphiti_core.graphiti import Graphiti
 from graphiti_core.driver.falkordb_driver import FalkorDriver
 from graphiti_core.llm_client.openai_generic_client import OpenAIGenericClient
