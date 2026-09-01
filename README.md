@@ -817,7 +817,7 @@ The system includes a comprehensive Python scripts library that handles everythi
 | `industry_news_browser.py` | Travel intel news collector | 📊 Data | Multi-source aggregation |
 | `llmwiki_ingest.py` | Wiki knowledge ingestion | 🔄 Sync | karpathy-wiki pattern |
 | `build_xhs_card.py` | XHS report card builder | 🎨 Card | Visual spec compliant |
-| `build_dashboard.py` | Dashboard HTML generator | 🎨 Card | Static page export |
+| ~~`build_dashboard.py`~~ | ~~Dashboard HTML generator~~ | ~~🎨 Card~~ | ⚠️ 已归档 scripts/archive/（2026-09-01） |
 | `validate_data.py` | Data integrity validator | ✅ QA | Staleness & completeness |
 | `project_drift_check.py` | Project drift detection | ✅ QA | Content vs. reality mismatch |
 | `wiki_drift_check.py` | Wiki drift detection | ✅ QA | Cross-reference validation |

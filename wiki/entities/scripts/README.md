@@ -17,7 +17,7 @@
 | `competitor_keyword_v8.py` | 竞品关键词分析（v8最终版） | 每日15:00 cron |
 | `cdp_keyword_deep.py` | 关键词深度CDP采集 | 每日15:00 cron调用 |
 | `build_xhs_card.py` | 小红书报告卡片构建 | 供小红书日报使用 |
-| `build_dashboard.py` | 数据可视化看板 | 按需 |
+
 | `send_wenhua_tracking.py` | 文旅热点追踪卡片 | 每日12:00 cron |
 | `send_industry_news.py` | 行业热点发送 | 每日14:00 cron |
 | `send_case_lib_update.py` | 案例库更新发送 | 每周五09:00 cron |
@@ -51,7 +51,7 @@
 | `llmwiki_ingest.py` | Wiki知识库摄入 |
 | `llmwiki_lint.py` | Wiki语法检查 |
 | `llmwiki_query.py` | Wiki知识库查询 |
-| `dashboard.py` | 基础仪表盘 |
+
 | `cron_governor.py` | Cron自进化治理引擎（--daily哨兵 / --weekly治理 / --apply安全优化） |
 | `cron_governor_daily.sh` | 每日Cron健康哨兵包装（纯脚本静默采集，零LLM） |
 
@@ -74,6 +74,8 @@
 | `scripts/archive/honcho_user_model.py` | — | ✅ 已归档（实验性） |
 | `scripts/archive/ollama_vision.py` | — | ✅ 已归档（本地测试） |
 | `scripts/archive/weekly_cleanup.py` | — | ✅ 已归档（手动执行） |
+| `scripts/archive/dashboard.py` | weekly_visitor_report.py | ✅ 已归档（硬编码SSOT (17).csv+旧列名日期/合计，宽表格式KeyError，无cron引用，2026-09-01） |
+| `scripts/archive/build_dashboard.py` | weekly_visitor_report.py | ✅ 已归档（硬编码Desktop旧路径+(2).csv，SSOT已迁~/Downloads，无cron引用，2026-09-01） |
 
 ---
 
@@ -83,7 +85,7 @@
 
 ---
 
-*本索引最后更新：2026-08-02*
+*本索引最后更新：2026-09-01*
 
 ---
 
