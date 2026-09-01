@@ -1,0 +1,29 @@
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L2] User: 客流 SSOT 已演进：最新为 ~/Downloads/2026游客量统计 (19).csv（宽表格式：2023/2024/2025/2026 年参考行 + 门票人数合计/闸机入园人次/门票收入金额 等行，无「日期」「合计」列）。发现两个脚本仍硬编码旧文件名且 schema 不兼容，属于 stale 陷阱： 1. scripts/dashboard.py 第14行：VISITOR_CSV = ~/Downloads/2026游客量统计 (17).csv，且 load_visitor() 期望 df['日期']/df['合计'] 列（当前宽表格
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L14] Assistant: No cron/automation references found in the list. Let me verify the visitor-related cron payloads don't invoke these scripts, and check how `weekly_visitor_report.py`'s SSOT parsing works for reuse.
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L18] Assistant: Confirmed: **no cron/automation references** to either script (visitor crons use `weekly_visitor_report.py` / `pattern_analysis.py` / `find_latest_ssot`). Let me check the remaining references (README.md, inventories) and see if any newer dashboard superseded them.
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L21] Assistant: Both scripts: no cron/automation refs, no newer dashboard successor in `scripts/`. They're deprecated. Let me see the archive sections of both inventory files to update them properly.
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L24] Assistant: Full picture confirmed. Let me quickly verify `weekly_visitor_report.py` covers the DH (德化街) parsing that `build_dashboard.py` did, so archiving loses nothing.
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L26] Assistant: Confirmed — `weekly_visitor_report.py` 已覆盖德化街场次解析（line 448），归档 `build_dashboard.py` 不丢能力。两者均无 cron 引用 → **废弃，移入 archive/ 并更新清单**。
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L28] Assistant: Now update the three inventory files:
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L32] Assistant: Verification pass — check for leftover references and confirm inventory updates:
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L34] Assistant: All verified. Let me update today's memory log to close out the flagged item:
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L38] Assistant: ✅ 清理完成。 ## 结论：两个脚本均废弃 → 已归档 **确认结果**：`scripts/dashboard.py` 和 `scripts/build_dashboard.py` **无任何 cron/automations 引用**（31 个任务逐一核对：客流相关任务用的是 `weekly_visitor_report.py` / `pattern_analysis.py` / `find_latest_ssot()`），且 `scripts/` 下无后继看板脚本 → 按「废弃 → 移入 archive/」处理。 ## 执行内容
+[main/sessions/main/34ab2744-31d7-4206-8160-83c95e20c6cd#L38] Assistant: 根目录无残留、两份清单活动段无残留引用、归档段各 2 条就位 ✅。今日 memory 已追加完成记录。 一点说明：任务里「若需保留则改复用 find_latest_ssot()」的分支没有走——因为两者确认无引用且功能已被 weekly_visitor_report.py 覆盖，归档是更符合现状的处理。若日后想看板 HTML，可基于 weekly_visitor_report.py 的解析逻辑重建，它已是 SSOT 读取的唯一权威入口。
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L2] User: 2026游客量统计 (19).csv是最新的客流数据
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L15] Assistant: 数据已核实。快速查一下脚本里有没有硬编码旧文件名，然后更新记忆指针。
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L29] Assistant: dashboard.py 硬编码了旧文件名 (17)，其余生产脚本（weekly_visitor_report.py）用 `find_latest_ssot()` 自动找最新。修一下 dashboard.py，让它也自动发现最新文件，一劳永逸：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L35] Assistant: 数据核实完毕，更新 MEMORY.md 数据指针和年度目标进度：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L45] Assistant: ✅ 已确认并同步，站长。 **数据核实（(19).csv，9/1 08:41 上传）：** - 📅 数据至 **8/29**（共 241 天），8/17-8/29 断链已补齐；**8/30-31 仍为 0（暂缺）** - 🎫 门票人数合计 YTD **921,506** = 目标123万 **74.9%** - 🚪 闸机入园人次 YTD 958,174 - 💰 门票收入 YTD **7,405万** = 1.2亿 61.7% - H2 缺口 = 308,494，剩余 124 天需日均 **2,488**（低于此前 2,751
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L46] User: 客流分析的任务刚才没有统计到8月30日的
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L47] Assistant: 我来查一下。先精确验证 (19).csv 里 8/30 到底有没有数据，再看今早客流分析任务用的是哪个版本文件。
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L49] Assistant: 锚点验证：1/1=12150 ✓，列对齐无误。**关键事实：(19).csv 里 8/30、8/31、9/1 都是 0/空，文件数据本身只到 8/29**。再查今早客流分析任务跑的时候用的是哪个文件：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L51] Assistant: 今早两个客流 cron（06:30 深度报告 / 07:30 周度洞察）都显示 ok。查一下它们实际跑到哪天：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L55] Assistant: 今早 06:30 深度报告确认用的是 **(18).csv，只统计到 8/16**（因为 (19) 是 08:41 才上传，任务 06:30 已跑完）。再交叉验证一下列对齐和 MEMORY 里 8/15/8/16 的数值：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L57] Assistant: 列对齐发现关键疑点，查闸机口径交叉验证：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L59] Assistant: 发现问题了！**列对齐错了一天**——这不是任务的问题，是我上午解析时把日期标错了一位。用 2025 元旦锚点（8,034）验证：`idx2 = 1/1`，所以 **(19).csv 实际数据到 8/30（周日 3,612），不是 8/29**。重新精确核算：
+[main/sessions/main/878d812b-1208-4552-9fca-f5820f11761b#L3] User: 2026游客量统计 (19).csv，是最新的客流数据
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L61] Assistant: 全部对上！四重验证通过：2025 元旦 8,034 锚点、8/15=10,327、8/16=9,036、周末效应（周六>周日）。**正确结论：(19) 数据到 8/30，YTD 932,551**。修正 MEMORY.md 我上午写错的两处：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L71] Assistant: 查清楚了，站长。您说得对——**是我的解析错位了一天，不是数据缺 8/30**。抱歉。 **根因（两层）：** 1. **今早报告为什么没有 8/30**：06:30 深度报告 / 07:30 周度洞察跑的时候，(19).csv 还没上传（08:41 才传），它们用的 (18) 只到 8/16——这是时序问题，不是 bug。 2. **我上午给您的核实结果也错了**：我解析时列对齐差了一天，把 8/30 的数据误标成了 8/29，得出"数据到 8/29、8/30-31 为 0"的错误结论。用 2025 元旦 8,034 锚点重新验证
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L73] Assistant: 好，现在重跑周报脚本，用 (19) 生成到 8/30 的修正版并推送到飞书群：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L77] Assistant: ✅ 修正版已补发成功。 **发送确认：** - 📂 数据源：`2026游客量统计 (19).csv`（自动识别最新版） - 📈 YTD **932,551** | 最新日期 **08-30**（映射正确 ✓） - 📅 周对比：本周（8/24-30）**4,428/天** vs 上周 6,910 vs 去年同周 7,815 - 📋 卡片 6 元素 3 表，飞书发送 code=0 成功（om_x100b6657...） 补一句记录：
+[main/sessions/main/492e589b-8c27-4f6d-bf51-d3fcd8693896#L79] Assistant: 已全部完成 ✅ **本轮修正闭环：** 1. **根因确认**：8/30 数据一直就在 (19) 里（周日 3,612），我上午解析列错位一天误报为 8/29；今早报告用 (18) 是因为文件 08:41 才上传、任务 06:30 已跑 2. **修正版已补发飞书群**：YTD 932,551（75.8%）、至 8/30、本周日均 4,428（暑期尾声回落，8/22 周六 9,706 峰值） 3. **记忆已同步**：MEMORY.md 两处 + 今日记录，含"idx2=1/1"映射锚点教训 **当前数据状态**：8/31 仍为 0
