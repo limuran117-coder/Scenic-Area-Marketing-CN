@@ -683,7 +683,7 @@ def main():
     if all_p0:
         print(f"\n🔴 共 {len(all_p0)} 条 P0 预警:")
         for a in all_p0:
-            print(f"  [{a['week']}] {a['title']}")
+            print(f"  → {a['title']}")
 
     return 0 if not all_p0 else 1
 
