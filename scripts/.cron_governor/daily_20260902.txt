@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/tianjinzhan/.openclaw/workspace/scripts/cron_governor.py", line 318, in <module>
+    main()
+  File "/Users/tianjinzhan/.openclaw/workspace/scripts/cron_governor.py", line 269, in main
+    rep = build_report(days)
+          ^^^^^^^^^^^^^^^^^^
+  File "/Users/tianjinzhan/.openclaw/workspace/scripts/cron_governor.py", line 118, in build_report
+    jobs = load_jobs(db)
+           ^^^^^^^^^^^^^
+  File "/Users/tianjinzhan/.openclaw/workspace/scripts/cron_governor.py", line 70, in load_jobs
+    for r in db.execute("SELECT job_id,name,enabled,payload_kind,payload_model,"
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.OperationalError: no such column: payload_model
+[07:30] 异常任务8个、待优化0项 → 已记录，待每周治理
