@@ -6,7 +6,7 @@
       {
         "id": "7b758a193f97ed54",
         "type": "tabs",
-        "dimension": 40.59161873459326,
+        "dimension": 65.72327044025157,
         "children": [
           {
             "id": "e72f00d3aecb37bd",
@@ -53,7 +53,7 @@
       {
         "id": "5f57462cbaf05dd0",
         "type": "tabs",
-        "dimension": 59.408381265406746,
+        "dimension": 34.276729559748425,
         "children": [
           {
             "id": "00d16cba3229cf03",
@@ -128,7 +128,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 367.5
+    "width": 370.078125
   },
   "right": {
     "id": "94261d0a92be1a07",
@@ -293,8 +293,9 @@
       "bases:新建数据库": false
     }
   },
-  "active": "00d16cba3229cf03",
+  "active": "e72f00d3aecb37bd",
   "lastOpenFiles": [
+    "电影小镇/历史数据/W30期-20260723.md",
     "全国景区案例库/方特森林中秋夜双节双园白加黑+海昌中秋国潮截流-2026W36.md",
     "电影小镇/知识沉淀/patterns_knowledge_base.before_w35_rollback_20260831T091242.json",
     "全国景区案例库/清园百万灯展+6000免费票资本级双钩退潮·电影小镇错位承接-2026W36.md",
@@ -330,7 +331,6 @@
     "技术配置/Ontology架构设计/graph/graph.jsonl",
     "技术配置/Ontology架构设计/graph",
     "技术配置/Ontology架构设计/ADR-001-ontology-架构融合路径.md",
-    "竞品分析/竞品动态追踪/2026-W28-W33-竞品格局积压回顾.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",
