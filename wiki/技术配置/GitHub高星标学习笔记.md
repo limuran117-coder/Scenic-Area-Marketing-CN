@@ -1451,3 +1451,85 @@ AI 研究常依赖单一来源或过时数据；last30days-skill 规定"只看�
 | **P1** | SKILL.md 引入 frontmatter 结构化 | agent-skills 事实标准 | 保持 |
 | **P2** | 调研 OpenSquilla 路由策略借鉴到 douyin_index.py | token 路由 | 保持 |
 | **P3** | 评估 ponytail skill 是否兼容 OpenClaw（works with 20 agents）| 若兼容成本立降 | 需求出现时 |
+
+---
+
+## W36 学习记录（2026-09-05 周六 03:00 cron 采集）
+
+> 数据源：gh API 实测（api.github.com 直连 200，web_search 代理 8888 不通已绕行）| 上期：W35 (8/29)
+
+### 📊 本期（W36）vs 上期（W35）数据对比（gh API 实测）
+
+| 项目 | W35 (8/29) | W36 (9/5) | 变化 | 趋势 |
+|------|:---------:|:---------:|:----:|:----:|
+| **DietrichGebert/ponytail** | 115,157 | **125,255** | **+10,098** | 🔥🔥 极简主义继续爆发（周增1万）|
+| **mattpocock/skills** | 240,084 | 249,899 | +9,815 | 📈 Skills 生态持续高增 |
+| **affaan-m/ECC** | 243,933 | 248,238 | +4,305 | 📈 稳定 |
+| **NousResearch/hermes-agent** | 237,697 | 241,377 | +3,680 | 📈 稳定 |
+| **obra/superpowers** | 278,994 | 281,744 | +2,750 | 📈 稳定增长 |
+| addyosmani/agent-skills | 90,474 | 92,253 | +1,779 | 📈 质量门验证持续 |
+| mvanhorn/last30days-skill | 59,891 | 61,236 | +1,345 | 📈 趋稳 |
+| thedotmack/claude-mem | 92,497 | 93,181 | +684 | ➡️ 趋稳 |
+| karpathy/autoresearch | 94,856 | 95,242 | +386 | ➡️ 趋稳（未再更新，pushed 3/26）|
+| ChromeDevTools/chrome-devtools-mcp | 49,929 | 50,913 | +984 | 📈 趋稳 |
+| trycompai/crm | 9,054 | 9,733 | +679 | 📈 持续 |
+| yc-software/qm | 14,306 | 14,555 | +249 | ➡️ 持续 |
+| ~~opensquilla/opensquilla~~ | 6,745 | **改名 TokenRhythm/opensquilla** 6,913 | +168 | ⚠️ 仓库迁移（Moved Permanently）|
+| anthropics/financial-services | 34,561 | 34,683 | +122 | ➡️ 趋稳 |
+
+### 🆕 本期新发现扫描（created 2026-06+，按星标/相关性筛选）
+
+**重点关注（与任务四赛道相关）：**
+1. **VictorTaelin/OptMem** ⭐1,505（2026-07-25 创建）— "Permanent memory for AI agents. 426-token prompt, a script, plug and play." 作者 Victor Taelin（HVM/Bend 作者）。设计：LOG.txt 全量只追加 + TREE 摘要缓存（可从 log 重建）+ `memo note` 单行≤280字节 + 合并机制 + `memo wake` 每次会话首命令读记忆 + 单文件 Python 零依赖。百万条记忆 wake 仅 0.03s。
+2. **omnigent-ai/omnigent** ⭐9,688（2026-06-11）— 开源多Agent meta-harness：编排 Claude Code/Codex/Cursor 等。
+3. **larashero3-dotcom/lieflat-charts** ⭐4,605（2026-07-16）— 数据可视化 Agent Skill：12 套中英整页 HTML 报告模板，Lupi（编辑叙事）/Glance（快读 dashboard）/Basics 三种视觉语法 + Mono/3 色系。
+
+**快速浏览（记录在案）：**
+4. cbrock84/headcount ⭐1,237（8/28 创建，一周内）— Claude Code Agent 组织化（15 部门 125+ skills）
+5. Nanako0129/sepia ⭐1,982（8/28）— De-AI 去AI味写作 skill
+6. Tencent/BrowserSkill ⭐1,765（6/22）— 腾讯出品，agent 用真实已登录浏览器（与我们的 CDP 方案同思路，佐证方向）
+7. anthropics/commerce-agents ⭐1,887（9/1）— 电商 agent 参考蓝图
+
+### 发现（本期核心）：VictorTaelin/OptMem — 记忆"协议化极简工具"（1,505⭐）
+
+**仓库：** https://github.com/VictorTaelin/OptMem
+
+**1. 它解决了什么问题？（1句话）**
+AI Agent 的长期记忆系统普遍"重"（向量库/MCP/后台服务），OptMem 证明记忆可以用 **一条 426-token prompt + 一个零依赖 Python 文件** 实现——**填补了"记忆系统缺极简协议化实现"的空白**，是 ponytail 极简主义在记忆赛道的延伸。
+
+**2. 我们的系统能怎么用？**
+- **直接对位 AGENTS.md 记忆管理规则**：我们 2026-04-10 规则（MEMORY.md 100行/25KB/50字符摘要/AAAK 压缩）本质是"手工压缩协议"，痛点=手动摘要失真、超限告警、无自动重建。OptMem 给出自动化答案：**全量 LOG 只追加 + 摘要 TREE 只是可重建缓存** → 摘要错了不怕，`forget` 后自动重建。可借鉴"原始细节永不删（daily notes 只追加）、摘要可丢弃重建"原则到 MEMORY.md + memory/ 分层
+- **280 字节单行约束**：与我们"单个 entry 最多 50 字符摘要"同思路，可对比校准
+- `memo wake`（会话首命令读记忆）与我们 SessionStart 读 memory/ 流程同构，验证方向正确
+
+**3. 不跟进的代价是什么？**
+- MEMORY.md 继续靠手工维护压缩质量，超限时只能被动截断（丢上下文）
+- 记忆"摘要即真相"风险：手工摘要一旦失真，历史细节无处可查（OptMem 用 LOG 重建解决）
+- 错过记忆系统行业范式——巨头（claude-mem 93K）走重型路线，新锐走"一条 prompt"路线，后者与站长 token 限额原则（省 token）更合拍
+
+### 发现（次核心）：omnigent-ai/omnigent（9,688⭐）与 lieflat-charts（4,605⭐）
+
+**omnigent**：解决"多 Agent 框架碎片化（Claude Code/Codex/Cursor 各玩各的）"——meta-harness 统一编排。我们已在 OpenClaw 内用 subagent/cron 编排，且站长定唯一模型 deepseek-v4-flash，多模型编排不适用 → **借鉴价值低，仅记录**。
+
+**lieflat-charts**：解决"AI 出图无视觉语法、千篇一律"——把数据图表做成带编辑感的 HTML 报告。我们日报是飞书卡片（非 HTML），周报/季度报告或可借鉴 Glance 快读型 dashboard 思路；但 diagram-maker 已满足现需 → **P3 观察**。
+
+### 📈 本期新趋势识别
+
+1. **极简主义在记忆赛道复制 ponytail 路径**：OptMem（1.5K/6周）+ ponytail（+10K/周）双验证——"少即是多"从编码纪律扩散到记忆架构，与站长 token 限额原则同频
+2. **记忆系统分叉**：重型（claude-mem 93K 向量化）vs 协议化极简（OptMem 426-token）——后者零依赖、可审计、省 token
+3. **垂直技能持续爆发**：mattpocock +9.8K/周、ponytail +10K/周——Skills 生态无平台期迹象；可视化/去AI味/PPT 等垂直 Skill（各 2-7K）快速起量
+4. **可视化 Skill 兴起**（lieflat-charts 4.6K/7周）——"图表审美"成为 Skill 竞争新维度
+
+### 🎯 W36 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P2** | 借鉴 OptMem"LOG 只追加 + 摘要可重建"原则：MEMORY.md 条目超限时，细节迁 daily notes 而非直接删；摘要失真可回查 | OptMem 设计 + AGENTS.md 记忆规则痛点 | W37 |
+| 🆕 **P3** | 精读 OptMem 426-token prompt，对比我们的 AAAK/记忆规则 | 1.5K + 作者权威 | 需求出现时 |
+| **P0（延续）** | 落地日报 SOP quality gate | agent-skills 92.3K 四周验证 | 本周内 |
+| **P2（延续）** | 引入"最简替代审查"到脚本新增流程 | ponytail 125K（周增1万，最强验证）| W36/W37 |
+| **P3（观察）** | lieflat-charts 的 Glance 型 dashboard 用于周报可视化 | 4.6K | 周报改版时 |
+
+### ⚠️ 备注
+- opensquilla 仓库改名 TokenRhythm/opensquilla（6,913⭐），下期用新名追踪
+- web_search 本次不可用（127.0.0.1:8888 代理拒绝），全程 gh API 直连实测，数据可靠

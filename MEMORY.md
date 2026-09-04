@@ -138,6 +138,8 @@ DeepSeek→M3切换 | 5/27重构 | M3-only | DDG修复 | cron冲突修复 | SOP�
 
 **[project] GitHub高星标学习 W35（8/29）→ 精要**：karpathy/autoresearch(94.8K,自主科研,program.md+固定预算+单一指标→映射日报quality gate) | ponytail(115K,极简主义,-54%代码→脚本"能否5行替代"审查标准) | last30days-skill(59.9K,30天研究纪律)。**行动：P0=落地日报quality gate** | P1=精读autoresearch program.md | P2=脚本最简替代审查。完整笔记 → `wiki/技术配置/GitHub高星标学习笔记.md` W35期
 
+**[project] GitHub高星标学习 W36（9/5）→ 精要**：OptMem(VictorTaelin,1.5K,记忆极简协议化——426-token prompt+单文件零依赖Python，LOG只追加+TREE摘要可重建缓存+note单行≤280字节+wake首命令读记忆；作者=HVM/Bend作者)。**项目名：VictorTaelin/OptMem** | **它解决了什么：** 长期记忆系统普遍"重"（向量库/MCP/后台），OptMem证明一条prompt+一个脚本即可实现可审计零依赖永久记忆，填补"记忆缺极简协议化实现"空白 | **我们怎么用：** 借鉴"全量LOG只追加+摘要只是可重建缓存"到 MEMORY.md 超限治理——细节迁 memory/ 日档而非直接删，摘要失真可回查重建；280字节单行约束对比校准50字符规则 | **不跟进的代价：** MEMORY.md 手工压缩失真后无处回查，超限只能被动截断丢上下文；错过与token限额原则同频的记忆范式。旁注：ponytail 周增1万(125K)验证极简主义最强；opensquilla改名TokenRhythm。完整 → wiki笔记 W36期
+
 **[project] 二期北地块方案（8/24-8/28 站长重点任务）**：
 - 核心主张=「**片场 vs 幻城**」差异化：只有河南=纯室内看戏（幻城）；电影小镇=**室内剧场看戏+室外互动入戏**（片场，观众是临时演员）——只有河南无室外互动存量学不走，这是电影小镇电影基因独有降维优势
 - **弱国棉化话语策略（8/25站长指示）**：对外不提"国棉厂"（复古广场已占概念+领导要新思考），拔高为「郑州50-60年代建设年代城市记忆」大概念，国棉只是素材来源之一；对内认知是国棉基底
