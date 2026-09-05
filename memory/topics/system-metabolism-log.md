@@ -408,3 +408,9 @@
 - **最需修复**: weekly_visitor_report.py E4/E5 硬编码6月字符串(行690-712) — 周客流报告"行动建议"与8月实际(+43%复苏)矛盾,auto卡会误导站长 (待修, 8/25 记录)
 - 营销日历 8/24 `$(cat)`→`--file` 修复当天仍失败(send_feishu_card Exec failed) — 8/31 验证
 - 知识进化引擎 timeout 2x; Graphiti-Ontology同步 8/25 error — 观察
+
+## [2026-09-06] 周日系统维护
+- **#1 修复项**: cron_governor.py 哨兵 schema 断裂（9/4起，no such column: payload_model，DB迁移后旧列失效）→ jobs读不到→错峰watchdog盲视，report空转。待查新schema改SELECT。
+- **#2**: git push via 7897 SSL连github失败，commit本地待推。
+- **#3 观察**: 9/4-9/5 无日档 + 9/5 feishu AI消息=0（疑cron发卡/日志链退化，待核）。
+- **MEMORY压缩**: 180→171行（24KB不变，去端午陈旧日期+折W33/34为指针），备份/tmp/memory_backup_20260906.md。
