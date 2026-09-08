@@ -61,12 +61,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "电影小镇/历史数据/W30期-20260723.md",
+                "file": "行业知识/Ontology动态进化路线图.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "W30期-20260723"
+              "title": "Ontology动态进化路线图"
             }
           }
         ]
@@ -293,9 +293,15 @@
       "bases:新建数据库": false
     }
   },
-  "active": "e72f00d3aecb37bd",
+  "active": "00d16cba3229cf03",
   "lastOpenFiles": [
+    "运营规划/2026年8-12月客流预测.md",
+    "运营规划/2026国庆+万圣双档策略.md",
+    "运营规划/任务体系重构.md",
+    "运营规划/数据接入清单.md",
+    "concepts/季节性客流规律.md",
     "电影小镇/历史数据/W30期-20260723.md",
+    "电影小镇/历史数据/W29期-20260723.md",
     "全国景区案例库/方特森林中秋夜双节双园白加黑+海昌中秋国潮截流-2026W36.md",
     "电影小镇/知识沉淀/patterns_knowledge_base.before_w35_rollback_20260831T091242.json",
     "全国景区案例库/清园百万灯展+6000免费票资本级双钩退潮·电影小镇错位承接-2026W36.md",
@@ -319,18 +325,12 @@
     "行业知识/Ontology动态进化路线图.md",
     "全国景区案例库/只有河南戏剧幻城七夕季爆发-2026W34.md",
     "全国景区案例库/黄姚古镇「空间即剧场」沉浸式演艺（定点+流动双模式）-2026W33.md",
-    "运营规划/2026国庆+万圣双档策略.md",
     "全国景区案例库/海南长影奇幻乐园免票二消经济-2026W33.md",
     "全国景区案例库/2026凉山彝族火把节「火把+」单IP全域破圈-2026W33.md",
     "全国景区案例库/2026-08-12_家业剧集影视非遗全链路联动-2026W34.md",
-    "全国景区案例库/凉山彝族火把节·全民篝火狂欢-2026W33.md",
-    "全国景区案例库/武汉花博汇古风演艺×泼水错峰全时段夜游-2026W33.md",
-    "运营规划/2026年8-12月客流预测.md",
     "技术配置/Ontology架构设计/graph/graph.jsonl.bak_dupclean",
-    "技术配置/Ontology架构设计/运行机制-生命周期治理.md",
     "技术配置/Ontology架构设计/graph/graph.jsonl",
     "技术配置/Ontology架构设计/graph",
-    "技术配置/Ontology架构设计/ADR-001-ontology-架构融合路径.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",
