@@ -1,0 +1,3 @@
+[main/sessions/main/ece7cd00-62b0-4dc0-849b-2f6f26229714#L6] Assistant: I'll run the cookie health check script and process the results.
+[main/sessions/main/ece7cd00-62b0-4dc0-849b-2f6f26229714#L8] Assistant: The script exited with code 1 (stale cookies). Per the job instructions, exit 1 means I write issues to the JSON file and print warnings — no Feishu message.
+[main/sessions/main/ece7cd00-62b0-4dc0-849b-2f6f26229714#L12] Assistant: Issues written to /tmp/cookie_health_latest.json. Per the custom instructions (which override the default preamble), I print the warning to stdout only — no Feishu delivery. ``` [Cookie 健康检查 2026-09-09 00:30] ⚠️ 检测到 2 项异常（已写入 /tmp/cookie_health_latest.json） - douyin co
