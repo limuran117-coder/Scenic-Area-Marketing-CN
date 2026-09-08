@@ -1,3 +1,29 @@
+# Graphiti 运维说明（2026-09-08 更新）
+
+## ✅ 2026-09-08 修复：venv 移至持久位置（.venv）
+
+### 问题（第二次复发）
+- `/tmp/graphiti-venv` 又被 /tmp 清理删除（首次 8/24，二次 9/8）；`/tmp/ds_key.txt` 也不存在
+- **同步任务 9/8 06:30 执行时环境全挂**（venv 无、key 无、Docker daemon 未启动）
+
+### 修复动作（9/8 cron run 内完成）
+1. **venv 建到持久位置**：`/opt/homebrew/bin/python3.12 -m venv ~/.openclaw/workspace/scripts/graphiti_local/.venv`
+   - 依赖：清华镜像装 `graphiti-core==0.29.3` + `httpx` + `falkordb==1.7.1`（0.29.3 不自带 httpx/falkordb，必须手动补）
+2. **符号链接兼容旧路径**：`ln -sfn ~/.openclaw/workspace/scripts/graphiti_local/.venv /tmp/graphiti-venv`
+   - cron payload 里的 `/tmp/graphiti-venv/bin/python` 继续可用；即使 /tmp 再被清，重建链接即可（venv 本体已持久）
+3. **Docker/FalkorDB 未随开机自启**：`open -a Docker` 后 `docker start graphiti-falkordb`（数据在 volume `graphiti-data`，无损）
+4. DEEPSEEK_API_KEY 走环境变量注入（✅ 9/8 实测可用），不再依赖 key 文件
+
+### 2026-09-08 同步结果（本次）
+- sync_ontology：18 条 episode（13 景区 + 10 关系，4 批）；sync_flow --weeks 2：2 条周洞察（W34: 48372人 / W35: 30999人，数据源 Downloads 2026游客量统计 (19).csv）
+- 检索「行业对标对象」✅ 返回竞品清单（清明上河园/大唐不夜城等，含已知脏实体）
+
+### 待站长处理
+- ⏳ cron job `cfb095fc` payload 仍写 `export DEEPSEEK_API_KEY=$(cat /tmp/ds_key.txt)`（已失效但无害，key 走环境变量）——isolated run 无法自改 payload，需主 session 用 `openclaw cron edit` 清理；建议同时把 venv 路径改为 `.venv` 持久路径（当前靠符号链接兜底）
+- Docker Desktop 未配置开机自启 → cron 若在重启后触发需先拉起 Docker（start_graphiti.sh 已覆盖此逻辑，可考虑让 cron 先调它）
+
+---
+
 # Graphiti 运维说明（2026-08-25 更新）
 
 ## ⚠️ 2026-08-25 关键修复记录

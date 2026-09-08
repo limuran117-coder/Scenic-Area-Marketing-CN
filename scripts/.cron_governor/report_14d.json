@@ -1,19 +1,15 @@
 {
-  "generated_at": "2026-09-01 07:35",
+  "generated_at": "2026-09-08 07:30",
   "window_days": 14,
-  "task_count": 32,
+  "task_count": 35,
   "hourly_errors": {
-    "5": 3,
-    "6": 5,
-    "7": 9,
-    "8": 16
+    "7": 6,
+    "8": 4
   },
   "peak_hours": [
-    6,
-    7,
-    8
+    7
   ],
-  "daily_records": 193,
+  "daily_records": 166,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -21,191 +17,72 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 14,
-      "ok": 8,
-      "error": 6,
-      "error_rate": 0.43,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 1100900,
+      "runs": 8,
+      "ok": 4,
+      "error": 4,
+      "error_rate": 0.5,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 1237906,
       "error_types": {
-        "other": 3,
-        "rate_limit": 1,
-        "exec": 2
+        "other": 4
       },
       "timeout_hits": 3,
       "issues": [
-        "近14天错误率43%",
+        "近14天错误率50%",
         "3次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 1500→1800",
-        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [7]，可人工考虑错峰"
       ]
     },
     {
-      "job_id": "99dde0b3-ced3-457a-8f7c-2c2837687e50",
-      "name": "竞品内容动态",
+      "job_id": "9bf47f42-0f9f-4b49-a73c-97482426498f",
+      "name": "竞品关键词深度分析",
       "schedule": "30 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 10,
-      "ok": 5,
-      "error": 5,
-      "error_rate": 0.5,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 476925,
-      "error_types": {
-        "other": 4,
-        "exec": 1
-      },
-      "timeout_hits": 0,
-      "issues": [
-        "近14天错误率50%"
-      ],
-      "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
-      ]
-    },
-    {
-      "job_id": "b8fb57da-faae-429f-91e0-9f8af3db927b",
-      "name": "竞品爆款拆解",
-      "schedule": "30 7 * * 1-5",
-      "kind": "agentTurn",
-      "timeout": 1500,
-      "runs": 10,
-      "ok": 6,
-      "error": 4,
+      "runs": 5,
+      "ok": 3,
+      "error": 2,
       "error_rate": 0.4,
       "consecutive_errors": 0,
-      "avg_duration_ms": 450730,
+      "avg_duration_ms": 472882,
       "error_types": {
-        "other": 2,
-        "exec": 2
+        "other": 2
       },
       "timeout_hits": 0,
       "issues": [
         "近14天错误率40%"
       ],
       "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [7]，可人工考虑错峰"
       ]
     },
     {
-      "job_id": "24cc418d-5c65-4c1f-a66d-6b4416241f2c",
-      "name": "电影小镇营销日历",
-      "schedule": "30 6 * * 1",
-      "kind": "agentTurn",
-      "timeout": 900,
-      "runs": 2,
-      "ok": 0,
-      "error": 2,
-      "error_rate": 1.0,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 128939,
+      "job_id": "d47fc152-26a8-4872-9ea1-ec00789deb9e",
+      "name": "CDP Cookie同步",
+      "schedule": "5 8 * * *",
+      "kind": "command",
+      "timeout": 120,
+      "runs": 9,
+      "ok": 5,
+      "error": 4,
+      "error_rate": 0.44,
+      "consecutive_errors": 4,
+      "avg_duration_ms": 53928,
       "error_types": {
-        "exec": 2
+        "other": 4
       },
-      "timeout_hits": 0,
+      "timeout_hits": 4,
       "issues": [
-        "连续2次失败"
+        "连续4次失败",
+        "近14天错误率44%",
+        "4次撞超时顶"
       ],
       "suggestions": [
         "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
-        "⚠️ 任务时段 6:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
-      ]
-    },
-    {
-      "job_id": "553f1d57-61ba-4439-b4bf-eb725a36090c",
-      "name": "文旅营销案例",
-      "schedule": "0 5 * * 4",
-      "kind": "agentTurn",
-      "timeout": 900,
-      "runs": 2,
-      "ok": 0,
-      "error": 2,
-      "error_rate": 1.0,
-      "consecutive_errors": 2,
-      "avg_duration_ms": 400297,
-      "error_types": {
-        "exec": 2
-      },
-      "timeout_hits": 0,
-      "issues": [
-        "连续2次失败"
-      ],
-      "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
-      ]
-    },
-    {
-      "job_id": "c81ea2fa-1105-4c88-97ac-47b90d90b04d",
-      "name": "Ontology图谱自检",
-      "schedule": "0 8 * * 1",
-      "kind": "agentTurn",
-      "timeout": 300,
-      "runs": 7,
-      "ok": 2,
-      "error": 5,
-      "error_rate": 0.71,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 243124,
-      "error_types": {
-        "other": 5
-      },
-      "timeout_hits": 5,
-      "issues": [
-        "近14天错误率71%",
-        "5次撞超时顶"
-      ],
-      "suggestions": [
-        "建议提高 timeout 300→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
-      ]
-    },
-    {
-      "job_id": "824a26e3-7536-4bf8-8ebb-e2651f147e07",
-      "name": "知识进化引擎_每周自学习",
-      "schedule": "30 7 * * 0",
-      "kind": "agentTurn",
-      "timeout": 600,
-      "runs": 3,
-      "ok": 1,
-      "error": 2,
-      "error_rate": 0.67,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 402497,
-      "error_types": {
-        "other": 2
-      },
-      "timeout_hits": 1,
-      "issues": [
-        "近14天错误率67%"
-      ],
-      "suggestions": [
-        "⚠️ 任务时段 7:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
-      ]
-    },
-    {
-      "job_id": "cfb095fc-0c7c-4822-a470-e261f8c20555",
-      "name": "Graphiti-Ontology同步",
-      "schedule": "30 6 * * 2",
-      "kind": "agentTurn",
-      "timeout": 900,
-      "runs": 3,
-      "ok": 1,
-      "error": 2,
-      "error_rate": 0.67,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 727621,
-      "error_types": {
-        "other": 2
-      },
-      "timeout_hits": 1,
-      "issues": [
-        "近14天错误率67%"
-      ],
-      "suggestions": [
-        "⚠️ 任务时段 6:00 撞限流高峰 [6, 7, 8]，可人工考虑错峰"
+        "建议提高 timeout 120→1500"
       ]
     }
   ],

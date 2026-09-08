@@ -1,0 +1,2 @@
+[main/sessions/main/82ada768-051f-433a-ae97-05b838f6b38d#L8] Assistant: Exit code 1 (config issue, not script crash). Per the job instructions, I write only the issues file and print ⚠️ — no Feishu card.
+[main/sessions/main/82ada768-051f-433a-ae97-05b838f6b38d#L10] Assistant: ``` [Cookie 健康检查 2026-09-08 00:30] ⚠️ 检测到 2 项异常（已写入 /tmp/cookie_health_latest.json） - douyin cookie 陈旧 (15.23h 前回写，阈值 12h) - xiaohongshu cookie 陈旧 (15.23h 前回写，阈值 12h) - 影响：抖音日报 10:30 / 小红书 15:00 / 竞品 14:00+14:30 - 建议：等站长处理（不自动修复） ``` 脚本正常退出（exit 1 = 配置/健康问题），非崩溃，不发飞书。其

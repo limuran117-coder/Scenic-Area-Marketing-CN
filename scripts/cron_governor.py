@@ -67,11 +67,25 @@ def open_db():
 
 def load_jobs(db):
     jobs = {}
-    for r in db.execute("SELECT job_id,name,enabled,payload_kind,payload_model,"
-                        "payload_timeout_seconds,schedule_expr,schedule_kind,"
-                        "delete_after_run "
-                        "FROM cron_jobs"):
-        jobs[r["job_id"]] = dict(r)
+    # DB 迁移(2026): cron_jobs 扁平列被 job_json(JSON) 取代；timeout/schedule/kind 从 job_json 解析
+    for r in db.execute(
+        "SELECT job_id, name, enabled, payload_kind, job_json FROM cron_jobs"):
+        d = dict(r)
+        spec = {}
+        try:
+            spec = json.loads(r["job_json"] or "{}")
+        except Exception:
+            pass
+        payload = spec.get("payload") or {}
+        schedule = spec.get("schedule") or {}
+        d["payload_kind2"] = payload.get("kind") or r["payload_kind"]
+        d["payload_timeout_seconds"] = payload.get("timeoutSeconds")
+        d["timeout_ms"] = payload.get("timeoutMs")
+        d["schedule_expr"] = schedule.get("expr") or (
+            f"every {schedule.get('everyMs')}ms" if schedule.get("kind") == "every" else "")
+        d["schedule_kind2"] = schedule.get("kind")
+        d["delete_after_run"] = bool(spec.get("deleteAfterRun"))
+        jobs[r["job_id"]] = d
     return jobs
 
 
@@ -79,8 +93,10 @@ def load_runs(db, days):
     since_ms = (datetime.now(timezone.utc) - timedelta(days=days)).timestamp() * 1000
     runs = defaultdict(list)
     for r in db.execute(
-        "SELECT job_id,status,error,run_at_ms,duration_ms "
-        "FROM cron_run_logs WHERE run_at_ms >= ?", (int(since_ms),)):
+        # 旧表 cron_run_logs 已迁移为 cron_run_receipts
+        "SELECT job_id,status,error_text AS error,started_at_ms AS run_at_ms,"
+        "       (finished_at_ms - started_at_ms) AS duration_ms "
+        "FROM cron_run_receipts WHERE started_at_ms >= ?", (int(since_ms),)):
         runs[r["job_id"]].append(dict(r))
     return runs
 
@@ -159,14 +175,15 @@ def build_report(days):
         err_rate = nerr / total if total else 0
         avg_dur = int(sum(r["duration_ms"] or 0 for r in jruns) / total) if total else 0
 
-        is_agent = job["payload_kind"] == "agentTurn"
+        is_agent = (job["payload_kind"] == "agentTurn"
+                    or job.get("payload_kind2") == "agentTurn")
         is_light = job["name"] in LIGHT_TASKS
         is_onetime = bool(job.get("delete_after_run"))
         t = {
             "job_id": jid,
             "name": job["name"],
             "schedule": job["schedule_expr"],
-            "kind": job["payload_kind"],
+            "kind": job.get("payload_kind2") or job["payload_kind"],
             "timeout": timeout_sec,
             "runs": total,
             "ok": nok,
@@ -232,22 +249,48 @@ def apply_changes(changes, dry_run):
     applied = []
     db = sqlite3.connect(DB_PATH)
     cur = db.cursor()
+    now = int(datetime.now().timestamp() * 1000)
     for c in changes:
         if c["type"] == "bump_timeout":
             newto = max(c.get("to", RECO_TIMEOUT), c.get("from") or 0)
             desc = f"提高超时 {c['name']}: {c['from']}→{newto}s"
             if not dry_run:
-                cur.execute(
-                    "UPDATE cron_jobs SET payload_timeout_seconds=?, updated_at=? "
-                    "WHERE job_id=?",
-                    (newto, int(datetime.now().timestamp() * 1000), c["job"]))
+                row = cur.execute(
+                    "SELECT job_json FROM cron_jobs WHERE job_id=?",
+                    (c["job"],)).fetchone()
+                if row:
+                    try:
+                        spec = json.loads(row[0] or "{}")
+                    except Exception:
+                        spec = {}
+                    payload = spec.setdefault("payload", {})
+                    payload["timeoutSeconds"] = newto
+                    spec["payload"] = payload
+                    cur.execute(
+                        "UPDATE cron_jobs SET job_json=?, updated_at=? "
+                        "WHERE job_id=?",
+                        (json.dumps(spec, ensure_ascii=False), now, c["job"]))
             applied.append(desc)
         elif c["type"] == "disable_orphan":
             desc = f"禁用孤儿任务 {c['name']}: {c['reason']}"
             if not dry_run:
-                cur.execute(
-                    "UPDATE cron_jobs SET enabled=0, updated_at=? WHERE job_id=?",
-                    (int(datetime.now().timestamp() * 1000), c["job"]))
+                row = cur.execute(
+                    "SELECT job_json FROM cron_jobs WHERE job_id=?",
+                    (c["job"],)).fetchone()
+                if row:
+                    try:
+                        spec = json.loads(row[0] or "{}")
+                    except Exception:
+                        spec = {}
+                    spec["enabled"] = False
+                    cur.execute(
+                        "UPDATE cron_jobs SET enabled=0, job_json=?, updated_at=? "
+                        "WHERE job_id=?",
+                        (json.dumps(spec, ensure_ascii=False), now, c["job"]))
+                else:
+                    cur.execute(
+                        "UPDATE cron_jobs SET enabled=0, updated_at=? WHERE job_id=?",
+                        (now, c["job"]))
             applied.append(desc)
     if not dry_run:
         db.commit()
