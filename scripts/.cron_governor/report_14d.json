@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-09-08 07:30",
+  "generated_at": "2026-09-09 07:30",
   "window_days": 14,
   "task_count": 35,
   "hourly_errors": {
-    "7": 6,
+    "7": 7,
     "8": 4
   },
   "peak_hours": [
     7
   ],
-  "daily_records": 166,
+  "daily_records": 182,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -17,45 +17,22 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 8,
+      "runs": 9,
       "ok": 4,
-      "error": 4,
-      "error_rate": 0.5,
+      "error": 5,
+      "error_rate": 0.56,
       "consecutive_errors": 0,
-      "avg_duration_ms": 1237906,
+      "avg_duration_ms": 1267139,
       "error_types": {
-        "other": 4
+        "other": 5
       },
-      "timeout_hits": 3,
+      "timeout_hits": 4,
       "issues": [
-        "近14天错误率50%",
-        "3次撞超时顶"
+        "近14天错误率56%",
+        "4次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 1500→1800",
-        "⚠️ 任务时段 7:00 撞限流高峰 [7]，可人工考虑错峰"
-      ]
-    },
-    {
-      "job_id": "9bf47f42-0f9f-4b49-a73c-97482426498f",
-      "name": "竞品关键词深度分析",
-      "schedule": "30 7 * * 1-5",
-      "kind": "agentTurn",
-      "timeout": 1500,
-      "runs": 5,
-      "ok": 3,
-      "error": 2,
-      "error_rate": 0.4,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 472882,
-      "error_types": {
-        "other": 2
-      },
-      "timeout_hits": 0,
-      "issues": [
-        "近14天错误率40%"
-      ],
-      "suggestions": [
         "⚠️ 任务时段 7:00 撞限流高峰 [7]，可人工考虑错峰"
       ]
     },
@@ -65,23 +42,21 @@
       "schedule": "5 8 * * *",
       "kind": "command",
       "timeout": 120,
-      "runs": 9,
-      "ok": 5,
+      "runs": 10,
+      "ok": 6,
       "error": 4,
-      "error_rate": 0.44,
-      "consecutive_errors": 4,
-      "avg_duration_ms": 53928,
+      "error_rate": 0.4,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 48612,
       "error_types": {
         "other": 4
       },
       "timeout_hits": 4,
       "issues": [
-        "连续4次失败",
-        "近14天错误率44%",
+        "近14天错误率40%",
         "4次撞超时顶"
       ],
       "suggestions": [
-        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
         "建议提高 timeout 120→1500"
       ]
     }
