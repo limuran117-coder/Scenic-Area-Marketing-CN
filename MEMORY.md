@@ -169,3 +169,6 @@ DeepSeek→M3切换 | 5/27重构 | M3-only | DDG修复 | cron冲突修复 | SOP�
 **[business] 9/3 方特森林中秋夜截流案例（W36归档）**：夜场半价+双节双园白加黑(99元夜场票)+海昌2周年「山海国潮节」(9/20-10/12)。机制=先发卡「中秋-国庆夜游」搜索心智+低价夜场券降门槛。复制到电影小镇=夜场三件套现成底座+情歌夜挂「限量9.9夜场券」。已归档 wiki/全国景区案例库/。
 
 **W36 GitHub学习（9/5，OptMem）→ 已在本文上方 project 区写入精要**（VictorTaelin/OptMem 极简协议化记忆；行动:P2=借鉴LOG只追加+摘要可重建治理MEMORY超限）
+
+**[project] GitHub高星标学习 W37（9/12）→ 精要**：lennney/stop-that-shit(1.9K,8/11创建,Hook+Skill Guard拦截范围膨胀/无需求哈希/过度验证；作者核心洞察"往AGENTS.md补规则没用,规则自己开始造史"→约束要做成机制) | Leonxlnx/unlazy(3.2K,Depth Tree+验收台账) | Spielewoy/autoprompt-skill(1.1K,失败率-45%) 三仓库同月独立爆发=**"纪律层"成Skills新赛道**；记忆侧 tigerless-labs/agent-memory(994,9/1,"Markdown为真相源+旁置可删索引+L0一行摘要按需分层打开")与OptMem同源收敛。
+**→ 项目名**：lennney/stop-that-shit（1,910⭐，https://github.com/lennney/stop-that-shit）| **它解决了什么**：Agent行为约束长期只存在于提示词/AGENTS.md等软规则里（写了不执行、越补越长反而污染上下文），它把边界做成可执行Hook+Guard强制拦截，填补"Agent纪律缺强制层"的空白 | **我们怎么用**：把SOUL.md Token守则的硬规则（禁重复验证/禁范围膨胀/禁改完cron立刻重跑）从"文档劝告"升级为exec前置检查脚本；并借鉴unlazy验收台账用于cron数据任务收尾（防"数据不全就发报告"）| **不跟进的代价**：token守则继续靠人肉自觉+事后review发现违规（如6/22十次心跳浪费9次调用会反复发生）；AGENTS.md持续膨胀(171行)稀释规则权重，进入"规则越多越没人守"负循环；错过Skills从"扩展能力"转向"约束行为"的新价值锚点。旁注：上期OptMem星标骤停(1,505→1,518,+13)=首周爆量典型曲线，提醒"关注度≠采用度"，其P2优先级降为按需。完整→wiki/技术配置/GitHub高星标学习笔记.md W37期 <!-- project: github.com/limuran117-coder/Scenic-Area-Marketing-CN -->

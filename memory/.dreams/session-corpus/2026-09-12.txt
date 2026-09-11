@@ -1,0 +1,4 @@
+[main/sessions/main/9429301f-e94b-4391-a499-700a397baaad#L6] Assistant: I'll run the cookie health check.
+[main/sessions/main/9429301f-e94b-4391-a499-700a397baaad#L10] Assistant: The file still holds yesterday's run (timestamp 2026-09-11 00:30:03) — today's script exited 1 but didn't overwrite it. Let me check the script's write logic.
+[main/sessions/main/9429301f-e94b-4391-a499-700a397baaad#L18] Assistant: The script never writes `/tmp/cookie_health_latest.json` — that file is a stale artifact from a different/older writer. Per the job spec, I'll write today's issues there.
+[main/sessions/main/9429301f-e94b-4391-a499-700a397baaad#L20] Assistant: ``` [Cookie 健康检查 2026-09-12 00:30] ⚠️ 检测到 2 项异常（已写入 /tmp/cookie_health_latest.json） - douyin cookie 陈旧（17.49h 前回写，阈值 12h） - xiaohongshu cookie 陈旧（40.42h 前回写，阈值 12h） - 影响：抖音日报 10:30 / 小红书 15:00 / 竞品 14:00+14:30 - 建议：等站长处理（不自动修复） 补充说明： - 关键可用性检查全部通过 —— CDP 18800 LISTEN、代

@@ -1533,3 +1533,92 @@ AI Agent 的长期记忆系统普遍"重"（向量库/MCP/后台服务），OptM
 ### ⚠️ 备注
 - opensquilla 仓库改名 TokenRhythm/opensquilla（6,913⭐），下期用新名追踪
 - web_search 本次不可用（127.0.0.1:8888 代理拒绝），全程 gh API 直连实测，数据可靠
+
+---
+
+## 📅 W37 期（2026-09-12 03:00）— 主题：Agent「纪律层」技能崛起
+
+> 本期 web_search（searxng）返回 0 结果，全部数据由 gh API 直连实测（可靠）。
+
+### 追踪表更新（gh API 实测）
+
+| 仓库 | 上期 | 本期 | 变化 | 状态 |
+|------|------|------|------|------|
+| affaan-m/ECC | ~22.1万 | 256,396 | 持续 | ➡️ 仍居首 |
+| addyosmani/agent-skills | 92.3K | 93,549 | +1.2K | ➡️ 趋稳（四周前+9.8K/周）|
+| thedotmack/claude-mem | — | 93,684 | — | ➡️ 重型记忆仍最热 |
+| karpathy/autoresearch | 94,856 | 95,608 | +752 | ➡️ 趋稳 |
+| ChromeDevTools/chrome-devtools-mcp | 49,929 | 51,663 | +1,734 | ⬆️ 浏览器自动化稳增（佐证CDP方向）|
+| anthropics/financial-services | 34,683 | 34,790 | +107 | ➡️ 趋稳 |
+| yc-software/qm | 14,555 | 14,822 | +267 | ➡️ 持续 |
+| omnigent-ai/omnigent | 9,688 | 9,858 | +170 | ➡️ 持续 |
+| TokenRhythm/opensquilla | 6,913 | 7,011 | +98 | ➡️ 改名后趋稳 |
+| VictorTaelin/OptMem | 1,505 | 1,518 | +13 | ⚠️ 上期爆量后骤停（首周+1.5K→次周+13）|
+
+### 🆕 本期新发现扫描（created 2026-08+，按星标/相关性筛选）
+
+**纪律/边界类（本期主题）：**
+1. **lennney/stop-that-shit** ⭐1,910（2026-08-11）— 多平台 Hook + Skill Guard：拦截无需求的哈希/校验和/任务范围膨胀。SHIT 四类 = Scope creep（范围膨胀）/ Hash 强迫症 / 过度验证 / 无意义并行。作者原话痛点：「往 AGENTS.md 里补规则『不要乱改』，写着写着 AGENTS.md 自己也开始造史了」——**规则写在文档里没用，要做成 Hook 强制拦截**。
+2. **Leonxlnx/unlazy** ⭐3,238（2026-08-09）— 反偷懒 completion discipline：Depth Tree 方法（任务拆 N 层，每叶拿全额预算→努力随深度倍增）+ 可运行 gate（先写验收台账 acceptance ledger，再执行审查过的检查，再复核返工）。基于 2025-2026 模型「偷懒/欠思考/过早收工」研究。
+3. **Spielewoy/autoprompt-skill** ⭐1,069（2026-08-17）— 自审自修自复核工作流，Terminal-Bench 2.1 提升 14.61 分 / agentic coding 失败率 -45%。
+
+**记忆类（延续 OptMem 赛道）：**
+4. **tigerless-labs/agent-memory** ⭐994（2026-09-01）— 长期记忆 runtime：**plain Markdown 为唯一真相源，旁边 SQLite 索引仅是「随时可删的缓存」**；召回只返回 L0（一行摘要+路径+锚点+分数）**由 agent 按需按深度打开**，不把正文塞进 context；写入在会话边界自动触发（不等 agent 记得写）；sleep-time 后台层按价值整合/遗忘；零 API key。双线合流：检索引擎线（embedding/图谱，不可审计）vs 文件系统线（md 可 grep，但不会排序、树大就废）→ 它把两条线做进一个 store。
+5. **okf-memory/okf-agent-memory** ⭐573（2026-09-05）— Git-native 持久记忆，实现 Google OKF v0.2，亚 300µs 内存检索。
+6. **MemTensor/memmy-agent** ⭐1,888（7/16）、**ShenSeanChen/waku-agent** ⭐1,727（7/10）、**xzf-thu/VoiceMem** ⭐1,330（8/17）— 本地优先记忆/枢纽，均在起量。
+
+**垂直 Skill（本期最高新星）：**
+7. **s1dashu/ip-as-logo-skill** ⭐5,141（8/18）— 本期最高：极简圆润 IP 吉祥物 logo 生成 Skill。
+8. **eternityspring/shuohao-skills** ⭐3,207（8/6）— AI 短剧制作全套 skills（拆角色/大纲/场景道具/剧本/分镜），中文原生。
+9. **Nanako0129/sepia** ⭐2,552（8/28，上期 1,982 → +570）— 去AI味写作。**cbrock84/headcount** ⭐1,356（8/28）— Claude Code Agent 组织化（15部门/125+ skills）。**nateherkai/scroll-craft** ⭐2,331（8/22）— 滚动叙事网站 Skill。
+
+### 🎯 发现（本期核心）：lennney/stop-that-shit — Agent 任务边界的「自动化 Guard」
+
+**仓库：** https://github.com/lennney/stop-that-shit（1,910⭐，2026-08-11 创建，1 个月起量）
+
+**1. 它解决了什么问题？（1句话）**
+AI Agent 的「行为约束」长期只存在于提示词/AGENTS.md 等**软规则**里（写了也不执行，规则越补越长反而污染上下文）——stop-that-shit 把边界做成了**可执行的 Hook + Guard 拦截**，填补「Agent 纪律缺强制层」的空白。
+
+**2. 我们的系统能怎么用？**
+- **直接对位 SOUL.md 的 Token 守则**：我们的守则（2026-06-09/6-22/6-23 三次强化：禁止对心跳做诊断、禁止同一脚本连跑 3-5 次、禁止改完 cron 立刻重跑验证）本质与 stop-that-shit 的 SHIT 四类**高度重合**——都是人工写在文档里靠自觉。可借鉴：把「禁止重复验证/禁止范围膨胀」写成 **exec 前置检查脚本**（维护类任务启动时校验本轮是否在既定范围内），从「文档劝告」升级为「机制拦截」。
+- **修复 AGENTS.md 越长越弱的问题**：作者观察「规则每气一次补一条 → AGENTS.md 自己开始造史」，正是我们 MEMORY.md/AGENTS.md 的现状（171 行/多次追加）。可借鉴其思路：规则应**收敛为少量可执行 guard**，而非持续堆叠条目。
+- **unlazy 的 acceptance ledger（验收台账）** 可直接用于我们的 cron 任务收尾：写清验收项 → 执行审查过的检查 → 复核返工 → 只报证据支持的内容；对日报类任务可防止「数据不全就发报告」。
+
+**3. 不跟进的代价是什么？**
+- 我们的 token 守则**继续靠人肉自觉 + 事后 review 发现违规**（如 6/22 十次心跳回 "系统健康" 浪费 9 次调用），同类浪费会反复发生
+- AGENTS.md 持续膨胀（171 行）会稀释规则权重，进入「规则越多越没人守」的负循环
+- 错过 Skills 生态的新竞争维度：**从「扩展能力」转向「约束行为」**——下阶段 Skill 的价值锚点可能是纪律而非功能
+
+### 📎 次核心：tigerless-labs/agent-memory（994⭐，9/1）— Markdown 为真相源 + 索引可删
+
+**1. 解决什么问题：** Markdown 记忆「可读可 dif 但不会排序、树一大就废」，向量库记忆「会排序但不可审计、迁移困难」——agent-memory 用「Markdown 真相源 + 旁置可删索引」把两条路线合成一个 store。
+
+**2. 我们怎么用：** 与我们 MEMORY.md + memory/ + AAAK 结构几乎同构，但补了两个我们缺的机制：(a) **召回返回 L0 一行摘要+路径，正文按需分层打开**——正是我们日报/复盘任务最需要的省 token 召回方式；(b) **索引是缓存、可随时删除重建**——印证上期 OptMem 结论，且给出具体实现路径（本地 SQLite 索引 + 读路径零模型调用）。
+
+**3. 代价：** 继续手工 grep/read 全量记忆找上下文（token 浪费）；拒绝承认「索引可丢弃」导致把摘要当真相。
+
+### 📈 本期趋势识别
+
+1. **「纪律层」成为 2026-08 新赛道**：stop-that-shit（1.9K）+ unlazy（3.2K）+ autoprompt（1.1K）三仓库独立在同月爆发，全在解决「Agent 不守边界/偷懒/过度防御」——Skills 从「给能力」转向「给约束」。我们已有大量手工纪律（SOUL.md 守则），但零自动化。
+2. **Markdown-native 记忆成新共识**：OptMem（7月, 1.5K）→ agent-memory（9月, 994）→ okf-agent-memory（9月, 573）→ memmy/waku，一月内多个独立项目收敛到「纯 Markdown + 本地索引 + 零 API key」。反观重型阵营 claude-mem 仍 93.7K（存量优势），但新增量在极简侧。
+3. **上期爆款 OptMem 骤停**（1,505 → 1,518，+13）：属"首周爆量后回落"典型曲线，与其“小众极简工具”定位一致——**关注度≠采用度，不要仅凭星标增速下判断**（对我们 P2 行动项的影响：优先级从「立刻跟进」降为「需要时精读」）。
+4. **垂直 Skill 星标中枢上移**：本期新星头部达 5.1K（ip-as-logo）/ 3.2K（短剧）/ 2.5K（去AI味），单点垂直需求仍是最快起量路径。
+5. **浏览器自动化持续稳定增长**（chrome-devtools-mcp 51.7K, +1.7K/周）：我们 CDP+Playwright 方案方向持续被行业验证，无需调整。
+
+### 🎯 W37 行动项
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P2** | 把 Token 守则的 2-3 条硬规则做成可执行前置检查（exec 脚本/guard），替代纯文档劝告 | stop-that-shit 1.9K 验证 + 我们手工守则频被违反 | W37/W38 |
+| 🆕 **P2** | 借鉴 acceptance ledger：cron 数据类任务收尾加「验收台账」（数据完整性/维度分离/无硬编码），防"数据不全就发报告" | unlazy 3.2K + autoprompt 1.1K | 日报 SOP 改版时 |
+| 🆕 **P3** | 精读 tigerless-labs/agent-memory 的 L0 分层召回，评估 MEMORY.md/memory 召回优化 | 994⭐ 且结构同构 | MEMORY.md 超限告警时 |
+| **P2（延续）** | MEMORY.md 治理：细节迁 memory/ 日档而非直接删（摘要可重建） | 上期 OptMem | 已有（W36）|
+| **P0（延续）** | 日报 SOP quality gate 落地 | agent-skills 93.5K 四周验证 | 本周内 |
+| **P3（观察）** | lieflat-charts Glance 型 dashboard 用于周报 | 4.6K | 周报改版时 |
+
+### ⚠️ 备注
+- 本期 web_search 不可用（searxng 返回 0 结果），全部数据 gh API 直连实测
+- OptMem 星标骤停提示：下期不再单独追踪，仅并入"Markdown-native 记忆"集群观察
+- 未跟进（相关性低）：ApodexAI/FrontierAgent（2.6K，通用框架）、Pan-Chera/Multi-Agent-CAD（940）等
+
+*(W37 期结束 — 2026-09-12 03:00，gh API 实测)*
