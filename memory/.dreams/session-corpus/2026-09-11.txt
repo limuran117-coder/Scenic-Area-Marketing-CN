@@ -1,0 +1,1 @@
+[main/sessions/main/a1eda309-7c16-4a43-95e7-b0cafdce5829#L16] Assistant: ```json [Cookie 健康检查 2026-09-11 00:30] ⚠️ 检测到 2 项异常（已写入 /tmp/cookie_health_latest.json） - ⚠️ douyin cookie 陈旧 (16.42h 前回写，阈值 12h) - ⚠️ xiaohongshu cookie 陈旧 (16.42h 前回写，阈值 12h) - 影响：抖音日报 10:30 / 小红书 15:00 / 竞品 14:00+14:30 - 建议：等站长处理（不自动修复） ``` 补充（仅供本地排查，未发飞书）：cookie 文件

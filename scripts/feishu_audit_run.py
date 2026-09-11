@@ -57,8 +57,14 @@ def parse_content(msg):
         header = content.get("header", {}) or {}
         t = header.get("title", {}) or {}
         title = t.get("content", "") if isinstance(t, dict) else ""
+        if not title:
+            # 兼容根级旧版卡片（schema 1.0）：title 可能是字符串或 {content:..}
+            rt = content.get("title", "")
+            title = rt if isinstance(rt, str) else (rt.get("content", "") if isinstance(rt, dict) else "")
         body = content.get("body", {}) or {}
-        elements = body.get("elements", []) or []
+        elements = body.get("elements")
+        if not elements:
+            elements = content.get("elements") or []
         preview = json.dumps(elements, ensure_ascii=False)[:200] if elements else ""
     elif msg_type == "text":
         preview = (content.get("text", "") if isinstance(content, dict) else str(content))[:200]
@@ -83,8 +89,14 @@ def is_abnormal(msg, title, preview, now_sec):
     if msg_type == "interactive":
         try:
             content = json.loads(msg.get("body", {}).get("content", ""))
-            elements = (content.get("body", {}) or {}).get("elements", []) or []
-            if len(elements) < 2:
+            elements = (content.get("body", {}) or {}).get("elements")
+            if not elements:
+                # 兼容根级旧版卡片（schema 1.0）：elements 常为 [[{...}]]
+                elements = content.get("elements") or []
+            flat = []
+            for e in elements if isinstance(elements, list) else []:
+                flat.extend(e) if isinstance(e, list) else flat.append(e)
+            if len(flat) < 2:
                 reasons.append("空卡片(elements<2)")
         except Exception:
             pass

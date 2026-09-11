@@ -294,7 +294,7 @@ async def crawl():
            "version": "v4-hybrid-final", "results": []}
     try:
         async with async_playwright() as p:
-            browser = await p.chromium.connect_over_cdp(CDP_URL, timeout=8000)
+            browser = await p.chromium.connect_over_cdp(CDP_URL, timeout=45000)
             for kw in KEYWORDS:
                 r = await crawl_one_keyword(browser, kw)
                 out["results"].append(r)

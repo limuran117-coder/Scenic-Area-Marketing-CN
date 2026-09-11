@@ -1,15 +1,39 @@
 {
-  "generated_at": "2026-09-09 07:30",
+  "generated_at": "2026-09-11 07:30",
   "window_days": 14,
   "task_count": 35,
   "hourly_errors": {
-    "7": 7,
-    "8": 4
+    "0": 3,
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 3,
+    "5": 5,
+    "6": 3,
+    "7": 18,
+    "8": 8,
+    "9": 2,
+    "10": 2,
+    "11": 2,
+    "12": 2,
+    "13": 2,
+    "14": 2,
+    "15": 2,
+    "16": 2,
+    "17": 2,
+    "18": 2,
+    "19": 2,
+    "20": 2,
+    "21": 2,
+    "22": 2,
+    "23": 2
   },
   "peak_hours": [
-    7
+    5,
+    7,
+    8
   ],
-  "daily_records": 182,
+  "daily_records": 213,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -17,23 +41,23 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 9,
-      "ok": 4,
-      "error": 5,
-      "error_rate": 0.56,
+      "runs": 13,
+      "ok": 5,
+      "error": 8,
+      "error_rate": 0.62,
       "consecutive_errors": 0,
-      "avg_duration_ms": 1267139,
+      "avg_duration_ms": 1193107,
       "error_types": {
-        "other": 5
+        "other": 8
       },
-      "timeout_hits": 4,
+      "timeout_hits": 6,
       "issues": [
-        "近14天错误率56%",
-        "4次撞超时顶"
+        "近14天错误率62%",
+        "6次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 1500→1800",
-        "⚠️ 任务时段 7:00 撞限流高峰 [7]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [5, 7, 8]，可人工考虑错峰"
       ]
     },
     {
@@ -42,22 +66,41 @@
       "schedule": "5 8 * * *",
       "kind": "command",
       "timeout": 120,
-      "runs": 10,
-      "ok": 6,
+      "runs": 12,
+      "ok": 8,
       "error": 4,
-      "error_rate": 0.4,
+      "error_rate": 0.33,
       "consecutive_errors": 0,
-      "avg_duration_ms": 48612,
+      "avg_duration_ms": 45169,
       "error_types": {
         "other": 4
       },
       "timeout_hits": 4,
       "issues": [
-        "近14天错误率40%",
         "4次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 120→1500"
+      ]
+    },
+    {
+      "job_id": "2a94dd5d-a753-4ee7-80c6-1c16c06793e6",
+      "name": "heartbeat-main",
+      "schedule": "every 1800000ms",
+      "kind": "heartbeat",
+      "timeout": null,
+      "runs": 50,
+      "ok": 0,
+      "error": 50,
+      "error_rate": 1.0,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 28683,
+      "error_types": {
+        "other": 50
+      },
+      "timeout_hits": 0,
+      "issues": [
+        "近14天错误率100%"
       ]
     }
   ],
