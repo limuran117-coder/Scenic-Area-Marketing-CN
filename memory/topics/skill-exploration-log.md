@@ -52,3 +52,34 @@
 - 验证 system-metabolism 周日首次运行效果
 - 评估是否需要 cost tracking（如果token消耗显著增长）
 - 评估data-integrity-check在实际运行中的拦截率
+
+---
+
+## 2026-09-12 探索（第 12 次）
+
+> ⚠️ 注：任务配置指向 `~/.openclaw/workspace/TOOLS.md`，但该文件**已不存在**（本地 notes 已并入 AGENTS.md，2026-06 起）。本日志为周度探索的权威归档位置。
+
+### 环境快照（exec 实测，非 LLM 推断）
+- `scripts/`：**105 个**（含 `__pycache__` / `archive/`）
+- 系统技能（openclaw/skills）：**52 个**
+- workspace 技能：**38 个**
+- 核心 CLI 全部在位：`gh` `/opt/homebrew/bin/gh`、`curl` `/usr/bin/curl`、`jq` `/usr/bin/jq`、`ffmpeg` `/opt/homebrew/bin/ffmpeg` ✅
+
+### 与上次（2026-06-06）的差异
+- 系统技能 58 → **52**（清减 6 个）
+- scripts 56 → **105**（含归档子目录，实际生产脚本仍 ~40+）
+- 无缺失 CLI，无新增依赖缺口
+
+### 本次评估（1-2 个候选）
+| 候选 | 位置 | 判断力 | 采集力 | 沉淀力 | 评估 |
+|------|------|--------|--------|--------|------|
+| `codegraph__codegraph_explore` | MCP 工具（已挂载） | 🟢 高 | 🟢 高 | 🟡 中 | ✅ **已可直接用**，无需安装。改脚本前先探索调用链，替代 grep/read 循环，省 token |
+| `notion` / `obsidian` | 系统技能 | 🟡 中 | 🟡 中 | 🟢 高 | ⏸️ wiki 已走 karpathy-wiki + GitHub 链路，Notion 无落地场景，暂不引入 |
+
+### 结论
+- **无需新增技能**。当前链路（douyin_index v11 / xiaohongshu_crawl / feishu 卡片 / karpathy-wiki / cron 治理）稳定。
+- 唯一可立刻受益的是 `codegraph_explore`——**零成本**（已挂载），改代码前先探索，减少 Read/Grep 往返。
+- 上线前提：无。
+
+### 遗留问题
+- 任务 prompt 中的 `TOOLS.md` 路径已失效，建议下次治理时把 cron message 改为写 `memory/topics/skill-exploration-log.md`。
