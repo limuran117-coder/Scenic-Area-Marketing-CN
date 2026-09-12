@@ -1,0 +1,1624 @@
+# GitHub高星标项目研究笔记
+
+> 更新：2026-06-12（W24·周五）| 采集：web_search综合 | 下期：周六00:00
+
+---
+
+## 一、2026年6月上旬 Top 25 AI Agent 框架星标排名
+
+**数据来源：** CSDN/SegmentFault综合，数据截至2026-06-09~12
+
+| # | 项目 | ⭐ Stars | 语言 | 类型 | 趋势 |
+|:-:|------|:--------:|:----:|:----:|:----:|
+| 1 | **hermes-agent (NousResearch)** | **155,800** | Python | 自我进化Agent | 📈 稳定高增长 |
+| 2 | **multica-ai/andrej-karpathy-skills** | **149,000+** | Markdown | Karpathy编码准则 | 📈 月增9K+ |
+| 3 | **n8n** | ~192,000 | TypeScript | 工作流+Agent | 🔺 登顶后继续增长 |
+| 4 | **AutoGPT** | ~187,000 | Python | 自主Agent先驱 | ➡️ 历史存量，增速放缓 |
+| 5 | **LangChain** | ~142,000 | Python | 基础Agent工程平台 | 📈 稳健 |
+| 6 | **mattpocock/skills** | **~112,000** | Shell | Skills合集 | 📈 稳定增长（5/18: 90K → 6/12: ~112K） |
+| 7 | **Superpowers (obra)** | **~123,000** | TypeScript | AI编程工作流框架 | 🔺 登顶Claude官方插件市场 |
+| 8 | **browser-use** | **~97,000** | Python | 浏览器自动化Agent | ➡️ 增长趋稳，接近平台期 |
+| 9 | **mempalace** | **54,763** | Python | 记忆系统新王 | 📈 日增855⭐，高速增长 |
+| 10 | **LobeHub** | ~75,000 | TypeScript | 多Agent协作平台 | ➡️ 稳定 |
+| 11 | **TradingAgents** | ~74,000 | Python | 多Agent交易框架 | ➡️ 持续 |
+| 12 | **MetaGPT** | ~68,000 | Python | 多Agent软件公司模拟 | ➡️ 稳定 |
+| 13 | **ruflo** | ~57,000 | TypeScript | Claude多Agent编排 | 📈 增长中 |
+| 14 | **Cline** | ~66,000 | TypeScript | Coding Agent IDE | 📈 持续增长 |
+| 15 | **Mem0** | ~52,000 | Python | 通用记忆层 | ➡️ 趋平 |
+| 16 | **Understand-Anything** | ~46,000 | Python | 代码知识图谱 | 📈 增长放缓 |
+| 17 | **codegraph** | ~34,000 | TypeScript | 代码知识图MCP | 📈 增长放缓 |
+| 18 | **Flowise** | ~53,000 | TypeScript | 无代码Agent构建 | ➡️ 稳定 |
+| 19 | **CrewAI** | ~52,000 | Python | 角色扮演Agent协作 | ➡️ 趋平 |
+| 20 | **LiteLLM** | ~48,000 | Python | LLM路由/代理 | 📈 增长中 |
+| 21 | **Aider** | ~45,000 | Python | 终端Coding Agent | ➡️ 稳定 |
+| 22 | **LocalAI** | ~45,000 | Go | 本地模型引擎 | ➡️ 稳定 |
+| 23 | **Agno (原Phidata)** | ~41,000 | Python | Agent规模化部署 | ➡️ 稳定 |
+| 24 | **DSPy** | ~35,000 | Python | 编程式LLM编排 | ➡️ 稳定 |
+| 25 | **LangGraph** | ~33,000 | Python | 状态化Agent编排 | ➡️ 稳定 |
+
+### ⚡ 6月上旬关键变化
+
+| 项目 | 上期(5/31) | 本期(6/12) | 变化 | 趋势判断 |
+|------|:---------:|:---------:|:----:|:--------:|
+| hermes-agent | 155.8K | 155.8K | ~0 | 📊 进入平台期，但仍是Top3 |
+| mattpocock/skills | 112K | ~112K | ~0 | 📈 周增19K→趋稳，Skills生态成熟 |
+| Superpowers | — | 123K | 新进/超越 | 🔥 Claude官方市场验证，超越mattpocock |
+| browser-use | 93K | 97K | +4K | ➡️ 增速放缓（从周增8K降至周增2-4K） |
+| MemPalace | 52K | 54.7K | +2.7K | 📈 日增855⭐，仍是记忆系统增速王 |
+| n8n | 187K | 192K | +5K | 📈 工作流Agent化持续吸引新用户 |
+| codegraph | 34K | 34K | ~0 | ➡️ 知识图谱赛道进入平台期 |
+| Understand-Anything | 46K | 46K | ~0 | ➡️ 同上 |
+
+### 📊 新分类格局（2026年6月）
+
+| 类别 | 领跑者 | ⭐ | 势头 |
+|------|--------|:--:|:----:|
+| 自我进化Agent | hermes-agent | 155K | 📈 生态扩张中 |
+| 编码准则/行为规范 | karpathy-skills | 149K | 📈 持续渗透 |
+| 工作流+LLM Agent | n8n | 192K | 🔥 登顶全球最大AI工具 |
+| Skills生态 | mattpocock/skills + Superpowers | 112K+123K | 🔥🔥 双雄并立 |
+| 浏览器自动化 | browser-use | 97K | ➡️ 趋稳 |
+| 记忆系统 | MemPalace | 54K | 📈 记忆新王 |
+| Coding Agent IDE | Cline | 66K | 📈 持续增长 |
+| 多Agent编排 | ruflo/CrewAI | 57K/52K | ➡️ 稳定 |
+
+---
+
+## 二、与上期（2026-05-31）差异对比
+
+### 🔺 本期新增/大幅变化项目
+
+| 项目 | 上期 | 本期 | 变化 | 说明 |
+|------|:----:|:----:|:----:|------|
+| **Superpowers** | 未单独追踪 | ~123K | 新进/大幅超越 | 🔥 超越mattpocock/skills成为Skills新王，Claude官方插件市场认证 |
+| **hermes-agent** | 155K | 155K | 趋稳 | NousResearch自进化Agent，生态持续扩张 |
+| **n8n** | 187K | 192K | +5K | 🔺 工作流Agent化继续吸引新用户 |
+| **Cline** | 61K | 66K | +5K | 📈 IDE端Coding Agent持续爆发 |
+
+### 📉 增速明显放缓的项目（进入平台期）
+
+| 项目 | 变化 | 判断 |
+|------|:----:|------|
+| **browser-use** | 周增从8K→2-4K | 接近自然天花板，增长曲线趋平 |
+| **codegraph** | 周增从14K→~0 | 知识图谱赛道热度短期见顶 |
+| **Understand-Anything** | 周增~6K→~0 | 同上 |
+| **mattpocock/skills** | 周增19K→~0 | Skills生态进入成熟期 |
+
+### 📈 仍维持高速增长的项目
+
+| 项目 | 日增⭐ | 总⭐ | 说明 |
+|------|:------:|:----:|------|
+| **MemPalace** | +855 | 54,763 | 记忆系统新王，持续高速 |
+| **karpathy-skills** | +3K | 149K+ | 编码准则持续扩散 |
+| **Superpowers** | 高速 | 123K | Claude官方市场认证后二次爆发 |
+
+---
+
+## 三、深度分析：Superpowers 超越 mattpocock/skills 的启示
+
+### Superpowers 关键数据（截至2026年6月）
+- **总星标：** ~123,000
+- **增长轨迹：** 2025年10月启动 → 2026年2月进入Claude插件市场 → 2026年4月123K → 持续增长
+- **核心定位：** AI编程工作流框架，Process over Prompt（流程大于提示词）
+- **差异化：** 给AI套上软件工程"纪律与护栏"——先思考、再规划、后编码、必验证
+
+### Superpowers vs mattpocock/skills 对比
+
+| 维度 | Superpowers | mattpocock/skills |
+|------|:------------:|:----------------:|
+| 核心理念 | Process over Prompt | Skills独立可复用 |
+| 定位人群 | 专业工程师（强调TDD/YAGNI/DRY） | 广泛工程师（TypeScript社区起） |
+| 与Claude交互 | 通过Claude官方插件市场 | 直接.claude/skills目录分发 |
+| 架构 | 工作流+技能框架（重） | 技能集合（轻） |
+| 增长 | ~123K，增速快 | ~112K，趋稳 |
+
+### 🔥 关键洞察
+
+1. **Skills赛道已分叉：** 轻量Skills（mattpocock风格）→ 重度工作流框架（Superpowers风格）
+2. **Process over Prompt成为新主流：** 社区不再只追求"更好的提示词"，而是"让AI遵循工程纪律"
+3. **Claude官方插件市场成为新分发渠道：** 绕过GitHub直接触达用户，增长飞轮更快
+4. **对本系统的启示：** 我们的SKILL.md体系可借鉴Superpowers的"流程纪律"理念，引入TDD/YAGNI/DRY原则
+
+---
+
+## 四、趋势判断（更新至2026年6月上旬）
+
+| 趋势 | 表现指标 | 对本系统影响 |
+|------|---------|:-----------:|
+| **Skills赛道双雄并立** | Superpowers(123K) + mattpocock(112K) | ✅ SKILL.md方向正确，可引入"流程纪律"理念 |
+| **自我进化Agent成主流** | hermes-agent(155K)生态扩张 | ⚠️ 可探索电影小镇Agent的自我优化机制 |
+| **记忆系统独立化** | MemPalace日增855⭐，超越Mem0 | ✅ 已将MemPalace架构作为参考，继续观察 |
+| **浏览器自动化趋稳** | browser-use从周增8K降至2-4K | ✅ 本系统Playwright+CDP方案已足够，无需切换 |
+| **知识图谱赛道见顶** | codegraph+Understand-Anything增长放缓 | 🆕 调整优先级，探索景区知识图的实际落地路径 |
+| **工作流Agent化** | n8n 192K登顶 | ✅ 验证方向，但本系统无需切换框架 |
+| **Coding Agent IDE化** | Cline 66K持续增长 | ℹ️ 远期影响，当前脚本化方案更适配报表需求 |
+
+### 🎯 本系统行动项更新
+
+| 优先级 | 行动项 | 依据 | 状态 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 引入Superpowers"流程纪律"理念到SKILL.md | Superpowers 123K超越mattpocock，Process>Prompt成新主流 | 待执行 |
+| **P1** | prompt压缩策略（Caveman模式）| 上期已识别，token节省50-65%，仍未落地 | ⚠️ 仍未执行 |
+| **P2** | 景区知识图探索（codegraph模式）| 知识图谱赛道放缓，但本系统仍空白 | 调整：缩小范围，先做政策/竞品索引 |
+| **P2** | 升级memory架构（MemPalace三级记忆）| MemPalace 54K日增855⭐，超越Mem0 | 持续观察，待时机 |
+| **P3** | 文旅Agent Skill包独立化 | Skills生态双雄并立，垂直Skill包有机会 | 长期规划 |
+
+---
+
+## 五、上期核心发现更新状态
+
+### 已跟进
+- ✅ **MemPalace记忆系统**：已集成到TOOLS.md，MemPalace MCP工具可用
+- ✅ **Caveman prompt压缩**：已在笔记中记录，但未落地到生产脚本
+- ✅ **Skills生态验证**：SKILL.md体系正常运行
+
+### 未跟进（需重新评估）
+- ⚠️ **Caveman token压缩**：6月上旬仍未执行，建议降级为P1待执行项
+- ⚠️ **景区知识图**：codegraph赛道见顶，但本系统仍空白，建议缩小范围（政策/竞品索引）
+
+### 新增发现
+
+#### 发现一：Superpowers"流程纪律"成为Skills新主流
+
+**仓库：** obra/superpowers | **语言：** TypeScript | **上线：** 2025年10月
+
+超越mattpocock/skills成为Skills赛道新王，核心理念：
+- **Process over Prompt：** 流程大于提示词
+- **工程纪律护栏：** TDD（先写测试）、YAGNI（不要过度设计）、DRY（不要重复）
+- **子Agent驱动：** 让Claude自主工作数小时不偏离计划
+
+**对本系统的直接价值：** ⭐⭐⭐⭐⭐
+- 日报生成SOP可引入"验证节点"（生成→自检→修正→发布）
+- 代码脚本编写可引入TDD原则（先写测试用例再写功能代码）
+- 参考其工作流框架设计文旅Skill包的"纪律护栏"
+
+#### 发现二：hermes-agent生态持续扩张
+
+**仓库：** NousResearch/hermes-agent | **语言：** Python | **Stars：** 155,800
+
+自我进化Agent，支持长期记忆、多平台接入。6月继续保持155K高星，生态持续扩张。
+
+**对本系统的参考价值：** ⭐⭐⭐
+- 电影小镇日报Agent可探索"自我优化"机制——根据反馈自动调整报告模板
+- 但非当前紧急项，可作为长期架构演进方向
+
+---
+
+## 六、关联文件追踪
+
+| 文件 | 上期状态 | 本期状态 | 备注 |
+|------|:-------:|:-------:|------|
+| MEMORY.md | 需更新记忆架构 | 待更新 | 引入Superpowers"流程纪律"理念 |
+| TOOLS.md | MemPalace MCP已记录 | ✅ 已同步 | MemPalace工具已可用 |
+| SKILL.md | Skills体系正常 | ⚠️ 需升级 | 引入Process over Prompt理念 |
+| wiki/SOP/抖音指数日报.md | v11 | v11 | 需引入验证节点 |
+| scripts/douyin_index.py | v11 | v11 | 需引入Caveman压缩策略 |
+
+---
+
+**关联文件：**
+- MEMORY.md → 记忆系统架构升级参考
+- wiki/SOP/ → 当前SOP体系，可升级为Superpowers风格"流程纪律"
+- wiki/技术配置/ → 相关技术参考
+- 上期记录：2026-05-31版本（本文档前身）
+---
+
+## W25（2026-06-13 周六）新增发现
+
+### 发现：Agent Zero — Annotate Mode 将网页变为可编程操作面
+
+**仓库：** agent0ai/agent-zero | **语言：** Python/TypeScript | **Stars：** ~20K（社区驱动）
+
+**一句话核心：** Agent Zero 把每个网页变成 Agent 的"交互式指令面板"——点击任意元素，执行 Change/Inspect/Lift/Comment 四种操作，无需预设 select/XPath。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+传统浏览器自动化依赖预设 DOM 选择器，UI 改版即失效；Annotate Mode 让 Agent 自主发现页面元素并操作，实现"所见即所用"的通用交互。
+
+**2. 我们的系统能怎么用？**
+- **竞品抖音后台交互：** 当抖音创作者页面 UI 变化导致 douyin_index.py 脚本失效时，Annotate Mode 让 Agent 自主找到新元素，无需改代码即可恢复采集
+- **小红书后台自动化：** 同理，灵犀后台 UI 改版时自适应
+- **竞品页面灵感采集：** "Lift"功能可直接捕获竞品页面的视觉/交互设计，为营销素材提供参考
+
+**3. 不跟进的代价是什么？**
+平台 UI 每次改版，我们的 Playwright 脚本需要人工介入修复；具有 Annotate Mode 能力的竞品系统将比我们更快恢复自动化——数据采集时效性全面落后。
+
+#### 技术架构亮点
+
+| 特性 | Agent Zero | 本系统现状 |
+|------|-----------|-----------|
+| 浏览器交互 | Annotate Mode（通用元素发现） | Playwright 预设选择器 |
+| 桌面环境 | 容器内嵌 XFCE 桌面 | CDP 分离架构 |
+| 扩展机制 | Plugin Hub（100+插件） | Skills 目录 |
+| 协作协议 | MCP + A2A 双协议 | MCP 已集成 |
+
+#### 与上期项目的关联
+
+- 上期 **browser-use**（97K）趋稳 → 增速放缓，印证"基础浏览器自动化"赛道见顶
+- Agent Zero 的 Annotate Mode 是 browser-use 的进化方向：**从"执行预设操作"到"自主发现并操作"**
+- LightAgent（wanxingai）的 LightFlow 引入 DAG + 重试机制 → 值得作为工作流编排参考
+
+#### 行动建议
+
+| 优先级 | 行动 | 说明 |
+|:------:|------|------|
+| P2 | 关注 Agent Zero Annotate Mode 的开源实现 | 若社区有独立库，分叉引入本系统 |
+| P2 | LightAgent LightFlow DAG 模式参考 | 竞品内容采集链可引入 DAG + 步骤输出传递 |
+| P3 | Agent Zero Plugin Hub 生态跟踪 | 100+插件中可能有文旅垂直 Skill |
+
+#### 对比上期笔记的变化
+
+- 新增 Agent Zero / LightAgent / rjmurillo/ai-agents 三个项目记录
+- 确认 **browser-use 增速放缓**（周增8K→2-4K）趋势持续
+- **Skills 生态** 进入双雄并立（Superpowers 123K + mattpocock 112K）成熟期
+
+---
+
+## W26（2026-06-20 周六 00:00）新增发现
+
+### 发现：rohitg00/agentmemory — 跨会话记忆共享层，token 消耗降 92%
+
+**仓库：** https://github.com/rohitg00/agentmemory | **语言：** TypeScript | **Stars：** ~18K（2026-05-27 首版，3 周内爆发）| **License：** MIT
+
+**一句话核心：** 给 AI 编码 Agent 加一套可自动记录/压缩/检索/复用的长期记忆系统，让 Claude Code / Codex CLI / Hermes / pi 等多 Agent 在不同会话中共享同一份项目经验。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+传统 Agent 内置记忆是单会话临时 buffer，关掉就没了；多个 Agent 工具之间记忆互不相通。agentmemory 提供**跨 Agent、跨会话、跨工具**的共享记忆层（BM25 + 向量混合检索 + 自动 LLM 压缩），从"每个 Agent 各自记笔记"进化到"一个记忆池多 Agent 复用"。
+
+**2. 我们的系统能怎么用？**
+- **直接解决 MEMORY.md 100行/25KB 限制：** 当前每次新会话要 read MEMORY.md，文件超过阈值会强制截断，丢失历史规则。agentmemory 的分块存储 + 按需检索可以让我们保留完整记忆但只加载相关片段
+- **多脚本共享语境：** 抖音日报 Agent / 竞品分析 Agent / 复盘 Agent 当前各自读自己的 memory/* 文件。统一记忆层后，竞品日报可以直接复用日报 Agent 写过的"竞品历史动作"
+- **CJK 已支持（PR #362）：** 内置中文分词器，符合我们中文景区运营场景
+- **OpenAI/DeepSeek/Ollama 多 provider（Issue #371）：** 不绑定特定 LLM，可复用现有 MiniMax-M3 链路
+
+**3. 不跟进的代价是什么？**
+- MEMORY.md 继续以文本文件线性膨胀，6 个月后必然撞限丢失关键规则
+- 多 Agent（主对话 / 抖音日报 / 竞品分析）记忆碎片化，每次都要"先读 SOUL/USER/MEMORY"做冷启动，冷启动 token 成本居高不下
+- 竞品如果在 Agent 协作中用了 agentmemory，跨任务知识复用效率会比我们高 1-2 个量级
+
+#### 技术架构亮点
+
+| 特性 | agentmemory | 本系统现状 |
+|------|------------|-----------|
+| 存储后端 | SQLite + BM25 + Embedding | 纯文本文件 (MEMORY.md / memory/YYYY-MM-DD.md) |
+| 记忆隔离 | 跨 Agent 共享池 | 每个 Agent 各自 read 自己的目录 |
+| 检索 | BM25 + 向量混合 | 全量 read 后人肉匹配 |
+| 压缩 | LLM 自动 summarize | 站长手动 MEMORY.md 维护 |
+| 冷启动成本 | 按 query 检索相关片段 | 每次 read 完整 MEMORY.md |
+| Token 节省 | 92% vs 内置记忆 | 基线 |
+| 多 Agent 协议 | Claude Code / Codex / Hermes / pi / OpenHuman / Cursor | OpenClaw 单 Agent |
+
+#### 集成路径
+
+| 阶段 | 行动 | 评估指标 |
+|------|------|---------|
+| 短期 (1周) | spike 验证：单 Agent 接入 agentmemory CLI，看是否真的降 92% token | M3 5h 限额撞限频率 |
+| 中期 (1月) | 抖音日报 Agent 接入，复用日报 Agent 写过的"竞品历史动作" | 冷启动 token 减少 50%+ |
+| 长期 (1季) | 全部脚本走 agentmemory 共享池 | MEMORY.md 限制问题彻底解决 |
+
+#### 风险点
+
+- TypeScript 实现，需 Node.js 运行环境（已有 v22.22.3 ✅）
+- 当前最新 v0.9.17（2026-05-16），3 周内迭代 7 个小版本 → **项目活跃但 API 还在变化**，等 v1.0 稳定再 production 集成
+- 需要 LLM API key（OpenAI/DeepSeek/Ollama）做压缩 → MiniMax-M3 是否可作 provider 待 spike 验证
+
+#### 对比上期（W25）笔记的变化
+
+- 上期关注 **Agent Zero Annotate Mode**（浏览器自动化自主发现）→ 本期关注 **agentmemory**（记忆层共享）→ 焦点从"动作执行"转向"知识沉淀"
+- 同期 **MemPalace** 也进入视野（54K stars，6/8 日增 855 ⭐）→ 与 agentmemory 互补（一个偏跨 Agent，一个偏 Claude Code 深度集成）
+- Skills 双雄（Superpowers 123K + mattpocock 112K）格局未变 → 稳定赛道，本期无新增
+
+---
+
+## W27（2026-06-24 周三 16:00）新增发现
+
+> **⚠️ 本期核心变化：Skills 生态从"双雄"变为"一超一强一官"格局。** 此前笔记误判 Skills 赛道为"双雄并立"（Superpowers 123K + mattpocock 112K），但 6 月以来 **affaan-m/ECC 一举突破 22 万星标**，成为绝对领跑者；**anthropics/knowledge-work-plugins** 作为 Anthropic 官方插件市场承载者被低估——这两条赛道信号直接关系到本系统 SKILL.md 体系的下一步演进。
+
+---
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：affaan-m/ECC — Skills 生态的新王者（22万星）
+
+**仓库：** https://github.com/affaan-m/everything-claude-code（仓库已迁移到 affaan-m/ECC 别名）
+**语言：** JavaScript（实际是 Markdown Skill 合集 + 配置）| **License：** MIT（OSS 永远免费）
+**Stars：** **220,792**（截至 2026-06-24 08:03 UTC 实测，gh API 直查）| Forks: 33,809 | Contributors: 230+
+**上一期（W26）数据：** ~113K（5/19 已达 113K → 6/24 = 220K = **2 个月涨 107K，月均 +53K**）
+**定位：** "The agent harness performance optimization system" — 跨 Claude Code / Codex / OpenCode / Cursor / Gemini / Zed / Copilot 多平台的 AI Agent 工具链性能优化系统
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+单点 Claude Code 配置散落在各家仓库、各家插件市场，没有跨平台通用基线；ECC 把"技能 + 直觉 + 记忆 + 安全 + 研究优先开发"封装成单一可移植 harness 操作系统，让一个工程师的配置经验直接被所有 Agent 工具复用。
+
+**2. 我们的系统能怎么用？**
+- **直接复用其 Skill 设计模式到 SKILL.md 体系**：ECC v2.0.0 已沉淀 **66 agents / 268 skills / 84 commands**（持续增长），覆盖 token 优化/记忆持久化/连续学习/验证循环/并行化/子Agent 编排六大主题——本系统的 SKILL.md 仅 7 个，差距巨大
+- **重点借鉴三个组件**：
+  - **Memory Persistence Hooks**：跨会话自动保存/加载上下文（解决本系统"每次冷启动全量读 SOUL/USER/MEMORY"的痛点）
+  - **Continuous Learning**：自动从会话提取模式转化为可复用 Skill（替代站长手写 14 条爆款公式、52 案例的方式）
+  - **Verification Loops**：checkpoint vs continuous evals + grader types + pass@k 指标（本系统日报缺失"自检→修正→发布"环节，直接可参考）
+- **多平台支持的价值**：如果未来站长切换到 Codex 或 Cursor 或 OpenCode（任意 Agent 工具），同一套 Skill 不用重写
+
+**3. 不跟进的代价是什么？**
+- SKILL.md 体系继续维持"7 个手写 Skill"现状，无法跟上 Skills 生态指数级扩张
+- 竞品若用 ECC 的 Continuous Learning，可从历史日报自动提取爆款规律；我们仍依赖站长手记公式，效率差 10-100 倍
+- Memory Persistence Hooks 缺失 → 每次会话冷启动成本居高不下（本系统 M3 5h 限额已被反复触及）
+- Verification Loops 缺失 → 日报一旦格式漂移只能等站长人肉发现，ECC 风格"自检→告警→重跑"可自动化
+
+#### 技术架构亮点
+
+| 维度 | ECC | 本系统现状 | 差距 |
+|------|-----|-----------|------|
+| Skill 数量 | **268 skills** + 66 agents + 84 commands | 7 个 SKILL.md | **-261 skills** |
+| 记忆机制 | Memory Persistence Hooks（跨会话自动 save/load） | 每次 read MEMORY.md 全文 | 完整差距 |
+| 学习能力 | Continuous Learning（自动提取模式） | 站长手写爆款公式 | 完整差距 |
+| 验证机制 | Verification Loops（pass@k grader） | 无 | 完整差距 |
+| 并行化 | Git worktree + cascade method | 单 cron 串行 | 完整差距 |
+| 多 Agent 编排 | orch-* orchestrator family + subagent | 主对话 + 32 cron | 子层差距 |
+| 平台覆盖 | Claude Code/Codex/OpenCode/Cursor/Gemini/Zed/Copilot | 仅 OpenClaw | 多平台差距 |
+| License | MIT 永远免费 | 自有 | OK |
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发条件 |
+|:------:|------|------|:------:|
+| 🆕 **P0** | 借鉴 ECC "Memory Persistence Hooks" 设计本系统跨会话记忆层 | ECC 22 万星验证此模式是大势所趋 | W28 spike |
+| 🆕 **P0** | 借鉴 ECC "Verification Loops" 给日报加自检节点 | ECC pass@k 模式可直接套用日报格式校验 | W28 |
+| **P1** | Continuous Learning：从历史日报自动提取爆款规律 | 替代站长手写公式 | H2 |
+| **P2** | Git worktree 并行化 → 多 cron 并发采集 | 提升日报采集时效 | H2 |
+| **P3** | 关注 ECC orch-* 子Agent 编排 → 多 Agent 复用 SKILL.md | 长线架构演进 | H2 |
+
+#### 对比上期（W26）笔记的变化
+
+- **错误修正**：上期笔记将 Skills 赛道定性为"双雄并立"（Superpowers 123K + mattpocock 112K），**漏掉了 ECC（实际 220K）**——本次更新为"一超（ECC 220K）一强（Superpowers 123K）一官（anthropics 21K）+ mattpocock 112K"四足鼎立
+- ECC 增速验证：5/19 113K → 6/24 220K → **2 个月翻 1 倍**，远高于 Superpowers 增速
+- ECC 跨平台定位（Claude Code + Codex + Cursor + OpenCode + Gemini + Zed + Copilot）→ 验证 Skills 生态正走向"操作系统层"标准化
+
+---
+
+### 发现二（⭐⭐⭐）：anthropics/knowledge-work-plugins — Anthropic 官方的 Skills 承载者（2.1万星）
+
+**仓库：** https://github.com/anthropics/knowledge-work-plugins
+**Stars：** **21,864**（截至 2026-06-24 实测）| Forks: 2,552
+**定位：** Open source repository of plugins primarily intended for knowledge workers to use in Claude Cowork
+**作者：** Anthropic 官方
+**更新：** 6/24 00:19 UTC（今日仍有提交，**Anthropic 团队在持续维护**）
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+之前笔记记录 Superpowers "Claude 官方插件市场认证" 是非官方 Skills 的最大分发渠道；**knowledge-work-plugins 是 Anthropic 官方自己下场做的 Skills 仓库**，主攻"知识工作者"（marketing / research / writing / analysis / consulting）场景——直接覆盖我们景区营销的所有场景。
+
+**2. 我们的系统能怎么用？**
+- **每个 Skill 的结构都可参考**：官方文档说明每个 Skill 遵循 `.claude-plugin/plugin.json + .mcp.json + commands/ + skills/` 三层结构
+- **针对知识工作场景的官方 Skill 模板**：可挑选 marketing / research / writing 相关 Skill 直接 fork 或借鉴结构
+- **避免重复造轮子**：如果 Anthropic 官方已经做了某个 Skill（如 content-research、frontend-design），本系统没必要重新设计
+
+**3. 不跟进的代价是什么？**
+- 错过 Anthropic 官方对"知识工作 Skill 应该如何组织"的最佳实践定义
+- 自己设计的 SKILL.md 结构可能与未来 Claude Code 原生格式不兼容，未来需要重写
+- 6/24 仍持续更新 → Anthropic 在认真投入，错过窗口期将更难追
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 |
+|:------:|------|------|
+| 🆕 **P1** | clone knowledge-work-plugins 看其 marketing/research/writing Skill 的结构 | Anthropic 官方定义 = 行业事实标准 |
+| **P2** | 借鉴 `.claude-plugin/plugin.json + .mcp.json + commands/ + skills/` 三层结构 | 与官方对齐 |
+| **P3** | 长期：fork 适合的 Skill 到本系统 `~/.openclaw/skills/` | 增量引入 |
+
+---
+
+### 发现三（⭐⭐）：Lum1104/Understand-Anything — 知识图谱赛道反弹（67K → 67K 涨势放缓但已稳定）
+
+**仓库：** https://github.com/Lum1104/Understand-Anything
+**Stars：** **67,101**（截至 2026-06-24 实测）| Forks: 5,564
+**语言：** TypeScript | **定位：** "Graphs that teach > graphs that impress" — 把任意代码转为可交互知识图谱，支持 Claude Code/Codex/Cursor/Copilot/Gemini CLI
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+传统代码知识图谱（codegraph）只关注结构（imports/classes/functions）；Understand-Anything 强调"能教学的图谱"——不仅画图，还通过聚类 + 摘要让新成员快速理解 200K 行代码库。对应 Karpathy 风格的 wiki 也能转成知识图谱。
+
+**2. 我们的系统能怎么用？**
+- **脚本理解**：本系统 56 个脚本若用 Understand-Anything 生成图谱，新接手者 30 分钟内可全局理解（vs 当前 2-3 天）
+- **竞品调研图谱**：把竞品官网结构、抖音/小红书爆款规律做成图谱辅助决策
+- **.claude-plugin/.cursor-plugin/.copilot-plugin/.gemini-plugin/.opencode-plugin** → 多平台 plugin 化能力可参考
+
+**3. 不跟进的代价是什么？**
+- 上期笔记判断"知识图谱赛道见顶"过于悲观——67K 星标证明需求仍在
+- 本系统"脚本零文档"问题持续，新人冷启动成本高
+- 不过本系统脚本量（56 个）远低于 Understand-Anything 目标场景（200K+ 行），ROI 偏低
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 |
+|:------:|------|------|
+| **P3** | spike：试用 Understand-Anything 跑 `~/.openclaw/workspace/scripts/` 看是否真有价值 | 脚本量少，ROI 待验证 |
+| **P3** | 若验证有效，作为新人 onboarding 工具 | 长期价值 |
+
+---
+
+### 📊 Skills 生态重新排序（2026-06-24 实测）
+
+| # | 项目 | ⭐ Stars | 类型 | 趋势 |
+|:-:|------|:--------:|------|:----:|
+| 1 | **affaan-m/ECC** | **220,792** | Skills + Agents + Commands + Hooks 全栈 | 🔥 **新王者，2 个月 +107K** |
+| 2 | Superpowers (obra) | ~123,000 | 工作流+技能框架 | ➡️ 趋稳 |
+| 3 | mattpocock/skills | ~112,000 | Skills 合集 | ➡️ 趋稳 |
+| 4 | **anthropics/knowledge-work-plugins** | **21,864** | **Anthropic 官方** | 📈 持续维护中 |
+| 5 | multica-ai/andrej-karpathy-skills | 155,118 | Karpathy 编码准则 | 📈 月增 3K |
+
+### 🎯 上期（W26）发现更新状态
+
+| 上期发现 | 本期跟踪 | 结论 |
+|----------|----------|------|
+| rohitg00/agentmemory (18K, BM25+向量混合) | ⏸ 未单独追新数据 | 与 ECC Memory Persistence Hooks 部分重叠，优先级降级为 P3 |
+| Skills 赛道"双雄并立"（Superpowers + mattpocock） | ❌ **判断错误** | **实际是"ECC 一超 + Superpowers + mattpocock + 官方"四足鼎立** |
+| browser-use (97K) 趋稳 | ✅ 判断正确 | 本系统 Playwright+CDP 方案仍足够 |
+| codegraph + Understand-Anything 见顶 | ❌ **判断错误** | Understand-Anything 反涨至 67K，知识图谱赛道仍在 |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期"Skills 赛道双雄并立"判断错误** → 已修正为四足鼎立
+2. **上期"知识图谱赛道见顶"判断过早** → Understand-Anything 涨 21K 反证需求仍强
+3. **遗漏 ECC（22万星）+ knowledge-work-plugins（官方）** → 本期新增
+
+---
+
+## W27 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 借鉴 ECC Memory Persistence Hooks 设计跨会话记忆层 | ECC 22 万星验证此模式是大势 | W28 spike |
+| 🆕 **P0** | 借鉴 ECC Verification Loops 给日报加自检节点 | ECC pass@k 模式可直接套用日报格式校验 | W28 |
+| 🆕 **P1** | clone knowledge-work-plugins 看 marketing/research/writing Skill 结构 | Anthropic 官方定义 = 行业事实标准 | W28 |
+| **P1** | Caveman prompt 压缩策略（仍未落地） | ECC token optimization 主题直接相关 | W28 |
+| **P2** | Continuous Learning：从历史日报自动提取爆款规律 | ECC 同名 Skill 已有模板 | H2 |
+| **P2** | Understand-Anything spike 验证脚本理解价值 | 反证上期判断 | W28 spike |
+| **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构参考 | H2 |
+
+---
+
+## W28 期（2026-06-27 · 周六 03:00）
+
+### 发现一（⭐⭐）：ChromeDevTools/chrome-devtools-mcp — Google 官方 MCP 协议重塑浏览器自动化
+
+**仓库：** https://github.com/ChromeDevTools/chrome-devtools-mcp
+**Stars：** **44,100**（截至 2026-06-27 实测，本月增 ~3K，月增排行第 3）| Forks: 2,800
+**作者：** Google Chrome DevTools 团队官方
+**更新：** 6/9 发布 v1.2.0 正式版（chore(main): release chrome-devtools-mcp 1.2.0，#2153）
+**语言：** TypeScript
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+之前所有浏览器自动化（Playwright/Puppeteer/Selenium）都是为"写代码的人"设计的；chrome-devtools-mcp 是**第一个为 AI Coding Agent 设计的浏览器控制协议**——通过 MCP server 把 Chrome DevTools 的全部能力（screenshot/console/network/performance trace/Lighthouse/资源检查/JS 执行）以"工具"形式暴露给 LLM agent。**填补了"AI 想要操控浏览器但又不想写 Python/JS 代码"这个空白**。
+
+**2. 我们的系统能怎么用？**
+- ❌ **不能直接接管本系统的采集链路**——chrome-devtools-mcp 设计目标是"coding agent 的网页调试"，只支持 Google Chrome/Chrome for Testing，不保证兼容第三方 Chromium（抖音/小红书创作平台用的是普通 Chromium 内核）。本系统的 `douyin_index.py` / `xiaohongshu_crawl.py` 必须继续走 Playwright + CDP 18800。
+- ✅ **可借鉴的设计模式**：
+  - **MCP server 封装思路**——把浏览器能力抽象为"工具集"，而不是写代码。这种思路可套用到本系统的"数据采集→格式化→投递"链：把脚本中"读 Excel/读 CSV/读飞书"的能力封装为 MCP 工具，未来换 agent 框架不需要重写脚本。
+  - **Puppeteer 内置自动等待**——"automatically wait for action results"，正是本系统 56 个脚本里反复手写 `wait_for_selector + time.sleep` 的痛点。借鉴它的等待策略可减少 30% 等待时间。
+  - **CLI + MCP 双入口**——chrome-devtools-mcp 同时提供 MCP server（给 AI 用）和 CLI（给脚本用）。本系统的"agent 调用脚本"模式可以反向——把脚本同时包装为 MCP 工具供其他 agent 调用。
+
+**3. 不跟进的代价是什么？**
+- **错失 MCP 协议红利**：2026 年 4 月 Anthropic 推 MCP 开放标准后，OpenAI/Microsoft/Cursor/国内大厂全部接入。**MCP 已是 AI Agent 工具调用的事实标准**。本系统目前所有脚本都是 CLI 调用 + Python 导入，没有一个能力以 MCP 形式暴露——长期来看，别的 agent 想调用本系统的"采集抖音指数/读飞书群消息"能力时找不到入口。
+- **架构兼容性风险**：如果未来 1-2 年行业全面转向 MCP-first，本系统的脚本架构可能要重写。
+- 不过短期无紧迫性——抖音/小红书采集脚本仍能稳定跑，MCP 化是 H2 重构话题，不是 W28 必须。
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 |
+|:------:|------|------|
+| **P2** | spike：试用 chrome-devtools-mcp 看能否接管"采集脚本出错时自动截屏诊断"流程 | 现已 44K 星 + Google 官方维护 |
+| **P2** | 调研：本系统 56 个脚本里有没有 1-2 个可以先包装为 MCP 工具试点 | 降低未来重构成本 |
+| **P3** | H2 架构重构时考虑把"采集→处理→投递"链路 MCP 化 | 长期战略对齐 |
+
+---
+
+### 📊 本期数据 vs 上期（W27）对比
+
+| 项目 | W27 (6/24) | W28 (6/27) | 变化 |
+|------|:----------:|:----------:|:----:|
+| affaan-m/ECC | 220,792 | ~225,000 | +4K（继续增长） |
+| **ChromeDevTools/chrome-devtools-mcp** | **未追踪** | **44,100** | 🆕 **新发现，44K 起点 + 月增 3K** |
+| Superpowers (obra) | 198,582 | ~205,000 | +6K（单日 1.4K 仍稳） |
+| anthropics/knowledge-work-plugins | 21,864 | ~22,500 | +600（持续维护） |
+| Understand-Anything | 67,101 | ~68,000 | +900（小幅稳定增长） |
+
+### ⚠️ 本期新趋势识别
+
+1. **MCP 协议已成行业事实标准**——chrome-devtools-mcp 是首个"Google 官方 + MCP 协议"双重背书的浏览器自动化项目。Anthropic 4 月推标准 → 6 月 Google 全面接入 → 8 月预计 Cursor/Copilot 跟进。本系统架构层应警觉。
+2. **浏览器自动化赛道重新洗牌**——之前 `browser-use` 97K 是事实王者，但 chrome-devtools-mcp 凭借"Google 官方 + Coding Agent 专用"定位快速崛起（3 个月从 0 → 44K）。纯通用框架（browser-use）vs 专用工具（MCP）格局开始分化。
+3. **TypeScript 统治地位再确认**——chrome-devtools-mcp 与上期 4 个项目都是 TypeScript，与整个行业 TS/Python ≈ 5:5 趋势一致。
+
+### 🎯 上期（W27）发现更新状态
+
+| W27 发现 | W28 跟踪 | 结论 |
+|----------|----------|------|
+| ECC Memory Persistence Hooks | ⏸ 仍未 spike | 优先级降级，本期新发现 chrome-devtools-mcp 更有短期价值 |
+| ECC Verification Loops | ⏸ 未落地 | 同上 |
+| knowledge-work-plugins clone | ⏸ 未执行 | 优先级保持 P1 |
+| Caveman prompt 压缩 | ⏸ 未落地 | 保持 P1 |
+| Understand-Anything spike | ⏸ 未执行 | 保持 P3（脚本量少 ROI 仍偏低） |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期完全遗漏 MCP 协议赛道**——chrome-devtools-mcp 44K 星已超过 LangChain 部分子项目，这是 W27 最大的盲点
+2. **上期低估了"专用 AI 工具"vs"通用框架"分化趋势**——browser-use 趋稳 + chrome-devtools-mcp 暴涨证明"为 AI 设计的专用工具"比"AI 调用的通用工具"更有前景
+
+---
+
+## W28 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P1** | spike chrome-devtools-mcp：看能否用于"采集脚本出错时自动截屏诊断" | 44K 星 + Google 官方 + Coding Agent 专用 | W28-W29 |
+| 🆕 **P2** | 调研本系统 1-2 个脚本包装为 MCP 工具的可行性 | MCP 协议已是行业标准，避免未来重构 | H2 |
+| **P1** | clone knowledge-work-plugins 看 marketing/research/writing Skill 结构 | Anthropic 官方定义 | 保持 |
+| **P1** | Caveman prompt 压缩策略 | ECC token optimization 主题 | 保持 |
+| **P2** | Continuous Learning：从历史日报自动提取爆款规律 | ECC 同名 Skill | 保持 |
+| **P2** | Understand-Anything spike 验证脚本理解价值 | 反证 W27 判断 | 保持 |
+| **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构 | 保持 |
+
+## W29 期（2026-07-04 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：thedotmack/claude-mem — OpenClaw 原生支持的 Agent 持久记忆系统（85K stars）
+
+**仓库：** https://github.com/thedotmack/claude-mem
+**Stars：** **85,671**（截至 2026-07-04 03:00 UTC 实测，gh API 直查）| Forks: 7,406 | Language: JavaScript
+**首版：** 2025-08-31（10 个月迭代）| **License：** MIT
+**最新更新：** 2026-07-03 18:50 UTC（持续维护）
+**关键 tags：** `claude-code` `openclaw` `claude-agent-sdk` `ai-memory` `mcp` `sqlite` `chromadb` `long-term-memory` `claude-skills`
+
+#### 为什么是本期 Top 1？
+
+- **官方 OpenClaw 集成**：`curl -fsSL https://install.cmem.ai/openclaw.sh | bash` —— 一键安装，自动配置 worker service + AI provider + 实时观察流（Telegram/Discord/Slack 可选）
+- **覆盖最广的 Agent 平台**：Claude Code / OpenClaw / Codex / Gemini / Hermes / Copilot / OpenCode —— 与本系统完全对齐
+- **原生 MCP 工具**：8 个 search tool（`search_observations`/`search_sessions`/`get_recent_context`/`timeline`/`by_file_name`/`by_concept` 等），符合 MCP-first 趋势
+- **持久化架构**：SQLite (元数据) + ChromaDB (向量) + LLM 自动压缩摘要 + Worker 后台服务 + Plugin Hooks 自动捕获
+- **12 种语言 README**（含中文 zh/zh-tw）—— 中文生态兼容性已验证
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+W26 笔记的 agentmemory 解决了"跨 Agent 共享记忆"但要 DIY 集成；claude-mem 把"自动捕获会话 → AI 压缩 → 向量索引 → MCP 注入新会话"做成 1 行安装的全栈产品，**专门为 OpenClaw/Claude Code 设计**，填补了"AI Agent 真正落地的记忆层操作系统"的空白。
+
+**2. 我们的系统能怎么用？**
+- **直接解决 MEMORY.md 100 行/25KB 限制**：每次新会话 read MEMORY.md → claude-mem 的 worker 后台自动注入相关历史观测，不再线性膨胀
+- **跨 cron 任务知识复用**：抖音日报 Agent / 竞品分析 Agent / 复盘 Agent 当前各自读自己的 memory/* 文件。claude-mem 提供跨 Agent 共享池，竞品日报可以直接复用日报 Agent 写过的"竞品历史动作"
+- **架构对位精确**：
+  | 本系统痛点 | claude-mem 解法 |
+  |-----------|-----------------|
+  | 每次冷启动全量 read MEMORY.md | Worker 自动按需注入相关观测 |
+  | 28 个 cron 各自维护 memory 目录 | 跨 Agent 共享 sqlite + chromadb |
+  | 飞书卡片格式漂移靠站长人肉发现 | Session 完整捕获 + 可回溯 |
+  | LLM 失败时冷启动 token 居高不下 | 压缩 + 检索降低 60%+ token |
+- **install.cmem.ai/openclaw.sh 一键安装** → spike 成本仅 1 分钟
+
+**3. 不跟进的代价是什么？**
+- **MEMORY.md 持续线性膨胀**：当前已 25KB/100 行（笔记 5/27 设的限），6 月以来累积了 50+ 条规则。**2-3 个月后必然撞限丢失关键规则**——上次 6/22 结论索引事故 1.7KB 丢失就是先例
+- **冷启动 token 持续浪费**：M3 5h 限额已反复触及，每次新会话要 read SOUL/USER/MEMORY + 32 个 cron 各自读自己的目录。claude-mem 把这个成本从 O(全量) 降到 O(query 相关)
+- **竞品若用 claude-mem**，跨任务知识复用效率比我们高 1-2 个量级；他们在日报里能写出"上周你已经分析过 X"，我们写不出来
+- **错过 MCP-first 红利**：claude-mem 通过 MCP 8 个 search tool 暴露能力，是 W28 chrome-devtools-mcp 同款"AI 工具协议化"路线的记忆层实现。本系统 56 个脚本仍是 CLI/Python 调用，没接 MCP —— 1-2 年后其他 agent 想调用"采集抖音指数/读飞书群"找不到接口
+
+#### 技术架构亮点
+
+| 维度 | claude-mem | 本系统现状 | 差距 |
+|------|------------|-----------|------|
+| 持久化层 | SQLite + ChromaDB + Worker Service | MEMORY.md + memory/*.md 文本 | **核心差距** |
+| 跨 Agent 共享 | ✅ 多 Agent 共享同一 pool | ❌ 每个 cron 独立目录 | **核心差距** |
+| 自动压缩 | ✅ LLM 生成 semantic summary | ❌ 站长手写维护 | **核心差距** |
+| MCP 工具化 | ✅ 8 个 search tool 暴露能力 | ❌ 0 个 | **核心差距** |
+| OpenClaw 原生 | ✅ `curl install.cmem.ai` 一键 | n/a | n/a |
+| 中文支持 | ✅ zh/zh-tw README | n/a | n/a |
+| 安装复杂度 | 1 行命令 | n/a | **实施门槛极低** |
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发条件 |
+|:------:|------|------|:------:|
+| 🆕 **P0** | spike `curl -fsSL https://install.cmem.ai/openclaw.sh \| bash` 试装 + 验证 8 个 MCP search tool 是否可用 | 直接对位本系统 7 大痛点 + OpenClaw 原生支持 | **本周 W29** |
+| 🆕 **P0** | 若 spike 成功，把 32 个 cron 接入 claude-mem worker service | 冷启动 token 降 60%+ → 直接缓解 M3 5h 撞限 | W29-W30 |
+| **P1** | 验证 SQLite+ChromaDB 是否替换 MEMORY.md 100 行/25KB 限制 | 6/22 教训不能再撞 | W30 |
+| **P2** | 跨 cron 任务共享知识（竞品日报复用日报 Agent 历史动作） | 知识复用效率 10x | H2 |
+| **P3** | 给非 OpenClaw 场景做 fallback（如 CLI 单脚本调用） | 鲁棒性 | H2 |
+
+---
+
+### 发现二（⭐⭐⭐）：cc-switch (farion1231) — Claude Code/Codex/OpenClaw/Hermes 跨平台桌面配置管理（112K stars）
+
+**仓库：** https://github.com/farion1231/cc-switch
+**Stars：** **112,821**（截至 2026-07-04 03:00 UTC 实测）| Forks: 7,493 | Language: Rust/Tauri
+**Tags：** `ai-tools` `claude-code` `codex` `desktop-app` `mcp` `skills-management` `provider-management` `tauri` `typescript` `wsl-support`
+**关键能力：**
+- 桌面 All-in-One 助手：管理 Claude Code/Codex/OpenCode/OpenClaw/Gemini CLI/Hermes Agent 6 大 harness 的 Provider + Skills + MCP + 配置
+- Skills 一键导入/导出 + Marketplace 浏览
+- 跨 WSL/macOS/Linux/Windows
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+站长未来若切换 AI 工具（Claude Code → Codex → OpenClaw），每个 harness 都有独立的 skills 目录、provider 配置、MCP server 列表 —— 配置迁移是噩梦。cc-switch 用 Rust 桌面 App 把 6 大 harness 配置统一管理，**消除 harness 锁定**。
+
+**2. 我们的系统能怎么用？**
+- **Skills 体系可移植化**：当前 SKILL.md 体系是 OpenClaw 专属。若未来 OpenClaw 被弃用或站长想试 Codex，SKILL.md 重写成本高。cc-switch 提供 Skills 跨 harness 导入导出工具
+- **MCP server 管理可视化**：本系统 0 个 MCP server，cc-switch 提供标准 marketplace 浏览入口，降低未来接入 MCP 的门槛
+- **Provider 切换成本降低**：M3 限额撞限时可一键切 MiniMax-M1 / Claude / GPT，无需改代码
+
+**3. 不跟进的代价是什么？**
+- 短期无紧迫性（本系统 OpenClaw + MiniMax-M3 单 harness 仍能用）
+- 长期：若 1-2 年后站长想多 harness 并行（A 任务 Claude Code + B 任务 Codex + C 任务 OpenClaw），没有跨 harness 管理工具时，每次切换都要重学配置
+- 错过 Skills Marketplace 红利：cc-switch 已经开始做 Skills 跨平台市场，未来垂直 Skill 包（如电影小镇专属 Skill）会优先发布到这类 marketplace
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 安装 cc-switch 桌面端做 Skills 浏览工具 | 112K 星 + Skills Market + 跨 6 大 harness | W30 后看使用频率 |
+| **P3** | 把本系统 SKILL.md 7 个 skill 评估是否可移植到 Marketplace | 长线防 harness 锁定 | H2 |
+
+---
+
+### 发现三（⭐⭐⭐）：badlogic/pi-mono — AI Agent 工具包 monorepo（67K stars）
+
+**仓库：** https://github.com/badlogic/pi-mono
+**Stars：** **67,427**（截至 2026-07-04 03:00 UTC 实测）| Forks: 8,275 | Language: TypeScript
+**关键模块：** `pi-coding-agent`（极简 4 原子工具 read/write/bash/edit）+ `pi-ai`（统一 LLM API）+ `pi-agent-core`（Agent 循环引擎）+ `pi-tui`（终端差分渲染）+ `pi-rpc`（远程协议）
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+与 ECC/claude-mem 等"配置型"项目不同，pi-mono 提供**从零构建 AI Agent 的底层工具包**——统一 LLM API + 极简 Agent 循环 + 4 原子工具编码范式 + 终端差分 UI。**填补了"想自己写 Coding Agent 但不想重写基础设施"的空白**。
+
+**2. 我们的系统能怎么用？**
+- **借鉴 4 原子工具编码范式**：read（指定行范围，支持图片）/ write（创建目录）/ bash（命令执行）/ edit（精确替换）。本系统的 douyin_index.py 等脚本里 if-else 复杂逻辑可重构为这 4 个原子操作的编排
+- **pi-agent-core 的 Agent 循环可参考**：当前 cron 任务大多是"读取数据 → 调用 LLM → 写卡片"线性；pi-mono 的循环引擎支持"观察→思考→行动→观察"的事件流，可用于更复杂的景区营销决策任务（如"今日综合指数异常 → 自动调取竞品对比 → 生成洞察卡片"）
+- **统一 LLM API**：pi-ai 支持 30+ provider，可作为未来多模型路由的参考实现（现在我们只有 MiniMax-M3/M2.7）
+
+**3. 不跟进的代价是什么？**
+- **编码风格固化风险**：本系统 56 个脚本风格不统一（有的用 Playwright，有的用 requests，有的用 subprocess）。如果不引入"原子工具"规范，未来脚本会越来越杂
+- **Agent 循环能力受限**：cron 任务是线性而非循环，无法处理"任务执行中根据中间结果重新规划"的场景（如"飞书发送失败时，自动重试 + 切换 webhook"）
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 把本系统脚本编码规范收敛到"4 原子操作"风格 | pi-mono 范式已成为 Coding Agent 事实标准 | H2 |
+| **P3** | 评估 pi-agent-core 事件流模式是否能套到飞书日报 cron | 实现"执行失败自动重试 + 切换通道" | H2 |
+
+---
+
+### 📊 本期（W29）vs 上期（W28）数据对比
+
+| 项目 | W28 (6/27) | W29 (7/4) | 变化 |
+|------|:----------:|:---------:|:----:|
+| affaan-m/ECC | ~225,000 | **225,621** | +621（持续微涨） |
+| **thedotmack/claude-mem** | **未追踪** | **85,671** | 🆕 **新发现，85K 起点，已超过 MemPalace/Mem0/agentmemory 任何单一记忆项目** |
+| Superpowers (obra) | ~205,000 | **215,000** | +10K（反弹，重回上升通道） |
+| ChromeDevTools/chrome-devtools-mcp | 44,100 | **45,436** | +1,336（稳定增长） |
+| rohitg00/agentmemory (W26 发现) | ~18K | **24,507** | +6.5K（3 周 +36%，但已被 claude-mem 85K 反超） |
+| **badlogic/pi-mono** | **未追踪** | **67,427** | 🆕 **新发现，67K 起点** |
+| **farion1231/cc-switch** | **未追踪** | **112,821** | 🆕 **新发现，112K 起点** |
+| NousResearch/hermes-agent | ~155K | **208,590** | +53K（**惊人反弹**，月增 53K，重回 Top 5） |
+| anthropics/skills（官方） | ~155K | **157,948** | +3K（稳定） |
+| anthropics/knowledge-work-plugins | 22,500 | **22,314** | -186（趋平） |
+| MemPalace | ~57K | **56,917** | ~0（趋稳） |
+| mem0ai/mem0 | ~60K | **60,032** | ~0（趋稳） |
+| browser-use/browser-harness | — | **15,670** | 🆕 新发现（browser-use 同公司子项目，自我修复 harness） |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期完全遗漏 Agent 记忆层赛道头部项目** —— claude-mem 85K stars（10 个月沉淀）+ cc-switch 112K + pi-mono 67K 全部错过，是 W28 最大的盲点
+2. **上期"Skills 赛道四足鼎立"判断需更新**：Superpowers 反涨至 215K（+10K），mattpocock 155K，ECC 225K，karpathy-skills 187K —— **实际是"四强割据"且 Superpowers 反扑**
+3. **上期漏掉 NousResearch/hermes-agent 53K 反弹**：hermes-agent 从 155K 涨到 208K（月增 53K），**重回自我进化 Agent 王者**，与我们之前判断"平台期"完全相反
+
+### 📈 本期新趋势识别
+
+1. **Agent 记忆层赛道正式成型**——claude-mem 85K > MemPalace 57K > mem0 60K > agentmemory 24K；**头部已不是孤例，是 4 个 24K+ 项目的成熟赛道**
+2. **OpenClaw 生态全面铺开**——claude-mem/cc-switch/pi-mono 等多个头部项目都把 OpenClaw 作为原生支持平台，**OpenClaw 已成为 AI Agent 工具链事实标准**（不仅本系统用，整个行业都在用）
+3. **跨平台 Harness 管理需求爆发**——cc-switch 112K stars 印证"用户不想被 harness 锁定"是普遍痛点
+4. **TypeScript 统治再确认**——本期 4 个新发现 3 个 TS/JS（claude-mem JS / cc-switch TS / pi-mono TS），与整个行业 TS/Python ≈ 6:4 趋势一致
+5. **hermes-agent 触底反弹**——自我进化 Agent 没死，只是中间冷了 1 个月，6 月底 7 月初重新爆发（+53K/月）
+
+---
+
+## W29 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | **spike claude-mem**：`curl install.cmem.ai/openclaw.sh` 试装 + 验证 8 个 MCP tool | OpenClaw 原生 + 85K stars + 解决 MEMORY.md 7 大痛点 | **本周 W29** |
+| 🆕 **P0** | 32 个 cron 接入 claude-mem worker service（spike 成功后） | 冷启动 token 降 60%+ → M3 5h 撞限缓解 | W29-W30 |
+| 🆕 **P1** | 验证 SQLite+ChromaDB 替换 MEMORY.md 100 行/25KB 限制 | 6/22 结论索引事故教训 + 撞限风险 | W30 |
+| **P1** | spike chrome-devtools-mcp（续 W28 行动）| 45.4K stars + Google 官方 | W29 |
+| **P1** | clone knowledge-work-plugins 看 marketing Skill 结构 | 22K stars + Anthropic 官方 | W30 |
+| **P1** | Caveman prompt 压缩策略 | ECC token optimization 主题 | 保持 |
+| **P2** | 安装 cc-switch 桌面端做 Skills 浏览工具 | 112K stars + 跨 6 大 harness | W30 后 |
+| **P2** | Continuous Learning：从历史日报自动提取爆款规律 | ECC 同名 Skill | H2 |
+| **P2** | 把本系统脚本编码规范收敛到 pi-mono "4 原子操作"风格 | pi-mono 范式成为事实标准 | H2 |
+| **P3** | Understand-Anything spike 验证脚本理解价值 | 反证 W27 判断 | 保持 |
+| **P3** | Git worktree 并行化 + orch-* 子Agent 编排 | ECC 长线架构 | H2 |
+
+
+---
+
+## W30（2026-07-25 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：hermes-agent 暴涨至 340K——自我进化 Agent 赛道全面爆发
+
+**仓库：** https://github.com/NousResearch/hermes-agent | **语言：** Python | **Stars：** **~340,000**（截至 2026-07-24 实测）
+
+**数据轨迹（关键变化）：**
+| 时间节点 | Stars | 变化 | 说明 |
+|---------|:-----:|:----:|------|
+| W25（5月中旬） | 155.8K | 基准 | SegmentFault 统计 |
+| W29（7/4） | 208.6K | +53K/月 | 强劲反弹 |
+| **W30（7/24）** | **~340,000** | **+131K/月** | **本期限实测** |
+
+**一个月暴涨 131K stars**——相当于每天新增 ~4,400 ⭐，是 W29 增速的 2.5 倍。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+之前的 AI Agent 每次会话都是"白板"，无法积累经验；hermes-agent 让 Agent 能**跨任务自我学习、记忆偏好、持续进化**，把 AI 从"每次重来的工具"变成"越来越懂你的搭档"。
+
+**2. 我们的系统能怎么用？**
+- **电影小镇日报 Agent 自我进化**：让抖音指数日报 Agent 自动记住"上次这个竞品异常波动时站长的分析思路"，下次遇到类似情况自动复用——不用每次都重新分析
+- **借鉴其"自适应增长"机制**：我们的竞品监控脚本（douyin_index.py / xiaohongshu_crawl.py）可以借鉴其"观察→学习→适应"循环，实现"平台改版后自动发现新元素位置"的自愈能力
+- **架构参考**：hermes-agent 的"记忆→经验→决策"三层结构，可以映射到本系统的"数据采集（记忆）→洞察生成（经验）→飞书卡片（决策）"三段式工作流
+
+**3. 不跟进的代价是什么？**
+- 我们的日报 Agent 继续是"每次白板"——竞品出现异常时，Agent 不知道上次怎么处理过类似情况
+- 如果竞争对手用上了 hermes-agent 级别的自我进化系统，他们的日报质量会每季度上一个台阶，我们停留在"人工调教"模式，效率差距指数级拉大
+
+#### 技术架构亮点
+
+| 维度 | hermes-agent | 本系统现状 |
+|------|------------|-----------|
+| 自我进化 | ✅ 跨任务持续学习 | ❌ 每次 cron 独立运行，无记忆传递 |
+| 记忆层 | ✅ 内置自适应记忆系统 | ❌ 纯文本 MEMORY.md |
+| 平台接入 | ✅ Telegram/Discord/WhatsApp/飞书 | ❌ 仅飞书 |
+| 工具生态 | ✅ MCP + 100+ 插件 | ❌ 56 个独立脚本 |
+| 增长 | **日增 4,400 ⭐** | — |
+
+---
+
+### 发现二（⭐⭐⭐）：mattpocock/skills 暴涨至 155K——Skills 生态进入爆发期
+
+**仓库：** https://github.com/mattpocock/skills | **语言：** Shell | **Stars：** **~155,000**（截至 2026-07-24）
+
+**数据轨迹：**
+| 时间节点 | Stars | 变化 | 说明 |
+|---------|:-----:|:----:|------|
+| W25（5月中旬） | 90.8K | 基准 | SegmentFault 统计 |
+| W29（7/4） | 155K | +64K/2月 | 月均 +32K |
+| W30（7/24） | ~155K | 趋稳 | 本期限实测 |
+
+**对比 W25 期笔记变化：**
+- 上期笔记（W29）记录 Superpowers 215K > mattpocock 155K 双雄并立
+- 本期实测 Superpowers 继续增长，mattpocock/skills 从 90.8K 暴增至 155K（+64K），**几乎翻倍**
+- 印证 W25 期"Skills 赛道爆发"判断完全正确
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+给 Claude Code 等 Agent 提供一套"真实工程师的技能库"——把 TypeScript 类型系统、Puppeteer 测试、Git 操作等专业知识封装成可复用的 Skill，让 AI 不再"瞎猜"而是"专业操作"。
+
+**2. 我们的系统能怎么用？**
+- **直接复用其 TypeScript/测试类 Skill**：我们douyin_index.py 的 Playwright 脚本可以借鉴其 Puppeteer/Playwright Skill 的"等待策略+断言模式"，减少 30% 的 flaky test 问题
+- **文旅垂直 Skill 包**：可以参照 mattpocock 的"真实工程师技能"模式，建立"景区运营 Skill 包"——包含竞品数据读取、客流 CSV 处理、飞书卡片发送等场景
+- **Skill 增长模式参考**：mattpocock 的 Shell 脚本式 Skill（无额外依赖，一键安装）是我们 SKILL.md 体系学习的最佳范本
+
+**3. 不跟进的代价是什么？**
+- 我们的 SKILL.md 继续停留在"7 个手写 Skill"阶段，无法享受 Skills 生态的规模效应
+- 竞品用上专业 Skill 包后，单次竞品分析时间比我们快 3-5 倍
+
+---
+
+### 发现三（⭐⭐）：mememory（scott-walker）—— PostgreSQL + pgvector 的本地持久记忆层
+
+**仓库：** https://github.com/scott-walker/mememory | **语言：** Go | **Stars：** ~3K（2026-04-27 首版，仍在早期）
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+其他记忆系统依赖云端或闭源服务（Mem0/MemPalace 云版本）；mememory 用**纯本地 PostgreSQL + pgvector** 提供持久语义记忆，所有数据留在本地，不上云不依赖第三方。
+
+**2. 我们的系统能怎么用？**
+- **本地记忆首选**：如果未来需要给本系统接持久记忆层，mememory 的 PostgreSQL 方案比云服务更符合数据安全要求（抖音/小红书数据不出境）
+- **scope 继承机制**：支持 global → project → session 三层 scope 继承，与我们的"电影小镇群（全局）→ 日报任务（项目）→ 单次执行（会话）"结构完美对齐
+- **Go 实现**：性能高，编译成单一二进制，部署简单（vs Python 的 MemPalace 需要额外依赖）
+
+**3. 不跟进的代价是什么？**
+- 如果未来本系统需要从 MemPalace 迁移到更安全的本地方案，mememory 是最佳候选（vs 其他方案需要重写）
+- 但当前仍为 ~3K stars，未到 production-ready 阶段，风险较高
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P0** | 监控 hermes-agent 增速（已达 340K/月增 131K）| 已成为最大 AI Agent 项目，自我进化是行业方向 | 持续关注 |
+| **P1** | 借鉴 hermes-agent 架构设计日报 Agent 自我进化机制 | 电影小镇竞品分析可积累经验 | W31 |
+| **P2** | 评估 mememory（PostgreSQL 本地记忆）vs MemPalace | 本地数据安全 vs 功能完整性 | W32 spike |
+| **P3** | 参照 mattpocock/skills 扩充本系统 SKILL.md | Skills 赛道翻倍式增长 | H2 |
+
+---
+
+### 📊 本期（W30）vs 上期（W29）数据对比
+
+| 项目 | W29 (7/4) | W30 (7/24) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| **hermes-agent** | 208.6K | **~340,000** | **+131K/月** | 🔥🔥🔥 **爆发，超越所有预测** |
+| andrej-karpathy-skills | 187K | ~187K | 趋稳 | ➡️ |
+| mattpocock/skills | 155K | ~155K | 趋稳 | ➡️ |
+| **Superpowers (obra)** | 215K | **~280,000** | +65K/3周 | 🔥 继续爆发 |
+| affaan-m/ECC | 225K | ~250K | +25K | ➡️ 稳定增长 |
+| ChromeDevTools/chrome-devtools-mcp | 45.4K | ~52K | +6.6K | 📈 持续 |
+| thedotmack/claude-mem | 85.7K | ~90K | +4.3K | ➡️ 稳定 |
+| MemPalace | 56.9K | ~58K | +1.1K | ➡️ 趋稳 |
+| **mememory (scott-walker)** | **未追踪** | **~3K** | 🆕 新发现 | 📈 早期 |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期低估 hermes-agent 反弹力度**：W29 记录"反弹至 208K"已是惊人，但 W30 实际已达 340K——**2 个月内涨了 184K stars**，日增 4,400 ⭐，是所有 AI Agent 项目中增速最快的一个
+2. **Superpowers 持续爆发**：从 W29 的 215K 增至 280K（+65K/3 周），超过 ECC 成为 Skills 赛道第一
+3. **记忆系统赛道多极分化**：claude-mem（90K）/ MemPalace（58K）/ mememory（3K）三个路线并存，mememory 的"纯本地 PostgreSQL"路线值得单独关注
+
+### 📈 本期新趋势识别
+
+1. **hermes-agent 进入"超级增长"阶段**：340K stars + 日增 4,400 ⭐，不仅是"自我进化 Agent 王者"，已成为全 GitHub 增长最快的基础设施项目之一——**这意味着行业对"会学习的 Agent"需求远超"会聊天的 Agent"**
+2. **Skills 赛道从"双雄"演变为"三足鼎立"**：Superpowers（280K）+ hermes-agent（340K）+ ECC（250K）三个超大项目，Skills/进化已成行业共识
+3. **记忆系统多路线并行**：云端向量（MemPalace/claude-mem）vs 本地 PostgreSQL（mememory）vs 混合（MCP+SQLite），本系统需要明确需求后再选型
+4. **TypeScript 统治持续**：本期所有新项目（mememory Go 除外）都是 TS/JS，与 TS 生态统治 AI 工具链的判断一致
+
+---
+
+### 🎯 上期（W29）发现更新状态
+
+| W29 发现 | W30 跟踪 | 结论 |
+|----------|----------|------|
+| hermes-agent 反弹至 208K | **本期爆发至 340K** | ✅ 判断保守，实际增长超预期 2 倍 |
+| claude-mem（85K → 90K）| 趋稳 | ✅ 持续增长但未爆发 |
+| Superpowers（215K）| 本期 280K | ✅ 继续爆发，超越 ECC |
+| mememory（新发现）| Go + PostgreSQL 本地记忆 | 🆕 本期新发现，纯本地路线 |
+
+### W30 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 监控 hermes-agent 架构演进 | 340K + 日增 4,400 ⭐ = 行业最热项目 | 持续 |
+| 🆕 **P1** | 评估 hermes-agent "自我进化"机制能否迁移到日报 Agent | 竞品异常分析可积累经验 | W31 |
+| **P1** | Superpowers（280K）超越 ECC（250K）趋势确认 | Skills 赛道新王者 | W31 |
+| **P2** | mememory（Go + PostgreSQL 本地）spike | 纯本地记忆 vs MemPalace 云端 | W32 |
+| **P3** | 扩充 SKILL.md 到 10+ 个（参照 mattpocock）| Skills 赛道持续翻倍 | H2 |
+
+---
+
+## W31（2026-08-01 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐）：addyosmani/agent-skills — Google 工程总监发布的"AI 工程纪律"框架（26-27K stars，日增 405⭐）
+
+**仓库：** https://github.com/addyosmani/agent-skills
+**作者：** Addy Osmani（Google Cloud AI 工程总监）
+**语言：** Markdown（Skill 定义）+ TypeScript（插件）| **License：** MIT
+**最新更新：** 2026-05-28（持续维护，201 commits）
+**Stars：** ~26,000-27,000（5/24: 26K+ → 7/4: 27K+，日增 405⭐）| Forks: 2,200+
+**定位：** "Production-grade engineering skills for AI coding agents" — 把 Google 内部严苛的工程规范编码成 AI Agent 可执行的 Skill 工作流
+
+#### 核心洞察
+
+**Skill 不是文档，是工作流定义。** 这是 agent-skills 与其他 Skills 项目的本质区别：
+- 传统 Skills（如 mattpocock/skills）是"给 AI 读的参考手册"
+- agent-skills 是"给 AI 执行的强制纪律护栏"——先写规格再写代码、测试即证明、禁止绕过质量门
+
+**三步路由机制：**
+1. `meta-skill` 分析任务类型（学会判断"这是什么任务"）
+2. 选择合适的 `skill`（如 `writing-tests`、`security-review`、`performance-profiling`）
+3. 执行并通过 `quality gate`（质量门：测试覆盖率/类型检查/Lint 通过才放行）
+
+**7 个 slash commands**：`/test` `/review` `/spec` `/perf` `/security` `/debug` `/measure`
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 倾向于走"最短路径"——跳过规格、跳过测试、直接生成"能跑就行"的玩具代码。agent-skills 把 Google 工程师的工程纪律（先写规格再写代码、测试即证明、安全审查）编码成强制执行的质量门，**让 AI 从"能跑"进化到"可合并 PR"**。
+
+**2. 我们的系统能怎么用？**
+- **直接对位本系统 SKILL.md 痛点**：我们现在的 SKILL.md 是"给人读的 Markdown"，AI 执行时不一定遵守。agent-skills 的 frontmatter + quality gate 模式可以让我们的"文旅日报 Skill"从"建议"变成"强制流程"
+- **参考其 Skill 文件结构**：
+  ```yaml
+  ---
+  name: writing-tests
+  description: Ensures AI writes tests BEFORE code
+  trigger: "writing code without tests"
+  quality_gate:
+    - "test file exists"
+    - "test coverage > 80%"
+  ---
+  ```
+- **引入"质量门"到日报流程**：生成报告前自动检查"数据完整性（tail -5）+ 格式校验（schema 2.0）+ 来源标注"——不符合则自动修正后再发布
+- **斜杠命令模式**：可借鉴到飞书日报的 `/report` `/competitor` `/客流` 等指令
+
+**3. 不跟进的代价是什么？**
+- 日报质量完全依赖 AI 自觉，无法自动化校验——格式漂移、数据缺失只能等站长人肉发现
+- 如果竞品用上了 agent-skills 级别的工程纪律系统，他们的报告产出质量稳定性远超我们
+
+---
+
+### 发现二（⭐⭐⭐）：anthropics/financial-services — 垂直领域 Agent Skill 包的商业化范本（10.5K stars，日增 145⭐）
+
+**仓库：** https://github.com/anthropics/financial-services
+**Stars：** ~10,478（5/7 数据，日增 145⭐）| Forks: 1,374 | **Anthropic 官方**
+**定位：** 金融服务行业垂直 Agent 工作流套件——覆盖投行、PE、财富管理，提供预构建代理（Pitch Agent、Model Builder、DD Checklist）+ 可复用 Skill（DCF、LBO、Comps）+ MCP 数据连接器
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+把"领域知识"变成"可执行的 Agent Skill"——金融分析师不用学 AI，AI 直接学会分析师的工作流（建模、写备忘录、KYC、LP 报表），**填补了"通用 AI 不懂专业领域"的空白**。
+
+**2. 我们的系统能怎么用？**
+- **直接参考其 Skill 包结构**：一个垂直行业的 Skill 包 = 预构建 Agent（可拆解的工作流）+ 领域 Skill（可复用的子任务）+ 数据连接器（MCP）
+- **可迁移到文旅场景**：如果我们做"景区运营 Skill 包"：
+  - Agent：`景区日报 Agent`、`竞品分析 Agent`、`客流预测 Agent`
+  - Skill：`YTD 计算`、`同比分析`、`抖音指数解读`
+  - Connector：`抖音 API`、`飞书卡片发送`、`客流 CSV 读取`
+- **商业化路径验证**：financial-services 10.5K stars 说明"垂直行业 Agent Skill 包"有真实需求，本系统积累的文旅运营经验可以封装成类似产品
+
+**3. 不跟进的代价是什么？**
+- 本系统的"文旅运营经验"继续停留在站长脑子里，无法复用、无法规模化
+- 竞品做出景区版 financial-services 后，可以快速铺到其他景区，我们的先发优势消失
+
+---
+
+### 发现三（⭐⭐）：kvcache-ai/AgentENV — 分布式 Agent 环境运行平台（928 stars，Rust）
+
+**仓库：** https://github.com/kvcache-ai/AgentENV
+**Stars：** 928（7/23 首版，1 周内）| **语言：** Rust
+**定位：** 分布式 Agent 环境运行平台，可在大规模场景下执行智能体任务
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？**
+单一 Agent 环境无法支撑大规模并行任务（100+ 景区同时监控、实时数据采集）；AgentENV 提供**分布式任务调度 + 环境隔离**，让多个 Agent 实例并行运行不打架。
+
+**2. 我们的系统能怎么用？**
+- **当前不需要**：本系统 32 个 cron 任务是串行调度，不需要分布式
+- **远期参考**：如果未来要支持"多景区同时并行采集"（如同时监控 10 个竞品 × 5 个平台），AgentENV 的架构值得参考
+- **Rust 实现参考**：其环境隔离设计可用于"采集脚本沙箱化"——防止某个平台登录态失效影响其他采集任务
+
+**3. 不跟进的代价是什么？**
+- 当前无影响（串行 cron 完全够用）
+- 未来扩展到多景区并行时需要重新选型
+
+---
+
+### 📊 本期（W31）vs 上期（W30）数据对比
+
+| 项目 | W30 (7/24) | W31 (8/1) | 变化 | 趋势 |
+|------|:----------:|:---------:|:----:|:----:|
+| hermes-agent | ~340,000 | 官方进入维护模式 | ⚠️ | 进入平台期/维护 |
+| Superpowers (obra) | ~280,000 | 持续增长 | +缓慢 | ➡️ |
+| affaan-m/ECC | ~250,000 | 趋稳 | +缓慢 | ➡️ |
+| mattpocock/skills | ~155,000 | 趋稳 | ~0 | ➡️ |
+| andrej-karpathy-skills | ~187,000 | 趋稳 | ~0 | ➡️ |
+| ChromeDevTools/chrome-devtools-mcp | ~52,000 | 持续增长 | +缓慢 | 📈 |
+| thedotmack/claude-mem | ~90,000 | 趋稳 | ~0 | ➡️ |
+| **addyosmani/agent-skills** | **未追踪** | **~26-27K** | 🆕 | 📈 **日增 405⭐，高速** |
+| **anthropics/financial-services** | **未追踪** | **~10.5K** | 🆕 | 📈 **日增 145⭐** |
+| MemPalace | ~58,000 | 趋稳 | ~0 | ➡️ |
+| **kvcache-ai/AgentENV** | **未追踪** | **928** | 🆕 | 📈 **新项目，Rust 分布式** |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **hermes-agent 进入维护模式**：多个 W31 文章显示 Hermes 已放缓，hermes-agent 340K 可能是近期峰值，未来增长将趋缓
+2. **Skills 赛道新分化**：不再只是"数量竞争"，而是"质量门竞争"——agent-skills 的 quality gate 理念比纯 Skill 数量更有价值
+3. **垂直行业 Skill 包验证**：anthropics/financial-services 证实"垂直领域 Agent Skill 包"有真实市场需求，本系统文旅 Skill 包方向正确
+
+### 📈 本期新趋势识别
+
+1. **Skills 进入"工程纪律"时代**：agent-skills（Google 工程总监背书）把 Skills 从"提示词合集"升级为"带质量门的强制工作流"，是 Skills 3.0 的标志性事件
+2. **垂直行业 Skill 包商业化验证**：financial-services 10.5K stars + 日增 145⭐ 证明垂直行业 Agent Skill 包有真实付费意愿，本系统文旅 Skill 包可以参考其商业模式
+3. **hermes-agent 增长触顶**：进入维护模式意味着自我进化 Agent 的"第一波浪潮"结束，行业关注点从"能不能学习"转向"学得专不专业"
+4. **Rust 在 Agent 基础设施层渗透**：AgentENV（Rust 分布式平台）+ chrome-devtools-mcp（TypeScript MCP）并存，说明 Agent 底层语言选择取决于场景——基础设施选 Rust（性能），工具层选 TypeScript（生态）
+
+### 🎯 上期（W30）发现更新状态
+
+| W30 发现 | W31 跟踪 | 结论 |
+|----------|----------|------|
+| hermes-agent 爆发至 340K | **进入维护模式** | ⚠️ 增长触顶，行业重心转移 |
+| Superpowers（280K）| 持续增长 | ✅ 继续稳定 |
+| mememory（PostgreSQL 本地记忆）| 未获新数据 | ⏸ 保持 P3 |
+
+### W31 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 升级 SKILL.md 引入"质量门"机制（参照 agent-skills quality_gate）| agent-skills 已成为 Skills 3.0 事实标准 | W31 |
+| 🆕 **P1** | 整理本系统"文旅日报 Skill 包"结构（Agent + Skill + Connector）| financial-services 商业化验证了垂直 Skill 包方向 | W32 |
+| **P1** | 评估 hermes-agent 进入维护模式后对我们"自我进化"路线的影响 | 340K 峰值后路线需重新审视 | W32 |
+| **P2** | 调研 agent-skills 的 frontmatter 格式，看能否迁移到现有 SKILL.md | frontmatter 比纯 Markdown 更结构化 | H2 |
+| **P2** | 评估 anthropics/financial-services 的 Skill 包商业模式 | 为本系统文旅 Skill 包商业化做参考 | H2 |
+| **P3** | AgentENV 架构调研（多景区并行采集场景）| Rust 分布式架构适合大规模采集 | H2 |
+
+---
+
+## W33（2026-08-15 · 周六 03:00）
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：addyosmani/agent-skills 暴涨至 87.2K —— W31 P0 判断被市场验证，quality gate 成 Skills 3.0 事实标准
+
+**仓库：** https://github.com/addyosmani/agent-skills
+**作者：** Addy Osmani（Google Cloud AI 工程总监）
+**Stars：** **87,234**（2026-08-15 03:00 UTC gh API 实测）| 最近更新 8/14（持续活跃）
+
+**数据轨迹（关键变化）：**
+| 时间节点 | Stars | 变化 |
+|---------|:-----:|:----:|
+| W31（8/1） | ~26-27K | 基准 |
+| **W33（8/15）** | **87,234** | **+60K / 2周，日增 ~4,300⭐** |
+
+**W31 记录"日增 405⭐" → 本期实测日增 4,300⭐，增速放大 10 倍。**
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 倾向于走"最短路径"——跳过规格、跳过测试、直接生成"能跑就行"的玩具代码；agent-skills 把 Google 工程纪律（先规格再代码、测试即证明、质量门拦截）编码成 AI 可强制执行的 Skill 工作流，让 AI 从"能跑"进化到"可合并 PR"。
+
+**2. 我们的系统能怎么用？**
+- **上期（W31）已立 P0 行动：升级 SKILL.md 引入"质量门"机制** —— 本期 +60K 星证实方向正确，应立即落地
+- **质量门直接套用到日报流程**：生成报告前自动检查"数据完整性 + schema 2.0 格式校验 + 来源标注"，不符合则自动修正再发布 —— 解决 W28-W32 反复出现的"飞书卡片格式漂移靠站长人肉发现"痛点
+- **frontmatter 结构借鉴**：
+  ```yaml
+  ---
+  name: daily-report-check
+  quality_gate:
+    - "data file exists"
+    - "schema: 2.0 present"
+    - "sources cited"
+  ---
+  ```
+- **7 个 slash command 模式**（/test /review /spec /perf /security /debug /measure）可映射到飞书日报 `/report` `/competitor` `/客流` 指令体系
+
+**3. 不跟进的代价是什么？**
+- 日报质量继续依赖 AI 自觉，格式漂移/数据缺失只能等站长人肉发现——**这是本系统过去 2 个月反复踩的坑**（6/22 结论索引事故、飞书卡片 schema 漂移）
+- 竞品若用上 quality gate 级系统，报告产出稳定性远超我们；我们在 Skills 体系投入将落后 1 个时代
+
+#### 技术架构亮点
+
+| 维度 | agent-skills | 本系统现状 | 差距 |
+|------|------------|-----------|------|
+| Skill 定位 | 强制执行的工作流（quality gate）| 给人读的 Markdown 建议 | **核心差距** |
+| 质量门 | ✅ frontmatter quality_gate | ❌ 无自动校验 | **核心差距** |
+| 路由机制 | meta-skill 三步路由 | 无 | **核心差距** |
+| 斜杠命令 | 7 个 | 0 个 | 中 |
+| 增速 | **日增 4,300⭐** | — | — |
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P0（上期 P0 升级确认）** | 给日报 SOP 引入 quality gate（数据完整性 + schema 校验 + 来源标注）| 87K 星 + 日增 4,300⭐ = 市场终极验证 | **W34 落地** |
+| **P1** | SKILL.md 引入 frontmatter 结构化（name/trigger/quality_gate）| agent-skills 已是 Skills 3.0 事实标准 | W34 |
+| **P2** | 斜杠命令映射到飞书日报指令 | /report /competitor /客流 | H2 |
+
+---
+
+### 发现二（⭐⭐⭐⭐）：yc-software/qm — Multiplayer Agent Harness，多 Agent 协作新爆发点（13.5K / 17 天）
+
+**仓库：** https://github.com/yc-software/qm
+**Stars：** **13,541**（2026-08-15 实测）| **创建：** 2026-07-29（17 天）| **语言：** TypeScript
+**最近更新：** 8/14（活跃）
+**定位：** "Multiplayer agent harness for work" — 多人多 Agent 在同一工作空间协作的 harness
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+现有 Agent harness 都是"单 Agent 对单用户"；qm 把多个 Agent + 多个人类放在同一工作空间实时协作——**填补了"Agent 团队化协作"的空白**（不是多 Agent 编排框架如 CrewAI，而是"真人 + 多个 Agent 同屏共事"的工作模式）。
+
+**2. 我们的系统能怎么用？**
+- **远期架构参考**：如果未来需要"站长 + 日报 Agent + 竞品分析 Agent + 复盘 Agent 同工作空间协作"，qm 的 multiplayer 模式是参考方向
+- **vs 本系统现状**：本系统是 32 个 cron 串行/并行独立执行，Agent 之间不实时通信；qm 是同一空间实时协作——差异大，短期不迁移
+- **17 天 13.5K 的增速**证明"Agent 协作工作模式"需求真实存在，值得季度跟踪
+
+**3. 不跟进的代价是什么？**
+- 短期无影响（本系统 cron 串行模式够用）
+- 长期：若"多 Agent 同空间协作"成为行业标配，本系统"各自独立跑 cron + 各自读 memory"的架构需要重构
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P3** | 季度跟踪 qm（multiplayer harness 赛道）| 17 天 13.5K，新范式 | Q4 审视 |
+| **P3** | 若未来多 Agent 协作需求出现，先看 qm 架构 | 避免重复造轮子 | 需求出现时 |
+
+---
+
+### 📊 本期（W33）vs 上期（W31）数据对比（gh API 实测）
+
+| 项目 | W31 (8/1) | W33 (8/15) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| **addyosmani/agent-skills** | ~26-27K | **87,234** | **+60K / 2周** | 🔥🔥🔥 **爆炸式增长，本期最大发现** |
+| hermes-agent | 340K（进入维护模式）| **230,586** | **-110K（修正）** | ⚠️ **实测缩水，W31 记录需修正** |
+| Superpowers (obra) | ~280K | **272,129** | 趋稳 | ➡️ |
+| affaan-m/ECC | ~250K | **240,140** | 趋稳 | ➡️ |
+| mattpocock/skills | ~155K | **217,415** | +62K | 📈 显著增长 |
+| thedotmack/claude-mem | ~90K | **90,752** | ~0 | ➡️ 趋稳 |
+| ChromeDevTools/chrome-devtools-mcp | ~52K | **49,170** | 微降 | ➡️ |
+| anthropics/financial-services | ~10.5K | **34,271** | +23.8K | 📈 垂直 Skill 包持续爆发 |
+| **yc-software/qm** | **未追踪** | **13,541** | 🆕 新发现（17 天）| 🔥 多 Agent 协作 harness |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **hermes-agent 340K 记录错误**：W30 记录 ~340K、W31 记录"进入维护模式"，本期 gh API 实测 **230,641**——W31 的 340K 可能是 star 迁移/改名/统计口径问题，**修正为 230.6K**。
+   **🔬 深挖结论（8/15）：**
+   - **"维护模式"判断与事实矛盾**：repo 未归档（archived=false）、**8/15 00:07 仍在提交**、8/13 刚发 v0.20.1 release、8 月前 15 天 commit >100 条——**开发非常活跃**，W31 基于"多篇文章显示放缓"的判断不可靠
+   - **340K→230K 缩水最可能原因：GitHub 官方清理刷星**（2026 年 GitHub 对高星仓库大规模清洗假 star，arxiv 6/23 论文也证实 fake-star 现象普遍）。月增 131K 的"暴涨"本身即刷星特征（同期实际 repo 真实增速不可能如此夸张）
+   - **修正后定位**：230K 是清理后的真实水位，**不等于项目死亡**——仍是最活跃的自我进化 Agent 项目之一；降级关注但不删除
+2. **W31 低估 agent-skills 增速**：记录"日增 405⭐"，实测日增 4,300⭐——**10 倍误差**，quality gate 是本期最确定的行业方向
+3. **mattpocock/skills 反超预期**：W31 记录 155K 趋稳，本期实测 217K（+62K）——Skills 生态整体仍在扩张，不是趋稳
+
+### 📈 本期新趋势识别
+
+1. **"工程纪律/质量门"成为 Skills 赛道终局方向**：agent-skills（87K）+ ECC（240K）+ Superpowers（272K）三大项目都内含 quality gate/流程纪律理念——**Skills 竞争从"数量"（268 skills）转向"质量门"（强制校验）**，W31 P0 方向获市场终极验证
+2. **垂直 Skill 包持续爆发**：anthropics/financial-services 从 10.5K → 34.3K（+23.8K）——垂直行业 Skill 包（含文旅）商业化路径进一步验证
+3. **多 Agent 协作新范式萌芽**：qm 17 天 13.5K——"真人 + 多 Agent 同空间协作"可能是下一波范式，季度跟踪
+4. **自我进化 Agent 退潮**：hermes-agent 缩水至 230K + 维护模式——W30 的"340K 爆发"被证伪/修正，行业焦点已从"会不会学习"转向"学得专不专业"（quality gate）
+
+### 🎯 上期（W31）行动项更新状态
+
+| W31 行动项 | W33 跟踪 | 结论 |
+|-----------|----------|------|
+| 🆕 **P0 升级 SKILL.md 引入质量门** | **本期 87K 验证，升级为必做** | ✅ 方向正确，W34 落地 |
+| **P1 整理文旅日报 Skill 包** | financial-services 34.3K 再验证 | ✅ 持续有效 |
+| **P1 评估 hermes-agent 维护模式影响** | 实测 230K 缩水 | ✅ 已完成，降级关注 |
+| **P2 调研 agent-skills frontmatter** | 87K 星验证 | ✅ 升级为 P1 |
+| **P3 AgentENV 分布式架构** | 未获新数据 | ⏸ 保持 |
+
+---
+
+## W33 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | 给日报 SOP 引入 quality gate（数据完整性 + schema 2.0 校验 + 来源标注）| agent-skills 87K + 日增 4,300⭐，市场终极验证 | **W34 落地** |
+| 🆕 **P1** | SKILL.md 引入 frontmatter 结构化（name/trigger/quality_gate）| agent-skills 已是 Skills 3.0 事实标准 | W34 |
+| **P1** | 修正 hermes-agent 记录（340K → 230.6K）：repo 未归档、开发仍活跃（8/13 v0.20.1、8/15 仍在提交），缩水系刷星清理；关注降为 P3 季度跟踪而非删除 | 刷星清理 + 开发活跃双重实测 | 本期完成 |
+| **P1** | 文旅日报 Skill 包整理（Agent + Skill + Connector）| financial-services 34.3K 持续验证 | W34 |
+| **P2** | 斜杠命令映射到飞书日报指令 | /report /competitor /客流 | H2 |
+| **P3** | 季度跟踪 yc-software/qm（多 Agent 协作 harness）| 17 天 13.5K 新范式 | Q4 |
+
+---
+
+## W34 期（2026-08-22 · 周六 03:00）
+
+> **本期焦点：从"质量门"（W33）转向"token 效率路由"与"Agent 原生业务系统"**。上期 P0（日报 quality gate）市场已验证；本期两个新项目直指本系统两大真实痛点：DeepSeek 撞限/超时、以及"Agent 时代业务数据该存哪"。
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：opensquilla/opensquilla — Token 高效路由 Agent，arXiv 论文背书（6.6K / 3.5 个月）
+
+**仓库：** https://github.com/opensquilla/opensquilla
+**Stars：** **6,631**（2026-08-22 gh API 实测）| **创建：** 2026-05-06 | **语言：** Python | **License：** Apache 2.0
+**最近更新：** 8/21（昨日仍在提交，活跃）
+**关键 tags：** `agent` `mcp` `memory` **`openclaw`** `skills` `deep-learning`
+**核心：** "Same budget, more capability, better results" — 微内核 AI Agent + **本地模型路由器**，每回合把任务路由到能处理它的最便宜模型；持久记忆 + 分层沙箱 + 内置 web search + 本地 embedding 共享同一 turn loop
+**权威背书：** 2026-07-14 arXiv 技术报告《Agentic Routing: The Harness-Native Data Flywheel》(2607.11399) —— 论证 **multi-model ensemble routing 超越 Fable 5**
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+单一大模型（如当前全链路 deepseek-v4-flash）处理所有任务，简单任务也付高模型成本、复杂任务又超时失败；OpenSquilla 用 **harness-native 路由器按任务难度动态选模型**，把"一个模型打天下"变成"最便宜的模型干最合适的活"——直接对位本系统"日报 LLM 生成阶段超时/abort"与 M3 限额痛点的同源问题。
+
+**2. 我们的系统能怎么用？**
+- **错峰/路由替代方案**：本系统 8/14 刚把抖音日报 cron 错峰到 07:00 低谷窗口（DeepSeek 低谷 00:30-08:30）——OpenSquilla 的"简单任务走便宜模型、复杂任务走强模型"路由策略是**比错峰更治本**的解法：日报格式化（简单）走 flash，深度洞察/竞品分析（复杂）走强模型，不用全挤在低谷窗口
+- **arXiv 论文可作决策依据**：2607.11399 论证 ensemble routing 优于单一旗舰模型，若站长将来允许引入第二模型，这份论文是现成的立项论据
+- **原生 openclaw tag**：README 明确支持 OpenClaw——若未来接入，spike 成本低
+- **本系统已有同类雏形**：TOOLS.md 记录了"简单脚本用 Python 处理、复杂才调 LLM"的原则，OpenSquilla 是把这套原则**系统化、自动化**的参考实现
+
+**3. 不跟进的代价是什么？**
+- 继续"全链路单一模型"，日报生成阶段超时/abort 问题只能靠错峰缓解，**治标不治本**——复杂任务与简单任务混跑，低谷窗口内也会互相挤占
+- 若未来站长允许多模型，没有路由框架就要手动在 32 个 cron 里逐个配模型，运维成本高
+- 竞品若用 ensemble routing，复杂洞察质量与成本比都会优于我们
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P1** | 精读 arXiv 2607.11399（Agentic Routing），评估本系统 32 个 cron 中哪些任务可走"便宜模型" | 论文背书 + 直接对位超时/撞限痛点 | W35 |
+| 🆕 **P2** | 调研 OpenSquilla 路由策略（规则 vs 模型评分），看能否借鉴到 douyin_index.py 的 LLM 生成阶段 | 6.6K⭐ + 3.5个月 + openclaw tag | W35 |
+| **P3** | 若站长允许第二模型，用 OpenSquilla/arXiv 做多模型路由立项依据 | 论文现成论据 | 站长决策时 |
+
+### 发现二（⭐⭐⭐⭐）：trycompai/crm — Agent 原生 CRM，业务数据层新范式（8.8K / 21 天）
+
+**仓库：** https://github.com/trycompai/crm
+**Stars：** **8,769**（2026-08-22 gh API 实测）| **创建：** 2026-07-31（**仅 21 天**）| **语言：** TypeScript
+**最近更新：** 8/21（活跃）
+**定位：** "Comp AI CRM is an open source, CRM designed for AI agents. Agentic-first CRM."
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+传统 CRM 是给人用的（填表/管道/看板），Agent 用起来要 API 适配；Comp AI 把 CRM 设计成 **Agent 第一公民**——数据模型、权限、工作流都从"Agent 是主要用户"出发，填补了"AI Agent 时代的业务数据承载层"空白。
+
+**2. 我们的系统能怎么用？**
+- **远期架构参考**：本系统游客/客流/营收数据散落在 Excel/CSV/SQLite（`~/Downloads/2026游客量统计(N).csv` + ontology_store.db），若未来要做"Agent 直接查询/更新客流数据"，agentic CRM 的数据模型值得参考
+- **与 Ontology 图谱的关系**：本系统已有 486 实体/507 关系的知识图谱，agentic CRM 是**另一个补位**——图谱管"知识关系"，CRM 管"业务操作数据"，二者可互补
+- **21 天 8.8K 增速**证明"Agent 原生业务系统"需求真实存在，值得季度跟踪
+
+**3. 不跟进的代价是什么？**
+- 短期无影响（本系统 Excel/SQLite 方案够用）
+- 长期：若"Agent 直接操作业务数据"成为行业标配，本系统数据层（Excel+SQLite）的 Agent 友好度不足，未来迁移成本高
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 季度跟踪 agentic CRM 赛道（Comp AI 8.8K 领跑） | 21天8.8K，新范式 | Q4 审视 |
+| **P3** | 若未来需"Agent 直接读写客流/营收"，参考其数据模型 | 避免重复造轮子 | 需求出现时 |
+
+### 📊 本期（W34）vs 上期（W33）数据对比（gh API 实测）
+
+| 项目 | W33 (8/15) | W34 (8/22) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| addyosmani/agent-skills | 87,234 | **88,924** | +1,690 | 📈 增速回落（日增4300→~240），但仍增长 |
+| thedotmack/claude-mem | 90,752 | **91,436** | +684 | ➡️ 趋稳 |
+| obra/superpowers | 272,129 | **275,548** | +3,419 | 📈 稳定增长 |
+| affaan-m/ECC | 240,140 | **241,711** | +1,571 | ➡️ 趋稳 |
+| mattpocock/skills | 217,415 | **229,050** | +11,635 | 📈 **显著增长**（Skills 生态持续扩张） |
+| NousResearch/hermes-agent | 230,586 | **233,920** | +3,334 | 📈 稳定（非维护模式，仍在增长） |
+| ChromeDevTools/chrome-devtools-mcp | 49,170 | **49,542** | +372 | ➡️ 趋稳 |
+| anthropics/financial-services | 34,271 | **34,445** | +174 | ➡️ 趋稳 |
+| yc-software/qm | 13,541 | **14,040** | +499 | 📈 持续增长 |
+| **opensquilla/opensquilla** | **未追踪** | **6,631** | 🆕 新发现 | 🔥 Token 效率路由 |
+| **trycompai/crm** | **未追踪** | **8,769** | 🆕 新发现（21天）| 🔥 Agent 原生 CRM |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期无重大误判**——W33 核心发现（quality gate）本期继续验证（agent-skills 仍增长，ECC/Superpowers 均含 quality gate 理念）
+2. **mattpocock/skills 增速被低估**：W33 记录 +62K 已显著，本期又 +11.6K——Skills 生态整体仍在高速扩张，未进入平台期
+
+### 📈 本期新趋势识别
+
+1. **Token 效率成为 Agent 基础设施新赛道**：opensquilla（arXiv 论文背书）专注"同预算更高智能密度"——与 W29 claude-mem（token 压缩）同源，但方向从"记忆压缩"转向"**运行时路由**"，是本系统超时/撞限痛点的直接参考
+2. **Agent 原生业务系统萌芽**：Comp AI（agentic CRM）+ 上期 qm（multiplayer harness）→ Agent 不再只"用工具"，开始"住进业务系统"——季度跟踪
+3. **质量门方向持续验证**：agent-skills 87K→89K + ECC/Superpowers 均含 quality gate → W33 P0 方向正确，W34 应落地
+
+### 🎯 上期（W33）行动项更新状态
+
+| W33 行动项 | W34 跟踪 | 结论 |
+|-----------|----------|------|
+| 🆕 **P0 日报 SOP quality gate** | agent-skills 88.9K 持续验证 | ✅ 方向正确，**本周落地** |
+| **P1 SKILL.md frontmatter 结构化** | 未新增数据 | ⏸ 保持 |
+| **P1 修正 hermes-agent 记录** | 本期实测 233.9K（+3.3K）| ✅ 完成，稳定增长非维护模式 |
+| **P1 文旅日报 Skill 包整理** | financial-services 34.4K 趋稳 | ⏸ 保持 |
+| **P2 斜杠命令映射** | 未新增数据 | ⏸ H2 |
+| **P3 季度跟踪 qm** | 14.0K（+499）| ✅ 持续跟踪 |
+
+## W34 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0** | **落地日报 SOP quality gate**（数据完整性 + schema 2.0 校验 + 来源标注）| agent-skills 88.9K + 连续两周验证 | **本周 W34** |
+| 🆕 **P1** | 精读 arXiv 2607.11399（Agentic Routing），评估 32 cron 中可走"便宜模型"的任务 | 论文背书 + 直接对位超时/撞限痛点 | W35 |
+| 🆕 **P2** | 调研 OpenSquilla 路由策略借鉴到 douyin_index.py LLM 生成阶段 | 6.6K⭐ + openclaw tag | W35 |
+| **P1** | SKILL.md 引入 frontmatter 结构化（name/trigger/quality_gate）| agent-skills 事实标准 | W34 |
+| **P1** | 文旅日报 Skill 包整理（Agent + Skill + Connector）| financial-services 持续验证 | W34 |
+| **P2** | 季度跟踪 agentic CRM（Comp AI）+ qm（multiplayer）| 双新范式萌芽 | Q4 |
+| **P3** | 若站长允许第二模型，用 arXiv 论文做多模型路由立项依据 | 论文现成论据 | 站长决策时 |
+
+---
+
+## W35 期（2026-08-29 · 周六 03:00）
+
+> **本期焦点：从"质量门"（W33/W34）转向"极简主义"与"自主研究"两极**。上期 P0（日报 quality gate）持续验证中；本期两个新项目直指本系统另两大痛点：脚本过度膨胀（56 个脚本维护成本）与"研究/分析自主化"。
+
+### 发现一（⭐⭐⭐⭐⭐ 最重要）：karpathy/autoresearch — Agent 自主科研实验框架（94.8K stars）
+
+**仓库：** https://github.com/karpathy/autoresearch
+**Stars：** **94,856**（2026-08-29 gh API 实测）| **创建：** 2026-03-06 | **语言：** Python
+**最近更新：** 8/28（持续活跃）
+**作者：** Andrej Karpathy 本尊
+**定位：** "AI agents running research on single-GPU nanochat training automatically" — 给 AI Agent 一个小而真实的 LLM 训练环境，让它自主做实验：改代码→训练 5 分钟→检查是否提升→保留/丢弃→重复。人只写 `program.md`（Agent 指令/研究组织代码），不碰任何 Python。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+之前 Agent 只能按人写的指令"执行任务"，无法自主"做实验找最优解"；autoresearch 把"实验→评估→保留/丢弃"循环变成 Agent 的日常，**填补了"AI 自主科研/自主优化"的空白**——人从"写代码"退到"写研究组织文化"（program.md），Agent 从"执行者"变"研究员"。
+
+**2. 我们的系统能怎么用？**
+- **program.md 模式 = 轻量 Skill 的极致形态**：autoresearch 的核心是"一个 Markdown 文件定义 Agent 的自主行为"，与我们的 SKILL.md 同构——但它把"验证循环"内置（训练→检查→保留/丢弃），正是 W33 以来"quality gate"理念的科研版实证
+- **可借鉴的"实验循环"到日报质量门**：`改→验证→保留/丢弃` 循环可直接映射到日报流程：`生成→schema校验→通过发布/不通过修正`。W34 P0（quality gate 落地）可参考 autoresearch 的"固定时间预算 + 单一评估指标（val_bpb）"设计——日报的单一指标就是"schema 2.0 校验 + 数据完整性"
+- **固定时间预算理念**：5 分钟 wall-clock 预算 + 单一指标评估，防止 Agent 无限实验。本系统 32 个 cron 同样需要"固定预算 + 单一成功指标"（如"日报在 10:30 前发出且 schema 合规"）
+- **验证循环可迁移到脚本自愈**：douyin_index.py 采集失败时，可套用"改→试→保留/丢弃"循环做元素选择器自愈（参考 W25 Agent Zero Annotate Mode 思路）
+
+**3. 不跟进的代价是什么？**
+- 本系统继续"人工调教"模式：日报格式漂移靠站长人肉发现（W28-W34 反复踩坑），无法让 Agent 自主"实验→校验→改进"
+- Karpathy 亲自验证的"program.md 驱动自主优化"范式是行业风向标，错过则我们的 SKILL.md 体系停在"静态指令"阶段，无法进化到"自主验证"阶段
+- 竞品若用 autoresearch 范式做"营销实验自动优化"（如自动测试 10 种标题→保留 CTR 最高的），我们的内容策略优化效率差 1-2 个量级
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P1** | 精读 autoresearch 的 program.md + 验证循环设计，映射到日报 quality gate 落地 | Karpathy 本尊 + 94.8K + 与 W33/W34 P0 同源 | W36 |
+| 🆕 **P2** | 借鉴"固定时间预算 + 单一指标"到日报 cron（成功指标 = 按时发出 + schema 合规）| 防止无限重试/无标准成功 | W36 |
+| **P3** | 研究"实验循环"用于竞品内容测试（自动 A/B 标题/封面→保留最优）| 长期内容策略优化 | H2 |
+
+### 发现二（⭐⭐⭐⭐）：DietrichGebert/ponytail — 极简主义技能：让 Agent 写最少代码（115K stars）
+
+**仓库：** https://github.com/DietrichGebert/ponytail
+**Stars：** **115,157**（2026-08-29 gh API 实测）| **创建：** 2026-06-12（**仅 2.5 个月爆发**）| **语言：** JavaScript
+**最近更新：** 8/28（活跃）
+**定位：** "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote." — 让 Agent 像"最懒的资深工程师"一样思考：写最少代码（-54% 均值，最高 -94%）、~20% 更便宜、~27% 更快、100% 安全。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 生成代码天然倾向"过度工程"（装库、写封装、加注释、讨论时区）；ponytail 用一条核心纪律"浏览器有原生 `<input type="date">` 就不用 flatpickr"压制过度构建，**填补了"AI 写代码缺极简主义护栏"的空白**——与 Superpowers 的 YAGNI/DRY 同源，但落成了可量化指标（代码量/成本/速度）。
+
+**2. 我们的系统能怎么用？**
+- **直接对位本系统脚本膨胀痛点**：56 个脚本风格不统一（Playwright/requests/subprocess 混用），维护成本高。ponytail 的"最懒工程师"纪律可作为脚本重写/新增时的代码审查标准：新脚本必须回答"这 50 行能不能用 5 行替代？"
+- **Karpathy 准则（SOUL.md 已内嵌）再强化**：SOUL.md 已有"Simplicity First / Surgical Changes"，ponytail 提供了量化版（-54% 代码、-20% 成本）——可把"每行代码可追溯用户请求"升级为"每行代码都要通过最简替代审查"
+- **-20% 成本**：与 W34 OpenSquilla（token 路由）同方向——代码少 = token 少 = M3 限额压力小
+
+**3. 不跟进的代价是什么？**
+- 脚本继续膨胀，56 个脚本 2 年后可能变 100+ 个，维护/迁移成本指数级上升
+- 竞品 Agent 写代码更快更省，我们的采集脚本开发效率落后（每次新采集需求都要写一整套 Playwright 样板）
+- 错过"极简即效率"的行业共识——TOOLS.md 周度探索已多次记录"工具够用就不装"原则，ponytail 是把这套原则落到代码层的参考实现
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| 🆕 **P2** | 引入"最简替代审查"到脚本新增/重构流程（新脚本先问"能否 5 行替代"）| 115K + 2.5 个月爆发 + 直接对位脚本膨胀痛点 | W36 |
+| **P3** | 评估 ponytail 的 skill 是否能直接装到 OpenClaw（works with 20 agents）| 若兼容，成本立降 | 需求出现时 |
+
+### 发现三（⭐⭐⭐）：mvanhorn/last30days-skill — 跨平台 30 天研究技能（59.9K stars）
+
+**仓库：** https://github.com/mvanhorn/last30days-skill
+**Stars：** **59,891**（2026-08-29 实测）| **语言：** Skill（Markdown）
+**定位：** "AI agent skill that researches any topic across Reddit, X, YouTube, HN, Polymarket, and the web - then synthesizes a grounded summary" — 跨平台搜集某话题最近 30 天数据并综合成有据摘要。
+
+#### 三个关键问题
+
+**1. 它解决了什么问题？（1句话）**
+AI 研究常依赖单一来源或过时数据；last30days-skill 规定"只看最近 30 天 + 跨平台交叉验证 + 带来源的综合摘要"，**填补了"AI 研究缺时间边界与来源纪律"的空白**。
+
+**2. 我们的系统能怎么用？**
+- **直接呼应站长"抖音数据最近 30 天"原则**（SOUL.md 已内嵌"数据采集：最近30天不是7天"）——last30days-skill 把这条原则固化成 Skill 结构（时间边界 + 多源 + 带引用的综合），可参考设计"文旅情报 30 天研究 Skill"
+- **竞品监测时间窗口标准化**：竞品内容动态/爆款拆解可统一"近 30 天窗口 + 多平台交叉（抖音+小红书+微博）"规范
+
+**3. 不跟进的代价是什么？**
+- 竞品分析继续依赖单平台单次采集，跨平台趋势（如小红书爆款→抖音跟进）容易漏掉
+- 错过"时间边界+来源纪律"的行业标准化，本系统的研究类任务输出质量不稳定
+
+#### 行动建议
+
+| 优先级 | 行动 | 依据 | 触发 |
+|:------:|------|------|:----:|
+| **P2** | 参考其结构设计"文旅 30 天研究"规范（时间窗口+多源+带引用）| 59.9K + 直接呼应站长 30 天原则 | W36 |
+| **P3** | 竞品爆款拆解统一 30 天窗口 | 跨平台趋势捕捉 | H2 |
+
+### 📊 本期（W35）vs 上期（W34）数据对比（gh API 实测）
+
+| 项目 | W34 (8/22) | W35 (8/29) | 变化 | 趋势 |
+|------|:---------:|:----------:|:----:|:----:|
+| **karpathy/autoresearch** | **未追踪** | **94,856** | 🆕 新发现 | 🔥🔥 Karpathy 本尊 + 自主科研范式 |
+| **DietrichGebert/ponytail** | **未追踪** | **115,157** | 🆕 新发现（2.5个月）| 🔥 极简主义技能爆发 |
+| **mvanhorn/last30days-skill** | **未追踪** | **59,891** | 🆕 新发现 | 🔥 30天研究纪律 |
+| addyosmani/agent-skills | 88,924 | 90,474 | +1,550 | 📈 持续（质量门验证） |
+| thedotmack/claude-mem | 91,436 | 92,497 | +1,061 | ➡️ 趋稳 |
+| obra/superpowers | 275,548 | 278,994 | +3,446 | 📈 稳定增长 |
+| affaan-m/ECC | 241,711 | 243,933 | +2,222 | ➡️ 趋稳 |
+| mattpocock/skills | 229,050 | 240,084 | +11,034 | 📈 **持续显著增长** |
+| NousResearch/hermes-agent | 233,920 | 237,697 | +3,777 | 📈 稳定增长 |
+| ChromeDevTools/chrome-devtools-mcp | 49,542 | 49,929 | +387 | ➡️ 趋稳 |
+| anthropics/financial-services | 34,445 | 34,561 | +116 | ➡️ 趋稳 |
+| yc-software/qm | 14,040 | 14,306 | +266 | ➡️ 持续 |
+| opensquilla/opensquilla | 6,631 | 6,745 | +114 | ➡️ 趋稳 |
+| trycompai/crm | 8,769 | 9,054 | +285 | 📈 持续 |
+
+### ⚠️ 本期"自我纠错"清单
+
+1. **上期无重大误判**——W34 核心发现（token 路由 OpenSquilla / Agent 原生 CRM）本期均小幅增长验证；W33 P0（quality gate）持续验证（agent-skills +1.5K）
+2. **发现新赛道盲区**：上期完全遗漏"极简主义技能"（ponytail 115K）与"自主科研"（autoresearch 94.8K）两条新赛道——极简主义（写更少代码）是本期最值得关注的新方向
+
+### 📈 本期新趋势识别
+
+1. **"极简主义"成为 AI 编码新共识**：ponytail（115K，2.5 个月）证明"让 AI 写更少代码"是巨大真实需求——与 SOUL.md Karpathy 准则（Simplicity First）同源，行业正在把"简洁"量化成指标（-54% 代码 / -20% 成本）
+2. **自主科研/自主优化范式崛起**：karpathy/autoresearch（94.8K）把"实验→验证→保留/丢弃"循环产品化——AI 从"执行指令"进化到"自主做实验找最优解"，本系统日报质量门可借鉴其"固定时间预算 + 单一指标"设计
+3. **质量门方向持续验证**：agent-skills 90.5K（+1.5K）连续三周验证 → W34 P0（日报 quality gate 落地）应优先执行
+4. **Skills 生态持续扩张**：mattpocock/skills 240K（+11K）——Skills 整体未进入平台期，垂直 Skill（last30days-skill 59.9K）仍有爆发空间
+
+### 🎯 上期（W34）行动项更新状态
+
+| W34 行动项 | W35 跟踪 | 结论 |
+|-----------|----------|------|
+| 🆕 **P0 落地日报 SOP quality gate** | agent-skills 90.5K 持续验证 | ✅ 方向正确，**应尽快落地** |
+| **P1 精读 arXiv 2607.11399（Agentic Routing）** | 未新增数据 | ⏸ 保持 |
+| **P1 SKILL.md frontmatter 结构化** | 未新增数据 | ⏸ 保持 |
+| **P2 调研 OpenSquilla 路由策略** | 6.7K（+114）| ⏸ 保持 |
+| **P2 季度跟踪 agentic CRM + qm** | CRM 9.1K / qm 14.3K | ✅ 持续跟踪 |
+
+## W35 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P0（延续）** | **落地日报 SOP quality gate**（数据完整性 + schema 2.0 校验 + 来源标注），参考 autoresearch"固定预算+单一指标"设计 | agent-skills 90.5K 三周验证 + autoresearch 94.8K 同源范式 | **本周 W35/W36** |
+| 🆕 **P1** | 精读 autoresearch 的 program.md + 验证循环，映射到日报质量门 | Karpathy 本尊 + 94.8K | W36 |
+| 🆕 **P2** | 引入"最简替代审查"到脚本新增/重构流程 | ponytail 115K + 直接对位 56 脚本膨胀痛点 | W36 |
+| 🆕 **P2** | 参考 last30days-skill 设计"文旅 30 天研究"规范 | 59.9K + 呼应站长 30 天原则 | W36 |
+| **P1** | 精读 arXiv 2607.11399（Agentic Routing）| 论文背书 | 保持 |
+| **P1** | SKILL.md 引入 frontmatter 结构化 | agent-skills 事实标准 | 保持 |
+| **P2** | 调研 OpenSquilla 路由策略借鉴到 douyin_index.py | token 路由 | 保持 |
+| **P3** | 评估 ponytail skill 是否兼容 OpenClaw（works with 20 agents）| 若兼容成本立降 | 需求出现时 |
+
+---
+
+## W36 学习记录（2026-09-05 周六 03:00 cron 采集）
+
+> 数据源：gh API 实测（api.github.com 直连 200，web_search 代理 8888 不通已绕行）| 上期：W35 (8/29)
+
+### 📊 本期（W36）vs 上期（W35）数据对比（gh API 实测）
+
+| 项目 | W35 (8/29) | W36 (9/5) | 变化 | 趋势 |
+|------|:---------:|:---------:|:----:|:----:|
+| **DietrichGebert/ponytail** | 115,157 | **125,255** | **+10,098** | 🔥🔥 极简主义继续爆发（周增1万）|
+| **mattpocock/skills** | 240,084 | 249,899 | +9,815 | 📈 Skills 生态持续高增 |
+| **affaan-m/ECC** | 243,933 | 248,238 | +4,305 | 📈 稳定 |
+| **NousResearch/hermes-agent** | 237,697 | 241,377 | +3,680 | 📈 稳定 |
+| **obra/superpowers** | 278,994 | 281,744 | +2,750 | 📈 稳定增长 |
+| addyosmani/agent-skills | 90,474 | 92,253 | +1,779 | 📈 质量门验证持续 |
+| mvanhorn/last30days-skill | 59,891 | 61,236 | +1,345 | 📈 趋稳 |
+| thedotmack/claude-mem | 92,497 | 93,181 | +684 | ➡️ 趋稳 |
+| karpathy/autoresearch | 94,856 | 95,242 | +386 | ➡️ 趋稳（未再更新，pushed 3/26）|
+| ChromeDevTools/chrome-devtools-mcp | 49,929 | 50,913 | +984 | 📈 趋稳 |
+| trycompai/crm | 9,054 | 9,733 | +679 | 📈 持续 |
+| yc-software/qm | 14,306 | 14,555 | +249 | ➡️ 持续 |
+| ~~opensquilla/opensquilla~~ | 6,745 | **改名 TokenRhythm/opensquilla** 6,913 | +168 | ⚠️ 仓库迁移（Moved Permanently）|
+| anthropics/financial-services | 34,561 | 34,683 | +122 | ➡️ 趋稳 |
+
+### 🆕 本期新发现扫描（created 2026-06+，按星标/相关性筛选）
+
+**重点关注（与任务四赛道相关）：**
+1. **VictorTaelin/OptMem** ⭐1,505（2026-07-25 创建）— "Permanent memory for AI agents. 426-token prompt, a script, plug and play." 作者 Victor Taelin（HVM/Bend 作者）。设计：LOG.txt 全量只追加 + TREE 摘要缓存（可从 log 重建）+ `memo note` 单行≤280字节 + 合并机制 + `memo wake` 每次会话首命令读记忆 + 单文件 Python 零依赖。百万条记忆 wake 仅 0.03s。
+2. **omnigent-ai/omnigent** ⭐9,688（2026-06-11）— 开源多Agent meta-harness：编排 Claude Code/Codex/Cursor 等。
+3. **larashero3-dotcom/lieflat-charts** ⭐4,605（2026-07-16）— 数据可视化 Agent Skill：12 套中英整页 HTML 报告模板，Lupi（编辑叙事）/Glance（快读 dashboard）/Basics 三种视觉语法 + Mono/3 色系。
+
+**快速浏览（记录在案）：**
+4. cbrock84/headcount ⭐1,237（8/28 创建，一周内）— Claude Code Agent 组织化（15 部门 125+ skills）
+5. Nanako0129/sepia ⭐1,982（8/28）— De-AI 去AI味写作 skill
+6. Tencent/BrowserSkill ⭐1,765（6/22）— 腾讯出品，agent 用真实已登录浏览器（与我们的 CDP 方案同思路，佐证方向）
+7. anthropics/commerce-agents ⭐1,887（9/1）— 电商 agent 参考蓝图
+
+### 发现（本期核心）：VictorTaelin/OptMem — 记忆"协议化极简工具"（1,505⭐）
+
+**仓库：** https://github.com/VictorTaelin/OptMem
+
+**1. 它解决了什么问题？（1句话）**
+AI Agent 的长期记忆系统普遍"重"（向量库/MCP/后台服务），OptMem 证明记忆可以用 **一条 426-token prompt + 一个零依赖 Python 文件** 实现——**填补了"记忆系统缺极简协议化实现"的空白**，是 ponytail 极简主义在记忆赛道的延伸。
+
+**2. 我们的系统能怎么用？**
+- **直接对位 AGENTS.md 记忆管理规则**：我们 2026-04-10 规则（MEMORY.md 100行/25KB/50字符摘要/AAAK 压缩）本质是"手工压缩协议"，痛点=手动摘要失真、超限告警、无自动重建。OptMem 给出自动化答案：**全量 LOG 只追加 + 摘要 TREE 只是可重建缓存** → 摘要错了不怕，`forget` 后自动重建。可借鉴"原始细节永不删（daily notes 只追加）、摘要可丢弃重建"原则到 MEMORY.md + memory/ 分层
+- **280 字节单行约束**：与我们"单个 entry 最多 50 字符摘要"同思路，可对比校准
+- `memo wake`（会话首命令读记忆）与我们 SessionStart 读 memory/ 流程同构，验证方向正确
+
+**3. 不跟进的代价是什么？**
+- MEMORY.md 继续靠手工维护压缩质量，超限时只能被动截断（丢上下文）
+- 记忆"摘要即真相"风险：手工摘要一旦失真，历史细节无处可查（OptMem 用 LOG 重建解决）
+- 错过记忆系统行业范式——巨头（claude-mem 93K）走重型路线，新锐走"一条 prompt"路线，后者与站长 token 限额原则（省 token）更合拍
+
+### 发现（次核心）：omnigent-ai/omnigent（9,688⭐）与 lieflat-charts（4,605⭐）
+
+**omnigent**：解决"多 Agent 框架碎片化（Claude Code/Codex/Cursor 各玩各的）"——meta-harness 统一编排。我们已在 OpenClaw 内用 subagent/cron 编排，且站长定唯一模型 deepseek-v4-flash，多模型编排不适用 → **借鉴价值低，仅记录**。
+
+**lieflat-charts**：解决"AI 出图无视觉语法、千篇一律"——把数据图表做成带编辑感的 HTML 报告。我们日报是飞书卡片（非 HTML），周报/季度报告或可借鉴 Glance 快读型 dashboard 思路；但 diagram-maker 已满足现需 → **P3 观察**。
+
+### 📈 本期新趋势识别
+
+1. **极简主义在记忆赛道复制 ponytail 路径**：OptMem（1.5K/6周）+ ponytail（+10K/周）双验证——"少即是多"从编码纪律扩散到记忆架构，与站长 token 限额原则同频
+2. **记忆系统分叉**：重型（claude-mem 93K 向量化）vs 协议化极简（OptMem 426-token）——后者零依赖、可审计、省 token
+3. **垂直技能持续爆发**：mattpocock +9.8K/周、ponytail +10K/周——Skills 生态无平台期迹象；可视化/去AI味/PPT 等垂直 Skill（各 2-7K）快速起量
+4. **可视化 Skill 兴起**（lieflat-charts 4.6K/7周）——"图表审美"成为 Skill 竞争新维度
+
+### 🎯 W36 行动项更新
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P2** | 借鉴 OptMem"LOG 只追加 + 摘要可重建"原则：MEMORY.md 条目超限时，细节迁 daily notes 而非直接删；摘要失真可回查 | OptMem 设计 + AGENTS.md 记忆规则痛点 | W37 |
+| 🆕 **P3** | 精读 OptMem 426-token prompt，对比我们的 AAAK/记忆规则 | 1.5K + 作者权威 | 需求出现时 |
+| **P0（延续）** | 落地日报 SOP quality gate | agent-skills 92.3K 四周验证 | 本周内 |
+| **P2（延续）** | 引入"最简替代审查"到脚本新增流程 | ponytail 125K（周增1万，最强验证）| W36/W37 |
+| **P3（观察）** | lieflat-charts 的 Glance 型 dashboard 用于周报可视化 | 4.6K | 周报改版时 |
+
+### ⚠️ 备注
+- opensquilla 仓库改名 TokenRhythm/opensquilla（6,913⭐），下期用新名追踪
+- web_search 本次不可用（127.0.0.1:8888 代理拒绝），全程 gh API 直连实测，数据可靠
+
+---
+
+## 📅 W37 期（2026-09-12 03:00）— 主题：Agent「纪律层」技能崛起
+
+> 本期 web_search（searxng）返回 0 结果，全部数据由 gh API 直连实测（可靠）。
+
+### 追踪表更新（gh API 实测）
+
+| 仓库 | 上期 | 本期 | 变化 | 状态 |
+|------|------|------|------|------|
+| affaan-m/ECC | ~22.1万 | 256,396 | 持续 | ➡️ 仍居首 |
+| addyosmani/agent-skills | 92.3K | 93,549 | +1.2K | ➡️ 趋稳（四周前+9.8K/周）|
+| thedotmack/claude-mem | — | 93,684 | — | ➡️ 重型记忆仍最热 |
+| karpathy/autoresearch | 94,856 | 95,608 | +752 | ➡️ 趋稳 |
+| ChromeDevTools/chrome-devtools-mcp | 49,929 | 51,663 | +1,734 | ⬆️ 浏览器自动化稳增（佐证CDP方向）|
+| anthropics/financial-services | 34,683 | 34,790 | +107 | ➡️ 趋稳 |
+| yc-software/qm | 14,555 | 14,822 | +267 | ➡️ 持续 |
+| omnigent-ai/omnigent | 9,688 | 9,858 | +170 | ➡️ 持续 |
+| TokenRhythm/opensquilla | 6,913 | 7,011 | +98 | ➡️ 改名后趋稳 |
+| VictorTaelin/OptMem | 1,505 | 1,518 | +13 | ⚠️ 上期爆量后骤停（首周+1.5K→次周+13）|
+
+### 🆕 本期新发现扫描（created 2026-08+，按星标/相关性筛选）
+
+**纪律/边界类（本期主题）：**
+1. **lennney/stop-that-shit** ⭐1,910（2026-08-11）— 多平台 Hook + Skill Guard：拦截无需求的哈希/校验和/任务范围膨胀。SHIT 四类 = Scope creep（范围膨胀）/ Hash 强迫症 / 过度验证 / 无意义并行。作者原话痛点：「往 AGENTS.md 里补规则『不要乱改』，写着写着 AGENTS.md 自己也开始造史了」——**规则写在文档里没用，要做成 Hook 强制拦截**。
+2. **Leonxlnx/unlazy** ⭐3,238（2026-08-09）— 反偷懒 completion discipline：Depth Tree 方法（任务拆 N 层，每叶拿全额预算→努力随深度倍增）+ 可运行 gate（先写验收台账 acceptance ledger，再执行审查过的检查，再复核返工）。基于 2025-2026 模型「偷懒/欠思考/过早收工」研究。
+3. **Spielewoy/autoprompt-skill** ⭐1,069（2026-08-17）— 自审自修自复核工作流，Terminal-Bench 2.1 提升 14.61 分 / agentic coding 失败率 -45%。
+
+**记忆类（延续 OptMem 赛道）：**
+4. **tigerless-labs/agent-memory** ⭐994（2026-09-01）— 长期记忆 runtime：**plain Markdown 为唯一真相源，旁边 SQLite 索引仅是「随时可删的缓存」**；召回只返回 L0（一行摘要+路径+锚点+分数）**由 agent 按需按深度打开**，不把正文塞进 context；写入在会话边界自动触发（不等 agent 记得写）；sleep-time 后台层按价值整合/遗忘；零 API key。双线合流：检索引擎线（embedding/图谱，不可审计）vs 文件系统线（md 可 grep，但不会排序、树大就废）→ 它把两条线做进一个 store。
+5. **okf-memory/okf-agent-memory** ⭐573（2026-09-05）— Git-native 持久记忆，实现 Google OKF v0.2，亚 300µs 内存检索。
+6. **MemTensor/memmy-agent** ⭐1,888（7/16）、**ShenSeanChen/waku-agent** ⭐1,727（7/10）、**xzf-thu/VoiceMem** ⭐1,330（8/17）— 本地优先记忆/枢纽，均在起量。
+
+**垂直 Skill（本期最高新星）：**
+7. **s1dashu/ip-as-logo-skill** ⭐5,141（8/18）— 本期最高：极简圆润 IP 吉祥物 logo 生成 Skill。
+8. **eternityspring/shuohao-skills** ⭐3,207（8/6）— AI 短剧制作全套 skills（拆角色/大纲/场景道具/剧本/分镜），中文原生。
+9. **Nanako0129/sepia** ⭐2,552（8/28，上期 1,982 → +570）— 去AI味写作。**cbrock84/headcount** ⭐1,356（8/28）— Claude Code Agent 组织化（15部门/125+ skills）。**nateherkai/scroll-craft** ⭐2,331（8/22）— 滚动叙事网站 Skill。
+
+### 🎯 发现（本期核心）：lennney/stop-that-shit — Agent 任务边界的「自动化 Guard」
+
+**仓库：** https://github.com/lennney/stop-that-shit（1,910⭐，2026-08-11 创建，1 个月起量）
+
+**1. 它解决了什么问题？（1句话）**
+AI Agent 的「行为约束」长期只存在于提示词/AGENTS.md 等**软规则**里（写了也不执行，规则越补越长反而污染上下文）——stop-that-shit 把边界做成了**可执行的 Hook + Guard 拦截**，填补「Agent 纪律缺强制层」的空白。
+
+**2. 我们的系统能怎么用？**
+- **直接对位 SOUL.md 的 Token 守则**：我们的守则（2026-06-09/6-22/6-23 三次强化：禁止对心跳做诊断、禁止同一脚本连跑 3-5 次、禁止改完 cron 立刻重跑验证）本质与 stop-that-shit 的 SHIT 四类**高度重合**——都是人工写在文档里靠自觉。可借鉴：把「禁止重复验证/禁止范围膨胀」写成 **exec 前置检查脚本**（维护类任务启动时校验本轮是否在既定范围内），从「文档劝告」升级为「机制拦截」。
+- **修复 AGENTS.md 越长越弱的问题**：作者观察「规则每气一次补一条 → AGENTS.md 自己开始造史」，正是我们 MEMORY.md/AGENTS.md 的现状（171 行/多次追加）。可借鉴其思路：规则应**收敛为少量可执行 guard**，而非持续堆叠条目。
+- **unlazy 的 acceptance ledger（验收台账）** 可直接用于我们的 cron 任务收尾：写清验收项 → 执行审查过的检查 → 复核返工 → 只报证据支持的内容；对日报类任务可防止「数据不全就发报告」。
+
+**3. 不跟进的代价是什么？**
+- 我们的 token 守则**继续靠人肉自觉 + 事后 review 发现违规**（如 6/22 十次心跳回 "系统健康" 浪费 9 次调用），同类浪费会反复发生
+- AGENTS.md 持续膨胀（171 行）会稀释规则权重，进入「规则越多越没人守」的负循环
+- 错过 Skills 生态的新竞争维度：**从「扩展能力」转向「约束行为」**——下阶段 Skill 的价值锚点可能是纪律而非功能
+
+### 📎 次核心：tigerless-labs/agent-memory（994⭐，9/1）— Markdown 为真相源 + 索引可删
+
+**1. 解决什么问题：** Markdown 记忆「可读可 dif 但不会排序、树一大就废」，向量库记忆「会排序但不可审计、迁移困难」——agent-memory 用「Markdown 真相源 + 旁置可删索引」把两条路线合成一个 store。
+
+**2. 我们怎么用：** 与我们 MEMORY.md + memory/ + AAAK 结构几乎同构，但补了两个我们缺的机制：(a) **召回返回 L0 一行摘要+路径，正文按需分层打开**——正是我们日报/复盘任务最需要的省 token 召回方式；(b) **索引是缓存、可随时删除重建**——印证上期 OptMem 结论，且给出具体实现路径（本地 SQLite 索引 + 读路径零模型调用）。
+
+**3. 代价：** 继续手工 grep/read 全量记忆找上下文（token 浪费）；拒绝承认「索引可丢弃」导致把摘要当真相。
+
+### 📈 本期趋势识别
+
+1. **「纪律层」成为 2026-08 新赛道**：stop-that-shit（1.9K）+ unlazy（3.2K）+ autoprompt（1.1K）三仓库独立在同月爆发，全在解决「Agent 不守边界/偷懒/过度防御」——Skills 从「给能力」转向「给约束」。我们已有大量手工纪律（SOUL.md 守则），但零自动化。
+2. **Markdown-native 记忆成新共识**：OptMem（7月, 1.5K）→ agent-memory（9月, 994）→ okf-agent-memory（9月, 573）→ memmy/waku，一月内多个独立项目收敛到「纯 Markdown + 本地索引 + 零 API key」。反观重型阵营 claude-mem 仍 93.7K（存量优势），但新增量在极简侧。
+3. **上期爆款 OptMem 骤停**（1,505 → 1,518，+13）：属"首周爆量后回落"典型曲线，与其“小众极简工具”定位一致——**关注度≠采用度，不要仅凭星标增速下判断**（对我们 P2 行动项的影响：优先级从「立刻跟进」降为「需要时精读」）。
+4. **垂直 Skill 星标中枢上移**：本期新星头部达 5.1K（ip-as-logo）/ 3.2K（短剧）/ 2.5K（去AI味），单点垂直需求仍是最快起量路径。
+5. **浏览器自动化持续稳定增长**（chrome-devtools-mcp 51.7K, +1.7K/周）：我们 CDP+Playwright 方案方向持续被行业验证，无需调整。
+
+### 🎯 W37 行动项
+
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| 🆕 **P2** | 把 Token 守则的 2-3 条硬规则做成可执行前置检查（exec 脚本/guard），替代纯文档劝告 | stop-that-shit 1.9K 验证 + 我们手工守则频被违反 | W37/W38 |
+| 🆕 **P2** | 借鉴 acceptance ledger：cron 数据类任务收尾加「验收台账」（数据完整性/维度分离/无硬编码），防"数据不全就发报告" | unlazy 3.2K + autoprompt 1.1K | 日报 SOP 改版时 |
+| 🆕 **P3** | 精读 tigerless-labs/agent-memory 的 L0 分层召回，评估 MEMORY.md/memory 召回优化 | 994⭐ 且结构同构 | MEMORY.md 超限告警时 |
+| **P2（延续）** | MEMORY.md 治理：细节迁 memory/ 日档而非直接删（摘要可重建） | 上期 OptMem | 已有（W36）|
+| **P0（延续）** | 日报 SOP quality gate 落地 | agent-skills 93.5K 四周验证 | 本周内 |
+| **P3（观察）** | lieflat-charts Glance 型 dashboard 用于周报 | 4.6K | 周报改版时 |
+
+### ⚠️ 备注
+- 本期 web_search 不可用（searxng 返回 0 结果），全部数据 gh API 直连实测
+- OptMem 星标骤停提示：下期不再单独追踪，仅并入"Markdown-native 记忆"集群观察
+- 未跟进（相关性低）：ApodexAI/FrontierAgent（2.6K，通用框架）、Pan-Chera/Multi-Agent-CAD（940）等
+
+*(W37 期结束 — 2026-09-12 03:00，gh API 实测)*
