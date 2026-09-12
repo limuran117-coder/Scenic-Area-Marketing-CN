@@ -414,3 +414,16 @@
 - **#2**: git push via 7897 SSL连github失败，commit本地待推。
 - **#3 观察**: 9/4-9/5 无日档 + 9/5 feishu AI消息=0（疑cron发卡/日志链退化，待核）。
 - **MEMORY压缩**: 180→171行（24KB不变，去端午陈旧日期+折W33/34为指针），备份/tmp/memory_backup_20260906.md。
+
+## [2026-09-13] 周日维护 W38
+
+| 日期 | 操作 | 对象 | 效果 | 后续 |
+|------|------|------|------|------|
+| 9/13 | 修复断链 | memory/topics/system-evolution-20260913.md | 创建(6.4KB, W35-W37全量) | ✅ MEMORY 指针可解析 |
+| 9/13 | 清理 | MEMORY.md 尾部 promoted 噪音段 | 删2条无价值 claim | ✅ |
+| 9/13 | 压缩 | MEMORY.md | 166行/28KB → 159行/24KB | ✅ 备份 /tmp/memory_backup_20260913.md |
+| 9/13 | 检查 | wiki_drift_check.py | lint 0 issue | ✅ |
+| 9/13 | 检查 | cron 36个 | 35 ok / 1 error(文旅营销案例, 临时auth) | 🟡 非持久 |
+
+**健康指标**：无 >300 行 append-only 日志需截断；无 >500KB 文件（最大 232K）；16/16 一级 wiki 目录已建 index。
+**未解决**：git push 失败（github 经 127.0.0.1:7897 SSL_ERROR_SYSCALL，直连亦超时）→ 3 commits 本地待推，网络恢复自动推。
