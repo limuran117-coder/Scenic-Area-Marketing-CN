@@ -34,7 +34,9 @@
     "noforget/",
     "行业知识/",
     "multi-agent/",
-    "raw/"
+    "raw/",
+    "memory/palace/",
+    "memory/*.json"
   ],
   "attachmentFolderPath": "wiki/assets",
   "alwaysUpdateLinks": true,
