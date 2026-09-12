@@ -1,5 +1,6 @@
 {
   "userIgnoreFilters": [
+    "wiki/",
     "scripts/",
     "skills/",
     "output/",

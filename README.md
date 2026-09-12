@@ -1,6 +1,18 @@
 # Scenic-Area-Marketing-CN
 ## AI-Powered Scenic Tourism Marketing System - Build by OpenClaw Agent
 
+> ## 📂 三个 Obsidian Vault 导航（2026-09-12 整理）
+>
+> | 层 | vault | 位置 | 内容 | 入口 |
+> |----|-------|------|------|------|
+> | **记忆层** | `workspace`（本 vault） | `~/.openclaw/workspace` | 日档 `memory/`、长期记忆 `MEMORY.md`、行为规范 `AGENTS.md`、反思 `DREAMS.md` | [[memory/README]] |
+> | **知识库** | `wiki` | `~/.openclaw/workspace/wiki` | 结论、案例、SOP —— 可复用产出 | [[wiki/README]] |
+> | **系统层** | `openclaw` | `~/.openclaw` | 技能、扩展、配置 —— 运行底座 | 该 vault 的 README |
+>
+> **读什么去哪**：查结论/案例 → `wiki` vault；查"当时怎么想的" → 本 vault `memory/`；排障改配置 → `openclaw` vault。
+>
+> 详细分工与目录结构见 `wiki/README.md` 与 `memory/README.md`。
+
 ---
 
 ## 📋 TABLE OF CONTENTS
