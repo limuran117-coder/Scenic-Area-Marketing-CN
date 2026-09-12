@@ -31,7 +31,7 @@ Don't ask permission. Just do it.
 **三条硬规则**（细则见 `wiki/schema/rules.md`）：
 
 1. **新建目录必须同时建 `index.md`**（标题 + 用途 + 文件表），否则视为未完成；
-2. **不要移动任务写入区** —— `wiki/全国景区案例库/`、`wiki/行业知识/结论索引/`、`wiki/电影小镇/历史数据/`、`wiki/SOP/竞品关键词深度分析流程.md`、`wiki/技术配置/GitHub高星标学习笔记.md` 等是 cron 任务的读写目标。**移动任何 wiki 文件前，必须先 grep 34 个 cron 任务的 prompt 确认无路径依赖**；
+2. **不要移动任务写入区** —— `wiki/全国景区案例库/`、`wiki/行业知识/结论索引/`、`wiki/电影小镇/历史数据/`、`wiki/SOP/竞品关键词深度分析流程.md`、`wiki/技术配置/GitHub高星标学习笔记.md` 等是 cron 任务的读写目标。**移动任何 wiki 文件前，必须同时 grep 两处**：① 34 个 cron 任务的 prompt；② `scripts/*.py`（脚本可能硬编码了旧路径，漏改会静默读到不完整数据）；
 3. **新内容先对照 `wiki/index.md` 与结构说明归属** —— 找不到合适位置时放进最接近的已有目录，不要新建目录。
 
 ## Memory
