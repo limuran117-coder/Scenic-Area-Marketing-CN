@@ -59,14 +59,12 @@
             "id": "00d16cba3229cf03",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "raw/index.md",
-                "mode": "source",
-                "source": false
+                "file": "图表/system-overview-en.svg"
               },
-              "icon": "lucide-file",
-              "title": "index"
+              "icon": "lucide-image",
+              "title": "system-overview-en"
             }
           }
         ]
@@ -295,6 +293,11 @@
   },
   "active": "00d16cba3229cf03",
   "lastOpenFiles": [
+    "图表/Drawing 2026-04-17 11.28.08.excalidraw.md",
+    "图表/data-pipeline-en.svg",
+    "图表/data-pipeline.svg",
+    "raw/index.md",
+    "index.md.bak-20260912T104011",
     "未命名.base",
     "行业知识/结论索引/结论索引.md.bak-20260912T103948",
     "SOP/index.md.bak-20260912T103948",
@@ -327,16 +330,10 @@
     "图表/system-overview-en.svg",
     "图表/system-architecture.svg",
     "图表/system-architecture-en.svg",
-    "图表/data-pipeline.svg",
     "图表/index.md",
-    "图表/Drawing 2026-04-17 11.28.08.excalidraw.md",
-    "图表/data-pipeline-en.svg",
-    "图表",
-    "复盘报告/H1_2026_PPTX原文_2026-07-08_ordered.txt",
     "电影小镇/运营规划/运营规划索引.md",
     "电影小镇/运营规划/2026年8-12月客流预测.md",
     "电影小镇/运营规划/2026国庆+万圣双档策略.md",
-    "技术配置/电影小镇数据接入清单.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",
