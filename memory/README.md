@@ -22,7 +22,10 @@ updated: 2026-09-12
 | `dream-log.md` | 梦境总日志 | — |
 | `procedures.md` | 流程记录 | — |
 | `skill-usage.md` | 技能使用统计 | — |
-| `index.json` / `user_model.json` | 结构化索引 | 供程序读取 |
+| `index.json` / `user_model.json` | 结构化索引 | 供程序读取（Obsidian 中已排除） |
+| `palace/` | **向量库**（ChromaDB） | 语义检索用，已在 Obsidian 中排除显示 |
+| `dreaming/` | 梦境日记（deep/light/rem 三层） | Memory Dreaming 自动生成，与 `DREAMS.md` 对应 |
+
 
 ## 与其他层的关系
 
