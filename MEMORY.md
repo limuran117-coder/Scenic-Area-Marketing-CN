@@ -172,3 +172,10 @@ DeepSeek→M3切换 | 5/27重构 | M3-only | DDG修复 | cron冲突修复 | SOP�
 
 **[project] GitHub高星标学习 W37（9/12）→ 精要**：lennney/stop-that-shit(1.9K,8/11创建,Hook+Skill Guard拦截范围膨胀/无需求哈希/过度验证；作者核心洞察"往AGENTS.md补规则没用,规则自己开始造史"→约束要做成机制) | Leonxlnx/unlazy(3.2K,Depth Tree+验收台账) | Spielewoy/autoprompt-skill(1.1K,失败率-45%) 三仓库同月独立爆发=**"纪律层"成Skills新赛道**；记忆侧 tigerless-labs/agent-memory(994,9/1,"Markdown为真相源+旁置可删索引+L0一行摘要按需分层打开")与OptMem同源收敛。
 **→ 项目名**：lennney/stop-that-shit（1,910⭐，https://github.com/lennney/stop-that-shit）| **它解决了什么**：Agent行为约束长期只存在于提示词/AGENTS.md等软规则里（写了不执行、越补越长反而污染上下文），它把边界做成可执行Hook+Guard强制拦截，填补"Agent纪律缺强制层"的空白 | **我们怎么用**：把SOUL.md Token守则的硬规则（禁重复验证/禁范围膨胀/禁改完cron立刻重跑）从"文档劝告"升级为exec前置检查脚本；并借鉴unlazy验收台账用于cron数据任务收尾（防"数据不全就发报告"）| **不跟进的代价**：token守则继续靠人肉自觉+事后review发现违规（如6/22十次心跳浪费9次调用会反复发生）；AGENTS.md持续膨胀(171行)稀释规则权重，进入"规则越多越没人守"负循环；错过Skills从"扩展能力"转向"约束行为"的新价值锚点。旁注：上期OptMem星标骤停(1,505→1,518,+13)=首周爆量典型曲线，提醒"关注度≠采用度"，其P2优先级降为按需。完整→wiki/技术配置/GitHub高星标学习笔记.md W37期 <!-- project: github.com/limuran117-coder/Scenic-Area-Marketing-CN -->
+
+## Promoted From Short-Term Memory (2026-09-13)
+
+<!-- openclaw-memory-promotion:memory:claim:5b2c20477db7 -->
+- 📋 任务执行日志（自动生成）: > 自动汇总于 2026-09-12 10:21｜数据源：cron 执行记录 + 文件变更扫描 [score=0.861 signals=4 recalls=0 avg=0.620 source=memory/2026-09-10.md:5-5] <!-- trigger: 任务, 执行, 日志 --> <!-- importance: 9 -->
+<!-- openclaw-memory-promotion:memory:claim:341242031cc5 -->
+- 📁 当天产出文件（0 个 wiki 文件变更）: （当天无 wiki 文件变更） [score=0.841 signals=4 recalls=0 avg=0.620 source=memory/2026-09-10.md:19-19] <!-- trigger: 当天, 文件, wiki --> <!-- importance: 8 -->
