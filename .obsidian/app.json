@@ -1,0 +1,30 @@
+{
+  "userIgnoreFilters": [
+    "scripts/",
+    ".git/",
+    ".tmp/",
+    ".venvs/",
+    ".codegraph/",
+    ".profile/",
+    ".cache/",
+    ".douyin_screenshots/",
+    ".tmp_images/",
+    "output/",
+    "tmp/",
+    "tmp_screenshots/",
+    "tmp_shots/",
+    "tmp_analysis/",
+    "tmp_report/",
+    "tmp_img/",
+    "tmp_img2/",
+    "tmp_images/",
+    "tmp_view/",
+    "media/",
+    "skills/",
+    "archive/"
+  ],
+  "attachmentFolderPath": "wiki/assets",
+  "alwaysUpdateLinks": true,
+  "newLinkFormat": "relative",
+  "showLineNumber": true
+}

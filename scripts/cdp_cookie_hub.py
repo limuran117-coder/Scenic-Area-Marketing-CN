@@ -55,6 +55,34 @@ SERVICES = {
 }
 
 
+def clear_browser_tabs():
+    """通过 CDP HTTP 端点关闭所有 page tab，避免 playwright connect_over_cdp 初始化死锁。
+
+    2026-09-12 定位：Chrome 中存在动态页面（分析页/搜索结果页等）时，
+    playwright 初始化会卡在给各 frame 建 isolated world，永不返回。
+    清空 tab 后可稳定 0.2s 连上。本脚本只取 Cookie，不需要页面状态。
+    """
+    import urllib.request
+
+    # ⚠️ 必须绕过系统代理：macOS 系统代理(7897)不含 127.0.0.1 例外，
+    # urllib 默认读系统代理 → 访问本机 CDP 返回 502（2026-09-12 实测）。
+    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+    try:
+        with opener.open(f"{CDP_HOST}/json/list", timeout=5) as r:
+            tabs = json.load(r)
+        closed = 0
+        for t in tabs:
+            if t.get("type") == "page":
+                try:
+                    opener.open(f"{CDP_HOST}/json/close/{t['id']}", timeout=5).read()
+                    closed += 1
+                except Exception:
+                    pass
+        print(f"[🧹] 预处理：已关闭 {closed} 个 tab（防 playwright 初始化死锁）")
+    except Exception as e:
+        print(f"[⚠️] 预处理清理 tab 失败（继续尝试连接）: {e}")
+
+
 async def sync_all_cookies(targets=None, check_only=False):
     """连接CDP浏览器，提取所有服务的Cookie"""
     try:
@@ -76,6 +104,11 @@ async def sync_all_cookies(targets=None, check_only=False):
     print(f"  浏览器: chrome (端口 18800)")
     print(f"  目标: {'全部' if not targets else ', '.join(targets)}")
     print("=" * 55)
+
+    # 连接前清空 tab：某些动态页面（分析页/搜索结果页）会让 playwright
+    # connect_over_cdp 初始化死锁（2026-09-12 定位，120s 卡满超时）。
+    # 本脚本只需 Cookie，不需要页面状态；采集脚本均自行 goto 目标 URL，清空无损。
+    clear_browser_tabs()
 
     try:
         async with async_playwright() as p:
