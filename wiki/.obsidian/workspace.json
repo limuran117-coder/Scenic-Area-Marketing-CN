@@ -59,12 +59,14 @@
             "id": "00d16cba3229cf03",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "图表/system-overview-en.svg"
+                "file": "复盘报告/README.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "system-overview-en"
+              "icon": "lucide-file",
+              "title": "README"
             }
           }
         ]
@@ -291,8 +293,18 @@
       "bases:新建数据库": false
     }
   },
-  "active": "00d16cba3229cf03",
+  "active": "e72f00d3aecb37bd",
   "lastOpenFiles": [
+    "电影小镇/知识沉淀/index.md",
+    "电影小镇/演出节目/index.md",
+    "复盘报告/README.md",
+    "电影小镇/历史数据/index.md",
+    "复盘报告/index.md",
+    "复盘报告/H1_2026_新洞察版复盘报告_待发送.md",
+    "复盘报告/H1_2026_完整复盘报告_v2.md",
+    "复盘报告/月度复盘索引.md",
+    "复盘报告/月度复盘_2026-07_partial.md",
+    "图表/system-overview-en.svg",
     "图表/Drawing 2026-04-17 11.28.08.excalidraw.md",
     "图表/data-pipeline-en.svg",
     "图表/data-pipeline.svg",
@@ -322,18 +334,9 @@
     "index.md.bak-20260912T103708",
     "全国景区案例库/index.md.bak-20260912T103703",
     "index.md.bak-20260912T103620",
-    "系统/index.md",
-    "复盘报告/index.md",
-    "技术配置/GitHub研究/index.md",
-    "行业知识/动态追踪/index.md",
     "图表/system-overview.svg",
-    "图表/system-overview-en.svg",
     "图表/system-architecture.svg",
     "图表/system-architecture-en.svg",
-    "图表/index.md",
-    "电影小镇/运营规划/运营规划索引.md",
-    "电影小镇/运营规划/2026年8-12月客流预测.md",
-    "电影小镇/运营规划/2026国庆+万圣双档策略.md",
     "awesome-claude-design/assets/tags/skeptic.svg",
     "awesome-claude-design/assets/tags/remix.svg",
     "awesome-claude-design/assets/tags/open-source.svg",
