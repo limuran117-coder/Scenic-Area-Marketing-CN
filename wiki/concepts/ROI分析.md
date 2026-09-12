@@ -89,4 +89,4 @@ related: [[entities/建业电影小镇], [concepts/景区营销漏斗]]
 ### 关联文档
 
 - H1 一页纸：`memory/2026-06-30-h1-recap.md`
-- P0 行动：`memory/2026-06-30-P0-actions.md`
+- P0 行动：`https://github.com/limuran117-coder/Scenic-Area-Marketing-CN/blob/main/memory/2026-06-30-P0-actions.md.md`

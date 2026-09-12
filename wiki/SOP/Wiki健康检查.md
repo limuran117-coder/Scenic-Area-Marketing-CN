@@ -76,6 +76,6 @@ python3 ~/.openclaw/workspace/scripts/wiki_drift_check.py
 
 ### 关联文档
 
-- 6 轮同步记录：`wiki/log.md`
+- 6 轮同步记录：`log`
 - H1 一页纸：`memory/2026-06-30-h1-recap.md`
 - 索引入口：`wiki/index.md`

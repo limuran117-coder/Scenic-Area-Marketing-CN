@@ -74,7 +74,7 @@
 
 ### 关键文档
 - H1 一页纸：`memory/2026-06-30-h1-recap.md`
-- P0 行动：`memory/2026-06-30-P0-actions.md`
+- P0 行动：`https://github.com/limuran117-coder/Scenic-Area-Marketing-CN/blob/main/memory/2026-06-30-P0-actions.md.md`
 - 飞书卡：`om_x100b6b06400b20bcc25b9d26883bf66`
 
 ### 6/30 系统修复

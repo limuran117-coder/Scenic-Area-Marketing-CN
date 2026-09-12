@@ -59,4 +59,4 @@ updated: 2026-06-30
 
 - 穿越德化街：`wiki/电影小镇/演出节目/穿越德化街.md`
 - H1 一页纸：`memory/2026-06-30-h1-recap.md`
-- P0 行动：`memory/2026-06-30-P0-actions.md`
+- P0 行动：`https://github.com/limuran117-coder/Scenic-Area-Marketing-CN/blob/main/memory/2026-06-30-P0-actions.md.md`

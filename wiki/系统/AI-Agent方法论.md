@@ -131,7 +131,7 @@ client.chat.send_message("分析这个代码库")
 - [ ] 多步任务列plan+verify
 
 ### 知识管理层面
-- [x] `wiki/log.md` 追加日志 ✅
+- [x] `log` 追加日志 ✅
 - [ ] `wiki/concepts/` 概念页（karpathy-wiki结构）
 - [ ] `wiki/entities/` 实体页（karpathy-wiki结构）
 - [ ] `wiki/queries/` 查询归档（karpathy-wiki结构）
@@ -181,7 +181,7 @@ client.chat.send_message("分析这个代码库")
 
 ### 关联文档
 
-- 6 轮同步记录：`wiki/log.md`
+- 6 轮同步记录：`log`
 - H1 一页纸：`memory/2026-06-30-h1-recap.md`
 - 反谄媚规范：`wiki/SOP/反谄媚分析规范.md`
 - 决策规则库：`wiki/行业知识/决策规则库.md`
