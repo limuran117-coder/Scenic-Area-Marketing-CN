@@ -30,80 +30,139 @@ from pathlib import Path
 
 WORKSPACE = Path(__file__).resolve().parent.parent
 CONCL = WORKSPACE / "wiki/行业知识/结论索引.md"
+CONCL_DIR = WORKSPACE / "wiki/行业知识/结论索引"   # 分册目录（2026-09-12 起结论按任务×月拆分）
 RULES = WORKSPACE / "wiki/行业知识/决策规则库.md"
 VALID = WORKSPACE / "wiki/行业知识/验证记录.md"
 PROD_DB = WORKSPACE / ".profile/ontology/ontology_store.db"
 
 
 # ─── 结论索引解析 ────────────────────────────────
+def _concl_files() -> list:
+    """主索引 + 全部分册（拆分后结论分布在 20 个分册里，必须全读）"""
+    files = []
+    if CONCL.exists():
+        files.append(CONCL)
+    if CONCL_DIR.is_dir():
+        files.extend(sorted(p for p in CONCL_DIR.glob("*.md") if p.name != "index.md"))
+    return files
+
+
 def parse_conclusions() -> dict:
-    """解析结论索引 → {verified:[], pending:[], rejected:[]}"""
-    if not CONCL.exists():
-        return {"verified": [], "pending": [], "rejected": []}
-    txt = CONCL.read_text(encoding="utf-8")
-    # 按日期区块切分，识别每个表格的行
+    """解析结论索引（主索引 + 全部分册）→ {verified:[], pending:[], rejected:[]}"""
     result = {"verified": [], "pending": [], "rejected": []}
-    # 每个表格行：以 | 开头，含 结论/置信度/来源/日期/状态
-    for line in txt.splitlines():
-        line = line.strip()
-        if not line.startswith("|"):
+    for fp in _concl_files():
+        try:
+            txt = fp.read_text(encoding="utf-8")
+        except OSError:
             continue
-        cells = [c.strip() for c in line.strip("|").split("|")]
-        if len(cells) < 5:
-            continue
-        concl, conf, source, d, status = cells[0], cells[1], cells[2], cells[3], "|".join(cells[4:])
-        if not concl or concl.startswith("结论") or concl.startswith("---"):
-            continue
-        if len(concl) < 5:  # 跳过空/表头残留
-            continue
-        entry = {"text": concl, "conf": conf, "source": source, "date": d, "status": status}
-        if "已验证" in status or "✅" in status:
-            result["verified"].append(entry)
-        elif "待验证" in status or "🔶" in status:
-            result["pending"].append(entry)
-        elif "推翻" in status or "修正" in status or "⚠️" in status:
-            result["rejected"].append(entry)
-        else:
-            result["verified"].append(entry)  # 默认归为已验证
+        for line in txt.splitlines():
+            line = line.strip()
+            if not line.startswith("|"):
+                continue
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if len(cells) < 5:
+                continue
+            concl, conf, source, d, status = cells[0], cells[1], cells[2], cells[3], "|".join(cells[4:])
+            if not concl or concl.startswith("结论") or concl.startswith("---"):
+                continue
+            if len(concl) < 5:  # 跳过空/表头残留
+                continue
+            entry = {"text": concl, "conf": conf, "source": source, "date": d,
+                     "status": status, "file": fp.name}
+            if "已验证" in status or "✅" in status:
+                result["verified"].append(entry)
+            elif "待验证" in status or "🔶" in status:
+                result["pending"].append(entry)
+            elif "推翻" in status or "修正" in status or "归档" in status or "⚠️" in status or "⏸" in status:
+                result["rejected"].append(entry)
+            else:
+                result["verified"].append(entry)  # 默认归为已验证
     return result
 
 
 # ─── 最新数据盘点 ───────────────────────────────
-def latest_data() -> dict:
-    """从生产库盘点最新可验证数据"""
-    out = {"db_exists": PROD_DB.exists()}
-    if not PROD_DB.exists():
-        return out
-    c = sqlite3.connect(str(PROD_DB))
+SSOT_GLOB = "~/Downloads/2026游客量统计*.csv"
+
+
+def find_latest_ssot():
+    """找最新的 SSOT 客流 CSV（~/Downloads/2026游客量统计 (N).csv，N 越大越新）"""
+    import glob as _g
+    files = _g.glob(str(Path(SSOT_GLOB).expanduser()))
+    if not files:
+        return None
+
+    def num(p):
+        m = re.search(r"\((\d+)\)", Path(p).name)
+        return int(m.group(1)) if m else 0
+    return Path(max(files, key=num))
+
+
+def ssot_recent(days: int = 7) -> dict:
+    """从 SSOT CSV 读最近 N 天的客流（比 ontology db 更新，db 常滞后数周）"""
+    import csv as _csv
+    p = find_latest_ssot()
+    if not p or not p.exists():
+        return {}
     try:
-        # 各表最新日期
-        for t, col in [("metric_snapshots", "date"), ("content_assets", "publish_date"),
-                       ("tourist_segments", "ingested_at")]:
+        rows = list(_csv.reader(open(p, encoding="utf-8-sig")))
+    except OSError:
+        return {}
+    if len(rows) < 13:
+        return {}
+    hdr = rows[4]
+    col = {hdr[i].strip(): i for i in range(2, len(hdr)) if hdr[i].strip()}
+    out = []
+    d = date.today()
+    for _ in range(60):  # 往前找，直到凑够 N 天有数据的
+        i = col.get(f"{d.month}月{d.day}日")
+        if i is not None and i < len(rows[12]):
             try:
-                row = c.execute(f"SELECT MAX({col}) FROM {t}").fetchone()
-                out[f"{t}_latest"] = row[0] if row and row[0] else None
+                v = float(rows[12][i] or 0)
+                if v > 0:
+                    out.append({"date": d.isoformat(), "value": v})
+            except (ValueError, TypeError):
+                pass
+        if len(out) >= days:
+            break
+        d = d.fromordinal(d.toordinal() - 1)
+    out.reverse()
+    return {"ssot_csv": str(p), "ssot_latest_date": out[-1]["date"] if out else None,
+            "recent_visitors_ssot": out}
+
+
+def latest_data() -> dict:
+    """盘点最新可验证数据：ontology db + SSOT CSV（两者取新）"""
+    out: dict = {"db_exists": PROD_DB.exists()}
+    if PROD_DB.exists():
+        c = sqlite3.connect(str(PROD_DB))
+        try:
+            for t, col in [("metric_snapshots", "date"), ("content_assets", "publish_date"),
+                           ("tourist_segments", "ingested_at")]:
+                try:
+                    row = c.execute(f"SELECT MAX({col}) FROM {t}").fetchone()
+                    out[f"{t}_latest"] = row[0] if row and row[0] else None
+                except Exception:
+                    out[f"{t}_latest"] = None
+            try:
+                rows = c.execute(
+                    """SELECT date, value FROM metric_snapshots
+                       WHERE source='csv' AND metric_type='visitors'
+                       ORDER BY date DESC LIMIT 7""").fetchall()
+                out["recent_visitors"] = [{"date": r[0], "value": r[1]} for r in rows]
             except Exception:
-                out[f"{t}_latest"] = None
-        # 最近客流（csv visitors）
-        try:
-            rows = c.execute(
-                """SELECT date, value FROM metric_snapshots
-                   WHERE source='csv' AND metric_type='visitors'
-                   ORDER BY date DESC LIMIT 7""").fetchall()
-            out["recent_visitors"] = [{"date": r[0], "value": r[1]} for r in rows]
-        except Exception:
-            out["recent_visitors"] = []
-        # 最近抖音搜索指数
-        try:
-            rows = c.execute(
-                """SELECT date, value FROM metric_snapshots
-                   WHERE source='douyin' AND metric_type='search_index'
-                   ORDER BY date DESC LIMIT 7""").fetchall()
-            out["recent_douyin"] = [{"date": r[0], "value": r[1]} for r in rows]
-        except Exception:
-            out["recent_douyin"] = []
-    finally:
-        c.close()
+                out["recent_visitors"] = []
+            try:
+                rows = c.execute(
+                    """SELECT date, value FROM metric_snapshots
+                       WHERE source='douyin' AND metric_type='search_index'
+                       ORDER BY date DESC LIMIT 7""").fetchall()
+                out["recent_douyin"] = [{"date": r[0], "value": r[1]} for r in rows]
+            except Exception:
+                out["recent_douyin"] = []
+        finally:
+            c.close()
+    # SSOT CSV —— 权威且最新（db 常滞后数周）
+    out.update(ssot_recent(7))
     return out
 
 
