@@ -11,10 +11,14 @@
             "id": "677806590e0a949d",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "行业知识/政策动态/政策动态索引.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "政策动态索引"
             }
           }
         ]
@@ -194,6 +198,6 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "677806590e0a949d",
+  "active": "af3b9a24c3ea70fd",
   "lastOpenFiles": []
 }
