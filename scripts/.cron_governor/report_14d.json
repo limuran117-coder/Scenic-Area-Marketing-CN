@@ -1,34 +1,20 @@
 {
-  "generated_at": "2026-09-13 08:15",
+  "generated_at": "2026-09-14 07:30",
   "window_days": 14,
   "task_count": 37,
   "hourly_errors": {
-    "0": 2,
-    "1": 1,
-    "2": 1,
-    "3": 1,
-    "4": 2,
-    "5": 4,
-    "6": 2,
-    "7": 19,
-    "8": 10,
-    "9": 1,
-    "14": 1,
-    "15": 1,
-    "16": 1,
-    "17": 1,
-    "18": 1,
-    "19": 1,
-    "20": 1,
-    "21": 1,
-    "22": 1,
-    "23": 1
+    "0": 1,
+    "4": 1,
+    "5": 3,
+    "6": 1,
+    "7": 18,
+    "8": 10
   },
   "peak_hours": [
     7,
     8
   ],
-  "daily_records": 243,
+  "daily_records": 256,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -36,18 +22,18 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 14,
-      "ok": 6,
+      "runs": 15,
+      "ok": 7,
       "error": 8,
-      "error_rate": 0.57,
+      "error_rate": 0.53,
       "consecutive_errors": 0,
-      "avg_duration_ms": 1178385,
+      "avg_duration_ms": 1184306,
       "error_types": {
         "other": 8
       },
       "timeout_hits": 6,
       "issues": [
-        "近14天错误率57%",
+        "近14天错误率53%",
         "6次撞超时顶"
       ],
       "suggestions": [
@@ -78,26 +64,6 @@
       "suggestions": [
         "建议提高 timeout 120→1500",
         "⚠️ 任务时段 8:00 撞限流高峰 [7, 8]，可人工考虑错峰"
-      ]
-    },
-    {
-      "job_id": "2a94dd5d-a753-4ee7-80c6-1c16c06793e6",
-      "name": "heartbeat-main",
-      "schedule": "every 1800000ms",
-      "kind": "heartbeat",
-      "timeout": null,
-      "runs": 21,
-      "ok": 0,
-      "error": 21,
-      "error_rate": 1.0,
-      "consecutive_errors": 1,
-      "avg_duration_ms": 15498,
-      "error_types": {
-        "other": 21
-      },
-      "timeout_hits": 0,
-      "issues": [
-        "近14天错误率100%"
       ]
     }
   ],
