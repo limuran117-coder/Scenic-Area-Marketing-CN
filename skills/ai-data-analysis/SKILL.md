@@ -1,4 +1,7 @@
-# SKILL.md
+---
+name: ai-data-analysis
+description: 自动化数据处理与洞察分析服务：CSV/Excel 读写、数据清洗转换、统计分析与可视化、趋势识别、异常检测、报告生成。需要跑数据处理或批量分析时使用。
+---
 
 # Data Analysis Service
 

@@ -1,4 +1,7 @@
-# SKILL.md
+---
+name: ai-web-automation
+description: 自动化 Web 任务执行服务：网页抓取与结构化提取、表单填写与提交、页面截图、多步任务编排。需要把重复性网页操作自动化时使用。
+---
 
 # Web Automation Service
 
