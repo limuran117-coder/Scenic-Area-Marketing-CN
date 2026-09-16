@@ -9,9 +9,19 @@ CDP Cookie 总控中心 — 从已登录的专属浏览器(端口18800)批量同
   python3 scripts/cdp_cookie_hub.py xiaohongshu # 只同步小红书
 
 原理:
-  专属浏览器(CDP端口18800)的所有Tab共享一个浏览器上下文。
-  用户在各Tab已登录的服务(抖音/小红书/微博)，Cookie都在同一个SQLite数据库里。
-  本工具通过CDP从运行中的浏览器提取所有域的实时Cookie，按服务分文件存储。
+  专属浏览器(CDP端口18800)的所有Tab共享一个浏览器上下文，Cookie存于同一 Profile。
+  本工具通过 CDP 提取该 Profile 的全部 Cookie，按服务分文件存储。
+
+⚠️ 2026-09-16 重要修复（Chrome 152 兼容）：
+  1) **浏览器级 WS（/json/version 的 webSocketDebuggerUrl）调 `Storage.getCookies`
+     会被拒**：`Browser context management is not supported.`
+     → 必须改用 **page target 级 WS**（/json/list 里任一 type=page 的端点），
+       同一方法实测可正常返回全部 Cookie（369 条）。
+  2) **不再预处理关闭标签页**。旧版 `clear_browser_tabs()` 是为绕 Playwright 初始化
+     死锁，但它每天 08:05 把浏览器标签全清空 → 次日 07:30 前浏览器长期 0 标签页，
+     是「登录态上下文丢失」的直接成因。WS 路径无此问题。
+  3) Playwright `connect_over_cdp` 保留为兜底路径（Chrome 152 上时好时坏，
+     报 `Browser.setDownloadBehavior: Browser context management is not supported`）。
 
 输出:
   /tmp/juLiang_cookies.json       → 抖音(+竞品关键词脚本共用)
@@ -25,10 +35,12 @@ CDP Cookie 总控中心 — 从已登录的专属浏览器(端口18800)批量同
   - xiaohongshu_crawl.py        直接CDP，无需Cookie文件(但做备份)
 """
 
-import json
+import asyncio
 import datetime
-import sys
+import json
 import os
+import sys
+import urllib.request
 
 CDP_HOST = "http://127.0.0.1:18800"
 
@@ -54,172 +66,141 @@ SERVICES = {
     },
 }
 
+EXPIRED_FLAGS = [
+    "/tmp/douyin_cookie_expired.flag",
+    "/tmp/xiaohongshu_cookie_expired.flag",
+]
 
-def clear_browser_tabs():
-    """通过 CDP HTTP 端点关闭所有 page tab，避免 playwright connect_over_cdp 初始化死锁。
 
-    2026-09-12 定位：Chrome 中存在动态页面（分析页/搜索结果页等）时，
-    playwright 初始化会卡在给各 frame 建 isolated world，永不返回。
-    清空 tab 后可稳定 0.2s 连上。本脚本只取 Cookie，不需要页面状态。
-    """
-    import urllib.request
+def _opener():
+    """⚠️ 必须绕过系统代理：macOS 系统代理(7897)不含 127.0.0.1 例外，
+    默认 urllib 会读系统代理 → 访问本机 CDP 返回 502（2026-09-12 实测）。"""
+    return urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
-    # ⚠️ 必须绕过系统代理：macOS 系统代理(7897)不含 127.0.0.1 例外，
-    # urllib 默认读系统代理 → 访问本机 CDP 返回 502（2026-09-12 实测）。
-    opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+
+def _http_json(path, timeout=8):
+    with _opener().open(f"{CDP_HOST}{path}", timeout=timeout) as r:
+        return json.load(r)
+
+
+def _page_ws_url():
+    """取任一 page target 的 WS URL（Chrome 152 必须走 page 级）。"""
     try:
-        with opener.open(f"{CDP_HOST}/json/list", timeout=5) as r:
-            tabs = json.load(r)
-        closed = 0
-        for t in tabs:
-            if t.get("type") == "page":
-                try:
-                    opener.open(f"{CDP_HOST}/json/close/{t['id']}", timeout=5).read()
-                    closed += 1
-                except Exception:
-                    pass
-        print(f"[🧹] 预处理：已关闭 {closed} 个 tab（防 playwright 初始化死锁）")
+        targets = _http_json("/json/list", timeout=8)
     except Exception as e:
-        print(f"[⚠️] 预处理清理 tab 失败（继续尝试连接）: {e}")
+        print(f"[⚠️] /json/list 不可达: {e}")
+        return None
+    for t in targets or []:
+        if t.get("type") == "page" and t.get("webSocketDebuggerUrl"):
+            return t["webSocketDebuggerUrl"]
+    return None
 
 
-async def sync_all_cookies(targets=None, check_only=False):
-    """连接CDP浏览器，提取所有服务的Cookie"""
-    try:
-        from playwright.async_api import async_playwright
-    except ImportError:
-        print("[❌] playwright 未安装，无法连接CDP浏览器")
-        return False
+async def _ws_fetch_cookies():
+    """路径 A（首选）：page target 级 CDP WebSocket 调 Storage.getCookies。"""
+    import websockets
 
-    services_to_run = SERVICES
-    if targets:
-        services_to_run = {k: v for k, v in SERVICES.items() if k in targets}
+    ws_url = _page_ws_url()
+    if not ws_url:
+        raise RuntimeError("没有可用的 page target（浏览器 0 标签页）")
 
-    if not services_to_run:
+    async with websockets.connect(ws_url, open_timeout=15, max_size=None) as ws:
+        await ws.send(json.dumps({"id": 1, "method": "Storage.getCookies"}))
+        while True:
+            msg = json.loads(await asyncio.wait_for(ws.recv(), timeout=25))
+            if msg.get("id") == 1:
+                if "error" in msg:
+                    raise RuntimeError(f"Storage.getCookies 失败: {msg['error']}")
+                return msg["result"].get("cookies", [])
+
+
+async def _playwright_fetch_cookies():
+    """路径 B（兜底）：Playwright connect_over_cdp（Chrome 152 上不稳定）。"""
+    from playwright.async_api import async_playwright
+
+    async with async_playwright() as p:
+        browser = await p.chromium.connect_over_cdp(CDP_HOST, timeout=20000)
+        if not browser.contexts:
+            raise RuntimeError("浏览器无可用上下文")
+        return await browser.contexts[0].cookies()
+
+
+def fetch_cookies(use_playwright=False):
+    if use_playwright:
+        print("[🔗] 路径 B: Playwright ...", end=" ", flush=True)
+        cookies = asyncio.run(_playwright_fetch_cookies())
+    else:
+        print("[🔗] 路径 A: page-target WebSocket ...", end=" ", flush=True)
+        cookies = asyncio.run(_ws_fetch_cookies())
+    print(f"✅ {len(cookies)} 条")
+    return cookies
+
+
+def main():
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    flags = [a for a in sys.argv[1:] if a.startswith("--")]
+    check_only = "--check" in flags
+    force_playwright = "--playwright" in flags
+
+    services = {k: v for k, v in SERVICES.items() if k in args} if args else SERVICES
+    if not services:
         print(f"[❌] 未找到匹配的服务。可用: {', '.join(SERVICES.keys())}")
-        return False
+        return 1
 
     print("=" * 55)
     print(f"  CDP Cookie 总控中心 — {datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}")
     print(f"  浏览器: chrome (端口 18800)")
-    print(f"  目标: {'全部' if not targets else ', '.join(targets)}")
+    print(f"  目标: {'全部' if not args else ', '.join(args)}")
     print("=" * 55)
 
-    # 连接前清空 tab：某些动态页面（分析页/搜索结果页）会让 playwright
-    # connect_over_cdp 初始化死锁（2026-09-12 定位，120s 卡满超时）。
-    # 本脚本只需 Cookie，不需要页面状态；采集脚本均自行 goto 目标 URL，清空无损。
-    clear_browser_tabs()
-
     try:
-        async with async_playwright() as p:
-            print(f"\n[🔗] 连接浏览器 {CDP_HOST} ...", end=" ", flush=True)
-            browser = await p.chromium.connect_over_cdp(CDP_HOST)
-            print("✅ 成功")
-
-            # 获取浏览器上下文
-            if hasattr(browser, "contexts") and browser.contexts:
-                context = browser.contexts[0]
-            else:
-                print("[❌] 浏览器无可用上下文")
-                return False
-
-            # 列出当前打开的Tab
-            tab_count = len(context.pages) if hasattr(context, "pages") else 0
-            print(f"[📑] 浏览器当前 {tab_count} 个Tab")
-            for i, pg in enumerate(
-                context.pages if hasattr(context, "pages") else []
-            ):
-                try:
-                    url = pg.url[:80] if pg.url else "(无)"
-                    print(f"      Tab{i}: {url}")
-                except Exception:
-                    print(f"      Tab{i}: (无法获取)")
-
-            # 获取所有Cookie
-            print(f"\n[🍪] 正在提取浏览器Cookie...", end=" ", flush=True)
-            raw_cookies = await context.cookies()
-            print(f"共 {len(raw_cookies)} 条")
-
-            # 按服务分组
-            all_ok = True
-            for service_key, service in services_to_run.items():
-                matched = [
-                    c
-                    for c in raw_cookies
-                    if any(
-                        domain in (c.get("domain", "") or "")
-                        for domain in service["domains"]
-                    )
-                ]
-
-                tag = service["label"]
-                min_cnt = service["min_cookies"]
-
-                if len(matched) >= min_cnt:
-                    if check_only:
-                        print(f"  {tag}: ✅ {len(matched)}条Cookie — 登录有效")
-                    else:
-                        # 保存到文件
-                        filepath = service["file"]
-                        os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
-                        with open(filepath, "w", encoding="utf-8") as f:
-                            json.dump(matched, f, ensure_ascii=False, indent=2)
-                        print(
-                            f"  {tag}: ✅ {len(matched)}条Cookie → {filepath}"
-                        )
-                else:
-                    print(
-                        f"  {tag}: ⚠️ 仅 {len(matched)}条Cookie (需≥{min_cnt}) — 可能未登录"
-                    )
-                    all_ok = False
-
-            # 输出摘要
-            if check_only:
-                print(f"\n📊 检查完成")
-            else:
-                # 清除Cookie过期标记
-                for flag in [
-                    "/tmp/douyin_cookie_expired.flag",
-                    "/tmp/xiaohongshu_cookie_expired.flag",
-                ]:
-                    if os.path.exists(flag):
-                        os.remove(flag)
-                        print(f"  [🧹] 清除过期标记: {flag}")
-                print(f"\n✅ 全部同步完成!")
-
-            return all_ok
-
+        cookies = fetch_cookies(use_playwright=force_playwright)
     except Exception as e:
-        print(f"\n[❌] 连接失败: {e}")
-        print("  请确认:")
-        print("  1. 专属浏览器(Chrome)已打开")
-        print("  2. 端口18800已启动")
-        print("  3. 各Tab已登录相应服务")
-        return False
+        if not force_playwright:
+            print(f"❌ ({e})")
+            print("[↩️] 回退尝试 Playwright ...")
+            try:
+                cookies = fetch_cookies(use_playwright=True)
+            except Exception as e2:
+                print(f"\n[❌] 两条路径均失败: {e2}")
+                print("  请确认: 1) 专属浏览器已开 2) 18800 已启动 3) 各 Tab 已登录")
+                return 1
+        else:
+            print(f"\n[❌] 连接失败: {e}")
+            print("  请确认: 1) 专属浏览器已开 2) 18800 已启动 3) 各 Tab 已登录")
+            return 1
 
+    all_ok = True
+    for key, svc in services.items():
+        matched = [
+            c
+            for c in cookies
+            if any(d in (c.get("domain") or "") for d in svc["domains"])
+        ]
+        if len(matched) >= svc["min_cookies"]:
+            if check_only:
+                print(f"  {svc['label']}: ✅ {len(matched)} 条 Cookie — 登录有效")
+            else:
+                fp = svc["file"]
+                os.makedirs(os.path.dirname(fp) or ".", exist_ok=True)
+                with open(fp, "w", encoding="utf-8") as f:
+                    json.dump(matched, f, ensure_ascii=False, indent=2)
+                print(f"  {svc['label']}: ✅ {len(matched)} 条 Cookie → {fp}")
+        else:
+            print(f"  {svc['label']}: ⚠️ 仅 {len(matched)} 条 Cookie (需≥{svc['min_cookies']}) — 可能未登录")
+            all_ok = False
 
-def main():
-    args = [a for a in sys.argv[1:] if not a.startswith("--")]  # positional
-    flags = [a for a in sys.argv[1:] if a.startswith("--")]     # flags
+    if check_only:
+        print("\n📊 检查完成")
+    else:
+        for flag in EXPIRED_FLAGS:
+            if os.path.exists(flag):
+                os.remove(flag)
+                print(f"  [🧹] 清除过期标记: {flag}")
+        print("\n✅ 全部同步完成!" if all_ok else "\n⚠️ 部分服务未登录，已同步可用项")
 
-    check_only = "--check" in flags
-
-    targets = None
-    if args:
-        targets = args  # specific services
-
-    import asyncio
-
-    success = asyncio.run(sync_all_cookies(targets=targets, check_only=check_only))
-
-    if success and not check_only:
-        print("\n💡 建议: 现在可以运行采集脚本了")
-        print("   python3 douyin_index.py")
-        print("   python3 competitor_keyword_v8.py")
-        print("   ...")
-
-    sys.exit(0 if success else 1)
+    return 0 if all_ok else 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
