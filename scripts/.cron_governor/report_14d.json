@@ -1,20 +1,22 @@
 {
-  "generated_at": "2026-09-14 07:30",
+  "generated_at": "2026-09-16 09:11",
   "window_days": 14,
   "task_count": 37,
   "hourly_errors": {
-    "0": 1,
-    "4": 1,
-    "5": 3,
-    "6": 1,
-    "7": 18,
-    "8": 10
+    "0": 2,
+    "4": 3,
+    "5": 10,
+    "6": 5,
+    "7": 27,
+    "8": 15
   },
   "peak_hours": [
+    5,
+    6,
     7,
     8
   ],
-  "daily_records": 256,
+  "daily_records": 298,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -23,22 +25,68 @@
       "kind": "agentTurn",
       "timeout": 1500,
       "runs": 15,
-      "ok": 7,
-      "error": 8,
-      "error_rate": 0.53,
+      "ok": 6,
+      "error": 9,
+      "error_rate": 0.6,
       "consecutive_errors": 0,
-      "avg_duration_ms": 1184306,
+      "avg_duration_ms": 1015588,
       "error_types": {
-        "other": 8
+        "other": 9
       },
-      "timeout_hits": 6,
+      "timeout_hits": 5,
       "issues": [
-        "近14天错误率53%",
-        "6次撞超时顶"
+        "近14天错误率60%",
+        "5次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 1500→1800",
-        "⚠️ 任务时段 7:00 撞限流高峰 [7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 7:00 撞限流高峰 [5, 6, 7, 8]，可人工考虑错峰"
+      ]
+    },
+    {
+      "job_id": "9bf47f42-0f9f-4b49-a73c-97482426498f",
+      "name": "竞品关键词深度分析",
+      "schedule": "15 8 * * 1-5",
+      "kind": "agentTurn",
+      "timeout": 1500,
+      "runs": 10,
+      "ok": 6,
+      "error": 4,
+      "error_rate": 0.4,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 340446,
+      "error_types": {
+        "other": 4
+      },
+      "timeout_hits": 0,
+      "issues": [
+        "近14天错误率40%"
+      ],
+      "suggestions": [
+        "⚠️ 任务时段 8:00 撞限流高峰 [5, 6, 7, 8]，可人工考虑错峰"
+      ]
+    },
+    {
+      "job_id": "b8fb57da-faae-429f-91e0-9f8af3db927b",
+      "name": "竞品爆款拆解",
+      "schedule": "0 8 * * 1-5",
+      "kind": "agentTurn",
+      "timeout": 1500,
+      "runs": 11,
+      "ok": 7,
+      "error": 4,
+      "error_rate": 0.36,
+      "consecutive_errors": 3,
+      "avg_duration_ms": 234570,
+      "error_types": {
+        "other": 4
+      },
+      "timeout_hits": 0,
+      "issues": [
+        "连续3次失败"
+      ],
+      "suggestions": [
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）"
       ]
     },
     {
@@ -47,25 +95,81 @@
       "schedule": "5 8 * * *",
       "kind": "command",
       "timeout": 120,
-      "runs": 19,
-      "ok": 10,
-      "error": 9,
-      "error_rate": 0.47,
+      "runs": 22,
+      "ok": 11,
+      "error": 11,
+      "error_rate": 0.5,
       "consecutive_errors": 0,
-      "avg_duration_ms": 60227,
+      "avg_duration_ms": 52153,
       "error_types": {
-        "other": 9
+        "other": 11
       },
       "timeout_hits": 9,
       "issues": [
-        "近14天错误率47%",
+        "近14天错误率50%",
         "9次撞超时顶"
       ],
       "suggestions": [
         "建议提高 timeout 120→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [7, 8]，可人工考虑错峰"
+        "⚠️ 任务时段 8:00 撞限流高峰 [5, 6, 7, 8]，可人工考虑错峰"
+      ]
+    },
+    {
+      "job_id": "943c97b9-a900-411f-a757-679cf8e6ada7",
+      "name": "每日复盘整合-内容生成",
+      "schedule": "0 5 * * 1-5",
+      "kind": "agentTurn",
+      "timeout": 900,
+      "runs": 13,
+      "ok": 9,
+      "error": 4,
+      "error_rate": 0.31,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 171604,
+      "error_types": {
+        "other": 4
+      },
+      "timeout_hits": 2,
+      "issues": [
+        "2次撞超时顶"
+      ],
+      "suggestions": [
+        "建议提高 timeout 900→1500"
+      ]
+    },
+    {
+      "job_id": "7ae9127b-40b1-4821-b82d-4e658e7295b9",
+      "name": "飞书发消息审计",
+      "schedule": "55 4 * * *",
+      "kind": "agentTurn",
+      "timeout": 900,
+      "runs": 17,
+      "ok": 11,
+      "error": 6,
+      "error_rate": 0.35,
+      "consecutive_errors": 5,
+      "avg_duration_ms": 230189,
+      "error_types": {
+        "other": 6
+      },
+      "timeout_hits": 3,
+      "issues": [
+        "连续5次失败",
+        "3次撞超时顶"
+      ],
+      "suggestions": [
+        "人工查看：是否是模型限流（若 timeout/rate_limit 类）或是脚本问题（若 exec 类）",
+        "建议提高 timeout 900→1500"
       ]
     }
   ],
-  "recommendations": []
+  "recommendations": [
+    {
+      "type": "bump_timeout",
+      "job": "1f1e320d-f093-4fe1-a873-44133776919b",
+      "name": "skill-collection-review-main",
+      "from": null,
+      "to": 1500
+    }
+  ]
 }
