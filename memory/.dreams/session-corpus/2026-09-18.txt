@@ -1,0 +1,1 @@
+[main/sessions/main/0b4037c1-f9c6-4888-975a-c59bf2eb9557#L9] Assistant: [Cookie 健康检查 2026-09-18 00:30] ⚠️ 检测到 2 项异常（已写入 /tmp/cookie_health_latest.json） - douyin cookie 陈旧：16.42h 前回写（阈值 12h），文件 /tmp/juLiang_cookies.json，22.2KB - xiaohongshu cookie 陈旧：16.42h 前回写（阈值 12h），文件 /tmp/xiaohongshu_cookies.json，5.9KB 其余检查均通过：CDP 18800 监听正常、代理 7897 外网
