@@ -1622,3 +1622,61 @@ AI Agent 的「行为约束」长期只存在于提示词/AGENTS.md 等**软规�
 - 未跟进（相关性低）：ApodexAI/FrontierAgent（2.6K，通用框架）、Pan-Chera/Multi-Agent-CAD（940）等
 
 *(W37 期结束 — 2026-09-12 03:00，gh API 实测)*
+
+---
+
+## W38 期（2026-09-19）
+
+### 🎯 发现（本期核心）：2akouwu/reverify — 让确定性工具当裁判，而不是让模型自证
+
+**仓库：** https://github.com/2akouwu/reverify（1,226⭐，2026-08-31 创建，Python，MCP server + CLI）
+
+**1. 它解决了什么问题？（1句话）**
+Agent 的"幻觉"在缺少 ground truth 的领域（二进制逆向、数据统计）是最大的采用阻塞 —— reverify 把「模型提议 → 确定性工具裁决 → 每条声明对账 ground truth 并留证据」做成可复用层，填补「模型输出没有被机器证伪的通道」这一空白。
+
+**2. 我们的系统能怎么用？**
+- **直接落地 W35 就挂起的 P0「日报 SOP quality_gate」**：把质量门写成**确定性 Python 校验**（schema 2.0 结构 / 8 大景区字段齐全 / 维度分离 / 来源标注 / 无硬编码），LLM 只负责生成、脚本只负责裁决。这正对位 SOUL.md 的两条禁令（不编造不估算、数据不完整就发报告），且不依赖模型自觉。
+- 与 W37 unlazy 验收台账同一落点：台账列验收项 → 脚本逐项判定 → 只输出证据支持的结论。
+- 同法可复用到客流周报（(N).csv 口径核对，替代人工目检）与竞品关键词分析（关键词覆盖度校验）。
+
+**3. 不跟进的代价是什么？**
+- 日报/复盘质量继续靠"LLM 自觉 + 站长人肉发现"，同类数据瑕疵反复出现；
+- P0 已连续挂 W35/W36/W37 三期未落地 = 把已知可修的风险留在线上；
+- 错过生态新共识：规则与结论**必须落成可执行检查**，停在提示词层就等于没有规则。
+
+### 📎 次核心：browser-use/jev-ultrafast（5,065⭐，9/16 创建，3 天起量，browser-use 官方）
+
+- **做法**：每次 observation 产出**元素编号索引表**，模型只输出符号动作 `CLICK [7]` / `TYPE_TEXT [3]`，只有 TYPE_TEXT 才让小模型写文本（丢掉"生成整段动作 JSON/DOM 选择器"的开销）；实测 Zürich→London 机票搜索 7.1s（含加载等待与真实文本生成）。
+- **我们怎么用**：douyin_index.py / xiaohongshu_crawl.py 是 selector + 固定时序的 CDP 流程，慢且脆（超时/abort 频发，W34 已记录）。可借鉴的不是换框架，而是「观测 → 编号索引 → 符号化点击」范式：页面元素一次编号、后续按编号复用，减少重复定位与无效等待。
+- **代价**：采集链继续靠固定 sleep + selector 硬等，抖音日报 10:30 超时风险长期在。
+
+### 其余高星新项目（本期观察，创建于 8/25 之后）
+- **ZJU-REAL/Easel** ⭐1,222（8/28，浙大+北大）：开源社媒 Agent，覆盖小红书/抖音/知乎/B站，五段工作流（发现热点→策划选题→创作→发布→**归因回流账号画像**）。与我们「竞品内容动态/爆款拆解」同域，最值得借鉴的是"发布后归因沉淀回账号画像"，而非又一套写作工具。
+- **Albert-Weasker/niubigeo** ⭐2,518（9/3，TS）：AI 品牌可见度 + 竞品报告（GEO 方向）。可参照做「电影小镇 AI 可见度」自测（在豆包/DeepSeek 问"郑州去哪玩"看是否提及我们）——可能是"搜索指数"之外的第二个可见度仪表。
+- **Human-Agent-Society/reef** ⭐3,550（8/31）：自改进 Agent 的持续学习基建。
+- **shadcn-ui/lint** ⭐2,124（9/2）：agent-first linter —— 把设计系统规则写成 agent 可执行的 lint（与 reverify 同向：规则要能被机器裁决）。
+- **sapientinc/PRAXIST** ⭐5,876（8/27）：可计算机执行的研究系统。**NVlabs/SoL-Pi** ⭐2,251（9/2）：自动研究循环规模化。
+- **Player-YN/PawWork_ZhuaZhua** ⭐2,768（8/28）：selection-first 网页 Agent（页面上选中即描述即操作）。
+- **cbrock84/headcount** ⭐1,621（8/28，上期 1,356 → +265）：Agent 组织化仍在稳涨。
+
+### 📈 W38 趋势识别（对比 W37）
+1. **「纪律层」成熟为「裁决层」**：W37 是让 Agent 守规矩（stop-that-shit / unlazy / autoprompt，靠 Hook 与台账拦截）；W38 的 reverify + shadcn-ui/lint + PRAXIST + SoL-Pi 全在解决**"谁来判断对不对"** —— 规则与结论必须落成可执行检查。四个独立仓库同月收敛，方向确认。
+2. **社媒 Agent 从"内容生产"转向"归因闭环"**：Easel 卖点是发布后的归因回流账号画像 → 与我们「重游率=内容复购力」的判断同频（内容要能自证有效）。
+3. **浏览器自动化进入"动作空间压缩"竞赛**：jev-ultrafast（5.1K/3 天）把竞争焦点从"能点"推到"点得快、点得省 token"，与存量 chrome-devtools-mcp（51.7K）同向验证我们的 CDP 路线。
+4. **垂直 Skill 本期无 5K 级新星**（dream-loop 1.4K 3D / screenwriting-skills 1.2K / anything2explainer 1.6K / handraw-style 2.4K），热度回到基建侧 —— 与 W37 的 5.1K 垂直爆款形成对比，说明垂直 Skill 起量高度依赖选题运气。
+5. **上期 P2 的"纪律"结论本期未在本仓库复现独立新作**，而是被"裁决层"吸收（同一需求升级了实现层级），说明该赛道在快速演进而非消退。
+
+### 🎯 W38 行动项
+| 优先级 | 行动项 | 依据 | 触发 |
+|:------:|--------|------|:----:|
+| **P0（连续三期）** | 日报 SOP quality_gate 落地为确定性校验脚本（schema2.0/8景区字段齐全/维度分离/来源标注/无硬编码），LLM 只生成、脚本只裁决 | W35 起挂三期 + reverify 1.2K 验证 | 本周内 |
+| **P2** | 客流周报加 (N).csv 口径核对脚本（确定性比对，替代人工目检） | 同上 | 下次周报 |
+| **P3** | 评估「元素索引化」范式用于 douyin_index/xiaohongshu_crawl 提速 | jev-ultrafast 5.1K/3天 | 采集链下次改动 |
+| **P3** | 试做「电影小镇 AI 可见度」自测（豆包/DeepSeek 提问是否提及） | niubigeo 2.5K | 中秋方案投放后 |
+
+### ⚠️ 备注
+- 本期 web_search 连续第二期不可用（fetch failed, ECONNREFUSED 127.0.0.1:8888），全部数据为 gh API 直连实测（search/repositories，created:>2026-08-25 stars:>200）
+- jev-ultrafast 为 9/16 新建（3 天 5.1K），README 以 Cloud waitlist 引导为主，代码仅 agent.py 有实质内容 —— 判定为"方向确认级"信号，暂不投入集成
+- 未跟进（相关性低）：m3e-canvas(7.4K UI)、DLSS 系列、spotifast、HowToLiveBetter 等消费级/游戏类
+
+*(W38 期结束 — 2026-09-19 03:00，gh API 实测)*

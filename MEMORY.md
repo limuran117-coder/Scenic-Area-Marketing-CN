@@ -94,6 +94,11 @@ role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，�
 **W33/W34 GitHub学习（8/10&8/22）→ 每周精要范式已成熟**：W33=addyosmani/agent-skills(87K⭐) → **P0=给日报SOP加quality_gate质量门**（数据完整性+schema 2.0+来源标注，防站长人肉发现；后续W35/W36按同格式周更）；W34=opensquilla(6.6K⭐,arXiv 2607.11399) → 对位抖音日报超时/abort，多模型路由（简单走flash复杂走强模型）可作未来立项论据。完整逐条 → `wiki/技术配置/GitHub高星标学习笔记.md`
 **W36 GitHub学习（9/5，OptMem）**：VictorTaelin/OptMem（1.5K⭐，426-token prompt+单文件零依赖 Python，全量 LOG 只追加+摘要可重建缓存）→ **P2 借鉴「LOG 只追加+摘要只是可重建缓存」治理 MEMORY.md 超限**：细节迁 `memory/` 日档/topics 而非直接删，摘要失真可回查重建；其星标首周爆量后骤停（1,505→1,518），提醒「关注度≠采用度」，优先级降为按需
 **W37 GitHub学习（9/12）**：`lennney/stop-that-shit`（1,910⭐，Hook+Skill Guard 强制拦截范围膨胀/无需求哈希/过度验证）+ `Leonxlnx/unlazy`（验收台账）+ `Spielewoy/autoprompt-skill` 三仓库同月独立爆发=**"纪律层"成 Skills 新赛道**；记忆侧 `tigerless-labs/agent-memory`（Markdown 为真相源+旁置可删索引+L0 一行摘要分层）与 OptMem 同源收敛 → **P0=把 SOUL.md Token 守则硬规则（禁重复验证/禁改完 cron 立刻重跑）从"文档劝告"升级为可执行前置检查脚本**；P1=借用 unlazy 验收台账到 cron 数据任务收尾（防"数据不全就发报告"）
+**W38 GitHub学习（9/19）** — 项目名：`2akouwu/reverify`（1,226⭐，8/31，Python，MCP server + CLI）
+- **它解决了什么**：模型输出缺"可执行裁判"——reverify 让模型只提议、确定性工具对账每条声明对 ground truth 并留证据，填补"AI 幻觉无法被机器证伪"的空白
+- **我们怎么用**：落地已挂三期的 P0——日报 SOP quality_gate 写成确定性 Python 校验（schema2.0/8景区字段齐全/维度分离/来源标注/无硬编码），LLM 只生成、脚本只裁决；同法用于客流周报 (N).csv 口径核对，替代人工目检
+- **不跟进的代价**：数据瑕疵继续靠站长人肉发现，P0 第四期继续挂空——已知可修的风险留在线
+- **次核心**：`browser-use/jev-ultrafast`（5,065⭐，9/16，3天起量）= 索引化动作空间（观测→元素编号表→CLICK[7] 符号动作，Zürich→London 机票搜索 7.1s），可借鉴到 douyin_index/xiaohongshu_crawl 的"元素一次编号、按编号复用"，治采集链慢与超时
 
 ---
 

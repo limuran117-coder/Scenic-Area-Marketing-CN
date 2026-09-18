@@ -1,0 +1,3 @@
+[main/sessions/main/d360df38-2882-4aac-8efd-7d0086979cac#L6] Assistant: I'll run the cookie health check script.
+[main/sessions/main/d360df38-2882-4aac-8efd-7d0086979cac#L15] Assistant: The script exited 1 with 2 issues, but it did **not** write `/tmp/cookie_health_latest.json` as the job spec expects. Here's the situation: ``` [Cookie 健康检查 2026-09-19 00:30] ⚠️ 检测到 2 项异常（脚本未写入 /tmp/cookie_health_latest.json — 见下方说明） - 抖音 cookie 陈旧（16.42h 前回写，阈值 12h）→ 
+[main/sessions/main/d360df38-2882-4aac-8efd-7d0086979cac#L15] Assistant: `/tmp/cookie_health_latest.json`，但实际上文件不存在。我没有去改脚本（不属于本次任务授权范围），只是按实际情况上报。 2. **未发飞书**：遵守站长 7/2 要求，告警不推群。可见性由 cron failureAlert 兜底。 按 job 指示，脚本本身未崩溃、exec 正常返回，所以这次不算 failureAlert 误报。cookie 陈旧需要站长人工回写/刷新，我不会自动修复。
