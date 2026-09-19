@@ -427,3 +427,16 @@
 
 **健康指标**：无 >300 行 append-only 日志需截断；无 >500KB 文件（最大 232K）；16/16 一级 wiki 目录已建 index。
 **未解决**：git push 失败（github 经 127.0.0.1:7897 SSL_ERROR_SYSCALL，直连亦超时）→ 3 commits 本地待推，网络恢复自动推。
+
+## [2026-09-20] 周日系统维护 W39
+
+| 日期 | 操作 | 对象 | 效果 | 后续 |
+|------|------|------|------|------|
+| 9/20 | 压缩 | MEMORY.md | 173行/28KB → **171行/28KB**（W39 提炼压成 8 条活跃结论 + 全文指针→archived topic；过期声明折行） | ✅ 备份 /tmp/memory_backup_20260920.md |
+| 9/20 | 检查 | wiki_drift_check.py | lint 0 issue（0 orphan / 0 contradiction）；87 scripts_not_documented=噪音 | ✅ |
+| 9/20 | 检查 | cron 40 个 | 3 个 error：周二客流深度报告 / Graphiti-Ontology同步 / 周度客流洞察（均周二，9/15 撞 402 团灭，非持续）；需关注：**案例库更新**(周四 05:30, 9/17 Web Search failed) | 🟡 402 同源 |
+| 9/20 | 检查 | git | 2 commits 本地待推（vault backup 自动提交），`git push` 仍失败（LibreSSL SSL_ERROR_SYSCALL @ github:443，第 4 周复现） | 🔴 网络 |
+| 9/20 | 修复 | 抖音 index CDP 标签页清理 | 所有 tab 被关闭（自伤重现：cdp_restore_tabs.py WS+Target.createTarget 后已恢复 6 标签） | ✅ |
+
+**健康指标**：磁盘 38%✅ | 无 >500KB 无意义文件 | MEMORY.md 压缩后 28KB 仍略超 25KB 目标线（173→171 仅 -2 行，因 W39 新增 8 条高价值结论抵消剪除量）→ 下周优先把 W35 GitHub 精要再往 topic 折。
+**未解决**：git push 失败（github 经 7897 SSL_ERROR_SYSCALL，直连亦超时）→ 累计本地待推 commits 持续累积，网络恢复自动推。
