@@ -1,7 +1,18 @@
 {
   "audit_date": "2026-09-19",
   "window": "2026-09-19 00:00 → 23:55",
-  "total_ai_messages": 0,
+  "total_ai_messages": 1,
   "abnormal_count": 0,
-  "abnormal": []
+  "abnormal": [],
+  "ai_messages": [
+    {
+      "message_id": "om_x100b65ef077b04a4c273bb50d9ef1f1",
+      "create_time": "2026-09-19 06:00:59",
+      "msg_type": "interactive",
+      "title": "📌 周末市场观察（周末版 · 9/19 周六）",
+      "preview": "img卡片(image_key=img_v3_02ad_e19fca1f-912a-450e-95de-3c229091b53g) + '请升级至最新版本客户端，以查看内容'",
+      "reason_normal": "标题为正常日报/周报（周末市场观察），含图片正文，非 test/debug/空卡片"
+    }
+  ],
+  "note": "04:55 运行的窗口取前一日完整日(00:00→23:55)；本次为全量拉取(1页,1条群消息)"
 }

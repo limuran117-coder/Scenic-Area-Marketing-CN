@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-18 07:55",
+  "generated_at": "2026-09-19 07:55",
   "window_days": 14,
   "task_count": 37,
   "hourly_errors": {
@@ -16,7 +16,7 @@
     7,
     8
   ],
-  "daily_records": 297,
+  "daily_records": 300,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -44,29 +44,6 @@
       ]
     },
     {
-      "job_id": "b8fb57da-faae-429f-91e0-9f8af3db927b",
-      "name": "竞品爆款拆解",
-      "schedule": "0 8 * * 1-5",
-      "kind": "agentTurn",
-      "timeout": 1500,
-      "runs": 10,
-      "ok": 6,
-      "error": 4,
-      "error_rate": 0.4,
-      "consecutive_errors": 0,
-      "avg_duration_ms": 192737,
-      "error_types": {
-        "other": 4
-      },
-      "timeout_hits": 0,
-      "issues": [
-        "近14天错误率40%"
-      ],
-      "suggestions": [
-        "⚠️ 任务时段 8:00 撞限流高峰 [5, 6, 7, 8]，可人工考虑错峰"
-      ]
-    },
-    {
       "job_id": "d47fc152-26a8-4872-9ea1-ec00789deb9e",
       "name": "CDP Cookie同步",
       "schedule": "5 8 * * *",
@@ -77,7 +54,7 @@
       "error": 11,
       "error_rate": 0.5,
       "consecutive_errors": 0,
-      "avg_duration_ms": 52102,
+      "avg_duration_ms": 52048,
       "error_types": {
         "other": 11
       },
@@ -148,7 +125,7 @@
       "error": 6,
       "error_rate": 0.33,
       "consecutive_errors": 0,
-      "avg_duration_ms": 212439,
+      "avg_duration_ms": 199756,
       "error_types": {
         "other": 6
       },
