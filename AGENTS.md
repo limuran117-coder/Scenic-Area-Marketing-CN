@@ -34,6 +34,8 @@ Don't ask permission. Just do it.
 2. **不要移动任务写入区** —— `wiki/全国景区案例库/`、`wiki/行业知识/结论索引/`、`wiki/电影小镇/历史数据/`、`wiki/SOP/竞品关键词深度分析流程.md`、`wiki/技术配置/GitHub高星标学习笔记.md` 等是 cron 任务的读写目标。**移动任何 wiki 文件前，必须同时 grep 两处**：① 34 个 cron 任务的 prompt；② `scripts/*.py`（脚本可能硬编码了旧路径，漏改会静默读到不完整数据）；
 3. **新内容先对照 `wiki/index.md` 与结构说明归属** —— 找不到合适位置时放进最接近的已有目录，不要新建目录。
 
+**写操作安全**（2026-09-20 新增）：写 `wiki/` 并发追加类高危文件前，先跑 `scripts/wiki_rev.py guard <file>` 查有无未提交改动；写后用 `save "<说明>"` 固化（否则改动被 Obsidian Git 的 `vault backup` 批量提交吞掉，事后无法定位）；写坏了用 `rollback <file>` 回退（默认只预览，需 `--yes`）。高危清单与完整流程见 `wiki/SOP/Wiki修订与回滚SOP.md`。
+
 ## Memory
 
 You wake up fresh each session. These files are your continuity:
