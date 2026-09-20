@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20 07:55",
+  "generated_at": "2026-09-20 08:15",
   "window_days": 14,
   "task_count": 37,
   "hourly_errors": {
@@ -54,7 +54,7 @@
       "error": 11,
       "error_rate": 0.5,
       "consecutive_errors": 0,
-      "avg_duration_ms": 52010,
+      "avg_duration_ms": 51981,
       "error_types": {
         "other": 11
       },
@@ -138,13 +138,5 @@
       ]
     }
   ],
-  "recommendations": [
-    {
-      "type": "bump_timeout",
-      "job": "1f1e320d-f093-4fe1-a873-44133776919b",
-      "name": "skill-collection-review-main",
-      "from": null,
-      "to": 1500
-    }
-  ]
+  "recommendations": []
 }
