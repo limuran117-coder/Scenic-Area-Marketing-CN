@@ -1,248 +1,263 @@
 {
-  "timestamp": "2026-09-13T08:30:19.464742",
-  "issues_count": 46,
+  "timestamp": "2026-09-20T08:30:13.341992",
+  "issues_count": 51,
   "issues": [
     {
       "type": "stale",
       "file": "全国景区案例库/更新台账.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "全国景区案例库/爆款公式.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/关键词池状态.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/案例库更新.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/每日复盘整合.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/抖音指数日报.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品内容动态.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/专属浏览器Tab配置.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/文旅活动热点追踪日报.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/小红书日报.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/代码库Wiki漂移检查.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品深度分析流程.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/飞书卡片视觉规范.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/Wiki健康检查.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品关键词深度分析流程.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品爆款拆解.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/竞品深度档案标准格式.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "SOP/每日任务总览.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/脚本清单.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/飞书配置.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "技术配置/Skills探索笔记.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/竞品深度档案/拈花湾深度分析.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "竞品分析/竞品深度档案/万岁山武侠城深度分析.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/主题乐园.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/演艺景区.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/古镇古街.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/自然景区.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "行业知识/景区类型/文旅小镇.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "电影小镇/演出节目/穿越德化街.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "电影小镇/历史数据/2026年门票政策.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "entities/scripts/send_feishu_card.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "entities/scripts/douyin_index.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "entities/scripts/README.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "stale",
       "file": "entities/scripts/query_passenger.md",
       "last_update": "2026-08-02",
-      "days_old": 42,
+      "days_old": 49,
       "suggestion": "该档案超过30天未更新，建议核实是否有过期信息"
     },
     {
       "type": "orphan",
+      "file": "全国景区案例库/老君山1元午餐+云台山宠粉投喂·善意即资产-W38.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
       "file": "archived/conflict-files-obsidian-git.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/营销日历/2026-W38.md",
+      "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
+    },
+    {
+      "type": "orphan",
+      "file": "电影小镇/历史数据/W36期-20260913.md",
       "suggestion": "该页面在 index.md 中未被引用，可能需要补充索引"
     },
     {
@@ -334,6 +349,18 @@
       "concept": "年度目标",
       "files": [
         "WIKI_HEALTH_REPORT_20260802.md",
+        "行业知识/结论索引/周日洞察汇总_2026-09.md"
+      ],
+      "values": [
+        "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "WIKI_HEALTH_REPORT_20260802.md",
         "行业知识/结论索引/周日洞察汇总_2026-08.md"
       ],
       "values": [
@@ -350,6 +377,18 @@
       ],
       "values": [
         "153"
+      ],
+      "suggestion": "年度目标在多个文件中存在，需确认最新值"
+    },
+    {
+      "type": "contradiction",
+      "concept": "年度目标",
+      "files": [
+        "overview.md",
+        "电影小镇/营销日历/2026-W38.md"
+      ],
+      "values": [
+        "123"
       ],
       "suggestion": "年度目标在多个文件中存在，需确认最新值"
     },
