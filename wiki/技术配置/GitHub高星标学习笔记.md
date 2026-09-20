@@ -1680,3 +1680,53 @@ Agent 的"幻觉"在缺少 ground truth 的领域（二进制逆向、数据统�
 - 未跟进（相关性低）：m3e-canvas(7.4K UI)、DLSS 系列、spotifast、HowToLiveBetter 等消费级/游戏类
 
 *(W38 期结束 — 2026-09-19 03:00，gh API 实测)*
+
+---
+
+## 🔍 专项调研（非周更）：Tencent/WeKnora — 2026-09-20（站长指定）
+
+<!-- project: github.com/limuran117-coder/Scenic-Area-Marketing-CN -->
+
+**仓库事实（gh API 实测，2026-09-20）**：`Tencent/WeKnora` ⭐27,427 · Fork 3,693 · Open Issues 677 · Go · 创建 2025-07-22 · 最后推送 2026-09-19（活跃）· MIT · 官网 weknora.weixin.qq.com · 当前版本 v0.8.0
+**一句话**：开源 LLM 知识平台 —— 把原始文档变成「可查询 RAG + 自主推理 Agent + 自维护 Wiki」。
+
+### 能力盘点（v0.8.0）
+- **问答层**：RAG 快问快答 + ReAct Agent（可编排检索 / MCP / 技能沙箱 / 网页搜索）
+- **Wiki Mode**：Agent 从原始文档自动生成结构化互链 markdown 知识库 + 知识图谱；**页级修订历史 + 行级 diff + 一键回滚 + 浏览器内手改**
+- **知识管理**：文件夹树保留上传目录结构、**切片级编辑 + 版本快照 + 自动重建索引**、按批 `process_config`（解析器/切分/多模态/图谱抽取）、批量重解析
+- **多源接入**：飞书 wiki / **飞书云文档** / Lark / GitLab / 腾讯 IMA / Notion / 语雀 / 钉钉文档 / RSS（增量+全量同步）
+- **文档格式**：PDF / Word / Txt / MD / HTML / EPUB / MHTML / 图片 / CSV / Excel / PPT / JSON / XMind（anydoc 进程内解析）
+- **IM 通道**：企微 / **飞书** / Lark / QQBot / Slack / Telegram / 钉钉 / Mattermost / 微信 / 云之家
+- **模型**：OpenAI / Claude / **DeepSeek** / Qwen / 智谱 / 混元 / Gemini / MiniMax / Ollama / LiteLLM；
+  向量库 pgvector / ES / OpenSearch / Milvus / Weaviate / Qdrant / Doris / 腾讯 VectorDB；Embedding 支持 Ollama / BGE / GTE
+- **生态**：官方 MCP Server（PyPI `tencent-weknora-mcp`，29 个工具）· **ClawHub Skill** · Chrome 扩展 · 小程序 · DeepSeek Harness 插件 `@wxg-prc-cpg/dsh-weknora`
+- **部署**：Docker Compose（默认核心 / full / neo4j / minio / langfuse 分档 profile），Web UI `:80`、API `:8080`
+
+### 与我方现有栈的重叠度（关键判断）
+
+| 能力 | 我方现状 | WeKnora | 重叠 |
+|---|---|---|---|
+| 语义检索 / RAG | mempalace + memory_search（已索引 memory/wiki） | RAG + 混合检索 + rerank | ✅ 高 |
+| 知识图谱 | Graphiti + FalkorDB，Ontology 486 实体/507 关系 | Wiki 知识图谱（GraphRAG） | ✅ 高 |
+| Wiki 知识库 | `wiki/` 16 目录 + schema 规则 + R1-R7 治理 | Auto-Wiki 生成 | ✅ 高 |
+| 多源/飞书同步 | 手工脚本 + 飞书发卡 | 飞书 wiki/云文档自动同步 | ❌ 无 |
+| 文档解析（PDF/Word/PPT/Excel） | 按需 read / Python 脚本 | 13 格式进程内解析 + 切片 | ❌ 无 |
+| 团队自助问答入口 | 无（只有 cron 推送到群） | IM 通道 + 网页嵌入组件 | ❌ 无 |
+| 页级修订/回滚 | git 版本控制 | UI 内修订历史 + 一键回滚 | ⚠️ 部分 |
+
+**判定：核心三块（RAG/KG/Wiki）与我方现有栈 ~70% 重叠**，且我方 wiki 是 md 纯文本、Agent 可直接 `read`，不需要 RAG 做"读不全"的补丁。
+
+### 硬约束（不建议自托管全套的实测理由）
+- **磁盘：Data 卷 17GB 可用 / 已用 92%**；现有 Docker 镜像已 13.7GB。WeKnora 全套（Postgres+pgvector、backend、frontend、docreader，另加 minio/neo4j/langfuse）预计再吃 5-10GB → **触碰磁盘红线，危及整个采集链**
+- **内存：16GB，41% 空闲，pageouts 已 654,295**；现有 8 个容器（searxng/bytebot×4/trendradar×2）
+- **维护面**：多一套常驻栈（我方刚经历 Docker `AutoStart=False` 导致 32 天断档，trendradar 仍在启动崩溃循环）
+
+### 结论与建议路径
+| 选项 | 评价 |
+|---|---|
+| ❌ 自托管全套 | 磁盘/内存双紧 + 70% 重叠 + 新增维护面 → **不划算，不建议现在做** |
+| ⚠️ 单跑 MCP Server（`tencent-weknora-mcp`） | 只取检索能力，成本低；但我方已有 mempalace/Graphiti，边际收益小 |
+| ✅ **借鉴其治理范式**（零成本） | ①**页级修订历史 + 行级 diff + 一键回滚** → 我方 wiki 缺"改错了立刻回退"的轻量机制；②**切片级编辑 + 版本快照**；③**文件夹树保留上传原始目录结构**（我方 `(N).csv` 序列可参照）；④per-KB 审计轨迹 |
+| ✅ **触发条件再评估** | 若出现以下任一：①需团队（非站长）自助问答 wiki；②积累大量 PDF/Word 政策与竞品报告需可查询；③愿扩容磁盘 + 内存 |
+
+*(专项调研结束 — 2026-09-20 08:5x，gh API 实测)*
