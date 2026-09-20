@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-19 07:55",
+  "generated_at": "2026-09-20 07:55",
   "window_days": 14,
   "task_count": 37,
   "hourly_errors": {
@@ -16,7 +16,7 @@
     7,
     8
   ],
-  "daily_records": 300,
+  "daily_records": 301,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -54,7 +54,7 @@
       "error": 11,
       "error_rate": 0.5,
       "consecutive_errors": 0,
-      "avg_duration_ms": 52048,
+      "avg_duration_ms": 52010,
       "error_types": {
         "other": 11
       },
@@ -125,7 +125,7 @@
       "error": 6,
       "error_rate": 0.33,
       "consecutive_errors": 0,
-      "avg_duration_ms": 199756,
+      "avg_duration_ms": 188641,
       "error_types": {
         "other": 6
       },
