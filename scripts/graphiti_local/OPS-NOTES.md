@@ -1,3 +1,33 @@
+# Graphiti 运维说明（2026-09-22 更新）
+
+## ⚠️ 2026-09-22 复发：FalkorDB 容器停摆（本次 cron run 内修复）
+
+### 症状
+- cron `cfb095fc` 09:14 触发时 `sync_ontology.py` 直接崩：`redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused`
+- 根因：容器 `graphiti-falkordb` 状态 `Exited (255) 2 days ago`（Docker Desktop 无开机自启 → 宿主机重启后容器不再拉起）
+- 数据无损：volume `graphiti-data` 挂载点在 `/var/lib/falkordb/data`，检查后 171 节点 / 452 边 / 157 Episodic 全在
+
+### 修复（本次已执行）
+```bash
+docker start graphiti-falkordb   # 4 秒后 6379 恢复 LISTEN
+```
+
+### 关键认知：数据在图 `movie-town`，不是 `graphiti`
+- `graphiti_local.py:154` 写的是 `database="graphiti"`，但 graphiti_core 会按 **group_id 克隆 driver**（`falkordb_driver.py:331 clone()`），而三个脚本的 `GROUP_ID = "movie-town"`
+- 所以真实数据落在 FalkorDB graph **`movie-town`**；graph `graphiti` 是空的历史遗留（`GRAPH.LIST` 里两个都在，查 `graphiti` 恒返 0 节点，别被误导）
+- 核对图规模：`docker exec graphiti-falkordb redis-cli GRAPH.QUERY movie-town "MATCH (n) RETURN count(n)"`
+
+### 2026-09-22 同步结果
+- sync_ontology：18 条 episode（13 景区 + 10 关系，4 批）
+- sync_flow --weeks 2：2 条周洞察（W36: 12226 人 / 日均 1747；W37: 22275 人 / 日均 3182，数据源 `~/Downloads/2026游客量统计 (21).csv`，304 天有效数据）
+- 检索「行业对标对象」✅ 命中竞品关系
+
+### 仍待站长处理（isolated run 改不了 cron payload）
+- cron payload 未调用 `start_graphiti.sh`；建议要么让 Docker Desktop 开机自启，要么在 payload 首行加 `docker start graphiti-falkordb`
+- 历史脏实体仍在：「只有红楼梦戏剧幻城」应为「只有河南·戏剧幻城」；「郑州电影小镇以建业电影小镇为行业对标对象」自指错误
+
+---
+
 # Graphiti 运维说明（2026-09-08 更新）
 
 ## ✅ 2026-09-08 修复：venv 移至持久位置（.venv）
