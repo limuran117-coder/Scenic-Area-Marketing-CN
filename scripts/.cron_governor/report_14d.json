@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20 08:15",
+  "generated_at": "2026-09-22 09:14",
   "window_days": 14,
   "task_count": 37,
   "hourly_errors": {
@@ -8,7 +8,8 @@
     "5": 10,
     "6": 5,
     "7": 22,
-    "8": 15
+    "8": 11,
+    "11": 1
   },
   "peak_hours": [
     5,
@@ -16,7 +17,7 @@
     7,
     8
   ],
-  "daily_records": 301,
+  "daily_records": 284,
   "tasks": [
     {
       "job_id": "a23a8099-59b2-4001-a63f-8b5bbf600484",
@@ -24,18 +25,18 @@
       "schedule": "0 7 * * 1-5",
       "kind": "agentTurn",
       "timeout": 1500,
-      "runs": 13,
-      "ok": 7,
+      "runs": 11,
+      "ok": 5,
       "error": 6,
-      "error_rate": 0.46,
+      "error_rate": 0.55,
       "consecutive_errors": 0,
-      "avg_duration_ms": 935084,
+      "avg_duration_ms": 894833,
       "error_types": {
         "other": 6
       },
       "timeout_hits": 3,
       "issues": [
-        "近14天错误率46%",
+        "近14天错误率55%",
         "3次撞超时顶"
       ],
       "suggestions": [
@@ -44,28 +45,49 @@
       ]
     },
     {
+      "job_id": "b8fb57da-faae-429f-91e0-9f8af3db927b",
+      "name": "竞品爆款拆解",
+      "schedule": "0 8 * * 1-5",
+      "kind": "agentTurn",
+      "timeout": 1500,
+      "runs": 9,
+      "ok": 5,
+      "error": 4,
+      "error_rate": 0.44,
+      "consecutive_errors": 0,
+      "avg_duration_ms": 217238,
+      "error_types": {
+        "other": 4
+      },
+      "timeout_hits": 0,
+      "issues": [
+        "近14天错误率44%"
+      ],
+      "suggestions": [
+        "⚠️ 任务时段 8:00 撞限流高峰 [5, 6, 7, 8]，可人工考虑错峰"
+      ]
+    },
+    {
       "job_id": "d47fc152-26a8-4872-9ea1-ec00789deb9e",
       "name": "CDP Cookie同步",
       "schedule": "5 8 * * *",
       "kind": "command",
       "timeout": 120,
-      "runs": 22,
+      "runs": 18,
       "ok": 11,
-      "error": 11,
-      "error_rate": 0.5,
+      "error": 7,
+      "error_rate": 0.39,
       "consecutive_errors": 0,
-      "avg_duration_ms": 51981,
+      "avg_duration_ms": 36954,
       "error_types": {
-        "other": 11
+        "other": 7
       },
-      "timeout_hits": 9,
+      "timeout_hits": 5,
       "issues": [
-        "近14天错误率50%",
-        "9次撞超时顶"
+        "5次撞超时顶"
       ],
       "suggestions": [
-        "建议提高 timeout 120→1500",
-        "⚠️ 任务时段 8:00 撞限流高峰 [5, 6, 7, 8]，可人工考虑错峰"
+        "建议提高 timeout 120→1500"
       ]
     },
     {
@@ -97,12 +119,12 @@
       "schedule": "0 5 * * 1-5",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 13,
-      "ok": 9,
+      "runs": 12,
+      "ok": 8,
       "error": 4,
-      "error_rate": 0.31,
+      "error_rate": 0.33,
       "consecutive_errors": 0,
-      "avg_duration_ms": 174386,
+      "avg_duration_ms": 184734,
       "error_types": {
         "other": 4
       },
@@ -120,12 +142,12 @@
       "schedule": "55 4 * * *",
       "kind": "agentTurn",
       "timeout": 900,
-      "runs": 18,
-      "ok": 12,
+      "runs": 16,
+      "ok": 10,
       "error": 6,
-      "error_rate": 0.33,
+      "error_rate": 0.38,
       "consecutive_errors": 0,
-      "avg_duration_ms": 188641,
+      "avg_duration_ms": 203065,
       "error_types": {
         "other": 6
       },
@@ -138,5 +160,13 @@
       ]
     }
   ],
-  "recommendations": []
+  "recommendations": [
+    {
+      "type": "bump_timeout",
+      "job": "1f1e320d-f093-4fe1-a873-44133776919b",
+      "name": "skill-collection-review-main",
+      "from": null,
+      "to": 1500
+    }
+  ]
 }
