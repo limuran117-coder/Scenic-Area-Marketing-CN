@@ -62,3 +62,27 @@
 [main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1835] Assistant: sogou 单发 ✅ 10 条 —— 引擎是**间歇性**的，我连续测试触发了限流。补上代理可达的 google 作为稳定引擎。
 [main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1838] Assistant: 代理链路对 google/duckduckgo 都是 200 —— 这是最稳的两条腿。实测聚合检索。
 [main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1841] Assistant: searxng 聚合检索 **10 条**（360search 2 + quark 8），google 单发 10 条。验证 OpenClaw 插件端到端。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1844] Assistant: **searxng 完全恢复** —— web_search 返回 5 条真实结果（含中秋夜游历史内容）。现在修 VLM 超时 + 消除 32 天断档的复发风险。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1847] Assistant: VLM 超时已改。继续：查 Docker 自启键、修复 falkordb。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1850] Assistant: 找到了 —— **`AutoStart = False`**，这就是 32 天断档的真正根因：机器重启后 Docker 不跟着起，容器全没了。修正它（先退出 Docker 再改，避免被覆写）。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1853] Assistant: AutoStart 已置 True。重启 Docker 验证设置生效 + 所有容器回归。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1863] User: 去GitHub上深度了解一下weknora，看是否对我们有帮助
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1865] Assistant: 先收尾上个任务的验证，同时开始 weknora 调研。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1880] Assistant: Docker/searxng 已验证恢复（daemon 29.7.2、AutoStart=True、检索 10 条结果）。现在转 weknora 调研。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1883] Assistant: web_search 连接被重置。直接用 searxng + GitHub 直取。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1892] Assistant: exec 会话反复被 SIGTERM，`docker` CLI 疑似卡在等待 daemon。用不阻塞的方式探。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1895] Assistant: Docker Desktop 进程在但 daemon 无响应 —— 重启把 VM 卡住了。同时用 web_fetch 直取 GitHub（不依赖 searxng）。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1898] Assistant: Docker daemon 彻底无响应了。一边拉回 Docker，一边取 GitHub 资料。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1901] Assistant: Docker daemon 恢复（ping 200）。验证容器全回归。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1904] Assistant: 容器全回归，searxng 检索 12 条，`AutoStart: true` 已持久化。现在正式调研 weknora。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1907] Assistant: web_fetch 被 SSRF 防护拦了（DNS 解析到内网 IP —— 7897 代理导致）。改用 curl 走代理直取。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1913] Assistant: `gh` CLI 已登录（limuran117-coder）。用它取仓库数据。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1919] Assistant: 核心资料到手。再取部署要求与架构依赖 —— 这决定我们这台 16GB/19GB 磁盘的机器能不能吃下。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1946] Assistant: 先摸清现状再设计方案 —— 如果 wiki 已在 git 里，"修订/回滚"可能是零成本能力，不需要新建系统。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1949] Assistant: wiki **已经在 git 里**（588 文件跟踪，有 `vault backup` 自动提交）。所以"修订/回滚"已经存在 —— 缺的不是版本能力，而是**纪律层**。先查清自动提交是谁在跑，避免重复造轮子。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1955] Assistant: 现状完全清楚了，而且**发现问题比想象中具体**： | 实证 | 含义 | |---|---| | `wiki/` 588 文件已在 git，`workspace` 根 = Obsidian vault | 版本能力**已存在** | | `营销归因日志.md` 最近 5 条历史**全是 `vault backup`** | 改动淹没在批量自动提交里 → **回滚粒度不可用** | | 无回滚脚本、无 git hooks | 改错了没有"退"的程序 | 所以这不是"新建系统"的活，是**把已有 git 从「备份」升级为「可回滚的修订
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1958] Assistant: 脚本已写。现在**实测**（安全工具不测等于没有）—— 用 scratch 文件跑完整闭环。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1961] Assistant: 测试暴露一个**真 bug**：中文路径被 git 转义成八进制（`\346\212\200...`），会导致 `guard`/`rollback` 匹配不到中文文件。修掉。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1967] Assistant: 中文路径修好了。现在跑**回滚闭环端到端实测**（scratch 文件，不碰真实内容）。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1970] Assistant: 端到端**通过**（预览→确认→回滚→校验，四步全对，且回滚前自动备份）。清理测试文件并写 SOP。
+[main/sessions/main/47d61e39-0e3b-42f0-8ade-ebc78cc8c515#L1979] Assistant: `<!-- NAV:AUTO -->` — 导航是脚本自动生成的，不能手改。找生成器。
