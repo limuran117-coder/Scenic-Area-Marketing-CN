@@ -103,6 +103,12 @@ role: 景区营销中心总经理 | core_mission: 客流123万（8/13下调，�
 - **我们怎么用**：落地已挂三期的 P0——日报 SOP quality_gate 写成确定性 Python 校验（schema2.0/8景区字段齐全/维度分离/来源标注/无硬编码），LLM 只生成、脚本只裁决；同法用于客流周报 (N).csv 口径核对，替代人工目检
 - **不跟进的代价**：数据瑕疵继续靠站长人肉发现，P0 第四期继续挂空——已知可修的风险留在线
 - **次核心**：`browser-use/jev-ultrafast`（5,065⭐，9/16，3天起量）= 索引化动作空间（观测→元素编号表→CLICK[7] 符号动作，Zürich→London 机票搜索 7.1s），可借鉴到 douyin_index/xiaohongshu_crawl 的"元素一次编号、按编号复用"，治采集链慢与超时
+**W42 GitHub学习（10/17）** <!-- project: github.com/limuran117-coder/Scenic-Area-Marketing-CN --> — 项目名：`KKKKhazix/AIHOT`（7,882⭐，9/28，TypeScript，MIT，线上 aihot.news）
+- **它解决了什么**：行业日报的门槛不是「能不能抓」而是「凭什么选」—— AIHOT 把「多信源 → LLM 初筛 → 独立两次打分 → 同事件聚簇 → 按讨论量排序 → 出日报」整条编辑流水线**连提示词原文与入选门槛一起开源**，填补「精选标准(KnowHow)不可复用、每组都得从零重造」的空白
+- **我们怎么用**：把「什么算值得看」从 7 条 cron 各自的黑箱 prompt 中抽出，做成可审计配置（两次独立打分 + 聚簇 + 热度排序）→ 对位 W38 reverify 的「裁决层」：先有可审计门槛，才谈得上 quality_gate
+- **不跟进的代价**：真热点被漏 / 同类重复推送，且无法回答「为什么这条入选」；精选 KnowHow 锁在个人经验里不可交接、不可复现（同行已能一键换行业起站 = 情报能力开源平权）
+- **次核心**：`elstongun/leviathan`（825⭐，Rust，MCP 可选）= 单二进制把 CSV/SQLite/JSONL 建排序索引，1M 条下 436 tokens/问（grep 245×），可治客流 (N).csv / dbt(N).xlsx「读全表」痛点；`rociiu/talorys`（1,243⭐）的 memory history（事实随时间转过去式）独立验证我方 KG 时间有效性方向
+- ⚠️ 本笔记 W39–W41 无记录（周更 cron 8df241bc 疑 9/26–10/10 未执行），待排查
 
 ---
 
